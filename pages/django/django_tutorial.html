@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>django_tutorial.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#create-a-new-django-project">Create a new Django project</a></li>
+<li><a href="#the-development-server">The development server</a></li>
+<li><a href="#create-a-new-app">Create a new app</a></li>
+</ul>
+</li>
+<li><a href="#database">Database</a>
+<ul>
+<li><a href="#create-a-new-model">Create a new model</a></li>
+<li><a href="#activating-models">Activating models</a></li>
+<li><a href="#djano-admin">Djano Admin</a></li>
+</ul>
+</li>
+<li><a href="#views">Views</a>
+<ul>
+<li><a href="#what-is-a-view">What is a view?</a></li>
+<li><a href="#write-views-that-acutally-do-something">Write views that acutally do something</a></li>
+<li><a href="#raising-a-404-error">Raising a 404 error</a>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#namespacing-url-names">Namespacing URL names</a></li>
+</ul>
+</li>
+<li><a href="#form-processing">Form Processing</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="introduction">Introduction</h1>
+<ul>
+<li>Check the Django version: <code>python -m django --version</code></li>
+</ul>
+<h2 id="create-a-new-django-project">Create a new Django project</h2>
+<p>To create a new Django project, run the following command:</p>
+<pre class=" language-bash"><code class="prism  language-bash">    django-admin startproject <span class="token operator">&lt;</span>project_name<span class="token operator">&gt;</span>
+</code></pre>
+<p>Here’s the project structure:</p>
+<pre class=" language-txt"><code class="prism  language-txt">&lt;project name&gt;/
+    manage.py
+    &lt;project name&gt;/
+        __init__.py
+        settings.py
+        urls.py
+        asgi.py
+        wsgi.py
+</code></pre>
+<p>These files are:</p>
+<ul>
+<li>The outer  <code>mysite/</code>  root directory is a container for your project. Its name doesn’t matter to Django; you can rename it to anything you like.</li>
+<li><code>manage.py</code>: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about  <code>manage.py</code>  in  <a href="https://docs.djangoproject.com/en/4.0/ref/django-admin/">django-admin and manage.py</a>.</li>
+<li>The inner  <code>mysite/</code>  directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g.  <code>mysite.urls</code>).</li>
+<li><code>mysite/__init__.py</code>: An empty file that tells Python that this directory should be considered a Python package. If you’re a Python beginner, read  <a href="https://docs.python.org/3/tutorial/modules.html#tut-packages" title="(in Python v3.10)">more about packages</a>  in the official Python docs.</li>
+<li><code>mysite/settings.py</code>: Settings/configuration for this Django project.  <a href="https://docs.djangoproject.com/en/4.0/topics/settings/">Django settings</a>  will tell you all about how settings work.</li>
+<li><code>mysite/urls.py</code>: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in  <a href="https://docs.djangoproject.com/en/4.0/topics/http/urls/">URL dispatcher</a>.</li>
+<li><code>mysite/asgi.py</code>: An entry-point for ASGI-compatible web servers to serve your project. See  <a href="https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/">How to deploy with ASGI</a>  for more details.</li>
+<li><code>mysite/wsgi.py</code>: An entry-point for WSGI-compatible web servers to serve your project. See  <a href="https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/">How to deploy with WSGI</a>  for more details.</li>
+</ul>
+<h2 id="the-development-server">The development server</h2>
+<p>To verufy if your project is working, you can run the following command:</p>
+<pre class=" language-bash"><code class="prism  language-bash">    python manage.py runserver
+</code></pre>
+<p>A local server will be started on port 8000, and you can access it by visiting  <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>  in your browser.</p>
+<h2 id="create-a-new-app">Create a new app</h2>
+<ul>
+<li>So far, you’ve only created a Django project, but you can also create a new app.</li>
+<li>Each application you write in Django consists of a Python package that follows a certain convention. Django comes with a utility that automatically generates the basic directory structure of an app, so you can focus on writing code rather than creating directories.</li>
+</ul>
+<p><strong>Projects vs. apps</strong></p>
+<ul>
+<li>What’s the difference between a project and an app? An app is a web application that does something – e.g., a blog system, a database of public records or a small poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.</li>
+</ul>
+<p>To create your app, make sure you’re in the same directory as <code>manage.py</code> and type this command:</p>
+<pre class=" language-bash"><code class="prism  language-bash">    django-admin startapp <span class="token operator">&lt;</span>app_name<span class="token operator">&gt;</span>
+</code></pre>
+<p>Here’s the app structure:</p>
+<pre class=" language-txt"><code class="prism  language-txt">&lt;project name&gt;/
+    manage.py
+    &lt;project name&gt;/
+	__init__.py
+	settings.py
+	urls.py
+	asgi.py
+	wsgi.py
+    &lt;app name&gt;/
+	__init__.py
+	admin.py
+	apps.py
+	migrations/
+	    __init__.py
+	models.py
+	views.py
+	urls.py
+	tests.py
+</code></pre>
+<p>Simplest app in Django, write this in <code>&lt;app name&gt;/views.py</code>:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> HttpResponse
+
+
+<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"Hello, world. You're at the polls index."</span><span class="token punctuation">)</span>
+</code></pre>
+<p>In order to show this view, add it under <code>&lt;app name&gt;/urls.py</code>:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> path
+
+<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> views
+
+urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+    path<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>The next step is to point the root URLconf at the <code>&lt;app name&gt;/urls.py</code> module. In <code>&lt;project name&gt;/urls.py</code>, add an import for <code>django.urls.include</code> and insert an <code>include()</code> call in the <code>urlpatterns</code> list.</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> include<span class="token punctuation">,</span> path
+
+urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+    path<span class="token punctuation">(</span><span class="token string">'&lt;app name&gt;/'</span><span class="token punctuation">,</span> include<span class="token punctuation">(</span><span class="token string">'&lt;app name&gt;.urls'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">(</span><span class="token string">'admin/'</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>urls<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h1 id="database">Database</h1>
+<ul>
+<li>Database setup is done in <code>&lt;project name&gt;/settings.py</code>.</li>
+<li>By default, Django uses SQLite for its database.</li>
+<li>If you wish to use another database, install the appropriate  <a href="https://docs.djangoproject.com/en/4.0/topics/install/#database-installation">database bindings</a>  and change the following keys in the  <a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a>  <code>'default'</code>  item to match your database connection settings:
+<ul>
+<li><a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-DATABASE-ENGINE"><code>ENGINE</code></a>  – Either  <code>'django.db.backends.sqlite3'</code>,  <code>'django.db.backends.postgresql'</code>,  <code>'django.db.backends.mysql'</code>, or  <code>'django.db.backends.oracle'</code>. Other backends are  <a href="https://docs.djangoproject.com/en/4.0/ref/databases/#third-party-notes">also available</a>.</li>
+<li><a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-NAME"><code>NAME</code></a>  – The name of your database. If you’re using SQLite, the database will be a file on your computer; in that case,  <a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-NAME"><code>NAME</code></a>  should be the full absolute path, including filename, of that file. The default value,  <code>BASE_DIR / 'db.sqlite3'</code>, will store the file in your project directory.</li>
+</ul>
+</li>
+<li>By default, INSTALLED_APPS contains some basic apps. These applications are included by default as a convenience for the common case.</li>
+<li>Some of these applications make use of at least one database table, though, so we need to create the tables in the database before we can use them. To do that, run the following command:</li>
+</ul>
+<pre class=" language-bash"><code class="prism  language-bash">    python manage.py migrate
+</code></pre>
+<ul>
+<li>The <a href="https://docs.djangoproject.com/en/4.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a> command looks at the <a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-INSTALLED_APPS"><code>INSTALLED_APPS</code></a> setting and creates any necessary database tables according to the database settings in your <code>&lt;project name&gt;/settings.py</code> file and the database migrations shipped with the app.</li>
+</ul>
+<h2 id="create-a-new-model">Create a new model</h2>
+<p>Now we’ll define your models – essentially, your database layout, with additional metadata.</p>
+<p><strong>Philosophy</strong></p>
+<p>A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Django follows the  <a href="https://docs.djangoproject.com/en/4.0/misc/design-philosophies/#dry">DRY Principle</a>. The goal is to define your data model in one place and automatically derive things from it.<br>
+This includes the migrations - unlike in Ruby On Rails, for example, migrations are entirely derived from your models file, and are essentially a history that Django can roll through to update your database schema to match your current models.</p>
+<ul>
+<li>You create models in Python classes. They’re defined in the <code>&lt;app name&gt;/models.py</code> file.</li>
+<li>The class name should be the same as the table name in the database.</li>
+<li>The class name should be in CamelCase.</li>
+<li>Model fields are defined in the class body, using the <a href="https://docs.djangoproject.com/en/4.0/ref/models/fields/#field-types"><code>Field</code></a> class.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
+
+<span class="token keyword">class</span> <span class="token class-name">Question</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
+    pub_date <span class="token operator">=</span> models<span class="token punctuation">.</span>DateTimeField<span class="token punctuation">(</span><span class="token string">'date published'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Choice</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question <span class="token operator">=</span> models<span class="token punctuation">.</span>ForeignKey<span class="token punctuation">(</span>Question<span class="token punctuation">,</span> on_delete<span class="token operator">=</span>models<span class="token punctuation">.</span>CASCADE<span class="token punctuation">)</span>
+    choice_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
+    votes <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>default<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>Here, each model is represented by a class that subclasses  <a href="https://docs.djangoproject.com/en/4.0/ref/models/instances/#django.db.models.Model" title="django.db.models.Model"><code>django.db.models.Model</code></a>. Each model has a number of class variables, each of which represents a database field in the model.</li>
+<li>Each field is represented by an instance of a  <a href="https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.Field" title="django.db.models.Field"><code>Field</code></a>  class – e.g.,  <a href="https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.CharField" title="django.db.models.CharField"><code>CharField</code></a>  for character fields and  <a href="https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.DateTimeField" title="django.db.models.DateTimeField"><code>DateTimeField</code></a>  for datetimes. This tells Django what type of data each field holds.</li>
+<li>The name of each  <a href="https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.Field" title="django.db.models.Field"><code>Field</code></a>  instance (e.g.  <code>question_text</code>  or  <code>pub_date</code>) is the field’s name, in machine-friendly format. You’ll use this value in your Python code, and your database will use it as the column name.</li>
+</ul>
+<h2 id="activating-models">Activating models</h2>
+<ul>
+<li>First, you need to tell your Django project that your app is installed. You should list it under the  <a href="https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-INSTALLED_APPS"><code>INSTALLED_APPS</code></a> in <code>settings</code>.</li>
+<li>You’d put your app config under <code>&lt;app name&gt;/apps.py</code>.</li>
+<li>Now, Django knows to include your app.</li>
+<li>Now, you bring (migrate) you app’s models with the following command:</li>
+</ul>
+<pre class=" language-bash"><code class="prism  language-bash">    python manage.py makemigrations <span class="token operator">&lt;</span>app name<span class="token operator">&gt;</span>
+</code></pre>
+<ul>
+<li>By running <code>makemigrations</code>, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a <em>migration</em>.
+<ul>
+<li>Migrations are how Django stores changes to your models (and thus your database schema) - they’re files on disk. You can read the migration for your new model if you like; it’s the file <code>&lt;app name&gt;/migrations/0001_initial.py</code>. Don’t worry, you’re not expected to read them every time Django makes one, but they’re designed to be human-editable in case you want to manually tweak how Django changes things.</li>
+</ul>
+</li>
+<li>Now, run <code>migrate</code> again to create those model tables in your database.
+<ul>
+<li>The <code>migrate</code> command takes all the migrations that haven’t been applied (Django tracks which ones are applied using a special table in your database called <code>django_migrations</code>) and runs them against your database - essentially, synchronizing the changes you made to your models with the schema in the database.</li>
+</ul>
+</li>
+</ul>
+<p>To <strong>summarize</strong>, here are the main steps to create a new model:</p>
+<ul>
+<li>Change your models (in  <code>models.py</code>).</li>
+<li>Run  <a href="https://docs.djangoproject.com/en/4.0/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a>  to create migrations for those changes</li>
+<li>Run  <a href="https://docs.djangoproject.com/en/4.0/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a>  to apply those changes to the database.</li>
+</ul>
+<p><strong>Note:</strong> You can use <code>$ python manage.py shell</code> to interact with your database and models.</p>
+<p>Here’s a sample of a model:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> datetime
+
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils <span class="token keyword">import</span> timezone
+
+<span class="token comment"># Create your models here.</span>
+<span class="token keyword">class</span> <span class="token class-name">Question</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
+    pub_date <span class="token operator">=</span> models<span class="token punctuation">.</span>DateTimeField<span class="token punctuation">(</span><span class="token string">'date published'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>question_text
+
+    <span class="token keyword">def</span> <span class="token function">was_published_recently</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>pub_date <span class="token operator">&gt;=</span> timezone<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> datetime<span class="token punctuation">.</span>timedelta<span class="token punctuation">(</span>days<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Choice</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question <span class="token operator">=</span> models<span class="token punctuation">.</span>ForeignKey<span class="token punctuation">(</span>Question<span class="token punctuation">,</span> on_delete<span class="token operator">=</span>models<span class="token punctuation">.</span>CASCADE<span class="token punctuation">)</span>
+    choice_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
+    votes <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>default<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>choice_text
+</code></pre>
+<p><strong>Note</strong>: It’s important to add <code>__str__()</code> methods to your models, not only for your own convenience when dealing with the interactive prompt, but also because objects’ representations are used throughout Django’s automatically-generated admin.</p>
+<h3 id="django_extensions"><code>django_extensions</code></h3>
+<ul>
+<li>With <code>django_extensions</code>, you can do more stuff on your models.</li>
+<li>For example, you get visualize the database schema for an app with the following command:
+<ul>
+<li><code>python manage.py graph_models &lt;app name&gt; -o &lt;output name&gt;.png</code></li>
+</ul>
+</li>
+<li><strong>Note</strong>: You can also use <code>python manage.py graph_models</code> to get a graph of all your models.</li>
+<li><strong>Note</strong>: You should put <code>django_extensions</code> in your <code>INSTALLED_APPS</code> list.</li>
+<li><strong>Note</strong>: For more information on model relations, see <a href="https://docs.djangoproject.com/en/4.0/ref/models/relations/">Accessing related objects</a>. For more on how to use double underscores to perform field lookups via the API, see <a href="https://docs.djangoproject.com/en/4.0/topics/db/queries/#field-lookups-intro">Field lookups</a>. For full details on the database API, see our <a href="https://docs.djangoproject.com/en/4.0/topics/db/queries/">Database API reference</a>.</li>
+</ul>
+<h2 id="djano-admin">Djano Admin</h2>
+<p><strong>Philosophy</strong></p>
+<blockquote>
+<p>Generating admin sites for your staff or clients to add, change, and delete content is tedious work that doesn’t require much creativity. For that reason, Django entirely automates creation of admin interfaces for models.<br>
+Django was written in a newsroom environment, with a very clear separation between “content publishers” and the “public” site. Site managers use the system to add news stories, events, sports scores, etc., and that content is displayed on the public site. Django solves the problem of creating a unified interface for site administrators to edit content.<br>
+The admin isn’t intended to be used by site visitors. It’s for site managers.</p>
+</blockquote>
+<ul>
+<li><strong>Creating an admin user</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <code>python manage.py createsuperuser</code></li>
+<li><strong>Start a development server</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <code>python manage.py runserver</code>
+<ul>
+<li>Now, go to <code>http://127.0.0.1:8000/admin/</code> in your browser, and login with your admin user.</li>
+</ul>
+</li>
+</ul>
+<p>In order to use the admin interface for the models in your app, you need to tell <em>admin</em> about the model objects that you want to have an admin interface for.</p>
+<p>Here’s an example of how to do that. You should do it in the <code>&lt;app name&gt;/admin.py</code> file:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
+
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+
+admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>register<span class="token punctuation">(</span>Question<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="views">Views</h1>
+<h2 id="what-is-a-view">What is a view?</h2>
+<ul>
+<li>Views are webpages in Django application.</li>
+<li>Contents are delivered through Views in Django.</li>
+<li>A URL pattern is a general form of a URL: <code>/newsarchive/&lt;year&gt;/&lt;month&gt;/</code></li>
+<li>Django uses <strong><code>URLconfs</code></strong> to go from URL to views, it maps URL patterns to views.</li>
+<li>The views are added in the <code>&lt;django app name&gt;/views.py</code> file.</li>
+<li>Example of <code>urlpatterns</code> in the <code>&lt;django app name&gt;/urls.py</code> file:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token comment"># ex: /polls/</span>
+    path<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment"># ex: /polls/5/</span>
+    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id&gt;/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>detail<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment"># ex: /polls/5/results/</span>
+    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id&gt;/results/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>results<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'results'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<ul>
+<li><strong>Note:</strong> <code>&lt;int:question_id&gt;</code> is a regular expression that matches an integer. Django sends it as a keyword argument to the view function.</li>
+</ul>
+<h2 id="write-views-that-acutally-do-something">Write views that acutally do something</h2>
+<p>Each view is responsible for doing one of two things:</p>
+<ul>
+<li>Returning an <code>HttpResponse</code> object containing the content for the requested page, or</li>
+<li>Raising an exception such as Http404. <strong>The rest is up to you</strong>.</li>
+</ul>
+<p>Your view can:</p>
+<ul>
+<li>Read records from a database, or not.</li>
+<li>It can use a template system such as Django’s – or a third-party Python template system – or not.</li>
+<li>It can generate a PDF file, output XML, create a ZIP file on the fly,</li>
+<li>Or anything you want, using whatever Python libraries you want.</li>
+</ul>
+<p><strong>All Django wants is that <code>HttpResponse</code>, Or an exception.</strong></p>
+<ul>
+<li><strong>Note:</strong> <code>HttpResponse</code> is a Django class that is used to return a response to the client.</li>
+<li><strong>Note:</strong> <code>Http404</code> is a Django exception that is raised when a page is not found.</li>
+<li><strong>Note:</strong> <code>HttpResponseRedirect</code> is a Django class that is used to redirect the client to another page.</li>
+<li><strong>Note:</strong> In order to NOT hard code the page’s desgin, we use Dajngo’s <strong>template</strong> system.</li>
+<li><strong>Note:</strong> <code>render()</code> is a Django function that is used to render a template.</li>
+</ul>
+<h3 id="djangos-template-system">Django’s template system</h3>
+<ul>
+<li>First, you need to create a <strong><code>templates</code></strong> folder in the <code>&lt;django app name&gt;</code> folder.
+<ul>
+<li>By convention <code>DjangoTemplates</code> looks for a “templates” subdirectory in each of the <code>INSTALLED_APPS</code>.</li>
+</ul>
+</li>
+<li>Default templates settings is like this:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">TEMPLATES <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">'BACKEND'</span><span class="token punctuation">:</span> <span class="token string">'django.template.backends.django.DjangoTemplates'</span><span class="token punctuation">,</span>
+        <span class="token string">'APP_DIRS'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<ul>
+<li>You need to create another directory in the <code>templates</code> folder called <code>&lt;django app name&gt;</code>.
+<ul>
+<li>Under that directory, create an <code>index.html</code> file. This is where you put your template code.</li>
+<li>Check out below for an example of a template.</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">if</span> latest_question_list <span class="token operator">%</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">for</span> question <span class="token keyword">in</span> latest_question_list <span class="token operator">%</span><span class="token punctuation">}</span>
+        <span class="token operator">&lt;</span>li<span class="token operator">&gt;</span><span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"/polls/{{ question.id }}/"</span><span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token punctuation">{</span> question<span class="token punctuation">.</span>question_text <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">&gt;</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">else</span> <span class="token operator">%</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>No polls are available<span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>After creating the template, you need to update the <strong>index view</strong> in <code>&lt;django app name&gt;/views.py</code> file to use the template.</li>
+</ul>
+<h2 id="raising-a-404-error">Raising a 404 error</h2>
+<ul>
+<li>If the page doesn’t exist, you can raise a <code>Http404</code> exception. This will tell Django to display the 404 page.</li>
+<li>There are two ways to raise a <code>Http404</code> exception:
+<ul>
+<li>By using the <code>raise Http404</code> statement in the view function.</li>
+<li>By using the <code>get_object_or_404()</code> shortcut.</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> Http404
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render
+
+<span class="token comment">#...</span>
+
+<span class="token keyword">def</span> <span class="token function">detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        question <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span>question_id<span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Question<span class="token punctuation">.</span>DoesNotExist<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> Http404<span class="token punctuation">(</span><span class="token string">"Question does not exist"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'polls/detail.html'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'question'</span><span class="token punctuation">:</span> question<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> get_object_or_404<span class="token punctuation">,</span> render
+
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+<span class="token comment"># ...</span>
+<span class="token keyword">def</span> <span class="token function">detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question <span class="token operator">=</span> get_object_or_404<span class="token punctuation">(</span>Question<span class="token punctuation">,</span> pk<span class="token operator">=</span>question_id<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'polls/detail.html'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'question'</span><span class="token punctuation">:</span> question<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="removing-hardcoded-urls-in-templates">Removing hardcoded URLs in templates</h4>
+<ul>
+<li>Since you defined the name argument in the <code>&lt;django app name&gt;/urls.py</code> file, you can use it in the template.</li>
+<li>You can remove a reliance on specific URL paths defined in your URL configurations by using the <code>{% url %}</code> template tag.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<p>This hardcoded URL:</p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/polls/{{ question.id }}/<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>gets converted to this:</p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{% url <span class="token punctuation">'</span>detail<span class="token punctuation">'</span> question.id %}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Here, the <code>'detail'</code> argument is the name of the view function.</p>
+<h2 id="namespacing-url-names">Namespacing URL names</h2>
+<p>In real Django applications, there might be different apps which the same URL names? How does Django differentiate between them?</p>
+<p>Django uses a <code>namespace</code> to separate your URLs. It adds namespaces to your URLconf, <code>&lt;django app name&gt;/urls.py</code></p>
+<p>To point at the namespace in a template:</p>
+<pre class=" language-python"><code class="prism  language-python">    <span class="token punctuation">{</span><span class="token operator">%</span> url <span class="token string">'polls:detail'</span> question<span class="token punctuation">.</span><span class="token builtin">id</span> <span class="token operator">%</span><span class="token punctuation">}</span>
+</code></pre>
+<h1 id="form-processing">Form Processing</h1>
+
+    </div>
+  </div>
+</body>
+
+</html>
