@@ -6,10 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PCA.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#principal-component-analysis-pca">Principal Component Analysis (PCA)</a>
+<ul>
+<li><a href="#pca-for-2-dimensional-data">PCA for 2-dimensional data</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h1>
 <p>Let’s start with a simple example to build up the intuition for PCA. Let’s say we have the following dataset of mice and their genes,</p>
 
 <table>
@@ -156,7 +202,26 @@ M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist
 </li>
 <li>The number of PCs can be equal to the number of variables or number of observations, whichever is lower.</li>
 </ul>
-</div>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
 </body>
 
 </html>

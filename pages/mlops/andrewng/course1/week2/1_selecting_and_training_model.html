@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1_Selecting and Training a Model</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#key-challenges">Key Challenges</a>
+<ul>
+<li><a href="#model-development-is-an-iterative-process">Model development is an iterative process</a></li>
+<li><a href="#challenges-in-model-development">Challenges in model development</a></li>
+</ul>
+</li>
+<li><a href="#why-low-average-error-isnt-good-enough">Why low average error isn’t good enough</a></li>
+<li><a href="#establish-a-baseline">Establish a baseline</a>
+<ul>
+<li><a href="#establishing-a-baseline-level-of-performance">Establishing a baseline level of performance</a></li>
+<li><a href="#unstructured-and-structured-data">Unstructured and structured data</a></li>
+<li><a href="#ways-to-establish-a-baseline">Ways to establish a baseline</a></li>
+</ul>
+</li>
+<li><a href="#tips-for-getting-started">Tips for getting started</a>
+<ul>
+<li><a href="#getting-started-on-modeling">Getting started on modeling</a></li>
+<li><a href="#deployment-constraints-when-picking-a-model">Deployment constraints when picking a model</a></li>
+<li><a href="#sanity-check-for-code-and-algorithm">Sanity-check for code and algorithm</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#model-centric-ai-development-vs-data-centric-ai-development">Model-centric AI development vs. Data-centric AI development</a></li>
+</ul>
+</li>
+<li><a href="#key-challenges">Key Challenges</a>
+<ul>
+<li><a href="#model-development-is-an-iterative-process">Model development is an iterative process</a></li>
+<li><a href="#challenges-in-model-development">Challenges in model development</a></li>
+</ul>
+</li>
+<li><a href="#why-low-average-error-isn-t-good-enough">Why low average error isn’t good enough</a></li>
+<li><a href="#establish-a-baseline">Establish a baseline</a>
+<ul>
+<li><a href="#establishing-a-baseline-level-of-performance">Establishing a baseline level of performance</a></li>
+<li><a href="#unstructured-and-structured-data">Unstructured and structured data</a></li>
+<li><a href="#ways-to-establish-a-baseline">Ways to establish a baseline</a></li>
+</ul>
+</li>
+<li><a href="#tips-for-getting-started">Tips for getting started</a>
+<ul>
+<li><a href="#getting-started-on-modeling">Getting started on modeling</a></li>
+<li><a href="#deployment-constraints-when-picking-a-model">Deployment constraints when picking a model</a></li>
+<li><a href="#sanity-check-for-code-and-algorithm">Sanity-check for code and algorithm</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>In this section, we’re going to focus on questions such as:</p>
+<ul>
+<li>What are the key challenges of trying to build a production-ready ML model?</li>
+<li>How do handle new datasets?</li>
+<li>What if you do well on the test set, but for some reason, that still isn’t good enough for your actual application?</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04" title=""><img src="https://live.staticflickr.com/65535/51669889937_06cf381720_z.jpg" width="640" height="480" alt=""></a></p>
+<h3 id="model-centric-ai-development-vs.-data-centric-ai-development">Model-centric AI development vs. Data-centric AI development</h3>
+<p>The way that AI has grown up, there’s been a lot of emphasis on how to choose the right model (e.g. how to choose the NN architecture). For practical projects, it can be even more useful to take a more <strong>data-centric approach</strong>, where you focus not just on improving your ML model, but on making sure you’re also <em><strong>feeding your algorithm high-quality data</strong></em>.</p>
+<h1 id="key-challenges">Key Challenges</h1>
+<p>One framework to think about an AI system is: <strong>AI system = Code +  Data</strong></p>
+<ul>
+<li>There’s been a lot of emphasis in the last several decades on how to improve the ML model. Researchers would just download a fixed dataset and fit the best model on it.</li>
+<li>But for a lot of applications, you have the flexibility to change the data if you don’t like it.
+<ul>
+<li>There are a lot of projects where the model/algorithm is basically a solved problem. So, it’d be more efficient to spend time improving the data.</li>
+</ul>
+</li>
+</ul>
+<h2 id="model-development-is-an-iterative-process">Model development is an iterative process</h2>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51687375324/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 11.50.37 AM"><img src="https://live.staticflickr.com/65535/51687375324_39ab5df67c_z.jpg" width="640" height="266" alt="Screen Shot 2021-11-17 at 11.50.37 AM"></a></p>
+<p>Because ML is such an empirical process, being able to go through this loop many times very quickly is key to improving performance.</p>
+<p>After several iterations, it’d also be helpful to carry out a richer error analysis and do an audit to make sure it’s working before you push it to production deployment.</p>
+<h2 id="challenges-in-model-development">Challenges in model development</h2>
+<p>When building a model, there are three key milestones that most projects should aspire to accomplish (order is important here).</p>
+<ol>
+<li>Doing well on the training set (usually measured by averaging training error).</li>
+<li>Doing well on the dev/test sets.</li>
+<li>Doing well on business metrics/project goals.</li>
+</ol>
+<h1 id="why-low-average-error-isnt-good-enough">Why low average error isn’t good enough</h1>
+<p>As hard as it is to do good on the hold-out dataset, unfortunately, sometimes that’s not enough. There are some other things needed to be done to make a project successful.</p>
+<p>In addition to <strong>data drift</strong> and <strong>concept drift</strong>, there are some additional challenges we may have to address for a production ML project.</p>
+<ol>
+<li><strong>Performance on disproportionately important examples:</strong> A ML system may have a low average test error, but if its performance on a set of disproportionally important examples isn’t good enough, then the ML system will still not be acceptable for production deployment.
+<ul>
+<li><strong>Example: Web search:</strong> There are a lot of web search queries like these: “Apple pie recipe”, “Latest movies”, “Wireless data plan”, “Diwali festival”, etc. These types of queries are called <em>Informational and Transactional queries</em>. You just want to get some information about something you don’t know much about. In such cases, you might be willing to forgive the search engine for not giving you the <strong>best</strong> “apple pie recipe”. There’s a different type of queries such as “Standford”, “Reddit”, etc. which is called <em>Navigational queries</em>. Here, the user has a very clear intent to navigate to a website. So, they tend to be very unforgiving if a web search engine does anything rather than the right result (e.g. Standford --&gt; <a href="http://Stanford.edu">Stanford.edu</a>). <strong>Navigational queries, in this case, are disproportionately important examples</strong>.</li>
+<li>The challenge here is, of course, that <strong>average test set accuracy tends to weigh all examples equally</strong>.</li>
+<li>One thing you could do is to give disproportionately important examples a higher weight. That could work for some applications, but doesn’t always solve the entire problem.</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51686751186/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 12.24.44 PM"><img src="https://live.staticflickr.com/65535/51686751186_8f66b5dda8_z.jpg" width="640" height="295" alt="Screen Shot 2021-11-17 at 12.24.44 PM"></a></p>
+<ol start="2">
+<li><strong>Performance on key slices of the dataset (fairness):</strong>
+<ul>
+<li><strong>Example: ML for loan approval:</strong> Assume an ML system predicting who’s going to repay a loan, and thus recommend approving certain loans for approval.</li>
+<li>For such a system, you want to make sure it does not unfairly discriminate by ethnicity, gender, location, language, or other protected attributes.</li>
+<li>Although the AI community was mostly had discussions about fairness in individuals, the fairness issue can also happen in other settings.
+<ul>
+<li><em><strong>Example: Product recommendations from retailers:</strong></em> In recommendation systems of large retailers where you work with many vendors and brands, you want to be careful to treat fairly all major user, retailer, and product categories.</li>
+<li>Even if an ML prediction system has a high average test set accuracy (i.e. it recommends better on average), if it gives very irrelevant recommendations to all users of one ethnicity, that may be unacceptable. OR if it always pushes products from large retailers and ignores smaller brands. OR the recommender never recommends a specific product category.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51685992677/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 12.41.29 PM"><img src="https://live.staticflickr.com/65535/51685992677_0e079e63b9_z.jpg" width="640" height="279" alt="Screen Shot 2021-11-17 at 12.41.29 PM"></a></p>
+<ol start="3">
+<li>Rare classes: Specifically the cases of skewed data distributions.
+<ul>
+<li>Example: Medical diagnosis: In medical diagnosis, it’s not uncommon for many patients not to have a certain disease, and therefore have a dataset where 99% of examples are negative and only 1% positive.
+<ul>
+<li>In such cases, you can achieve very good test set accuracy by writing a program that predicts “0” for everyone!</li>
+<li>In medical fields, it’s not acceptable to ignore (do not diagnose) <em><strong>obvious</strong></em> cases of illness.</li>
+<li>This can also happen when only one (or a few) classes have very few observations. In such cases, even if you predict all the cases of the rare class wrong, you might still get high average test set accuracy.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51686796806/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 12.53.35 PM"><img src="https://live.staticflickr.com/65535/51686796806_65c7aba2f5_z.jpg" width="640" height="291" alt="Screen Shot 2021-11-17 at 12.53.35 PM"></a></p>
+<p><strong>Bottom line</strong></p>
+<blockquote>
+<p>We need to go beyond just doing good on the test set.</p>
+</blockquote>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51687482029/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 12.53.45 PM"><img src="https://live.staticflickr.com/65535/51687482029_f1c714ce4f_z.jpg" width="640" height="299" alt="Screen Shot 2021-11-17 at 12.53.45 PM"></a></p>
+<h1 id="establish-a-baseline">Establish a baseline</h1>
+<p>What are some of the best practices for quickly establishing a baseline?</p>
+<h2 id="establishing-a-baseline-level-of-performance">Establishing a baseline level of performance</h2>
+<p>Let’s assume for a speech recognition application, you’ve established these four major categories of speech:</p>
+<ul>
+<li>At first, you may say your model is not doing really god on “Low Bandwidth” because it has the lowest accuracy.</li>
+<li>But once you establish a baseline based on “human-level performance”, you find out that the “Low Bandwidth” is actually doing best among the rest.</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51686819611/in/dateposted-friend/" title="Screen Shot 2021-11-17 at 1.06.20 PM"><img src="https://live.staticflickr.com/65535/51686819611_76d80902d0_z.jpg" width="640" height="269" alt="Screen Shot 2021-11-17 at 1.06.20 PM"></a></p>
+<h2 id="unstructured-and-structured-data">Unstructured and structured data</h2>
+<p>It turns out the best practices for establishing a baseline are quite different depending on whether you’re working on unstructured or structured data.</p>
+<p>Unstructured data tends to be data that humans are very good at interpreting. So, measuring human-level performance (HLP) is often a good way to establish a baseline.</p>
+<p>In contrast, structured data are giant databases (e.g. sales transaction datasets), HLP is usually is a less useful baseline.</p>
+<h2 id="ways-to-establish-a-baseline">Ways to establish a baseline</h2>
+<ul>
+<li>Human-level performance (HLP)</li>
+<li>Literature research for state-of-the-art/open source</li>
+<li>Quick-and-dirty implementation</li>
+<li>Performance of an older system</li>
+</ul>
+<p>Baseline helps to indicate what might be possible. In some cases (such as HLP), also gives a sense of what is irreducible error/Bayes error.</p>
+<p>By helping us to get a very rough sense of what might be possible, it can help us be much more efficient in terms of prioritizing what to work on.</p>
+<h1 id="tips-for-getting-started">Tips for getting started</h1>
+<h2 id="getting-started-on-modeling">Getting started on modeling</h2>
+<ul>
+<li>Literature search to see what’s possible (courses, blogs, open-source projects)
+<ul>
+<li>For practical applications (not research), don’t obsses about the latest greatest algorithm. Instead, spend half a day ( or a few days) reading and researching and then pick something reasonable that <strong>lets you get started quickly</strong>.</li>
+</ul>
+</li>
+<li>Find open source implementations if possible.</li>
+<li>A “reasonable” algorithm with “good” data will often outperform a “great” algorithm with “not so good” data.</li>
+<li>The point is to get started on the iterative process of an ML system. You don’t want to spend a lot of time just picking the model.</li>
+</ul>
+<h2 id="deployment-constraints-when-picking-a-model">Deployment constraints when picking a model</h2>
+<p><strong>Should you take into account deployment constraints (e.g. compute constraints) when picking a model?</strong> <em><strong>Yes</strong></em>, if baseline is already established and goal is to build and deploy. <em><strong>No</strong></em> (or not necessarily), if purpose is to establish a baseline and determine what’s possible and might be worth pursuing.</p>
+<h2 id="sanity-check-for-code-and-algorithm">Sanity-check for code and algorithm</h2>
+<ul>
+<li>Try to overfit a small training dataset before training on a large one. It helps you find bugs much more quickly.
+<ul>
+<li>Example 1: Speech recognition: X (audio) --&gt; y (transcript), just train on one example just to see if the output makes sense.</li>
+<li>Example 2: Image segmentation: before training hours many examples, just feed it one example to see if it can at least overfit one training example.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

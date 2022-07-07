@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experimentation_platform</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <p><strong>Two characteristics of Exp system:</strong></p>
+<ol>
+<li>Trustworthiness: the results can be trusted <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> solid statistical foundation, monitoring system</li>
+<li>Scalability: adding new users/experiments easily with low cost</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51631419757/in/dateposted-friend/" title="Screen Shot 2021-10-26 at 4.16.12 PM"><img src="https://live.staticflickr.com/65535/51631419757_a76894d57d_z.jpg" width="640" height="407" alt="Screen Shot 2021-10-26 at 4.16.12 PM"></a></p>
+<p><strong>Four core components of an Exp system:</strong></p>
+<ol>
+<li><strong>Experimentation portal:</strong>
+<ul>
+<li><strong>Experiment management:</strong>
+<ul>
+<li>Audience: targeting &amp; traffic filters</li>
+<li>Overall Evaluation Criteria (OCE): key metric to determine the success of experiment</li>
+<li>Size &amp; duration: Power analysis</li>
+<li>Experiment template: random imbalance</li>
+<li>Experiment interactions: Isolation groups</li>
+<li>Variant behavior: experiment owner defines behavior for each variant.</li>
+</ul>
+</li>
+<li><strong>Metric definition &amp; validation:</strong>
+<ul>
+<li>Metric Definition Language (MDL):
+<ul>
+<li>MDL is language-independent.</li>
+<li>The user-provided metric definition gets translated into an internal representation, which in turn can be compiled into a number of target languages such as SQL.</li>
+<li>MDL ensures that the definition of a metric is consistent across all such pipelines.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51633092005/in/dateposted-friend/" title="Screen Shot 2021-10-27 at 12.22.20 AM"><img src="https://live.staticflickr.com/65535/51633092005_332cb0770e_z.jpg" width="451" height="640" alt="Screen Shot 2021-10-27 at 12.22.20 AM"></a></p>
+<ul>
+<li><strong>Result visualization &amp; exploration</strong>
+<ul>
+<li>Quick (near real time) checks are performed</li>
+<li>The goal is to serve as a single place where experiment results &amp; analysis is collected.</li>
+<li>Simplest form of experiment result is <strong>experiment scorecard:</strong>
+<ul>
+<li>Collecting observed metrics for control and treatment</li>
+<li>Calculate the delta (absolute and relative)</li>
+<li>Statistical test</li>
+</ul>
+</li>
+<li>In case of many experiments, it’s important to have a tool that <strong>automatically</strong> identify and highlight interesting insights.</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>Experiment execution service</strong>
+<ul>
+<li>Goal: generate experiment variants and delivering them to the product.</li>
+<li></li>
+</ul>
+</li>
+<li><strong>Log processing service</strong></li>
+<li><strong>Analysis service</strong></li>
+</ol>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

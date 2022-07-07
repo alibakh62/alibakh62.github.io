@@ -6,10 +6,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XGBoost.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="xgboost-trees-for-regression">XGBoost trees for regression</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#xgboost-trees-for-regression">XGBoost trees for regression</a>
+<ul>
+<li><a href="#unique-regression-tree">Unique regression tree</a></li>
+</ul>
+</li>
+<li><a href="#xgboost-for-classification">XGBoost for Classification</a></li>
+<li><a href="#xgboost-mathematical-details">XGBoost: Mathematical details</a>
+<ul>
+<li><a href="#deriving-the-equation-for-regression">Deriving the equation for regression</a></li>
+<li><a href="#deriving-the-equation-for-classification">Deriving the equation for classification</a></li>
+<li><a href="#deriving-the-equation-for-similarity-score">Deriving the equation for Similarity Score</a></li>
+</ul>
+</li>
+<li><a href="#xgboost-optimizations">XGBoost Optimizations</a>
+<ul>
+<li><a href="#approximate-greedy-algorithm">Approximate Greedy Algorithm</a></li>
+<li><a href="#parallel-learning--weighted-quantile-sketch">Parallel Learning & Weighted Quantile Sketch</a></li>
+<li><a href="#sparsity-aware-split-finding">Sparsity-Aware Split Finding</a></li>
+<li><a href="#cache-aware-access">Cache-Aware Access</a></li>
+<li><a href="#blocks-for-out-of-core-computation">Blocks for Out-of-Core Computation</a></li>
+</ul>
+</li>
+<li><a href="#xgboost-in-python">XGBoost in Python</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="xgboost-trees-for-regression">XGBoost trees for regression</h1>
 <p><strong>XGBoost</strong> is <strong>extreme</strong>, i.e. it’s a big machine learning algorithm with lots of parts.</p>
 <ul>
 <li>Gradient boost (-ish)</li>
@@ -416,7 +480,26 @@ h_i = 1
 <p><strong>Note:</strong> xgb is fast for several reasons, some of them are not related to statistical methods at all. For example, the last two elements of xgb algorithm (<strong>cache-aware access</strong> and <strong>blocks for out-of-core computation</strong>) are merely computation hardware optimizations.</p>
 <h1 id="xgboost-in-python">XGBoost in Python</h1>
 <p>Refer to this <a href="https://youtu.be/GrJP9FLV3FE">link</a></p>
-</div>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2_Label and Organizing Data</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#obtaining-data">Obtaining data</a>
+<ul>
+<li><a href="#how-long-should-you-spend-obtaining-data">How long should you spend obtaining data?</a></li>
+<li><a href="#data-inventory">Data inventory</a></li>
+<li><a href="#labeling-data">Labeling data</a></li>
+</ul>
+</li>
+<li><a href="#data-pipelines">Data pipelines</a></li>
+<li><a href="#meta-data-data-provenance-and-lineage">Meta-data, data provenance and lineage</a></li>
+<li><a href="#balanced-traindevtest-splits">Balanced train/dev/test splits</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="obtaining-data">Obtaining data</h1>
+<h2 id="how-long-should-you-spend-obtaining-data">How long should you spend obtaining data?</h2>
+<ul>
+<li>As mentioned before, the steps of ML iterative process are:
+<ul>
+<li>Model + hyperparameters + (collecting) data</li>
+<li>Training</li>
+<li>Error Anlysis</li>
+</ul>
+</li>
+<li>Let’s say, if training and error analysis would take around 2 days, you don’t want to spend 30 days collecting data, because that will be a whole month you getting into the iteration process.
+<ul>
+<li><mark><strong>You’d want to get into the iteration loop as quickly as possible.</strong></mark></li>
+<li><em><strong>Instead of asking: how long it would take to obtain <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">m</span></span></span></span></span> examples? Ask: how much data can we obtain in <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> days.</strong></em></li>
+<li><strong>Note:</strong> One <mark>exception</mark> to this rule is if you have already worked on the problem before and from experience you know you need <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">m</span></span></span></span></span> examples upfront.</li>
+</ul>
+</li>
+</ul>
+<h2 id="data-inventory">Data inventory</h2>
+<ul>
+<li>Brainstorm list of data sources</li>
+<li><mark>It’s always a good idea to take a inventory of different ways of getting data based on cost and time and make data collection decision accordingly.</mark></li>
+<li><strong>Example:</strong> Speech recognition</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="left">Source</th>
+<th align="center">Amount</th>
+<th align="center">Cost</th>
+<th align="center">Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Owned</td>
+<td align="center">100 hrs</td>
+<td align="center">$0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">Crowdsourced - Reading</td>
+<td align="center">1000 hrs</td>
+<td align="center">$10K</td>
+<td align="center">14 days</td>
+</tr>
+<tr>
+<td align="left">Pay for labels</td>
+<td align="center">100 hrs</td>
+<td align="center">$6K</td>
+<td align="center">7 days</td>
+</tr>
+<tr>
+<td align="left">Purchase data</td>
+<td align="center">1000 hrs</td>
+<td align="center">$10K</td>
+<td align="center">1 day</td>
+</tr>
+</tbody>
+</table><ul>
+<li><strong>Note:</strong> Other factors:
+<ul>
+<li>Data quality</li>
+<li>Privacy</li>
+<li>Regulatory constraints</li>
+</ul>
+</li>
+</ul>
+<h2 id="labeling-data">Labeling data</h2>
+<ul>
+<li>Options:
+<ul>
+<li>In-house</li>
+<li>Outsourced</li>
+<li>Crowdsourced</li>
+</ul>
+</li>
+<li>Having MLEs label data is expensive. But doing this for just a few days is usually fine.</li>
+<li>Who is qualified to label?
+<ul>
+<li>Speech recognition: any reasonable fluent speaker</li>
+<li>Factory inspection, medical image diagnosis: SME (Subject Matter Expert)</li>
+<li>Recommender systems: maybe impossible to label well</li>
+</ul>
+</li>
+<li><mark><strong>Note:</strong></mark> Don’t increase data by more than 10x at a time.
+<ul>
+<li>You want to make sure everytime you gather quickly enough to train your model again. If still need more data, then collect more.</li>
+<li>Do not spend too much time collecting data all at once.</li>
+</ul>
+</li>
+</ul>
+<h1 id="data-pipelines">Data pipelines</h1>
+<ul>
+<li>Data pipelines (sometimes called <strong>Data Cascades</strong>), refers to when your data has multiple steps of processing before getting to the final output.</li>
+</ul>
+<p><strong>Data pipeline example:</strong></p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52045407076/in/dateposted-friend/" title="Screen Shot 2022-05-02 at 12.25.44 PM"><img src="https://live.staticflickr.com/65535/52045407076_dc10a15686_o.png" width="80%" height="auto" alt="Screen Shot 2022-05-02 at 12.25.44 PM"></a>
+</center><ul>
+<li><mark><strong>Note:</strong></mark> If you have done data preprocessing step through some “scripts”, one issue you may face when taking the system to production is <mark><strong>replicability</strong></mark>.
+<ul>
+<li>Data preprocessing scripts tends to be messy and hacky. It’s very likely to face issues when new data comes in.</li>
+</ul>
+</li>
+<li><mark><strong>Note:</strong></mark> The amount of effort you spend on writing <strong>replicable  data preprocessing scripts</strong> also depends on the phase of the project.
+<ul>
+<li><strong>PoC phase:</strong>
+<ul>
+<li>The goal is to decide if the application is workable and worth deploying.</li>
+<li>Focus on getting the prototype to work.</li>
+<li>It’s OK if data preprocessing is manual. But take extensive notes/comments.</li>
+</ul>
+</li>
+<li><strong>Production phase:</strong>
+<ul>
+<li>After project utility is established, use more sophisticated tools to make sure the data pipeline is replicable.</li>
+<li>E.g. TensorFlow Transform, Apache Beam, Airflow, …</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="meta-data-data-provenance-and-lineage">Meta-data, data provenance and lineage</h1>
+<ul>
+<li>For some applications, having and tracking meta data, data provenance, and data lineage can be a big help.</li>
+</ul>
+<p><strong>Data pipeline example:</strong></p>
+<ul>
+<li>Task: Predict if someone is looking for a job. (<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span> = user data, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> = looking for a job?)</li>
+</ul>
+ <center><a href="https://www.flickr.com/photos/192167571@N04/52045492868/in/dateposted-friend/" title="Screen Shot 2022-05-02 at 12.41.24 PM"><img src="https://live.staticflickr.com/65535/52045492868_d7eeb68d8d_o.png" width="90%" height="auto" alt="Screen Shot 2022-05-02 at 12.41.24 PM"></a>
+</center><ul>
+<li>This level of complexity of a data pipeline is not atypical in large commercial systems.</li>
+<li>One of the <strong>challenges</strong> of working with data pipelines like this is what if after running this system for months, you discover that the IP address blacklist (i.e. spam dataset) you’re using has some mistakes.
+<ul>
+<li>In particular, what if you discover that there was there was some IP addresses that were incorrectly blacklisted.</li>
+<li><strong>The question is</strong>, having built up this big complex system, if you were to update your spam dataset, won’t that change your spam model and therefore all the following steps? <strong>How do you go back and fix this problem?</strong></li>
+<li>This problem can be exacerbated if this system is developed by different engineers and you have files spread across the laptops of your MLE development team.</li>
+</ul>
+</li>
+<li><mark><strong>To make sure your system is maintainable</strong></mark>, especially when a piece of data upstream ends up needing to be changed, <mark><strong>it can be very helpful to keep track of data provenance as well as lineage.</strong></mark></li>
+<li><strong>Data provenance</strong> refers to where the data came from, e.g. who did you purchase the spam IP address from?</li>
+<li><strong>Data lineage</strong> refers to the sequence of steps to get to the end of the pipeline.</li>
+<li>At the very least, having an extensive documentation could help you reconstruct data provenance and lineage, but to build robust maintainable systems (not in PoC stage), there are more sophisticated tools to help you keep track of what happened.
+<ul>
+<li><strong>Note:</strong> Tools for data provenance and lineage (as of now, 2021) are still immature. Therefore, extensive documentation can help a lot.</li>
+</ul>
+</li>
+<li><strong>Note:</strong> <mark>Make extensive use of <strong>meta-data</strong>.</mark>
+<ul>
+<li>Meta data is data about data.</li>
+<li>Example: In manufacturing visual inspection: time, factory, line #, camera settings, phone model, inspector ID, etc.</li>
+<li>If you don’t store your meta data in a timely way, it could be much harder to go back to recapture and organize that data.</li>
+<li>Meta data can be very useful for:
+<ul>
+<li>Error analysis: spotting unexpected effects.</li>
+<li>Keeping track of data provenance.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="balanced-traindevtest-splits">Balanced train/dev/test splits</h1>
+<ul>
+<li><mark><em>It turns out when your dataset is small, having a balanced train/dev/test can significantly impro e your ML development process.</em></mark></li>
+<li><strong>Visual inspection example:</strong> dataset <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> 100 examples, 30 positive (defective) examples.
+<ul>
+<li>Train/dev/test <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">60\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">60%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">20\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">20%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">20\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">20%</span></span></span></span></span></li>
+<li>Random split <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn></mrow><annotation encoding="application/x-tex">21</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">21</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">7</span></span></span></span></span>  <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>35</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">35\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">35%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">10%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>35</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">35\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">35%</span></span></span></span></span></li>
+<li>In this case, the <em><strong>dev</strong></em> dataset is quite non-representative (only 10% positive examples).</li>
+<li>What you want <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn></mrow><annotation encoding="application/x-tex">18</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">18</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">6</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">6</span></span></span></span></span>  <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">30\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">30%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">30\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">30%</span></span></span></span></span>-<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">30\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.80556em; vertical-align: -0.05556em;"></span><span class="mord">30%</span></span></span></span></span> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <strong>Balanced datasets</strong>.</li>
+<li><mark><strong>Note:</strong></mark> In large datasets, you don’t need to worry about it, the random split will be representative enough.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

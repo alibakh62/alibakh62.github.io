@@ -6,10 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>entropy.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="introduction">Introduction</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="introduction">Introduction</h1>
 <p>Entropy is used for a lot of things in data science. For example, entropy can be used to build classification trees. Entropy is also the basis of something called <strong>Mutual Information</strong>, which quantifies the relationship between two things. Entropy is the basis of <strong>Relative Entropy</strong> (also known as <strong>The Kullback-Leibler Distance</strong>) and <strong>cross entropy</strong>, which show up all over the place, including fancy dimension reduction algorithms like <strong>t-SNE</strong> and <strong>UMAP</strong>.</p>
 <p>What these three things have in common is that they all use <strong>entropy</strong>, or something derived from it, to quantify <strong>similarities</strong> and <strong>differences</strong>.</p>
 <p>In order to talk about <strong>Entropy</strong>, first we have to understand <strong>Surprise</strong>.</p>
@@ -74,7 +120,26 @@
 <p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Entropy</mtext><mo>=</mo><mo>−</mo><mo>∑</mo><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Entropy} = -\sum p(x)\log(p(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.87777em; vertical-align: -0.19444em;"></span><span class="mord text"><span class="mord">Entropy</span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1.60001em; vertical-align: -0.55001em;"></span><span class="mord">−</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mop op-symbol large-op" style="position: relative; top: -5e-06em;">∑</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mop">lo<span style="margin-right: 0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span></span></p>
 <p>This is entropy equation that <strong>Claude Shannon</strong> first published in <strong>1948</strong>.</p>
 <p>Now, going back to our chicken example, if we calculate the entropy for A, B, and C, we’ll see that entropy is highest when we have the same number of both types of chickens, and as we increase the difference in the number of orange and blue chickens, we lower the entropy.</p>
-</div>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
 </body>
 
 </html>

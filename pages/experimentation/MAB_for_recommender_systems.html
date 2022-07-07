@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAB for recommender systems</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#contextual-mab">Contextual MAB</a></li>
+<li><a href="#ab-testing-vs.-mab">A/B Testing vs. MAB</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="contextual-mab">Contextual MAB</h1>
+<ul>
+<li>The quality of a recommender system is often measured by A/B testing.</li>
+<li>We can use MAB as an alternative to A/B testing.</li>
+<li>The <strong>contextual bandit problem</strong> is a generalization of the multi-armed bandit that extends the model by making actions conditional on the state of the environment.
+<ul>
+<li>Unlike the classical multi-armed bandit, it addresses the problem of identifying the most appropriate content at the best time for individual users.</li>
+<li>Contextual information may be used to group users by shared features via classification or clustering techniques with the assumption that users belonging to the same cluster tend to have similar behavior while users lying in different clusters have significantly different behavior.</li>
+<li>Here’s the formal definition of contextual MAB:</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51608973899/in/dateposted-friend/" title="contextual bandit"><img src="https://live.staticflickr.com/65535/51608973899_153e1ea68a_z.jpg" width="640" height="268" alt="contextual bandit"></a></p>
+<ul>
+<li>A common real-world contextual bandit example is a news recommendation system.
+<ul>
+<li>Given a set of presented news articles, a reward is determined by the click-through behavior of the user.</li>
+<li>If she clicks on the article, a payout of 1 is incurred and 0 otherwise.</li>
+<li>Click-through-rate (CRT) is used to determine the selection and placement of ads within the news recommendation application.</li>
+<li>Now suppose rewards are determined by CTR in conjunction with metadata about the user (e.g., <em><strong>age</strong></em> and <em><strong>gender</strong></em>), so recommendations can be further personalized.
+<ul>
+<li>Take a 65 year old female and an 18 year male for example, both who read news articles from their mobile device.</li>
+<li>The recommendations for these two users should reflect their contrasting profiles.</li>
+<li>It wouldn’t make sense to show ads for retirement plans or mature women clothing stores (e.g., <a href="https://www.talbots.com/online/">Talbots</a>) to the 18 year old male.</li>
+</ul>
+</li>
+<li>Contextual information may also include <em><strong>geographic location</strong></em>, <em><strong>time of day</strong></em>, <em><strong>day of the week</strong></em>, and <em><strong>season</strong></em>.
+<ul>
+<li>Suppose geographic location metadata is available on the 18 year old male through his mobile device. He’s in close vicinity to University of Texas at Austin’s main campus and has expressed an interest in skate and surf shops via click-through behavior. With this contextual information about the user, the application should show ads for skate and surf shops within his current geographic location (e.g., <a href="http://www.tylerstx.com/tylers-on-the-drag/">Tyler’s</a>).</li>
+<li>If it’s the beginning of the semester, say in September or January, ads for college textbook stores <a href="http://www.universitycoop.com/">(e.g., University Coop</a>) should be generated for this user, since it’s highly likely that he is a college student shopping for textbooks.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="ab-testing-vs.-mab">A/B Testing vs. MAB</h1>
+<ul>
+<li>For most modern internet companies, wherever there is a metric that can be measured (e.g.,time spent on a page, click-through rates, conversion to sale), there is almost always a randomized trial behind the scenes, with the goal of identifying an alternative website design that provides improvements over the default design.</li>
+<li></li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

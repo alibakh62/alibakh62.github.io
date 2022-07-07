@@ -6,10 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>gradient_boost.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="gradient-boost-for-regression">Gradient boost for regression</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#gradient-boost-for-regression">Gradient boost for regression</a>
+<ul>
+<li><a href="#gradient-boost-vs.-adaboost">Gradient Boost vs. AdaBoost</a></li>
+<li><a href="#gradient-boost-algorithm">Gradient Boost algorithm</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="gradient-boost-for-regression">Gradient boost for regression</h1>
 <p>Gradient Boost and AdaBoost are very similar. So, let’s first start by comparing the two algorithms.</p>
 <h2 id="gradient-boost-vs.-adaboost">Gradient Boost vs. AdaBoost</h2>
 <p>For a regression problem:</p>
@@ -55,7 +102,26 @@ Like AdaBoost, GB also scales the trees, but GB scales all the trees by the same
 <li>We repeat the steps above over and over again until we reach the maximum specified, or adding additional trees does not significantly reduce the size of residuals.</li>
 <li></li>
 </ol>
-</div>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
 </body>
 
 </html>

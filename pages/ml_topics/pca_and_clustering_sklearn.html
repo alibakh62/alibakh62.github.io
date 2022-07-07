@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCA_and_clustering_sklearn.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#clustering">Clustering</a>
+<ul>
+<li><a href="#overview-of-clustering-methods">Overview of clustering methods</a></li>
+</ul>
+</li>
+<li><a href="#spectral-clustering">Spectral Clustering</a>
+<ul>
+<li><a href="#k-means">K-means</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="clustering">Clustering</h1>
+<p><a href="https://en.wikipedia.org/wiki/Cluster_analysis">Clustering</a>  of unlabeled data can be performed with the module  <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.cluster" title="sklearn.cluster"><code>sklearn.cluster</code></a>.</p>
+<p>Each clustering algorithm comes in two variants: a class, that implements the  <code>fit</code>  method to learn the clusters on train data, and a function, that, given train data, returns an array of integer labels corresponding to the different clusters. For the class, the labels over the training data can be found in the  <code>labels_</code>  attribute.</p>
+<blockquote>
+<p><strong>Input data</strong><br>
+One important thing to note is that the algorithms implemented in this module can take different kinds of matrix as input. All the methods accept standard data matrices of shape  <code>(n_samples, n_features)</code>. These can be obtained from the classes in the  <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.feature_extraction" title="sklearn.feature_extraction"><code>sklearn.feature_extraction</code></a>  module. For  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AffinityPropagation.html#sklearn.cluster.AffinityPropagation" title="sklearn.cluster.AffinityPropagation"><code>AffinityPropagation</code></a>,  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code>SpectralClustering</code></a>  and  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code>DBSCAN</code></a>  one can also input similarity matrices of shape  <code>(n_samples, n_samples)</code>. These can be obtained from the functions in the  <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code>sklearn.metrics.pairwise</code></a>  module.</p>
+</blockquote>
+<h2 id="overview-of-clustering-methods">Overview of clustering methods</h2>
+<h1 id="spectral-clustering">Spectral Clustering</h1>
+<p>Apply clustering to a projection of the normalized Laplacian.</p>
+<p>In practice Spectral Clustering is very useful when the structure of the individual clusters is highly non-convex, or more generally when a measure of the center and spread of the cluster is not a suitable description of the complete cluster, such as when clusters are nested circles on the 2D plane.</p>
+<p>If the affinity matrix is the adjacency matrix of a graph, this method can be used to find normalized graph cuts  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.SpectralClustering.html#r5f6cbeb1558e-1">[1]</a>,  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.SpectralClustering.html#r5f6cbeb1558e-2">[2]</a>.</p>
+<p>When calling  <code>fit</code>, an affinity matrix is constructed using either a kernel function such the Gaussian (aka RBF) kernel with Euclidean distance  <code>d(X, X)</code>:</p>
+<pre class=" language-python"><code class="prism  language-python">np<span class="token punctuation">.</span>exp<span class="token punctuation">(</span><span class="token operator">-</span>gamma <span class="token operator">*</span> d<span class="token punctuation">(</span>X<span class="token punctuation">,</span>X<span class="token punctuation">)</span> <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">)</span>
+</code></pre>
+<p>or a k-nearest neighbors connectivity matrix.</p>
+<p>Alternatively, a user-provided affinity matrix can be specified by setting  <code>affinity='precomputed'</code>.</p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52077324837/in/dateposted-friend/" title="sphx_glr_plot_cluster_comparison_001"><img src="https://live.staticflickr.com/65535/52077324837_a5a63956e0_o.png" width="100%" height="auto" alt="sphx_glr_plot_cluster_comparison_001"></a>
+</center><center><a href="https://www.flickr.com/photos/192167571@N04/52077328502/in/dateposted-friend/" title="Screen Shot 2022-05-16 at 2.25.52 PM"><img src="https://live.staticflickr.com/65535/52077328502_9e392f2c5e_o.png" width="100%" height="auto" alt="Screen Shot 2022-05-16 at 2.25.52 PM"></a>
+</center><p>Non-flat geometry clustering is useful when the clusters have a specific shape, i.e. a non-flat manifold, and the standard euclidean distance is not the right metric. This case arises in the two top rows of the figure above.</p>
+<p>Gaussian mixture models, useful for clustering, are described in  <a href="https://scikit-learn.org/stable/modules/mixture.html#mixture">another chapter of the documentation</a>  dedicated to mixture models. KMeans can be seen as a special case of Gaussian mixture model with equal covariance per component.</p>
+<p><a href="https://scikit-learn.org/stable/glossary.html#term-transductive">Transductive</a>  clustering methods (in contrast to  <a href="https://scikit-learn.org/stable/glossary.html#term-inductive">inductive</a>  clustering methods) are not designed to be applied to new, unseen data.</p>
+<h2 id="k-means">K-means</h2>
+<p>The  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code>KMeans</code></a>  algorithm clusters data by trying to separate samples in n groups of equal variance, minimizing a criterion known as the  <em>inertia</em>  or within-cluster sum-of-squares (see below). This algorithm requires the number of clusters to be specified. It scales well to large number of samples and has been used across a large range of application areas in many different fields.</p>
+<p>The k-means algorithm divides a set of  N  samples  X  into  K  disjoint clusters  C, each described by the mean  μj  of the samples in the cluster. The means are commonly called the cluster “centroids”; note that they are not, in general, points from  X, although they live in the same space.</p>
+<p>The K-means algorithm aims to choose centroids that minimise the  <strong>inertia</strong>, or  <strong>within-cluster sum-of-squares criterion</strong>:</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><munder><mrow><mi>min</mi><mo>⁡</mo></mrow><mrow><msub><mi>μ</mi><mi>j</mi></msub><mo>∈</mo><mi>C</mi></mrow></munder><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>j</mi></msub><mi mathvariant="normal">∣</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sum\limits_{i=0}^n \min_{\mu_j \in C} (||x_i - \mu_j||^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 2.92907em; vertical-align: -1.27767em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span class="" style="top: -1.87233em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span class="" style="top: -3.05001em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.30001em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.27767em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.66786em;"><span class="" style="top: -2.35567em; margin-left: 0em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.328086em;"><span class="" style="top: -2.357em; margin-left: 0em; margin-right: 0.0714286em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.281886em;"><span class=""></span></span></span></span></span></span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right: 0.07153em;">C</span></span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class=""><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.941651em;"><span class=""></span></span></span></span></span><span class="mopen">(</span><span class="mord">∣∣</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1.15022em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span></p>
+<p>Inertia can be recognized as a measure of how internally coherent clusters are. It suffers from various drawbacks:</p>
+<ul>
+<li>
+<p>Inertia makes the assumption that clusters are convex and isotropic, which is not always the case. It responds poorly to elongated clusters, or manifolds with irregular shapes.</p>
+</li>
+<li>
+<p>Inertia is not a normalized metric: we just know that lower values are better and zero is optimal. But in very high-dimensional spaces, Euclidean distances tend to become inflated (this is an instance of the so-called “curse of dimensionality”). Running a dimensionality reduction algorithm such as  <a href="https://scikit-learn.org/stable/modules/decomposition.html#pca">Principal component analysis (PCA)</a>  prior to k-means clustering can alleviate this problem and speed up the computations.</p>
+</li>
+</ul>
+<p>========== picture</p>
+<p>K-means is often referred to as Lloyd’s algorithm. In basic terms, the algorithm has three steps. The first step chooses the initial centroids, with the most basic method being to choose  k  samples from the dataset  X. After initialization, K-means consists of looping between the two other steps. The first step assigns each sample to its nearest centroid. The second step creates new centroids by taking the mean value of all of the samples assigned to each previous centroid. The difference between the old and the new centroids are computed and the algorithm repeats these last two steps until this value is less than a threshold. In other words, it repeats until the centroids do not move significantly.</p>
+<p><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_digits.html"><img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_kmeans_digits_001.png" alt="../_images/sphx_glr_plot_kmeans_digits_001.png"></a></p>
+<p>K-means is equivalent to the expectation-maximization algorithm with a small, all-equal, diagonal covariance matrix.</p>
+<p>The algorithm can also be understood through the concept of  <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagrams</a>. First the Voronoi diagram of the points is calculated using the current centroids. Each segment in the Voronoi diagram becomes a separate cluster. Secondly, the centroids are updated to the mean of each segment. The algorithm then repeats this until a stopping criterion is fulfilled. Usually, the algorithm stops when the relative decrease in the objective function between iterations is less than the given tolerance value. This is not the case in this implementation: iteration stops when centroids move less than the tolerance.</p>
+<p>Given enough time, K-means will always converge, however this may be to a local minimum. This is highly dependent on the initialization of the centroids. As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been implemented in scikit-learn (use the  <code>init='k-means++'</code>  parameter). This initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization, as shown in the reference.</p>
+<p>K-means++ can also be called independently to select seeds for other clustering algorithms, see  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.kmeans_plusplus.html#sklearn.cluster.kmeans_plusplus" title="sklearn.cluster.kmeans_plusplus"><code>sklearn.cluster.kmeans_plusplus</code></a>  for details and example usage.</p>
+<p>The algorithm supports sample weights, which can be given by a parameter  <code>sample_weight</code>. This allows to assign more weight to some samples when computing cluster centers and values of inertia. For example, assigning a weight of 2 to a sample is equivalent to adding a duplicate of that sample to the dataset  X.</p>
+<p>K-means can be used for vector quantization. This is achieved using the transform method of a trained model of  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code>KMeans</code></a>.</p>
+<h3 id="low-level-parallelism">Low-level parallelism</h3>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code>KMeans</code></a>  benefits from OpenMP based parallelism through Cython. Small chunks of data (256 samples) are processed in parallel, which in addition yields a low memory footprint. For more details on how to control the number of threads, please refer to our  <a href="https://scikit-learn.org/stable/computing/parallelism.html#parallelism">Parallelism</a>  notes.</p>
+<blockquote>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_assumptions.html#sphx-glr-auto-examples-cluster-plot-kmeans-assumptions-py">Demonstration of k-means assumptions</a>: Demonstrating when k-means performs intuitively and when it does not</li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_digits.html#sphx-glr-auto-examples-cluster-plot-kmeans-digits-py">A demo of K-Means clustering on the handwritten digits data</a>: Clustering handwritten digits</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf">“k-means++: The advantages of careful seeding”</a>  Arthur, David, and Sergei Vassilvitskii,  <em>Proceedings of the eighteenth annual ACM-SIAM symposium on Discrete algorithms</em>, Society for Industrial and Applied Mathematics (2007)</li>
+</ul>
+</blockquote>
+<h3 id="mini-batch-k-means">Mini Batch K-means</h3>
+<p>The  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans" title="sklearn.cluster.MiniBatchKMeans"><code>MiniBatchKMeans</code></a>  is a variant of the  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code>KMeans</code></a>  algorithm which uses mini-batches to reduce the computation time, while still attempting to optimise the same objective function. Mini-batches are subsets of the input data, randomly sampled in each training iteration. These mini-batches drastically reduce the amount of computation required to converge to a local solution. In contrast to other algorithms that reduce the convergence time of k-means, mini-batch k-means produces results that are generally only slightly worse than the standard algorithm.</p>
+<p>The algorithm iterates between two major steps, similar to vanilla k-means. In the first step,  b  samples are drawn randomly from the dataset, to form a mini-batch. These are then assigned to the nearest centroid. In the second step, the centroids are updated. In contrast to k-means, this is done on a per-sample basis. For each sample in the mini-batch, the assigned centroid is updated by taking the streaming average of the sample and all previous samples assigned to that centroid. This has the effect of decreasing the rate of change for a centroid over time. These steps are performed until convergence or a predetermined number of iterations is reached.</p>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans" title="sklearn.cluster.MiniBatchKMeans"><code>MiniBatchKMeans</code></a>  converges faster than  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code>KMeans</code></a>, but the quality of the results is reduced. In practice this difference in quality can be quite small, as shown in the example and cited reference.</p>
+<p>========= picture</p>
+<blockquote>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_mini_batch_kmeans.html#sphx-glr-auto-examples-cluster-plot-mini-batch-kmeans-py">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</a>:<br>
+Comparison of KMeans and MiniBatchKMeans</li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py">Clustering text documents using k-means</a>:<br>
+Document clustering using sparse MiniBatchKMeans</li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_dict_face_patches.html#sphx-glr-auto-examples-cluster-plot-dict-face-patches-py">Online learning of a dictionary of parts of faces</a></li>
+</ul>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf">“Web Scale K-Means clustering”</a><br>
+D. Sculley,  <em>Proceedings of the 19th international conference on<br>
+World wide web</em>  (2010)</li>
+</ul>
+</blockquote>
+<h3 id="affinity-propagation">Affinity Propagation</h3>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AffinityPropagation.html#sklearn.cluster.AffinityPropagation" title="sklearn.cluster.AffinityPropagation"><code>AffinityPropagation</code></a> creates clusters by sending messages between pairs of samples until convergence. A dataset is then described using a small number of exemplars, which are identified as those most representative of other samples. The messages sent between pairs represent the suitability for one sample to be the exemplar of the other, which is updated in response to the values from other pairs. This updating happens iteratively until convergence, at which point the final exemplars are chosen, and hence the final clustering is given.</p>
+<p>===== picture</p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

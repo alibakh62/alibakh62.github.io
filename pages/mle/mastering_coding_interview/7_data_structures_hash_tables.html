@@ -1,0 +1,549 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7_data_structures_hash_tables.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#what-is-a-hash-function">What is a hash function?</a></li>
+<li><a href="#hash-collisions">Hash Collisions</a></li>
+<li><a href="#implement-a-hash-table">Implement a Hash table</a></li>
+<li><a href="#hash-tables-vs.-arrays">Hash tables vs. Arrays</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="intro">Intro</h2>
+<ul>
+<li>
+<p>Different languages have different names for hash tables with a slight variation on the hash table objects.:</p>
+<ul>
+<li>Hash maps</li>
+<li>Maps <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> Java</li>
+<li>Unordered maps</li>
+<li>Dictionaries <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> Python</li>
+<li>Objects <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> JavaScript</li>
+<li>Hashes <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> Ruby</li>
+</ul>
+</li>
+<li>
+<p>Hash tables are widely used in computer science. You see them a lot in:</p>
+<ul>
+<li>Databases</li>
+<li>Caches</li>
+</ul>
+</li>
+<li>
+<p>In hash tables, instead of index (as in arrays), <mark><strong>we get to set a key value pair</strong></mark>. The <em>key</em> is used as the index to find the value in the memory.</p>
+</li>
+<li>
+<p>The mapping from key to values is done through a <mark><strong>hash function</strong></mark>,</p>
+</li>
+</ul>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mover><mo stretchy="true" minsize="3.0em">undefined</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>Hash&nbsp;Function</mtext></mpadded></mover><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">key \xrightarrow{\text{Hash Function}} value</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.30255em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mord mathnormal" style="margin-right: 0.03588em;">ey</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.10811em;"><span class="" style="top: -3.322em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">Hash&nbsp;Function</span></span></span></span></span><span class="svg-align" style="top: -2.689em;"><span class="pstrut" style="height: 2.7em;"></span><span class="hide-tail" style="height: 0.522em; min-width: 1.469em;"><svg width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.011em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span></span></span></span></span></span></p>
+<ul>
+<li><em>Hash function</em> gets to decide where to put data in the memory.</li>
+</ul>
+<h2 id="what-is-a-hash-function">What is a hash function?</h2>
+<ul>
+<li>A hash function is simply a function that generates a value of <mark><em><strong>fixed length</strong></em></mark> for each input that it gets. They get an input and based on that generate some random pattern.
+<ul>
+<li>There are some popular hash functions like <a href="http://www.miraclesalad.com/webtools/md5.php">MD5</a>, SHA, and SHA256.</li>
+</ul>
+</li>
+<li>Some key characteristics of hash functions are:
+<ol>
+<li>They are <mark>one way</mark>. You can’t go from the hashed value back to the actual input.</li>
+<li>No matter how many times you put the same input into the hash function, the output value is going to be the same.
+<ul>
+<li>As soon as you change even the smallest thing in your input, the output is going to completely change.</li>
+<li>This characteristic is called <mark><strong>idempotent</strong></mark>, i.e. a function, given an  input, always outputs the same output.</li>
+<li><strong>Note:</strong> In hash tables, we get <mark>really fast data access.</mark> All we need to do is to pass the key into the hash function and we know where it’s stored in the memory.
+<ul>
+<li>Generally, hash functions generate an <mark>index space (or address space)</mark> from the all the outputs.</li>
+</ul>
+</li>
+<li><strong>Doesn’t the hash function itself slow things down?</strong> It can, but since most hash functions are optimized and work really fast, we consider <mark><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mn mathvariant="bold">1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">1</span><span class="mclose">)</span></span></span></span></span></span></mark> time complexity for them.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="hash-collisions">Hash Collisions</h2>
+<ul>
+<li>The big-O of different methods on hash tables are,
+<ul>
+<li><strong>Insert:</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mn mathvariant="bold">1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">1</span><span class="mclose">)</span></span></span></span></span></span></li>
+<li><strong>Lookup:</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mn mathvariant="bold">1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">1</span><span class="mclose">)</span></span></span></span></span></span>
+<ul>
+<li>In case of <mark><em><strong>hash collision</strong></em></mark> it will be <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mi mathvariant="bold">n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">n</span><span class="mclose">)</span></span></span></span></span></span></li>
+</ul>
+</li>
+<li><strong>Delete:</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mn mathvariant="bold">1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">1</span><span class="mclose">)</span></span></span></span></span></span></li>
+<li><strong>Search:</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mn mathvariant="bold">1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">1</span><span class="mclose">)</span></span></span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<h3 id="hash-collision">Hash Collision</h3>
+<ul>
+<li>A collision occurs when more than one value to be hashed by a particular hash function hash to the same slot in the table or data structure (hash table) being generated by the hash function.
+<ul>
+<li>Check out <a href="https://www.cs.usfca.edu/~galles/visualization/OpenHash.html">this visualization</a>.</li>
+</ul>
+</li>
+<li>It can increase the lookup time by <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(n/k)</mtext><mo>→</mo><mtext>O(n)</mtext></mrow><annotation encoding="application/x-tex">\text{O(n/k)} \rightarrow \text{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n/k)</span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n)</span></span></span></span></span></span>, where <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> is the size of hash table.</li>
+<li>There are some remedies for that, some are mentioned <a href="https://en.wikipedia.org/wiki/Hash_table#Collision_resolution">here</a>.</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52174648208/in/dateposted-friend/" title="Screen Shot 2022-06-26 at 12.42.03 PM"><img src="https://live.staticflickr.com/65535/52174648208_1d0b827be7_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-26 at 12.42.03 PM"></a>
+</center><center><a href="https://www.flickr.com/photos/192167571@N04/52175132250/in/dateposted-friend/" title="Screen Shot 2022-06-26 at 12.42.33 PM"><img src="https://live.staticflickr.com/65535/52175132250_cf73b5dcf5_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-26 at 12.42.33 PM"></a>
+</center><p><strong>Hash table in different languages:</strong> Refer to <a href="https://en.wikipedia.org/wiki/Comparison_of_programming_languages_(associative_array)">this page</a> for a comprehensive</p>
+<h2 id="implement-a-hash-table">Implement a Hash table</h2>
+<p><strong>Note:</strong> Both <code>set</code> and <code>get</code> functions are <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span>. In case of small memory size (<code>size</code>), where collisions could happen, the <code>get</code> can become <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(n)</mtext></mrow><annotation encoding="application/x-tex">\text{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n)</span></span></span></span></span></span>. But in practice, with enough size memory, this implementation is <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span> and runs fast.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">class</span> <span class="token class-name">HashTable</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// this.data = [];</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> hash <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> key<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        hash <span class="token operator">=</span> <span class="token punctuation">(</span>hash <span class="token operator">+</span> key<span class="token punctuation">.</span><span class="token function">charCodeAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">*</span> i<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>length
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> hash<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> address <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">const</span> address <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> currentBucket <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>currentBucket<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> currentBucket<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>currentBucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> currentBucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> undefined<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> myHashTable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashTable</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">)</span>
+</code></pre>
+<p><em><strong>Python implementation</strong></em></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment"># implement a hash table</span>
+<span class="token keyword">class</span> <span class="token class-name">HashTable</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span> <span class="token operator">*</span> size
+
+    <span class="token keyword">def</span> <span class="token function">_hash</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">hash</span> <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token builtin">hash</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">hash</span> <span class="token operator">+</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> i<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token builtin">hash</span>
+
+    <span class="token keyword">def</span> <span class="token function">set</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        address <span class="token operator">=</span> self<span class="token punctuation">.</span>_hash<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        address <span class="token operator">=</span> self<span class="token punctuation">.</span>_hash<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        current_bucket <span class="token operator">=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> current_bucket<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> key<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>current_bucket<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> current_bucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">:</span>
+                    value <span class="token operator">=</span> current_bucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+                    <span class="token keyword">break</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            value <span class="token operator">=</span> current_bucket<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> value
+        
+
+
+hasht <span class="token operator">=</span> HashTable<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">,</span> <span class="token number">15000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">,</span> <span class="token number">20000</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="iterate-through-keys">Iterate through keys</h3>
+<p>We want to add another method to our hash table implementation above to be able to loop through the keys and give us all the keys.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">class</span> <span class="token class-name">HashTable</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// this.data = [];</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> hash <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> key<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        hash <span class="token operator">=</span> <span class="token punctuation">(</span>hash <span class="token operator">+</span> key<span class="token punctuation">.</span><span class="token function">charCodeAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">*</span> i<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>length
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> hash<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> address <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">const</span> address <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> currentBucket <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>currentBucket<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> currentBucket<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>currentBucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> currentBucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> undefined<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+	<span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+		<span class="token keyword">if</span>  <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>length<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+			<span class="token keyword">return</span>  undefined
+		<span class="token punctuation">}</span>
+		<span class="token keyword">let</span> result <span class="token operator">=</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span>
+		<span class="token comment">// loop through all the elements</span>
+		<span class="token keyword">for</span>  <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span>  <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span>  <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+			<span class="token comment">// if it's not an empty memory cell</span>
+			<span class="token keyword">if</span>  <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span>  <span class="token operator">&amp;&amp;</span>  <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+				<span class="token comment">// but also loop through all the potential collisions</span>
+				<span class="token keyword">if</span>  <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>length <span class="token operator">&gt;</span>  <span class="token number">1</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+					<span class="token keyword">for</span>  <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span>  <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span>  <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+					result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+					<span class="token punctuation">}</span>
+				<span class="token punctuation">}</span>  <span class="token keyword">else</span>  <span class="token punctuation">{</span>
+				result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">return</span> result<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> myHashTable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashTable</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">)</span>
+myHashTable<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p><em><strong>Python implementation</strong></em></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment"># implement a hash table</span>
+<span class="token keyword">class</span> <span class="token class-name">HashTable</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span> <span class="token operator">*</span> size
+
+    <span class="token keyword">def</span> <span class="token function">_hash</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">hash</span> <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token builtin">hash</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">hash</span> <span class="token operator">+</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> i<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token builtin">hash</span>
+
+    <span class="token keyword">def</span> <span class="token function">set</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        address <span class="token operator">=</span> self<span class="token punctuation">.</span>_hash<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        address <span class="token operator">=</span> self<span class="token punctuation">.</span>_hash<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        current_bucket <span class="token operator">=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>address<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> current_bucket<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> key<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>current_bucket<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> current_bucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">:</span>
+                    value <span class="token operator">=</span> current_bucket<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+                    <span class="token keyword">break</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            value <span class="token operator">=</span> current_bucket<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> value
+
+    <span class="token keyword">def</span> <span class="token function">keys</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        all_keys <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token operator">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                        all_keys<span class="token punctuation">.</span>append<span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    all_keys<span class="token punctuation">.</span>append<span class="token punctuation">(</span>self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> all_keys
+        
+
+
+hasht <span class="token operator">=</span> HashTable<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">,</span> <span class="token number">15000</span><span class="token punctuation">)</span>
+hasht<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">,</span> <span class="token number">20000</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'grapes'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'apples'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hasht<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>Note:</strong> This shows the <mark>downside of hash tables</mark>. To get the keys, we have to loop through all memory space even though not all the buckets might have data. In arrays, we just have to loop through the size of of the array. But in hash tables, because of random assignment to different memory buckets, we have to check all the buckets, even when they’re not occupied. The larger the size of the hash table, the longer this loop will take.</p>
+<h2 id="hash-tables-vs.-arrays">Hash tables vs. Arrays</h2>
+<ul>
+<li>Hash tables are great when you want quick access to certain values. Searching through an array for an item takes a really long time (we have to loop through every item and check).== That’s why you see hash tables in databases.==</li>
+<li>Inserting items in a hash table, unlike an array which needs to shift indices, is typically <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span>. You just simply have to hash and create the key.
+<ul>
+<li><strong>Note:</strong> Although, we might face cases of collision, but we can safely assume the <strong>insert</strong> for hash tables as an <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span> operation.</li>
+</ul>
+</li>
+<li>The <mark>problem with hash tables</mark> is that, unlike arrays, there’s no concept of order.
+<ul>
+<li><strong>Note:</strong> Recently, the Python programming language has made Dictionaries (their Hash Tables) ordered by default! So in that language, the difference between and Array (List in Python) and Hash Table (Dict in Python) are less. You can read more about it <a href="https://softwaremaniacs.org/blog/2020/02/05/dicts-ordered/en/">here</a>.</li>
+</ul>
+</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center"><strong>Arrays</strong></th>
+<th align="center"><strong>Hash Tables</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>search</strong></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(n)</mtext></mrow><annotation encoding="application/x-tex">\text{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n)</span></span></span></span></span></span></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td align="left"><strong>lookup</strong></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td align="left"><strong>insert</strong></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(n)</mtext></mrow><annotation encoding="application/x-tex">\text{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n)</span></span></span></span></span></span></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td align="left"><strong>delete</strong></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(n)</mtext></mrow><annotation encoding="application/x-tex">\text{O(n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(n)</span></span></span></span></span></span></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td align="left"><strong>push</strong></td>
+<td align="center"><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>O(1)</mtext></mrow><annotation encoding="application/x-tex">\text{O(1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">O(1)</span></span></span></span></span></span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table><p><strong>Hash table pros:</strong></p>
+<ul>
+<li>Fast lookups</li>
+<li>Fast inserts</li>
+<li>Flexible keys</li>
+</ul>
+<p><strong>Hash table cons:</strong></p>
+<ul>
+<li>
+<p>Unordered</p>
+</li>
+<li>
+<p>Slow key iteration</p>
+</li>
+<li>
+<p><strong>Note:</strong> Hash tables are usually the answer to improve time complexity.</p>
+</li>
+<li>
+<p><strong>Note:</strong> In cases of time vs. space tradeoff, sometimes storing extra state in memory can help the time (runtime). Hash tables usually solves this. You use more space, but you can get a time optimization to the process.</p>
+</li>
+</ul>
+<p><strong>Exercise: (Google interview question)</strong></p>
+<p>Given an array, return the first recurring element. For example:</p>
+<ul>
+<li>Given <code>[2,5,1,2,3,5,1,2,4]</code>, it should return 2.</li>
+<li>Given <code>[2,1,1,2,3,5,1,2,4]</code>, it should return 1.</li>
+<li>Given <code>[2,3,4,5]</code>, it should return <code>undefined</code> (or <code>None</code>  in Python).</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token comment">//Google Question</span>
+<span class="token comment">//Given an array = [2,5,1,2,3,5,1,2,4]:</span>
+<span class="token comment">//It should return 2</span>
+
+<span class="token comment">//Given an array = [2,1,1,2,3,5,1,2,4]:</span>
+<span class="token comment">//It should return 1</span>
+
+<span class="token comment">//Given an array = [2,3,4,5]:</span>
+<span class="token comment">//It should return undefined</span>
+
+
+<span class="token keyword">function</span> <span class="token function">firstRecurringCharacter</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> input<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> input<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> undefined
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">firstRecurringCharacter2</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> map <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">[</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">!==</span> undefined<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> input<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      map<span class="token punctuation">[</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> undefined
+<span class="token punctuation">}</span>
+
+<span class="token function">firstRecurringCharacter2</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+<span class="token comment">//Bonus... What if we had this:</span>
+<span class="token comment">// [2,5,5,2,3,5,1,2,4]</span>
+<span class="token comment">// return 5 because the pairs are before 2,2</span>
+</code></pre>
+<p><em><strong>Python implementation</strong></em></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment"># Google Question: Given an array, return the first recurring element.</span>
+
+<span class="token comment"># Example:</span>
+<span class="token comment"># --------</span>
+<span class="token comment"># Given an array = [2,5,1,2,3,5,1,2,4]:</span>
+<span class="token comment"># It should return 2</span>
+<span class="token comment"># Given an array = [2,1,1,2,3,5,1,2,4]:</span>
+<span class="token comment"># It should return 1</span>
+<span class="token comment"># Given an array = [2,3,4,5]:</span>
+<span class="token comment"># It should return undefined</span>
+
+<span class="token keyword">def</span> <span class="token function">count_recurring_character</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    char_count <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> arr<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token keyword">in</span> char_count<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            char_count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            char_count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> char_count
+
+<span class="token keyword">def</span> <span class="token function">find_first_second_distance</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    first_index <span class="token operator">=</span> arr<span class="token punctuation">.</span>index<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">del</span> arr<span class="token punctuation">[</span>first_index<span class="token punctuation">]</span>
+    second_index <span class="token operator">=</span> arr<span class="token punctuation">.</span>index<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> second_index <span class="token operator">-</span> first_index
+
+<span class="token keyword">def</span> <span class="token function">find_first_recurring_character</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    char_count <span class="token operator">=</span> count_recurring_character<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+    key <span class="token operator">=</span> <span class="token boolean">None</span>
+    min_distance <span class="token operator">=</span> <span class="token number">1000</span>
+    <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> char_count<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> v <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            index_distance <span class="token operator">=</span> find_first_second_distance<span class="token punctuation">(</span>k<span class="token punctuation">,</span> arr<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> index_distance <span class="token operator">&lt;</span> min_distance<span class="token punctuation">:</span>
+                min_distance <span class="token operator">=</span> index_distance
+                key <span class="token operator">=</span> k
+    <span class="token keyword">return</span> key
+            
+
+arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>find_first_recurring_character<span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1_Define Data and Establish Baseline</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#why-is-data-definition-hard">Why is data definition hard?</a>
+<ul>
+<li><a href="#iguana-detection-example">Iguana detection example</a></li>
+<li><a href="#phone-defect-detection-example">Phone defect detection example</a></li>
+</ul>
+</li>
+<li><a href="#more-label-ambiguity-examples">More label ambiguity examples</a>
+<ul>
+<li><a href="#speech-recognition-example">Speech recognition example</a></li>
+<li><a href="#example-of-structured-data">Example of structured data</a></li>
+<li><a href="#some-other-examples-...">Some other examples …</a></li>
+<li><a href="#data-definition-questions">Data definition questions</a></li>
+</ul>
+</li>
+<li><a href="#major-types-of-data-problems">Major types of data problems</a>
+<ul>
+<li><a href="#major-types-of-data-problems-1">Major types of data problems</a></li>
+</ul>
+</li>
+<li><a href="#small-data-and-label-consistency">Small data and label consistency</a></li>
+<li><a href="#improving-label-consistency">Improving label consistency</a>
+<ul>
+<li><a href="#improving-label-consistency-small-vs-big-data">Improving label consistency: small vs big data</a></li>
+</ul>
+</li>
+<li><a href="#human-level-performance-hlp">Human Level Performance (HLP)</a>
+<ul>
+<li><a href="#why-measure-hlp">Why measure HLP?</a></li>
+<li><a href="#other-uses-of-hlp">Other uses of HLP</a></li>
+</ul>
+</li>
+<li><a href="#raising-hlp">Raising HLP</a>
+<ul>
+<li><a href="#hlp-on-structured-data">HLP on structured data</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="why-is-data-definition-hard">Why is data definition hard?</h1>
+<h2 id="iguana-detection-example">Iguana detection example</h2>
+<p>To illustrate that, we’re going to use the <strong>Iguana detection example</strong>.</p>
+<ul>
+<li>Let’s say you’ve collected 100s of pictures of iguanas and you send these pictures to labelers with instructions to use a bounding box to indicate the position of iguanas.</li>
+<li>The labelers might have different interpretations as to where the boundaries of iguanas are in the pictures.</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51781733325/in/dateposted-friend/" title="Screen Shot 2021-12-27 at 7.34.23 PM"><img src="https://live.staticflickr.com/65535/51781733325_fdea1d9431_c.jpg" width="800" height="312" alt="Screen Shot 2021-12-27 at 7.34.23 PM"></a></p>
+<p>Either of these three labels would be fine on its own. What is <strong>NOT</strong> fine is that you 1/3 of your labelers use the 1st, 1/3 the second, and 1/3 the third labeling convention, because then your <strong>labeling is not consistent</strong>.</p>
+<h2 id="phone-defect-detection-example">Phone defect detection example</h2>
+<p>Different ways of labeling scratches and marks can create <strong>inconsistency in labels</strong> if all used together.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51780868166/in/dateposted-friend/" title="Screen Shot 2021-12-27 at 7.39.06 PM"><img src="https://live.staticflickr.com/65535/51780868166_eb9778bd5f_c.jpg" width="800" height="333" alt="Screen Shot 2021-12-27 at 7.39.06 PM"></a></p>
+<h1 id="more-label-ambiguity-examples">More label ambiguity examples</h1>
+<h2 id="speech-recognition-example">Speech recognition example</h2>
+<p>Sometimes sounds bites are transcribed differently (especially when the audio quality is not great or confusing),</p>
+<ul>
+<li>“Um, nearest gas station”</li>
+<li>“Umm, nearest gas station”</li>
+<li>“…, nearest gas station”</li>
+<li>“Nearest gas station [unintelligible]”</li>
+</ul>
+<p>There are combinatorially many ways to transcribe such cases.</p>
+<p>Being able to <strong>standardize on one convention</strong> will help the speech recognition algorithm.</p>
+<h2 id="example-of-structured-data">Example of structured data</h2>
+<p>A common application in many large organizations is user ID merge, i.e. when you have multiple data records that you think correspond to the same person and you want to merge the user data records together while making sure there are no duplicates (<strong>entity resolution problem</strong>).</p>
+<p>Entity resolution algorithms need some labeled data (to determine if two IDs are the same person or not). If those labels are not consistent, your algorithm could perform poorly.</p>
+<h2 id="some-other-examples-...">Some other examples …</h2>
+<ul>
+<li>Is it a bot/spam account?</li>
+<li>Is it a fraudulent transaction?</li>
+<li>Is someone looking for a job? (based on her activity on your website)</li>
+</ul>
+<blockquote>
+<p><strong>In all of these cases above, the ground truth can be ambiguous. If you ask people to take their best guess at the ground-truth label for tasks like these, giving labeling instructions that result in more consistent and less noisy and random labels will improve the performance of your learning algorithm.</strong></p>
+</blockquote>
+<h2 id="data-definition-questions">Data definition questions</h2>
+<ul>
+<li>
+<p>What is the input <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span>?</p>
+<ul>
+<li>Phone defect detection: lighting? contrast? resolution?</li>
+<li>If the quality of your input is not good, you have to improve it in the first place.</li>
+<li>What features need to be included?</li>
+</ul>
+</li>
+<li>
+<p>What is the target label <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span>?</p>
+<ul>
+<li>All the examples above.</li>
+</ul>
+</li>
+</ul>
+<h1 id="major-types-of-data-problems">Major types of data problems</h1>
+<p>There are different major types of ML projects and the data definition problems would vary based on those types.</p>
+<h2 id="major-types-of-data-problems-1">Major types of data problems</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">Unstructured</th>
+<th align="center">Structured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Small data (&lt;=10K)</strong></td>
+<td align="center">Manufacturing <br> visual inspection <br> from 100 training <br> examples</td>
+<td align="center">Housing price <br> prediction based <br> on square <br> footage, etc. from <br> 50 training <br> examples</td>
+</tr>
+<tr>
+<td><strong>Big data (&gt;10K)</strong></td>
+<td align="center">Speech <br> recognition from <br> 50 million training <br> examples</td>
+<td align="center">Online shopping <br> recommendations <br> for 1 million users</td>
+</tr>
+</tbody>
+</table><p><em><strong>Unstructured vs structured data</strong></em></p>
+<ul>
+<li>Unstructured
+<ul>
+<li>May or may not have a huge collection of unlabeled examples <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span>.</li>
+<li>Humans can label more data</li>
+<li>Data augmentation is more likely to be helpful</li>
+</ul>
+</li>
+<li>Structured
+<ul>
+<li>May be more difficult to obtain more data</li>
+<li>Human labeling may not be possible (with some exceptions)</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>Small vs big data</strong></em></p>
+<ul>
+<li>Small data
+<ul>
+<li>Clean labels are critical</li>
+<li>Can manually look through a dataset and fix labels.</li>
+<li>Can get all the labelers to talk to each other.</li>
+</ul>
+</li>
+<li>Big data
+<ul>
+<li>Emphasis on the data process</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> If you’re working on a problem from one of these four quadrants, then on average, advice from someone who worked on the same quadrants will probably be more useful than advice from someone who’s worked in a different quadrant.</p>
+</blockquote>
+<h1 id="small-data-and-label-consistency">Small data and label consistency</h1>
+<p>A lot of AI had recently grown up in large consumer internet companies which may have 100 million users or a billion users and have very large datasets. As a result, some of the practices on how to deal with small datasets have not been emphasized as much.</p>
+<p>It’s possible to find a good model fit for small data where you have <em><strong>consistent and clean labels</strong></em>.</p>
+<p><em><strong>Big data problems can have small data challenges too</strong></em></p>
+<p>Problems with a large dataset but where there’s a long tail of rare events in the input will have small data challenges too.</p>
+<ul>
+<li>Web search (rare queries)</li>
+<li>Self-driving cars (rare events)</li>
+<li>Product recommendation systems</li>
+</ul>
+<h1 id="improving-label-consistency">Improving label consistency</h1>
+<ul>
+<li>Find a few examples and have multiple labelers label the same examples.</li>
+<li>When there is disagreement, have MLE, subject matter expert (SME), and/or labelers discuss the definition of <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> to reach an agreement.</li>
+<li>If labelers believe that <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span> doesn’t contain enough information, consider changing <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span>.</li>
+<li>Iterate until it’s hard to significantly increase agreement.</li>
+</ul>
+<p><strong>Examples</strong></p>
+<ul>
+<li>Standardize labels</li>
+<li>Merge classes, e.g. Deep scratch and shallow scratch <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> scratch</li>
+<li>Have a class/label to capture uncertainty
+<ul>
+<li>In case of class ambiguity cannot be reduced, introduce a new class to capture borderline cases, e.g. in phone defect <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> (defect, not defect, borderline)</li>
+</ul>
+</li>
+</ul>
+<h2 id="improving-label-consistency-small-vs-big-data">Improving label consistency: small vs big data</h2>
+<ul>
+<li>Small data
+<ul>
+<li>Usually small number of labelers</li>
+<li>Can ask labelers to discuss specific labels.</li>
+</ul>
+</li>
+<li>Big data
+<ul>
+<li>Get to a consistent definition with a small group</li>
+<li>Then send labeling instructions to labelers</li>
+<li>Can consider having multiple labelers label every example and using voting or consensus labels to increase accuracy</li>
+</ul>
+</li>
+</ul>
+<h1 id="human-level-performance-hlp">Human Level Performance (HLP)</h1>
+<p>Some ML tasks are trying to predict an inherently ambiguous output, and HLP can establish a useful baseline of performance as a reference.</p>
+<p>But, HLP is also sometimes misused.</p>
+<h2 id="why-measure-hlp">Why measure HLP?</h2>
+<ul>
+<li>Estimate Bayes error/irreducible error to help with error analysis and prioritization. You can compare the HLP against the ground truth to find the HLP baseline.</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/51786520975/in/dateposted-friend/" title="Screen Shot 2021-12-29 at 2.22.16 PM"><img src="https://live.staticflickr.com/65535/51786520975_27ee4417ac_c.jpg" width="70%" height="auto" alt="Screen Shot 2021-12-29 at 2.22.16 PM"></a></center>
+<p><strong>Note:</strong> The ground truth itself, is probably, created by a human. So, <em><strong>are we really measuring what is possible or are we just measuring how well two different people happen to agree with each other?</strong></em></p>
+<p>When the ground truth label is itself determined by a person, there’s a very different approach to thinking about HLP.</p>
+<h2 id="other-uses-of-hlp">Other uses of HLP</h2>
+<ul>
+<li>In academia, establish and beat a respectable benchmark to support a publication.</li>
+<li>Business or product owner asks for 99% accuracy. HLP helps establish a more reasonable target.</li>
+<li>“Prove” the ML system is superior to humans doing the job and thus the business or product owner should adopt it.
+<ul>
+<li><strong>Note:</strong> Although this logically makes sense, in practice, this approach rarely works. So, use this logic with caution (or just don’t use it). Reasons for that would be:
+<ul>
+<li>Most business applications require more than just high average test accuracy.</li>
+<li>Learning algorithm may get an unfair advantage when the labeling instructions are inconsistent.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="raising-hlp">Raising HLP</h1>
+<p>When the ground truth is externally defined, there are fewer problems with HLP. For example, for X-ray detection problems, if the label is verified by a biopsy, then it’s very reliable. But, if the label comes from another doctor, then HLP is just how well can one doctor predict another doctor’s label vs how well can one learning algorithm predict another doctor’s label.</p>
+<ul>
+<li>When the ground truth is externally defined (e.g. biopsy), HLP gives an estimate for Bayes error / irreducible error.</li>
+<li>But often ground truth is just another human label.</li>
+<li>Rather than improving upon HLP, one must also aspire to examine why the HLP and ground truth (which is created by another human) don’t agree. This way we can raise the HLP to 100%. But this creates a problem. <em><strong>How do you want your ML to beat HLP if it’s already 100%?</strong></em>
+<ul>
+<li>This should be fine, as now you have much more consistent and cleaner labels which allow the learning algorithm to do better in practice <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> aspire to raise HLP instead of just focusing on beating HLP.</li>
+</ul>
+</li>
+<li>When the label <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> comes from a human label, HLP &lt;&lt; 100% may indicate ambiguous labeling instructions.</li>
+<li>Improving label consistency will raise HLP.</li>
+<li>This makes it harder for ML to beat HLP. But the more consistent labels will raise ML performance, which is ultimately likely to benefit the actual application performance.</li>
+</ul>
+<h2 id="hlp-on-structured-data">HLP on structured data</h2>
+<ul>
+<li>Structured data problems are less likely to involve human labelers, thus HLP is less frequently used.</li>
+<li>Some exceptions:
+<ul>
+<li>User ID merging: same person? (entity resolution algorithm performance depends on the quality of labels)</li>
+<li>Based on the network traffic, is the computer hacked?</li>
+<li>Is the transaction fraudulent?</li>
+<li>Spam account? bot?</li>
+<li>From GPS, what is the mode of transportation - on foot, bike, car, bus?</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>HLP is important for problems where human-level performance can a provide a useful reference. When measuring HLP, when you find that HLP is much less than 100%, also ask yourself is some of the gaps between HLP and complete consistency is due to inconsistent labeling instructions. If that’s the case, then improving labeling consistency will raise HLP and also give cleaner data for your learning algorithm, which ultimately results in better ML performance.</p>
+</blockquote>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

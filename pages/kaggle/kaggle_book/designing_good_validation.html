@@ -1,0 +1,850 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>designing_good_validation.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#suggested-strategy">Suggested strategy</a></li>
+<li><a href="#the-importance-of-validation-in-competitions">The importance of validation in competitions</a></li>
+<li><a href="#bias-and-variance">Bias and variance</a></li>
+<li><a href="#trying-different-splitting-strategies">Trying different splitting strategies</a></li>
+<li><a href="#the-basic-train-test-split">The basic train-test split</a></li>
+<li><a href="#probabilistic-evaluation-methods">Probabilistic evaluation methods</a></li>
+<li><a href="#k-fold-cross-validation">k-fold cross validation</a></li>
+<li><a href="#k-fold-variations">k-fold variations</a></li>
+<li><a href="#nested-cross-validation">Nested cross-validation</a></li>
+<li><a href="#producing-out-of-fold-predictions-oof">Producing out-of-fold predictions (OOF)</a></li>
+<li><a href="#subsampling">Subsampling</a></li>
+<li><a href="#the-bootstrap">The bootstrap</a></li>
+<li><a href="#tuning-your-model-validation-system">Tuning your model validation system</a></li>
+<li><a href="#using-adversarial-validation">Using adversarial validation</a>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#handling-different-distributions-of-training-and-test-data">Handling different distributions of training and test data</a></li>
+<li><a href="#handling-leakage">Handling leakage</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="intro">Intro</h2>
+<ul>
+<li><mark>One <strong>common error</strong></mark> in Kaggle competition is to rely on <em>public</em> learderboard ranking. In fact, the <em>private</em> leardeboard ranking can be quite different (since test sets are chosed randomly. In <em><strong>code competitions</strong></em> that actual test set is not even given). This indicates the importance of <strong>validation</strong> in data science competitions.</li>
+<li>Monitoring your performances when modeling and <mark>distinguishing when overfitting happens</mark> is a key competency not only in data science competitions but in all data science projects.</li>
+</ul>
+<p><strong>Train &amp; test datasets in Kaggle</strong></p>
+<ol>
+<li>In order for a competition to work properly, <mark>training data and test data should be from <strong>the same distribution</strong>.</mark>
+<ul>
+<li>Moreover, the private and public parts of the test data should resemble each other in terms of distribution.</li>
+</ul>
+</li>
+<li>Even if the training and test data are apparently from the same distribution, the <strong>lack of sufficient examples</strong> in either set could make it difficult to obtain aligned results between the training data and the public and private test data.</li>
+<li>The public test data should be regarded as a <mark>holdout test</mark> in a data science project: <mark>to be used only for final validation.</mark> Hence, it should not be queried much in order to avoid what is called <strong>adaptive overfitting</strong>, which implies a model that works well on a specific test set but underperforms on others. <a href="https://gregpark.io/blog/Kaggle-Psychopathy-Postmortem/">The dangers of overfitting</a></li>
+</ol>
+<p><strong>Shake-ups</strong></p>
+<ul>
+<li>The above considerations are the main reason for the <strong>shake-ups</strong> in the rankings, which is commonly attributed to the differences between the training and test sets or between the private and public parts of test data.</li>
+<li>A general shake-up is calculated like this: <code>mean(abs(private_rank - public_rank)/number_of_teams)</code>. See more <a href="https://www.kaggle.com/c/recruit-restaurant-visitor-forecasting/discussion/49106#278831">here</a> and <a href="https://www.kaggle.com/code/jtrotman/meta-kaggle-competition-shake-up/notebook">here</a>.</li>
+<li><mark>There is little adaptive overfitting</mark>; in other words, public standings usually do hold in the unveiled private leaderboard.</li>
+<li><mark>Most shake-ups are due to random fluctuations and overcrowded rankings</mark> where competitors are too near to each other, and any slight change in the performance in the private test sets causes major changes in the rankings.</li>
+<li>Shake-ups happen when the <mark>training set is very small</mark> or the training data is <mark>not independent and identically distributed (i.i.d.)</mark>. <a href="https://papers.nips.cc/paper/2019/file/ee39e503b6bedf0c98c388b7e8589aca-Paper.pdf">Paper: A Meta-Analysis of Overfitting in Machine Learning</a></li>
+</ul>
+<h2 id="suggested-strategy">Suggested strategy</h2>
+<p>Here, we suggest a <em><strong>strategy</strong></em> that is a bit more sophisticated than simply following what happens on the public leaderboard:</p>
+<ul>
+<li>Always build <mark>reliable cross-validation systems</mark> for local scoring.</li>
+<li>Always try to <mark>control non-i.i.d distributions</mark> using the best validation scheme dictated by the situation. Unless clearly stated in the description of the competition, <mark>it is not an easy task to spot non-i.i.d. distributions</mark>, but you can get hints from discussion or by experimenting using stratified validation schemes (when stratifying according to a certain feature, the results improve decisively, for instance).</li>
+<li><mark>Correlate local scoring with the public leaderboard</mark> in order to figure out whether or not they go in the same direction.</li>
+<li>Test using <mark>adversarial validation</mark>, revealing whether or not the test distribution is similar to the training data.</li>
+<li><mark>Make your solutions more robust using ensembling</mark>, especially if you are working with <mark>small datasets</mark>.</li>
+</ul>
+<h2 id="the-importance-of-validation-in-competitions">The importance of validation in competitions</h2>
+<blockquote>
+<p><mark><em><strong>If you think about a competition carefully, you can imagine it as a huge system of experiments. Whoever can create the most systematic and efficient way to run these experiments wins</strong></em></mark>.</p>
+</blockquote>
+<h3 id="systemic-experimentation">Systemic Experimentation</h3>
+<ul>
+<li>
+<p><strong>The key to successful participation resides in the number of experiments you conduct and the way you run all of them</strong>.</p>
+</li>
+<li>
+<p><strong>The way you run your experiments also has an impact. <mark>Fail fast and learn from it</mark> is an important factor in a competition</strong>.</p>
+</li>
+<li>
+<p><strong>Having a <mark>proper validation strategy</mark> is the great discriminator between successful Kaggle competitors and those who just overfit the leaderboard and end up in lower-than-expected rankings after the competition. <mark>Validation helps you experiment in the right direction.</mark></strong></p>
+</li>
+<li>
+<p>Though the temptation to submit your top public leaderboard models may be high, <mark>***always consider your own validation scores.***</mark></p>
+<ul>
+<li>For your <mark><em><strong>final submissions</strong></em></mark>, depending on the situation and <strong>whether or not you trust the leaderboard</strong>, choose your best model based on the leaderboard and your best based on your local validation results. If you don’t trust the leaderboard (especially when the training sample is small or the examples are non-i.i.d.), <mark>submit models that have two of the best validation scores</mark>, picking two very different models or ensembles. In this way, you will reduce the risk of choosing solutions that won’t perform on the private test set.</li>
+</ul>
+</li>
+</ul>
+<h2 id="bias-and-variance">Bias and variance</h2>
+<ul>
+<li><em><strong>A good validation system helps you with metrics that are more reliable than the error measures you get from your training set.</strong></em>
+<ul>
+<li>In fact, <mark>metrics obtained on the training set are affected by the capacity and complexity of each model.</mark></li>
+<li>You can think of the <strong>capacity</strong> of a model as its memory that it can use to learn from data.</li>
+</ul>
+</li>
+<li>Models can be reduced to mathematical functions that map an input (the observed data) to a result (the predictions).
+<ul>
+<li>If the mathematical function of a model is not complex or expressive enough to capture the complexity of the problem you are trying to solve, we talk of <mark><strong>bias</strong></mark>, because your predictions will be limited (“biased”) by the limits of the model itself.</li>
+<li>If the mathematical function at the core of a model is too complex for the problem at hand, we have a <mark><strong>variance</strong></mark> problem, because the model will record more details and noise in the training data than needed and its predictions will be deeply influenced by them and become erratic.</li>
+<li><strong>Note:</strong> Nowadays, given the advances in machine learning and the available computation resources, <mark>the problem is always due to variance</mark>.
+<ul>
+<li>The reason is deep neural networks and gradient boosting, the most commonly used solutions, often have a mathematical expressiveness that exceeds what most of the problems you will face need in order to be solved.</li>
+</ul>
+</li>
+<li>The process of learning elements of the training set that have no generalization value is commonly called <mark><strong>overfitting</strong></mark>.
+<ul>
+<li>The core purpose of validation is to explicitly define a score or loss value that separates the generalizable part of that value from that due to overfitting the training set characteristics. This is the <mark><strong>validation loss</strong></mark>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52193285123/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 10.15.03 AM"><img src="https://live.staticflickr.com/65535/52193285123_1228638b37_h.jpg" width="70%" height="auto" alt="Screen Shot 2022-07-04 at 10.15.03 AM"></a>
+</center><ul>
+<li><em><strong>You can hear about overfitting at various levels:</strong></em>
+<ul>
+<li>At the level of the <mark>training data</mark>, when you use a model that is too complex for the problem.</li>
+<li>At the level of the <mark>validation set itself</mark>, when you tune your model too much with respect to a specific validation set.</li>
+<li>At the level of the <mark>public leaderboard</mark>, when your results are far from what you would expect from your training.</li>
+<li>At the level of the <mark>private leaderboard</mark>, when in spite of the good results on the public leaderboard, your private scores will be disappointing</li>
+</ul>
+</li>
+</ul>
+<h2 id="trying-different-splitting-strategies">Trying different splitting strategies</h2>
+<p>To summarize the strategies for validating your model and measuring its performance correctly, you have a couple of choices:</p>
+<ul>
+<li>
+<p>The first choice is to <strong>work with a holdout system</strong>, incurring the risk of not properly choosing a representative sample of the data or overfitting to your validation holdout.</p>
+</li>
+<li>
+<p>The second option is to <strong>use a probabilistic approach</strong> and rely on a series of samples to draw your conclusions on your models.</p>
+<ul>
+<li>Among the probabilistic approaches, you have <em><strong>cross-validation</strong></em>, ***leave-one-out (LOO)***, and <em><strong>bootstrap</strong></em>.</li>
+<li>Among <em><strong>cross-validation strategies</strong></em>, there are different nuances <mark>depending on the <em><strong>sampling strategies</strong></em></mark> you take based on the characteristics of your data:
+<ul>
+<li><em><strong>Simple random sampling</strong></em></li>
+<li><em><strong>Stratified sampling</strong></em></li>
+<li><em><strong>Sampling by groups</strong></em></li>
+<li><em><strong>Time sampling</strong></em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Sampling</strong> is at the root of statistics and it <mark>is not an exact procedure</mark> because, based on your sampling method, your available data, and the randomness of picking up certain cases as part of your sample, you will experience a certain degree of error.</p>
+<ul>
+<li>For instance, if you rely on a biased sample, your evaluation metric may be estimated incorrectly (over- or under-estimated).</li>
+</ul>
+</li>
+<li>
+<p>The other aspect that all these strategies have in common is that they are <strong>partitions</strong>, which divide cases in an exclusive way as either part of the training or part of the validation.</p>
+</li>
+</ul>
+<h2 id="the-basic-train-test-split">The basic train-test split</h2>
+<ul>
+<li>
+<p>In this strategy, you sample a portion of your training set (also known as the <strong>holdout</strong>) and you use it as a test set for all the models that you train using the remaining part of the data.</p>
+</li>
+<li>
+<p><strong>Great advantage:</strong> It is very simple. In Scikit-learn, you can use the <code>train_test_split</code> function.</p>
+</li>
+</ul>
+<p><mark><strong>Notes on using <code>train_test_split</code>:</strong></mark></p>
+<ol>
+<li>When you have large amounts of data, you can expect that the test data you extract is similar to (representative of) the original distribution on the entire dataset.
+<ul>
+<li>However, since the extraction process is based on randomness, you always have the chance of extracting a non-representative sample.</li>
+<li>In particular, the chance increases if the training sample you start from is small.</li>
+<li>Comparing the extracted holdout partition using <strong>adversarial validation</strong> can help you to make sure you are evaluating your efforts in a correct way.</li>
+</ul>
+</li>
+<li>In addition, to ensure that your test sampling is representative, especially with regard to how the training data relates to the target variable, you can use <strong>stratification</strong>, which ensures that the proportions of certain features are respected in the sampled data.
+<ul>
+<li>You can use the <mark><code>stratify</code> parameter</mark> in the <code>train_test_split</code> function and provide an array containing the class distribution to preserve.</li>
+</ul>
+</li>
+</ol>
+<p><mark><strong>Note:</strong></mark> Even if you have a representative holdout available, sometimes <mark>a simple train-test split is not enough</mark> for ensuring a correct tracking of your efforts in a competition.</p>
+<ul>
+<li>In fact, as you keep checking on this test set, you may drive your choices to some kind of <mark><em><strong>adaptation overfitting</strong></em></mark> (in other words, erroneously picking up the noise of the training set as signals), as happens when you frequently evaluate on the public leaderboard.</li>
+<li>For this reason, a <em><strong>probabilistic evaluation</strong></em>, though more computationally expensive, is more suited for a competition.</li>
+</ul>
+<h2 id="probabilistic-evaluation-methods">Probabilistic evaluation methods</h2>
+<ul>
+<li>Probabilistic evaluation of the performance of a learning model is based on the statistical properties of a sample from a distribution.
+<ul>
+<li>By sampling, you create a smaller set of your original data that is expected to have the same characteristics.</li>
+</ul>
+</li>
+<li>By training and testing your model on this sampled data and repeating this procedure a large number of times, you are basically creating a <mark><em><strong>statistical estimator</strong></em></mark> measuring the performance of your model.</li>
+<li><mark>Every sample may have some <strong>error</strong> in it</mark>; i.e. it may not be fully representative of the true distribution of the original data.
+<ul>
+<li>However, as you sample more, the mean of your estimators on these multiple samples will converge to the true mean of the measure you’re estimating.</li>
+<li>This is by the <mark><em><strong>Law of Large Numbers</strong></em></mark> theorem.</li>
+</ul>
+</li>
+</ul>
+<h2 id="k-fold-cross-validation">k-fold cross validation</h2>
+<ul>
+<li>The <mark>most used</mark> probabilistic validation method. <a href="https://arxiv.org/pdf/2104.00673.pdf">Paper: Cross-validation: what does it estimate and how well does it do it?</a></li>
+<li>k-fold can be used to <mark>compare predictive models</mark> as well as <mark>selecting the hyperparameters</mark>.</li>
+<li>There are quite a few different variations of k-fold cross-validation, but the <em><strong>simplest one</strong></em> is the <mark><strong><code>KFold</code> in Scikit-learn</strong></mark>.
+<ul>
+<li>Split training data into <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> partitions, for <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> iterations, one of the <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> partitions is taken as test set while others used for training, <mark>the <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> validation scores are then averaged (i.e. <em><strong>k-fold validation score</strong></em>)</mark> which tells you the estimated average model performance.</li>
+<li>The <mark><em>standard deviation of the scores</em></mark> will inform you about the uncertainty of the estimate.</li>
+</ul>
+</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52193733948/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 1.28.31 PM"><img src="https://live.staticflickr.com/65535/52193733948_643a42a089_h.jpg" width="80%" height="auto" alt="Screen Shot 2022-07-04 at 1.28.31 PM"></a>
+</center><ul>
+<li>
+<p><mark><strong>Note:</strong></mark> One important aspect of the k-fold CV score is that it estimates the average score of a model trained on same quantity of data as <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.77777em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span></span></span></span></span> folds. <mark><em><strong>If, afterward, you train your model on all your data, the previous validation estimate no longer holds</strong></em>.</mark></p>
+<ul>
+<li><em>As k approaches the number n of examples, you have an increasingly correct estimate of the model derived on the full training set, yet, due to the growing correlation between the estimates you obtain from each fold, you will lose all the probabilistic estimates of the validation.</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> When you reach <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k=n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">n</span></span></span></span></span>, you have the <strong>LOO</strong> validation method, which is <mark>useful when you have a few cases available</mark>.</p>
+<ul>
+<li>The method is mostly an <mark>unbiased fitting measure</mark> since it uses almost all the available data for training and just one example for testing. <mark><em><strong>Yet, it is not a good estimate of the expected performance on unseen data</strong></em>.</mark> The repeated scores over the dataset are highly correlated.</li>
+</ul>
+</li>
+</ul>
+<h3 id="the-correct-k-number-of-partitions">The correct k number of partitions</h3>
+<ul>
+<li>
+<p>The <mark>smaller the k</mark> (the minimum is 2), the smaller each fold will be, and consequently, the <mark>more bias</mark> in learning there will be for a model trained on k - 1 folds: your model validated on a smaller k will be less well-performing with respect to a model trained on a larger k.</p>
+</li>
+<li>
+<p>The <mark>higher the k</mark>, the more the data, yet the <mark>more correlated your validation estimates</mark>: you will lose the interesting properties of k-fold cross-validation in estimating the performance on unseen data.</p>
+</li>
+<li>
+<p><mark><strong>Note:</strong></mark> Commonly, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> is set to 5, 7, or 10, more seldom to 20 folds. <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">k=5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">5</span></span></span></span></span> or <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">k=10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">10</span></span></span></span></span> are good choices for a competition.</p>
+<ul>
+<li>Since <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">k=10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">10</span></span></span></span></span> uses more data for training (90% of available data), it’s more suitable for figuring out the performance of your model when you re-train on the full dataset.</li>
+</ul>
+</li>
+</ul>
+<h3 id="two-important-considerations">Two important considerations</h3>
+<ol>
+<li>
+<p>The choice of <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> should reflect your goals:</p>
+<ul>
+<li><mark>If your purpose is performance estimation</mark>, you need models with low bias estimates (i.e. no systemic distortion of estimates). You can achieve this by using a <mark>higher number of folds</mark>, usually between 10 and 20.</li>
+<li><mark>If your aim is parameter tuning</mark>, you need a mix of bias and variance, so a medium <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> (between 5 and 7) would be a good choice.</li>
+<li><mark>If your purpose is just to apply variable selection and simplify your dataset</mark>, you need models with low variance estimates. Hence, <mark>a lower number of folds</mark> will suffice (between 3 and 5).</li>
+<li><strong>Note:</strong> When the size of the available data is quite large, you can safely stay on the lower side of the suggested bands.</li>
+</ul>
+</li>
+<li>
+<p>If you are just aiming for performance estimation, consider that the more folds you use, the fewer cases you will have in your validation set, so the more the estimates of each fold will be correlated.</p>
+<ul>
+<li>Beyond a certain point, increasing <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> renders your cross-validation estimates less predictive of unseen test sets and more representative of an estimate of how well-performing your model is on your training set.</li>
+<li>This also means that, with more folds, you can get the perfect out-of-fold prediction for stacking purposes.</li>
+</ul>
+</li>
+</ol>
+<p><mark><em><strong>k-fold CV to produce your predictions</strong></em>:</mark> Many Kaggle competitors use the models built during cross-validation to provide a series of predictions on the test set that, averaged, will provide them with the solution.</p>
+<h2 id="k-fold-variations">k-fold variations</h2>
+<p>Since it is based on random sampling, <mark>k-fold can provide unsuitable splits when</mark>:</p>
+<ul>
+<li>You have to <mark>preserve the proportion of small classes</mark>, both at the target and feature levels. <mark>This is typical when your target is highly imbalanced</mark>. <strong>Example,</strong> spam datasets, any credit risk dataset.</li>
+<li>You have to <mark>preserve the distribution of a numeric variable</mark>, both at the target and feature levels. <mark>This is typical of regression problems</mark> where the distribution is quite skewed or you have heavy, long tails. <strong>Example,</strong> house price prediction, where you have a consistent small proportion of houses on sale that will cost much more than the average house.</li>
+<li><mark>Your cases are not i.i.d</mark>, in particular when dealing with <mark>time series forecasting</mark>.</li>
+</ul>
+<h3 id="stratified-k-fold">Stratified k-fold</h3>
+<ul>
+<li>The sampling is done in a controlled way that preserves the distribution you want to preserve.</li>
+<li>Use <code>StratifiedKFold</code> from Scikit-learn, using a <em>stratification variable</em> (usually your target).
+<ul>
+<li>Other methods are <code>pandas.cut</code> and <code>KBinsDiscretizer</code> (from Scikit-learn).</li>
+</ul>
+</li>
+</ul>
+<h4 id="k-fold-stratification-based-on-multiple-variables">k-fold stratification based on multiple variables</h4>
+<ul>
+<li>You can find solution in the <mark><strong>Scikit-multilearn</strong> package</mark>, <a href="http://scikit.ml/">here</a>. In particular, the <code>IterativeStratified</code> command that helps you to control the order (the number of combined proportions of multiple variables) that you want to perserve, <a href="http://scikit.ml/api/skmultilearn.model_selection.iterative_stratification.html">see here</a>.
+<ul>
+<li><a href="http://lpis.csd.auth.gr/publications/sechidis-ecmlpkdd-2011.pdf">Paper: On the Stratification of Multi-Label Data</a></li>
+<li><a href="http://proceedings.mlr.press/v74/szyma%C5%84ski17a.html">Paper: A Network Perspective on Stratification of Multi-Label Data</a>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="k-fold-stratification-for-regression">k-fold stratification for regression</h4>
+<ul>
+<li>You can actually make good use of stratification even when your problem is not a classification, but a regression.</li>
+<li>You have to use a discrete proxy for your target instead of your continuous target.</li>
+<li>The <mark>simplest way</mark> is to use pandas <code>cut</code> function and divide your target into large enough number of bins.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+y_proxy <span class="token operator">=</span> pd<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>y_train<span class="token punctuation">,</span> bins<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> labels<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><em><strong>In order to determine the number of bins</strong></em>, you could use <mark><strong>Sturges’ rule</strong></mark> based on the number of examples available, <a href="https://www.kaggle.com/code/abhishek/step-1-create-folds/notebook">example</a>.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+bins <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>floor<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> np<span class="token punctuation">.</span>log2<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>X_train<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>Another <mark><em><strong>alternative approach</strong></em></mark> is to focus on the distributions of the features in the training set and aim to reproduce them.
+<ul>
+<li>This requires use of <mark><strong>cluster analysis</strong></mark>.</li>
+<li>The predicted clusters are used as strata.</li>
+<li><a href="https://www.kaggle.com/code/lucamassaron/are-you-doing-cross-validation-the-best-way/notebook">Example</a> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> first PCA is used to remove correlations, then a <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span>-means clustering is performed.</li>
+</ul>
+</li>
+</ul>
+<h4 id="non-i.i.d-data">Non-i.i.d data</h4>
+<ul>
+<li>Non-i.i.d data can happen in cases where there is some grouping between the examples.</li>
+<li>The problem with non-i.i.d data is that the features and targets are correlated between the examples.</li>
+<li>The solution here is to use <mark><code>GroupKFold</code></mark> by providing the grouping variable. It ensures the groups won’t split between training and validation datasets.</li>
+<li><mark><strong>Note:</strong></mark> Discovering groupings in the data is not an easy task and requires some effort to identify.</li>
+<li><mark><strong>Note:</strong></mark> Time series data present the same non-i.i.d problem due to <mark><em><strong>auto-correlation</strong></em></mark>. In time series, you must split based on time.</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52193378347/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 6.50.31 PM"><img src="https://live.staticflickr.com/65535/52193378347_cf42c622ff_h.jpg" width="80%" height="auto" alt="Screen Shot 2022-07-04 at 6.50.31 PM"></a>
+</center><ul>
+<li>For a more complex approach, you can use Scikit-learn’s <mark><code>TimeSeriesSplit</code></mark> method.</li>
+</ul>
+<p><em><strong>Growing training set and a moving validation set</strong></em></p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52194413608/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 6.54.34 PM"><img src="https://live.staticflickr.com/65535/52194413608_63f3e652b7_h.jpg" width="80%" height="auto" alt="Screen Shot 2022-07-04 at 6.54.34 PM"></a>
+</center><p><em><strong>Training (fixed lookback) and validation splits are moving over time</strong></em></p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52193385887/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 6.55.08 PM"><img src="https://live.staticflickr.com/65535/52193385887_8740e7c967_h.jpg" width="80%" height="auto" alt="Screen Shot 2022-07-04 at 6.55.08 PM"></a>
+</center><ul>
+<li>
+<p><mark><strong>Note:</strong></mark> Going by a fixed lookback helps to provide a fairer evaluation of time series models since you are always counting on the same training set size.</p>
+</li>
+<li>
+<p><mark><strong>Note:</strong></mark> Finally, remember that <code>TimeSeriesSplit</code> can be set to keep a pre-defined gap between your training and test time.</p>
+<ul>
+<li>This is extremely useful when you are told that the <mark>test set is a certain amount of time in the future</mark> (for instance, a month after the training data) and you want to test if your model is robust enough to predict that far into the future.</li>
+</ul>
+</li>
+</ul>
+<h2 id="nested-cross-validation">Nested cross-validation</h2>
+<ul>
+<li>Sometimes (when tuning hyperparameters) you to test your model’s performance with respect to their intermediate metrics (and not the final metric).</li>
+<li>In this case, you have to distinguish between a <strong>validation set</strong>, which is used to evaluate the performance of various models and hyperparameters, and a <strong>test set</strong>, which will help you to estimate the final performance of the model.
+<ul>
+<li>If you are using a test-train split, this is achieved by splitting the test part into two new parts. (The usual split is 70/20/10 for training, validation, and testing.</li>
+</ul>
+</li>
+<li><strong>Nested CV</strong> is cross-validation based on the split of another cross-validation.
+<ul>
+<li>Essentially, you run your usual cross-validation (external), but when you have to evaluate different models or different parameters, you run cross-validation based on the fold split (internal).</li>
+</ul>
+</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52194906440/in/dateposted-friend/" title="Screen Shot 2022-07-04 at 7.06.06 PM"><img src="https://live.staticflickr.com/65535/52194906440_d122a1abe1_h.jpg" width="90%" height="auto" alt="Screen Shot 2022-07-04 at 7.06.06 PM"></a>
+</center><ul>
+<li>==<strong>Note:</strong> There are couple of problems with this approach:
+<ul>
+<li>A reduced training set, since you first split by cross-validation, and then you split again.</li>
+<li>More importantly, it requires a huge amount of model building: if you run two nested 10-fold cross-validations, you’ll need to run 100 models.</li>
+</ul>
+</li>
+<li>Especially for this last reason, some Kagglers tend to ignore nested cross-validation and risk some adaptive fitting by using the same cross-validation for both model/parameter search and performance evaluation, or using a fixed test sample for the final evaluation.
+<ul>
+<li>Having said that, remember that using nested cross-validation, whenever possible, can provide you with a less overfitting solution and could make the difference in certain competitions.</li>
+</ul>
+</li>
+</ul>
+<h2 id="producing-out-of-fold-predictions-oof">Producing out-of-fold predictions (OOF)</h2>
+<ul>
+<li>
+<p>An interesting application of CV (besides model evaluation) is producing test predictions and <em><strong>out-of-fold predictions</strong></em>.</p>
+</li>
+<li>
+<p>In fact, as you do CV, you can:</p>
+<ul>
+<li><strong>Predict on the test set:</strong> The average of all predictions is often more effective than re-training the same model on all data. <mark>This is an ensembling technique related to blending</mark>.</li>
+<li><strong>Predict on the validation set:</strong> In the end, you will have predictions for the entire training set and can re-order them in the same order as the original training data. These predictions are commonly referred to as <mark><em><strong>out-of-fold (OOF) predictions</strong></em></mark> and they can be extremely useful.</li>
+</ul>
+</li>
+<li>
+<p>The <em><strong>first use of OOF predictions</strong></em> is to estimate your performance, since you can compute your evaluation metric directly on the OOF predictions.</p>
+<ul>
+<li><mark>The performance obtained is different from the cross-validated estimates (based on sampling)</mark>. It doesn’t have the same probabilistic characteristics, <mark>so it is not a valid way to measure generalization performance</mark>, but it can inform you about the performance of your model on the specific set you are training on.</li>
+</ul>
+</li>
+<li>
+<p>A <em><strong>second use of OOF predictions</strong></em> is to produce a plot and visualize predictions against the ground truth values (or predictions from other models).</p>
+<ul>
+<li>This can be used to create <em>meta-features</em> or <em>meta-predictors</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> Since every prediction in your OOF predictions has been generated by a model trained on different data, these predictions are unbiased and you can use them without any fear of overfitting.</p>
+</li>
+<li>
+<p><mark><em><strong>Generating OOF predictions can be done in two ways</strong></em></mark>:</p>
+<ul>
+<li>By coding a procedure that stores the validation predictions into a prediction vector, taking care to arrange them in the same index position as the examples in the training data.</li>
+<li>By using the Scikit-learn function <mark><strong><code>cross_val_predict</code></strong></mark>, which will automatically generate the OOF predictions for you.</li>
+</ul>
+</li>
+</ul>
+<h2 id="subsampling">Subsampling</h2>
+<ul>
+<li>Another strategy for subsampling is <em><strong>subsampling</strong></em>.</li>
+<li>Subsampling is similar to <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span>-fold, <mark>but you do not have fixed folds</mark>; you use as many as you think are necessary (in other words, take an educated guess).</li>
+<li>You repetitively subsample your data, using the sampled data for training and the remaining for validation.</li>
+<li>By averaging the evaluation metrics of all the subsamples, you will get a validation estimate of the performances of your model.</li>
+<li>You can use Scikit-learn’s <code>ShuffleSplit</code> for this sort of validation.</li>
+</ul>
+<h2 id="the-bootstrap">The bootstrap</h2>
+<ul>
+<li>
+<p>Another option is to try <em><strong>bootstrap</strong></em>, which is <mark>a statistical method for concluding the error distribution of an estimate</mark>. For the same reason, it can be used for performance estimation.</p>
+</li>
+<li>
+<p>The bootstrap requires you <mark><em><strong>to draw a sample, with replacement, that is the same size as the available data</strong></em></mark>.</p>
+</li>
+<li>
+<p>At this point, you can use the bootstrap in two ways:</p>
+<ol>
+<li>As in statistics, <em>you can bootstrap multiple times</em>, train your model on the samples, and compute your evaluation metric on the training data itself. The average of the bootstraps will provide your final evaluation.</li>
+<li>Otherwise, as in <em>subsampling</em>, you can use the bootstrapped sample for your training and what is left not sampled from the data as your test set.</li>
+</ol>
+</li>
+<li>
+<p><strong>Note:</strong> <mark>This method is more suitable for its statistical applications, and not much less useful for machine learning</mark>, mainly because most ML models tend to overfit.</p>
+<ul>
+<li>For this reason, Efron and Tibshirani, <em>Improvements on cross-validation: the 632+ bootstrap method</em>, proposed <mark><strong>the 632+ estimator</strong></mark> as a final validation metric.</li>
+</ul>
+</li>
+</ul>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>e</mi><mi>r</mi><msub><mi>r</mi><mn>0.632</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>w</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>fit</mtext></msub><mo>+</mo><mi>w</mi><mi mathvariant="normal">.</mi><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>bootstrap</mtext></msub></mrow><annotation encoding="application/x-tex">err_{0.632} + (1-w).err_{\text{fit}} + w . err_{\text{bootstrap}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.73333em; vertical-align: -0.15em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0.632</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.02691em;">w</span><span class="mclose">)</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">fit</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord mathnormal" style="margin-right: 0.02691em;">w</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">bootstrap</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>where</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>w</mi><mo>=</mo><mfrac><mn>0.632</mn><mrow><mn>1</mn><mo>−</mo><mn>0.632</mn><mi>R</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">w = \frac{0.632}{1 - 0.632R}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.02691em;">w</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 2.09077em; vertical-align: -0.76933em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.32144em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord">0.632</span><span class="mord mathnormal" style="margin-right: 0.00773em;">R</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">0.632</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.76933em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>bootstrap</mtext></msub><mo>−</mo><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>fit</mtext></msub></mrow><mrow><mi>γ</mi><mo>−</mo><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>fit</mtext></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">R = \frac{err_{\text{bootstrap}} - err_{\text{fit}}}{\gamma - err_{\text{fit}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.00773em;">R</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 2.14077em; vertical-align: -0.88044em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.26033em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05556em;">γ</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">fit</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">bootstrap</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">fit</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.88044em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>fit</mtext></msub></mrow><annotation encoding="application/x-tex">err_{\text{fit}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">fit</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span> is your metric computed on the training data,</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><msub><mi>r</mi><mtext>bootstrap</mtext></msub></mrow><annotation encoding="application/x-tex">err_{\text{bootstrap}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">er</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.02778em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">bootstrap</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span> is the metric computed on the bootstrapped data.</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.05556em;">γ</span></span></span></span></span> is the <mark><strong>no-information error rate</strong></mark>, estimated by evaluating the prediction model on all possible combinations of targets and predictors.
+<ul>
+<li>Calculating <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.05556em;">γ</span></span></span></span></span> is intractable, <a href="https://github.com/scikit-learn/scikit-learn/issues/9153">see more</a>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em><strong>Given the limits and intractability of using the bootstrap as in classical statistics for machine learning applications, <mark>you can instead use the second method</mark>, getting your evaluation from the examples left not sampled by the bootstrap.</strong></em></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Note:</strong> As with subsampling, this method requires building many more models and testing them than for <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span>-fold CV.</p>
+</li>
+<li>
+<p>There was <a href="https://github.com/scikit-learn/scikit-learn/blob/0.16.X/sklearn/cross_validation.py#L613">an implementation of bootstrap method for CV</a> on Scikit-learn, but was then removed. Below is another implementation:</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> random
+
+<span class="token keyword">def</span> <span class="token function">Bootstrap</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> n_iter<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">"""
+	Random sampling with replacement cross-validation generator.
+	For each iter a sample bootstrap of the indexes [0, n) is 
+	generated and the functions returns the obtained sample 
+	and a list of all the excluded indexes.
+	"""</span>
+	<span class="token keyword">if</span> random_state"
+		random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span>random_state<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n_iter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		bs <span class="token operator">=</span> <span class="token punctuation">[</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n<span class="token number">-1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
+		out_bs <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token punctuation">{</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">-</span> <span class="token builtin">set</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">yield</span> bs<span class="token punctuation">,</span> out_bs 
+</code></pre>
+<blockquote>
+<p>***In conclusion, the bootstrap is indeed an alternative to cross-validation. It is certainly more widely used in statistics and finance. In machine learning, the golden rule is to use the k-fold cross-validation approach. However, we suggest not forgetting about the bootstrap in all those situations where, due to outliers or a few examples that are too heterogeneous, you have a large standard error of the evaluation metric in cross-validation. In these cases, the bootstrap will prove much more useful in validating your models. ***</p>
+</blockquote>
+<h2 id="tuning-your-model-validation-system">Tuning your model validation system</h2>
+<ul>
+<li>
+<p><em><strong>As a golden rule</strong></em>, be guided in devising your validation strategy by the idea that you have to replicate the same approach used by the organizers of the competition to split the data into training, private, and public test sets.</p>
+</li>
+<li>
+<p>Ask yourself how the organizers have arranged those splits.</p>
+<ul>
+<li>Did they draw a random sample?</li>
+<li>Did they try to preserve some specific distribution in the data?</li>
+<li>Are the test sets actually drawn from the same distribution as the training data?</li>
+</ul>
+</li>
+<li>
+<p><mark>If you focus on this idea from the beginning, you will have more of a chance of finding out the best validation strategy, which will help you rank more highly in the competition.</mark></p>
+</li>
+<li>
+<p><strong>Note:</strong> These are not the questions you would ask yourself in a real-world project. Contrary to real-world projects, competitions have a much narrower focus.</p>
+</li>
+<li>
+<p>==Since this is a trial-and-error process, apply the following <strong>two consistency checks</strong> in order to figure out if you are on the right path:</p>
+<ol>
+<li>First, you have to check <mark>if your local tests are consistent</mark>, that is, that the single cross-validation fold errors are not so different from each other or, when you opt for a simple train-test split, that the same results are reproducible using different train-test splits.
+<ul>
+<li><em><strong>If you’re failing this check</strong></em>, you have a few options depending on the following possible origins of the problem:
+<ul>
+<li>You don’t have much training data.</li>
+<li>The data is too diverse and every training partition is very different from every other (for instance, if you have too many <strong>high cardinality</strong> features, that is, features with many levels - like zip codes - or if you have multivariate outliers).</li>
+</ul>
+</li>
+<li>In both cases, the point is you <mark>lack data</mark>.</li>
+<li>In this case, unless you find out that moving to a simpler algorithm works on the evaluation metric (in which case trading variance for bias may worsen your model’s performance, but not always), <mark>your best choice is to use an extensive validation approach</mark>. This can be implemented by:
+<ul>
+<li>Using larger <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span> values (thus approaching LOO where <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k = n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">n</span></span></span></span></span>). Your validation results will be less about the capability of your model to perform on unseen data, but by using larger training portions, you will have the advantage of more stable evaluations.</li>
+<li>Averaging the results of multiple <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span></span>-fold validations (based on different data partitions picked by different random seed initializations).</li>
+<li>Using repetitive bootstrapping.</li>
+</ul>
+</li>
+<li>Keep in mind that when you find unstable local validation results, you won’t be the only one to suffer from the problem.</li>
+<li>Usually, <mark>this is a common problem due to the data’s origin and characteristics</mark>.</li>
+<li>By keeping tuned in to the discussion forums, you may get hints at possible solutions.
+<ul>
+<li>For instance, a good solution for high cardinality features is target encoding; stratification can help with outliers; and so on.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Then, you have to check <mark>if your local validation error is consistent</mark> with the results on the public leaderboard.
+<ul>
+<li>Here, your local cross-validation is consistent but you find that it doesn’t hold on the leaderboard.</li>
+<li><mark>In order to realize this problem exists</mark>, you have to keep diligent note of all your experiments, validation test types, random seeds used, and leaderboard results if you submitted the resulting predictions.
+<ul>
+<li>In this way, you can draw a simple scatterplot and try fitting a linear regression or, even simpler, compute a correlation between your local results and the associated public leaderboard scores.</li>
+</ul>
+</li>
+<li>It costs some time and patience to annotate and analyze all of these, <mark><em><strong>but it is the most important meta-analysis of your competition performances that you can keep track of</strong></em>.</mark></li>
+<li>Once verified it is the second case, you actually have a strong signal that something is missing from your validation strategy. Although, you can still work on improving your model, but the improvement won’t be proportional to your ranking on learderboard.
+<ul>
+<li>However, <mark><em><strong>systematic differences are always a red flag</strong></em></mark>, implying something is different between what you are doing and what the organizers have arranged for testing the model.</li>
+<li>An even worse scenario occurs when your local cross-validation scores do not correlate at all with the leaderboard feedback. <mark><em><strong>This is really a red flag</strong></em>.</mark></li>
+<li><em>When you realize this is the case, you should immediately run a series of tests and investigations in order to figure out why, because, regardless of whether it is a common problem or not, the situation poses a serious threat to your final rankings. There are a few possibilities in such a scenario</em>:
+<ul>
+<li><mark>You figure out that the test set is drawn from a different distribution to the training set</mark>. The <em><strong>adversarial validation test</strong></em> is the method that can enlighten you in such a situation.</li>
+<li>The <mark>data is non-i.i.d. but this is not explicit</mark>. For instance, in <a href="https://www.kaggle.com/c/the-nature-conservancy-fisheries-monitoring">The Nature Conservancy Fisheries Monitoring competition</a>, images in the training set were taken from similar situations (fishing boats). You had to figure out by yourself how to arrange them in order to avoid the model learning to identify the target rather than the context of the images (see, for instance, <a href="https://www.kaggle.com/anokas/finding-boatids">this work by Anokas</a>).</li>
+<li>The <mark>multivariate distribution of the features is the same, but some groups are distributed differently in the test set</mark>. If you can figure out the differences, you can set your training set and your validation accordingly and gain an edge. <mark>You need to probe the public leaderboard to work this out</mark>. <em>probing the leaderboard</em> is the act of making specifically devised submissions in order to get insights about the composition of the public test set. It works particularly well if the private test set is similar to the public one. <em><strong>There are no general method for probing, you have to devise your own</strong></em>. <a href="https://export.arxiv.org/pdf/1707.01825">LB probing example 1</a>, <a href="https://www.kaggle.com/c/30-days-of-ml/discussion/269541">LB probing example 2</a>, <a href="https://www.kaggle.com/code/cdeotte/lb-probing-strategies-0-890-2nd-place/notebook">LB probing example 3</a>, <a href="https://towardsdatascience.com/how-to-lb-probe-on-kaggle-c0aa21458bfe">LB probing example 4</a>.</li>
+<li>The <mark>test data is drifted or trended</mark>, which is usually the case in time series predictions. Again, you need to probe the public leaderboard to get some insight about some possible post-processing that could help your score, for instance, applying a multiplier to your predictions, thus mimicking a decreasing or increasing trend in the test data.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="using-adversarial-validation">Using adversarial validation</h2>
+<ul>
+<li>
+<p>As we have discussed, <em><strong>cross-validation allows you to test your model’s ability to generalize to <mark>unseen datasets coming from the same distribution</mark> as your training data</strong></em>. In reality, this is not always the case.</p>
+</li>
+<li>
+<p>This could happen in the event that the test set is even slightly different from the training set on which you have based your model.</p>
+</li>
+<li>
+<p>Hence, <mark>it is not enough to avoid overfitting to the leaderboard</mark>, but, in the first place, it is also <mark>advisable to find out if your test data is comparable to the training data</mark>.</p>
+</li>
+<li>
+<p><mark><strong>Adversarial validation</strong></mark> has been developed just for this purpose. <em><strong>It’s a technique allowing you to easily estimate the degree of difference between your training and test data</strong></em>.</p>
+</li>
+<li>
+<p><strong>The idea is simple:</strong></p>
+<ul>
+<li>Take your training data, remove the target, assemble your training data together with your test data, and create a new binary classification target where the positive label is assigned to the test data.</li>
+<li>At this point, run a machine learning classifier and evaluate for the ROC-AUC evaluation metric.</li>
+<li><mark>If your ROC-AUC is around 0.5, it means that the training and test data are not easily distinguishable</mark> and are apparently from the same distribution.</li>
+<li><a href="https://www.kaggle.com/code/konradb/adversarial-validation-and-other-scary-terms/notebook">Example notebook</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> Since there might be <mark>missing values</mark>, you need to do some data processing before running the classifier. It’s recommended to use the <mark>random forest classifier</mark> because:</p>
+<ul>
+<li>It doesn’t output true probabilities but its results are intended as <mark>simply ordinal</mark>, which is a perfect fit for an ROC-AUC score.</li>
+<li>The random forest is a flexible algorithm based on decision trees that <mark>can do feature selection by itself</mark> and operate on different types of features <mark>without any pre-processing</mark>, while rendering all the data numeric. It is also <mark>quite robust to overfitting</mark> and <mark>you don’t have to think too much about fixing its hyperparameters</mark>.</li>
+<li>You don’t need much data processing because of its tree-based nature. <mark>For missing data, you can simply replace the values with an improbable negative value such as -999</mark>, and you can <mark>deal with string variables by converting their strings into numbers (for instance, using the Scikit-learn label encoder, <strong><code>sklearn.preprocessing.LabelEncoder</code></strong>).</mark> As a solution, it performs less well than one-hot encoding, but it is very speedy and it will work properly for the problem.</li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> Although building a classification model is the most direct way to adversarially validate, you can also use other approaches.</p>
+<ul>
+<li><em><strong>One approach is to <mark>map both training and test data into a lower-dimensional space</mark>.</strong></em></li>
+<li><a href="https://www.kaggle.com/code/nanomathias/distribution-of-test-vs-training-data/notebook">Example notebook</a></li>
+<li>The <strong>advantage</strong> here is that you can graphically represent data using methods such as t-SNE or PCA.
+<ul>
+<li><a href="https://github.com/lmcinnes/umap">UMAP</a> can offer faster low-dimensionality solution with clear and distinct data clusters.</li>
+<li>Variational AutoEncoders (VAE) can deal with non-linear reduction and offer a more useful representation than PCA. More complicated to setup though.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="example-implementation">Example implementation</h4>
+<p>This implementation is based on <a href="https://www.kaggle.com/c/tabular-playground-series-jan-2021">this competition</a></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> cross_val_predict
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> roc_auc_score
+train <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"../input/tabular-playground-series-jan-2021/train.csv"</span><span class="token punctuation">)</span>
+test <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"../input/tabular-playground-series-jan-2021/test.csv"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Data preparation is short and to the point. Since all features are numeric, </span>
+<span class="token comment"># you won’t need any label encoding, but you do have to fill any missing values</span>
+<span class="token comment"># with a negative number (-1 usually works fine), and drop the target and also any identifiers.</span>
+
+train <span class="token operator">=</span> train<span class="token punctuation">.</span>fillna<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"target"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+test <span class="token operator">=</span> test<span class="token punctuation">.</span>fillna<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+X <span class="token operator">=</span> train<span class="token punctuation">.</span>append<span class="token punctuation">(</span>test<span class="token punctuation">)</span>
+y <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token builtin">len</span><span class="token punctuation">(</span>train<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span>
+
+<span class="token comment"># At this point, you just need to generate `RandomForestClassifier` predictions </span>
+<span class="token comment"># for your data using the `cross_val_predict` function, which automatically</span>
+<span class="token comment"># creates a cross-validation scheme and stores the predictions on the validation fold:</span>
+
+model <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span>
+cv_preds <span class="token operator">=</span> cross_val_predict<span class="token punctuation">(</span>model<span class="token punctuation">,</span> X<span class="token punctuation">,</span> y<span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> n_jobs<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> method<span class="token operator">=</span><span class="token string">'predict_proba'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># As a result, you obtain predictions that are unbiased (they are not overfit as</span>
+<span class="token comment"># you did not predict on what you trained) and that can be used for error</span>
+<span class="token comment"># estimation. Please note that `cross_val_predict` won’t fit your instantiated</span>
+<span class="token comment"># model, so you won’t get any information from it, such as what the important</span>
+<span class="token comment"># features used by the model are. If you need such information, you just need to</span>
+<span class="token comment"># fit it first by calling `model.fit(X, y)`.</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>roc_auc_score<span class="token punctuation">(</span>y_true<span class="token operator">=</span>y<span class="token punctuation">,</span> y_score<span class="token operator">=</span>cv_preds<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># You should obtain a value of around 0.49-0.50 (`cross_val_predict` won’t be</span>
+<span class="token comment"># deterministic unless you use cross-validation with a fixed `random_seed`).</span>
+</code></pre>
+<h2 id="handling-different-distributions-of-training-and-test-data">Handling different distributions of training and test data</h2>
+<ul>
+<li><mark>ROC-AUC scores of 0.8</mark> or more would alert you that the test set is peculiar and quite distinguishable from the training data.</li>
+<li>In such cases, you have a <mark><strong>few strategies</strong></mark>:
+<ul>
+<li>Suppression</li>
+<li>Training on cases most similar to the test set</li>
+<li>Validating by mimicking the test set</li>
+</ul>
+</li>
+</ul>
+<h3 id="suppression">Suppression</h3>
+<ul>
+<li>You <mark>remove the variables</mark> that most influence the result in the adversarial test set until the distributions are the same again.</li>
+<li>To do so, you need an iterative approach.
+<ol>
+<li>You fit your model to all your data, and then you check the importance measures (<code>feature_importance_</code> from the Scikit-learn <code>RandomForest</code>) and the ROC-AUC fit score.</li>
+<li>At this point, you remove the most important variable and run everything again.</li>
+<li>Repeat step 1 &amp; 2 until the fitted ROC-AUC score decreases to around 0.5.</li>
+</ol>
+</li>
+<li><strong>Note:</strong> The only <mark><strong>problem</strong></mark> with this method is that you may actually be forced to remove the majority of important variables from your data.
+<ul>
+<li>Any model you then build on such variable censored data won’t be able to predict sufficiently correctly due to the lack of informative features.</li>
+</ul>
+</li>
+</ul>
+<h3 id="train-on-the-examples-most-similar-to-test-set">Train on the examples most similar to test set</h3>
+<ul>
+<li>In this approach, <mark>you focus on the <em>samples</em></mark> you use for training instead of <em>features</em>.</li>
+<li>You pick up from the training set only the samples that fit the test distribution.
+<ul>
+<li><strong>Note:</strong> Any trained model then suits the testing distribution (but it won’t be generalizable to anything else), which should allow you to test the best on the competition problem.</li>
+</ul>
+</li>
+<li>The <mark><strong>limitation</strong></mark> of this approach is that you are cutting down the size of your dataset, and depending on the number of samples remained, you may suffer from a <mark>very biased</mark> resulting model.
+<ul>
+<li>In the previous example, picking up just the adversarial predictions on the training data that exceed a probability of 0.5 and summing them results in picking only 1,495 cases (the number is so small because the test set is not very different from the training set):</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>cv_preds<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token builtin">len</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="validating-by-mimicking-the-test-set">Validating by mimicking the test set</h3>
+<ul>
+<li>You keep on training on all the data, but for validation purposes, <mark>you pick your examples only from the adversarial predictions</mark> on the training set that exceed a probability of 0.5 (or an even higher threshold such as 0.9).</li>
+<li>Having a validation set tuned to the test set will allow you to pick all the possible hyperparameters and model choices that will favor a better result on the leaderboard.
+<ul>
+<li>In the previous example, we can figure out that <code>feature_19</code> and <code>feature_54</code> appear the most different between the training/test split from the output of the following code:</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+ranks <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">zip</span><span class="token punctuation">(</span>X<span class="token punctuation">.</span>columns<span class="token punctuation">,</span> model<span class="token punctuation">.</span>feature_importances_<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+               key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> feature<span class="token punctuation">,</span> score <span class="token keyword">in</span> ranks<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{feature:10} : {score:0.4f}"</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="concluding-remarks-on-adversarial-validation">Concluding remarks on adversarial validation</h3>
+<ul>
+<li>First, <mark>using it will generally help</mark> you to perform better in competitions, <mark>but not always</mark>. <mark>Kaggle’s Code competitions</mark>, and other competitions where you cannot fully access the test set, <mark>cannot be inspected by adversarial validation</mark>.</li>
+<li>In addition, adversarial validation can inform you about the test data as a whole, but <mark>it cannot advise you on the split between the private and the public test data</mark>, which is the <mark>cause of the most</mark> common form of public leaderboard overfitting and consequent <mark>shake-up</mark>.</li>
+<li>Finally, adversarial validation, though a very specific method devised for competitions, has <mark>quite a few practical use cases in the real world</mark>:
+<ul>
+<li>How often have you picked the wrong test set to validate your models? The method we have presented here can enlighten you about whether you are using the test data, and any validation data, in your projects properly.</li>
+<li>Moreover, data changes and models in production may be affected by such changes and produce bad predictions if you don’t retrain them. This is called <mark><strong>concept drift</strong></mark>, and <mark>by using adversarial validation, you can immediately understand if you have to retrain new models</mark> to put into production or if you can leave the previous ones in operation.</li>
+</ul>
+</li>
+</ul>
+<h2 id="handling-leakage">Handling leakage</h2>
+<ul>
+<li>
+<p><strong>Leakage</strong> (also referred to as <em>golden features</em>) involves information in the training phase that won’t be available at prediction time.</p>
+</li>
+<li>
+<p>The presence of such information (leakage) will make your model over-perform in training and testing, allowing you to rank highly in the competition, but will render <mark>unusable or at best suboptimal any solution based on it from the sponsor’s point of view</mark>.</p>
+</li>
+<li>
+<p>We can define leakage as ***“when information concerning the ground truth is artificially and unintentionally introduced within the training feature data, or training metadata”***.</p>
+</li>
+<li>
+<p>Leakage is often found in Kaggle competitions.</p>
+</li>
+<li>
+<p><strong>Note:</strong> <mark><em>Don’t confuse data leakage with a leaky validation strategy</em></mark>:</p>
+<ul>
+<li>In a <em><strong>leaky validation strategy</strong></em>, the problem is that you have arranged your validation strategy in a way that favors better validation scores because some information leaks from the training data. It has nothing to do with the competition itself, but it relates to how you are handling your validation.</li>
+<li><mark>It occurs if</mark> you run any pre-processing modifying your data (normalization, dimensionality reduction, missing value imputation) before separating training and validation or test data.</li>
+<li><em><strong>In order to prevent leaky validation</strong></em>, if you are using Scikit-learn to manipulate and process your data, you absolutely have to exclude your validation data from any fitting operation.
+<ul>
+<li>Fitting operations tend to create leakage if applied to any data you use for validation.</li>
+<li>The <mark>best way to avoid this</mark> is to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">Scikit-learn pipelines</a>.</li>
+</ul>
+</li>
+<li><em><strong>Data leakage</strong></em> instead is therefore something that is not strictly related to validation operations, though it affects them deeply.</li>
+</ul>
+</li>
+<li>
+<p>Generally speaking, <mark><em><strong>leakage can originate at a feature or example level</strong></em></mark>.</p>
+</li>
+</ul>
+<h3 id="feature-leakage">Feature leakage</h3>
+<ul>
+<li>This is by far the most common leakage.</li>
+<li><mark>It can be caused by</mark> the existence of a proxy for the target, or by a feature that is posterior to the target itself.</li>
+<li>A <strong>target proxy</strong> could be anything derived from processing the label itself or from the test split process.
+<ul>
+<li>For instance, when defining identifiers, specific identifiers (a numeration arc, for instance) may be associated with certain target responses, making it easier for a model to guess if properly fed with the information processed in the right way.</li>
+</ul>
+</li>
+<li><strong>Leakage due to competition organizer’s mistake:</strong> A more subtle way in which data processing can cause leakage is when the competition organizers have processed the training and test set together before splitting it.
+<ul>
+<li>Mishandled data preparation from organizers, especially when they operate on a combination of training and test data. <a href="https://www.kaggle.com/c/loan-default-prediction">Example leakage 1</a>: organizers initially used features with aggregated historical data that leaked future information.</li>
+<li>Row order when it is connected to a time index or to specific data groups. <a href="https://www.kaggle.com/c/telstra-recruiting-network">Example leakage 2</a>: the order of records in a feature hinted at proxy information, the location, which was not present in the data and which was very predictive.</li>
+<li>Column order when it is connected to a time index (you get hints by using the columns as rows).</li>
+<li>Feature duplication in consecutive rows because it can hint at examples with correlated responses. <a href="https://www.kaggle.com/c/bosch-production-line-performance/discussion/25434">Example leakage 4</a>.</li>
+<li>Image metadata. <a href="https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries">Example leakage 5</a>.</li>
+<li>Hashes or other easily crackable anonymization practices of encodings and identifiers.</li>
+</ul>
+</li>
+</ul>
+<h4 id="posterior-information">Posterior information</h4>
+<ul>
+<li>The trouble with posterior information originates from the way we deal with information when we do not consider the effects of time and of the sequence of cause and effect that spans across time.
+<ul>
+<li>Since we are looking back at the past, we often forget that certain variables that make sense at the present moment do not have value in the past.
+<ul>
+<li><mark>For instance</mark>, if you have to calculate a credit score for a loan to a new company, knowing that payments of the borrowed money are often late is a great indicator of the lower reliability and higher risk represented by the debtor, but you cannot know this before you have lent out the money.</li>
+</ul>
+</li>
+<li><mark><em>This is also a problem that you will commonly find when analyzing company databases</em></mark> in your projects: your query data will represent present situations, not past ones.</li>
+<li>Reconstructing past information can also be a difficult task if you cannot specify that you wish to retrieve only the information that was present at a certain time. For this reason, great effort has to be spent on finding these leaking features and excluding or adjusting them before building any model.</li>
+</ul>
+</li>
+<li><mark><em>Similar problems are also common in Kaggle competitions</em></mark> based on the same kind of data (<mark>banking or insurance</mark>, for instance), though, since much care is put into the preparation of the data for the competition, they appear in more subtle ways and forms.</li>
+<li><mark><em>In general, it is easy to spot these leaking features</em></mark> since they strongly correlate with the target, and a domain expert can figure out why (for instance, knowing at what stage the data is recorded in the databases).</li>
+<li><mark><em><strong>Therefore, in competitions, you never find such obvious features, but derivatives of them, often transformed or processed features that have slipped away from the control of the sponsor</strong></em></mark>.</li>
+<li>Since features are anonymized, they end up lurking among other examples. <mark>This has given rise to a series of hunts for the golden/magic features</mark>, a search to combine existing features in the dataset in order to have the leakage emerge. <a href="https://www.linkedin.com/pulse/winning-13th-place-kaggles-magic-competition-corey-levinson/">Read more</a>, <a href="https://www.kaggle.com/c/telstra-recruiting-network/discussion/19239#109766">Another good example</a>.</li>
+</ul>
+<h3 id="training-example-leakage">Training example leakage</h3>
+<ul>
+<li>This <mark>happens especially with <em><strong>non-i.i.d. data</strong></em></mark>, i.e. some cases correlate between themselves because they are from the same period (or from contiguous ones) or the same group.</li>
+<li>If such cases are not all together either in the training or test data, but separated between them, there is a high chance that the machine learning algorithm will learn how to spot the cases (and derive the predictions) rather than using general rules.
+<ul>
+<li>An often-cited <a href="https://twitter.com/nizkroberts/status/931121395748270080">example</a> of such a situation.</li>
+<li>A few real cases of leakage:
+<ul>
+<li><a href="https://www.kaggle.com/c/predicting-red-hat-business-value/discussion/22807">Case 1</a>:  the problem arose because of an imperfect train/test split methodology of the competition.</li>
+<li><a href="https://www.kaggle.com/c/talkingdata-mobile-user-demographics/discussion/23403">Case 2</a>: a series of problems and non-i.i.d cases affected the correct train/test split of the competition.</li>
+<li><a href="https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries/discussion/31870">Case 3</a>: metadata (the creation time of each folder) did the trick.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

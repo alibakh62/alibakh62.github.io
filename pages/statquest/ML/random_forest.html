@@ -6,10 +6,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>random_forest.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><p><a href="https://youtube.com/playlist?list=PLblh5JKOoLUIE96dI3U7oxHaCAbZgfhHk">Source</a></p>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#building-and-evaluating-random-forest">Building and evaluating random forest</a>
+<ul>
+<li><a href="#step-1">Step 1</a></li>
+<li><a href="#step-2">Step 2</a></li>
+<li><a href="#now-go-back-to-step-1-and-repeat">Now go back to step 1 and repeat</a></li>
+<li><a href="#estimate-accuracy-how-do-we-know-if-its-any-good">Estimate accuracy: How do we know if it’s any good?</a></li>
+<li><a href="#choosing-the-number-of-subset-variables">Choosing the number of subset variables</a></li>
+</ul>
+</li>
+<li><a href="#missing-data-and-sample-clustering">Missing data and sample clustering</a>
+<ul>
+<li><a href="#missing-data-in-the-original-dataset">Missing data in the original dataset</a></li>
+<li><a href="#missing-data-in-a-new-sample">Missing data in a new sample</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <p><a href="https://youtube.com/playlist?list=PLblh5JKOoLUIE96dI3U7oxHaCAbZgfhHk">Source</a></p>
 <h1 id="building-and-evaluating-random-forest">Building and evaluating random forest</h1>
 <ul>
 <li>Random forest is made out of decision trees.</li>
@@ -123,7 +179,26 @@
 </ul>
 </li>
 </ul>
-</div>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
 </body>
 
 </html>
