@@ -1,0 +1,526 @@
+<!DOCTYPE html><html><head>
+      <title>1_gazebo</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>Gazebo is 3D robotic simulator. You can create enviroment with physical properties as in real world, add sensors, move the joints, and many more other things. It gives the advantage of making a robot without really investing a lot in buying the physical parts, etc., saving both cost and time. You can run all the experiments on the simulator (without really crashing a real robot) and when the code is ready, you can implement it on a real robot.</p>
+<h1 class="mume-header" id="what-is-gazebo">What is Gazebo?</h1>
+
+<p>Gazebo is a physics-based, high fidelity 3D simulator for robotics. Gazebo provides the ability to accurately simulate one or more robots in complex indoor and outdoor environments filled with static and dynamic objects, realistic lighting, and programmable interactions.</p>
+<p>Gazebo facilitates robotic design, rapid prototyping, testing, and simulation of real-life scenarios. While Gazebo is platform agnostic and runs on Windows, Mac, and Linux, it is mostly used in conjunction with the Robotics Operating System (ROS) running on Linux systems. Gazebo is an essential tool for every roboticist.</p>
+<p align="center">
+<img src="img/gazebo-gui.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="gazebo-features">Gazebo Features</h2>
+
+<p>Gazebo has eight features that you can take advantage of:</p>
+<ol>
+<li><strong>Dynamics Simulation:</strong> Model a robot&apos;s dynamics with a high-performance physics engine.</li>
+<li><strong>Advanced 3D Graphics:</strong> Render your environment with high-fidelity graphics, including lighting, shadows, and textures.</li>
+<li><strong>Sensors:</strong> Add sensors to your robot, generate data, and simulate noise.</li>
+<li><strong>Plugins:</strong> Write a plugin to interact with your world, robot, or sensor.</li>
+<li><strong>Model Database:</strong> Download a robot or environment from Gazebo library or build your own through their engine.</li>
+<li><strong>Socket-Based Communication:</strong> Interact with Gazebo running on a remote server through <a href="https://en.wikipedia.org/wiki/Network_socket">socket-based</a> communication.</li>
+<li><strong>Cloud Simulation:</strong> Run Gazebo on a server and interact with it through a browser.</li>
+<li><strong>Command Line Tools:</strong> Control your simulated environment through the command line tools.</li>
+</ol>
+<p>For more information, refer to Gazebo&apos;s <a href="http://gazebosim.org/">website</a></p>
+<h1 class="mume-header" id="gazebo-components">Gazebo Components</h1>
+
+<p>There are six components involved in running an instance of a Gazebo simulation:</p>
+<ol>
+<li>Gazebo Server</li>
+<li>Gazebo Client</li>
+<li>World Files</li>
+<li>Model Files</li>
+<li>Environment Variables</li>
+<li>Plugins</li>
+</ol>
+<h2 class="mume-header" id="1-gazebo-server">1. Gazebo Server</h2>
+
+<p>The first main component involved in running an instance of a Gazebo simulation is the Gazebo Server or also known by <strong>gzserver</strong>.</p>
+<p>gzserver performs most of the heavy-lifting for Gazebo. It is responsible for parsing the description files related to the scene we are trying to simulate, as well as the objects within. It then simulates the complete scene using a physics and sensor engine.</p>
+<p>While the server can be launched independently by using the following command in a terminal:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gzserver
+
+</pre><p>It does not have any GUI component. Running gzserver in a so-called headless mode can come in handy in certain situations.</p>
+<h2 class="mume-header" id="2-gazebo-client">2. Gazebo Client</h2>
+
+<p>The second main component involved in running an instance of a Gazebo simulation is the Gazebo Client or also known by gzclient.</p>
+<p>gzclient on the other hand provides the very essential Graphical Client that connects to the gzserver and renders the simulation scene along with useful interactive tools. While you can technically run gzclient by itself using the following command:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gzclient
+
+</pre><p>It does nothing at all (except consume your compute resources), since it does not have a gzserver to connect to and receive instructions from.</p>
+<h3 class="mume-header" id="combining-gazebo-server-and-gazebo-client">Combining Gazebo Server and Gazebo Client</h3>
+
+<p>It is a common practice to run gzserver first, followed by gzclient, allowing some time to initialize the simulation scene, objects within, and associated parameters before rendering it. To make our lives easier, there is a single intuitive command that necessarily launches both the components sequentially:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gazebo
+
+</pre><h2 class="mume-header" id="3-world-files">3. World Files</h2>
+
+<p>A world file in Gazebo contains all the elements in the simulated environment. These elements are your robot model, its environment, lighting, sensors, and other objects. You have the ability to save your simulation to a world file that usually has a <code>.world</code> extension.</p>
+<p>Gazebo can also read the content of a world file from your disk to generate the simulation. To launch the simulation from a world file, type:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gazebo <span class="token operator">&lt;</span>yourworld<span class="token operator">&gt;</span>.world
+
+</pre><p>The world file is formatted using the <strong>Simulation Description Format</strong> or <a href="http://sdformat.org/spec?ver=1.6&amp;elem=world">SDF</a> for short. Here&#x2019;s the basic format of an SDF world file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sdf</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1.5<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>world</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>default<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>physics</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ode<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>physics</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scene</span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scene</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>box<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>model</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>sphere<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>model</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>light</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>spotlight<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>light</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>world</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>sdf</span><span class="token punctuation">&gt;</span></span>
+
+</pre><h2 class="mume-header" id="4-model-files">4. Model Files</h2>
+
+<p>For simplification, you must create a separate SDF file of your robot with exactly the same format as your world file. This model file should only represent a single model (ex: a robot) and can be imported by your world file. The reason why you need to keep your model in a separate file is to use it in other projects. To include a model file of a robot or any other model inside your world file, you can add the following code to the world&#x2019;s SDF file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uri</span><span class="token punctuation">&gt;</span></span>model://model_file_name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>uri</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+
+</pre><h2 class="mume-header" id="5-environment-variables">5. Environment Variables</h2>
+
+<p>There are many environment variables that Gazebo uses, primarily to locate files (world, model, &#x2026;) and set up communications between gzserver and gzclient. While working on a robotic project, you&#x2019;ll leave these variables as default. Here&#x2019;s an example of a variable that Gazebo uses:</p>
+<p><code>GAZEBO_MODEL_PATH</code>: List of directories where Gazebo looks to populate a model file.</p>
+<h2 class="mume-header" id="6-plugins">6. Plugins</h2>
+
+<p>To interact with a world, model, or sensor in Gazebo, you can write plugins. These plugins can be either loaded from the command line or added to your SDF world file. You&#x2019;ll learn about World Plugins later in the lesson.</p>
+<h1 class="mume-header" id="understanding-gazebo-gui">Understanding Gazebo GUI</h1>
+
+<p><a href="https://www.youtube.com/watch?v=YJtzU64YTlg" title="gui"><img src="http://img.youtube.com/vi/YJtzU64YTlg/0.jpg" alt="gui"></a></p>
+<p>The Gazebo GUI is divided into four major sections:</p>
+<ol>
+<li>Scene</li>
+<li>Side Panel</li>
+<li>Toolbars</li>
+<li>Menu</li>
+</ol>
+<h2 class="mume-header" id="scene">Scene</h2>
+
+<p>The scene is where you will be spending most of your time, whether creating a simulation or running one. While you can use a trackpad to navigate inside the scene, a mouse is highly recommended.</p>
+<p>You can pan the scene by pressing the left mouse button and dragging. If you hold down SHIFT in addition, you can now rotate the view. You can zoom in and out by using the mouse scroll or pressing and dragging the RMB.</p>
+<p align="center">
+<img src="img/gazebo-mouse.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="side-panel">Side Panel</h2>
+
+<p>The side panel on the left consists of three tabs:</p>
+<ol>
+<li>World</li>
+<li>Insert</li>
+<li>Layers</li>
+</ol>
+<p><strong><code>World</code></strong></p>
+<p>This tab displays the lights and models currently in the scene. By clicking on individual model, you can view or edit its basic parameters like position and orientation. In addition, you can also change the physics of the scene like gravity and magnetic field via the Physics option. The GUI option provides access to the default camera view angle and pose.</p>
+<p><strong><code>Insert</code></strong></p>
+<p>This is where you will find objects (models) to add to the simulation scene. Left click to expand or collapse a list of models. To place an object in the scene, simply left-click the object of interest under the Insert tab; this will bind the object to your mouse cursor, and now you can place it anywhere in the scene by left-clicking at that location.</p>
+<p><strong><code>Layers</code></strong></p>
+<p>This is an optional feature, so this tab will be empty in most cases. To learn more about Layers, click <a href="http://gazebosim.org/tutorials?tut=visual_layers&amp;cat=build_robot">here</a>.</p>
+<h2 class="mume-header" id="top-toolbar">Top Toolbar</h2>
+
+<p>Next, we have a toolbar at the top. It provides quick access to some cursor types, geometric shapes, and views.</p>
+<p><strong><code>Select mode</code></strong></p>
+<p>Select mode is the most commonly used cursor mode. It allows you to navigate the scene.</p>
+<p><strong><code>Translate mode</code></strong></p>
+<p>One way to change an object&apos;s position is to select the object in the world tab on the side panel and then change its pose via properties. This is cumbersome and also unnatural, the translate mode cursor allows you to change the position of any model in the scene. Simply select the cursor mode and then use the proper axis to drag the object to its desired location.</p>
+<p><strong><code>Rotate mode</code></strong></p>
+<p>Similar to translate mode, this cursor mode allows you to change the orientation of any given model.</p>
+<p><strong><code>Scale mode</code></strong></p>
+<p>Scale mode allows you to change the scale, and hence, overall size of any model.</p>
+<p><strong><code>Undo/redo</code></strong></p>
+<p>Since we humans are best at making mistakes, the undo tool helps us revert our mistakes. On the other hand if you undid something that you did not intend to, the redo tool can come to the rescue.</p>
+<p><strong><code>Simple shapes</code></strong></p>
+<p>You can insert basic 3D models like cubes, spheres, or cylinders into the scene.</p>
+<p><strong><code>Lights</code></strong></p>
+<p>Add different light sources like a spotlight, point light, or directional light to the scene.</p>
+<p><strong><code>Copy/paste</code></strong></p>
+<p>These tools let you copy/paste models in the scene. On the other hand, you can simply press Ctrl+C to copy and Ctrl+V to paste any model.</p>
+<p><strong><code>Alighn</code></strong></p>
+<p>This tool allows you to align one model with another along one of the three principal axes.</p>
+<p><strong><code>Change view</code></strong></p>
+<p>The change view tool lets you view the scene from different perspectives like top view, side view, front view, bottom view.</p>
+<h2 class="mume-header" id="bottom-toolbar">Bottom Toolbar</h2>
+
+<p>The Bottom Toolbar has a neat play and pause button. This button allows you to pause the simulation and conveniently move objects around. This toolbar also displays data about the simulation, such as the simulation time, the real time, and the relationship between the two. There is also an frames-per-second counter that can be found to gauge your system&apos;s performance for any given scene.</p>
+<h2 class="mume-header" id="menu">Menu</h2>
+
+<p>The Menu: Some of the menu options are duplicated in the Toolbars or as right-click context menu options in the Scene. If you click on Edit, you can switch to the Building Editor to design building or the Model Editor to build models. We will be working in both of these features in the upcoming concepts.</p>
+<p align="center">
+<img src="img/menu.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="simulating-first-robot">Simulating first robot</h1>
+
+<p>Following videos include instructions to create a simple wheel robot:</p>
+<ul>
+<li><a href="https://youtu.be/hDZ5MXNTX0U">video 1</a></li>
+<li><a href="https://youtu.be/IkG0PjAvdJI">video 2</a></li>
+<li><a href="https://youtu.be/7VIj6Cvogjc">video 3</a></li>
+</ul>
+<p>The related files are in the following folders: <code>gz_workspace/myfirstrobot</code></p>
+<h1 class="mume-header" id="writing-a-plugin">Writing a Plugin</h1>
+
+<p>Here is a simple example of how to write an example for Gazebo so that as soon as simulation starts prints a &quot;hello world&quot; message.</p>
+<p><strong>1. Create a directory for scripts inside &#x201C;myrobot&#x201D; to store a <code>hello.cpp</code> file</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/myrobot
+$ <span class="token function">mkdir</span> script
+$ <span class="token builtin class-name">cd</span> script
+$ gedit hello.cpp
+
+</pre><p>Inside <code>hello.cpp</code>, include this code:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;gazebo/gazebo.hh&gt;</span></span>
+
+<span class="token keyword keyword-namespace">namespace</span> gazebo
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-class">class</span> <span class="token class-name">WorldPluginMyRobot</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword keyword-public">public</span> <span class="token class-name">WorldPlugin</span></span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span><span class="token operator">:</span> <span class="token function">WorldPluginMyRobot</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">WorldPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+              <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Hello World!\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-public">public</span><span class="token operator">:</span> <span class="token keyword keyword-void">void</span> <span class="token function">Load</span><span class="token punctuation">(</span>physics<span class="token double-colon punctuation">::</span>WorldPtr _world<span class="token punctuation">,</span> sdf<span class="token double-colon punctuation">::</span>ElementPtr _sdf<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+            <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token function">GZ_REGISTER_WORLD_PLUGIN</span><span class="token punctuation">(</span>WorldPluginMyRobot<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+</pre><p><strong>2. Create a CMakeLists.txt file</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/myrobot
+$ gedit CMakeLists.txt
+
+</pre><p>Inside, <code>CMakeLists.txt</code>, include the following:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">2.8</span> FATAL_ERROR<span class="token punctuation">)</span>
+
+<span class="token function">find_package</span><span class="token punctuation">(</span>gazebo REQUIRED<span class="token punctuation">)</span>
+<span class="token function">include_directories</span><span class="token punctuation">(</span>$<span class="token punctuation">{</span>GAZEBO_INCLUDE_DIRS<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token function">link_directories</span><span class="token punctuation">(</span>$<span class="token punctuation">{</span>GAZEBO_LIBRARY_DIRS<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token function">list</span><span class="token punctuation">(</span>APPEND CMAKE_CXX_FLAGS <span class="token string">&quot;${GAZEBO_CXX_FLAGS}&quot;</span><span class="token punctuation">)</span>
+
+<span class="token function">add_library</span><span class="token punctuation">(</span>hello SHARED script<span class="token operator">/</span>hello<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+<span class="token function">target_link_libraries</span><span class="token punctuation">(</span>hello $<span class="token punctuation">{</span>GAZEBO_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</pre><p><strong>3. Create a build directory and compile the code</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/myrobot
+$ <span class="token function">mkdir</span> build
+$ <span class="token builtin class-name">cd</span> build/
+$ cmake <span class="token punctuation">..</span>/
+$ <span class="token function">make</span> <span class="token comment"># You might get errors if your system is not up to date!</span>
+$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">GAZEBO_PLUGIN_PATH</span><span class="token operator">=</span><span class="token variable">${GAZEBO_PLUGIN_PATH}</span>:/home/workspace/myrobot/build
+
+</pre><p><strong>4. Open your world file and attach the plugin to it</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/myrobot/world/
+$ gedit myworld
+
+</pre><p>Copy this code</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>hello<span class="token punctuation">&quot;</span></span> <span class="token attr-name">filename</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>libhello.so<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+
+</pre><p>and paste it under</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>world</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>default<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+</pre><p><strong>5. Launch the world file in Gazebo to load both the world and the plugin</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/myrobot/world/
+$ gazebo myworld
+
+</pre><p><strong>6. Visualize the output</strong></p>
+<p>A <code>Hello World!</code> message is printed in the terminal. This message interacts with the Gazebo World that includes your two-wheeled robot.</p>
+<p><strong>Troubleshooting</strong></p>
+<p>In case your plugins failed to load, you&apos;ll have to check and troubleshoot your error. The best way to troubleshoot errors with Gazebo is to launch it with the verbose as such:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gazebo myworld --verbose
+
+</pre><p>For further info refer to this <a href="https://youtu.be/9dNNn8GhVi4">video</a></p>
+<h1 class="mume-header" id="exploring-the-building-editor">Exploring the building editor</h1>
+
+<p>For a simple case check out <a href="https://youtu.be/TQ9XSYq_hM8">this video</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

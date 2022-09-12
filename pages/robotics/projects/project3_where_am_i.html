@@ -1,0 +1,668 @@
+<!DOCTYPE html><html><head>
+      <title>project_description</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="project-overview">Project Overview</h1>
+
+<p>Welcome to the  <code>Where Am I?</code>  localization project! In this project, you will learn to utilize ROS AMCL package to accurately localize a mobile robot inside a map in the Gazebo simulation environments.</p>
+<p>Over the course of this lesson, you will learn several aspects of robotic software engineering with a focus on ROS:</p>
+<ul>
+<li>
+<p>Create a ROS package that launches a custom robot model in a custom Gazebo world</p>
+</li>
+<li>
+<p>Utilize the ROS AMCL package and the Tele-Operation / Navigation Stack to localize the robot</p>
+</li>
+<li>
+<p>Explore, add, and tune specific parameters corresponding to each package to achieve the best possible localization results</p>
+</li>
+</ul>
+<h2 class="mume-header" id="native-installation-virtual-machine">Native Installation &amp; Virtual Machine</h2>
+
+<p>If you are working with a native ROS installation or using a VM, some of the following package might need to be installed. You could install them as shown below:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-navigation
+$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-map-server
+$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-move-base
+$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-amcl
+</pre><h1 class="mume-header" id="simulation-setup">Simulation Setup</h1>
+
+<p>In the previous projects, you have built your simulation environment and a robot. Let us set them up in the Project 3 Workspace for our next tasks.</p>
+<p>Navigate to Workspace by clicking the  <code>Project Workspace</code>  on the side bar. You might want to open it in a new window. You could use either the terminal in Classroom without GPU mode or the VNC Desktop with GPU mode to do the setup.</p>
+<p>Setup your  <code>catkin_ws</code>  folder as well as the  <code>src</code>  folder, then we need to grab the code from last project. Namely, the package you created to launch the simulation of your Gazebo world and your robot. You could do that in two ways.</p>
+<h3 class="mume-header" id="method-1-git">Method 1:  <code>git</code></h3>
+
+<p>If you have pushed your submission for the ROS Introduction project to GitHub, go ahead and create a new repository then duplicate your code from last project to it. Substitute the url in the following commands with your project GitHub url.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">git</span> clone --bare https://github.com/exampleuser/old-repository.git
+
+<span class="token builtin class-name">cd</span> old-repository.git
+<span class="token function">git</span> push --mirror https://github.com/exampleuser/new-repository.git
+
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+<span class="token function">rm</span> -rf old-repository.git
+</pre><p><em>Source:  <a href="https://help.github.com/articles/duplicating-a-repository/">https://help.github.com/articles/duplicating-a-repository/</a></em></p>
+<h3 class="mume-header" id="method-2-folder-upload">Method 2: Folder Upload</h3>
+
+<p>If you want to upload the package folder to the Project 3 Workspace, go to the project Workspace and click the  <code>+</code>  button, then select  <code>Upload Folder</code>  to upload your package folder!</p>
+<h3 class="mume-header" id="verify-your-simulation-setup">Verify Your Simulation Setup</h3>
+
+<p>Do a quick  <code>catkin_make</code>  and source the  <code>devel/setup.bash</code>  script. Launch the world to verify if the system is good to go!</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">roslaunch <span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span> world.launch
+</pre><h1 class="mume-header" id="map-setup">Map Setup</h1>
+
+<p>Great! We have our simulation environment ready now. However, we cannot localize the robot just yet. The poor robot has zero information on its surroundings! Let us generate a map for it so that it knows what to expect in this environment.</p>
+<p>Generally speaking, in the development of a robotic project, engineers utilize Mapping tools to measure and map the area robot will be operating in. Since we are developing in simulation environment the problem is simplified. We could generate the map from Gazebo world directly using a ROS package:  <a href="https://github.com/udacity/pgm_map_creator">pgm_map_creator</a>.</p>
+<p><strong>Note that currently, the map creator could not handle objects in the environment well. Please use the it with vertical surfaces only!</strong></p>
+<p align="center">
+<img src="img/map-creator.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="pgm-map-file">PGM Map File</h2>
+
+<p>The map ROS AMCL Package uses is a  <code>pgm</code>  file. A  <code>pgm</code>  file is a grayscale image file. For more information about  <code>pgm</code>  file or more generally,  <code>pnm</code>  file, please refer to  <a href="https://en.wikipedia.org/wiki/Netpbm_format">Netpbm format Wiki Page</a>.</p>
+<p>By default, AMCL package will treat &apos;darker&apos; pixels as obstacle in the  <code>pgm</code>  map file, and &apos;lighter&apos; pixels as free space. The threshold could be set as a parameter which we will cover when we are building the launch file.</p>
+<p>Navigate to your ROS package folder and create a  <code>maps</code>  folder. That&apos;s where your map file will reside.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/<span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span>
+$ <span class="token function">mkdir</span> maps
+</pre><h1 class="mume-header" id="pgm-map-creator">PGM Map Creator</h1>
+
+<h2 class="mume-header" id="install-dependencies">Install Dependencies</h2>
+
+<p>We need  <code>libignition-math2-dev</code>  and  <code>protobuf-compiler</code>  to compile the map creator:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libignition-math2-dev protobuf-compiler
+</pre><h2 class="mume-header" id="clone-the-repository">Clone the Repository</h2>
+
+<p>Clone the package  <code>pgm_map_creator</code>  to your  <code>src</code>  folder.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+<span class="token function">git</span> clone https://github.com/udacity/pgm_map_creator.git
+</pre><p>Build the package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+catkin_make
+</pre><h2 class="mume-header" id="add-and-edit-the-world-file">Add and Edit the World File</h2>
+
+<p>Copy the Gazebo world you created to the  <code>world</code>  folder</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">cp</span> <span class="token operator">&lt;</span>YOUR GAZEBO WORLD FILE<span class="token operator">&gt;</span> src/pgm_map_creator/world/<span class="token operator">&lt;</span>YOUR GAZEBO WORLD FILE<span class="token operator">&gt;</span>
+</pre><p>Insert the map creator plugin to your map file. Open the map file using the editor of your choice. Add the following tag towards the end of the file, but just before  <code>&lt;/world&gt;</code>  tag:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token operator">&lt;</span>plugin <span class="token assign-left variable">filename</span><span class="token operator">=</span><span class="token string">&quot;libcollision_map_creator.so&quot;</span> <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;collision_map_creator&quot;</span>/<span class="token operator">&gt;</span>
+</pre><h2 class="mume-header" id="create-the-pgm-map">Create the PGM Map!</h2>
+
+<p>Open a terminal, run gzerver with the map file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">gzserver src/pgm_map_creator/world/<span class="token operator">&lt;</span>YOUR GAZEBO WORLD FILE<span class="token operator">&gt;</span>
+</pre><p>Open another terminal, launch the request_publisher node</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">roslaunch pgm_map_creator request_publisher.launch
+</pre><p>Wait for the plugin to generate map. It will be located in the map folder of the  <code>pgm_map_creator</code>! Open it to do a quick check of the map. If the map is cropped, you might want to adjust the parameters in  <code>launch/request_publisher.launch</code>, namely the  <code>x</code>  and  <code>y</code>  values, which defines the size of the map:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>xmin<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>-15<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>xmax<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>15<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ymin<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>-15<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ymax<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>15<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scan_height<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>5<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>resolution<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.01<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</pre><h3 class="mume-header" id="edit-the-map">Edit the Map</h3>
+
+<p>Remember, the map is an image, which means you could edit it using image processing softwares like  <code>gimp</code>  in Linux. If you have found the map not accurate due to the models, feel free to edit the  <code>pgm</code>  file directly!</p>
+<h2 class="mume-header" id="add-the-map-to-your-package">Add the Map to Your Package</h2>
+
+<p>Now we have the map file, let us move it to where it is needed! That is the  <code>maps</code>  folder you created at the very beginning.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+<span class="token function">cp</span> src/pgm_map_creator/maps/<span class="token operator">&lt;</span>YOUR MAP NAME<span class="token operator">&gt;</span>  src/<span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span>/maps/<span class="token operator">&lt;</span>YOUR MAP NAME<span class="token operator">&gt;</span>
+</pre><p>You would also need a  <code>yaml</code>  file providing the  <a href="http://wiki.ros.org/map_server#YAML_format">metadata about the map</a>. Create a  <code>yaml</code>  file next to your map:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> src/<span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span>/src/maps
+<span class="token function">touch</span> <span class="token operator">&lt;</span>YOUR MAP NAME<span class="token operator">&gt;</span>.yaml
+</pre><p>Open the  <code>yaml</code>  file and add the following lines to it:</p>
+<pre data-role="codeBlock" data-info="yml" class="language-yaml"><span class="token key atrule">image</span><span class="token punctuation">:</span> &lt;YOUR MAP NAME<span class="token punctuation">&gt;</span>
+<span class="token key atrule">resolution</span><span class="token punctuation">:</span> <span class="token number">0.01</span>
+<span class="token key atrule">origin</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">-15.0</span><span class="token punctuation">,</span> <span class="token number">-15.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">]</span>
+<span class="token key atrule">occupied_thresh</span><span class="token punctuation">:</span> <span class="token number">0.65</span>
+<span class="token key atrule">free_thresh</span><span class="token punctuation">:</span> <span class="token number">0.196</span>
+<span class="token key atrule">negate</span><span class="token punctuation">:</span> <span class="token number">0</span>
+</pre><p>Note that the origin of the map should correspond to your map&apos;s size. For example, the default map size is 30 by 30, so the origin will be [-15, -15, 0], i.e. half the size of the map.</p>
+<h1 class="mume-header" id="amcl-package">AMCL Package</h1>
+
+<p>You learned about Monte Carlo Localization (MCL) in great detail in the previous lessons. Adaptive Monte Carlo Localization (AMCL) dynamically adjusts the number of particles over a period of time, as the robot navigates around in a map. This adaptive process offers a significant computational advantage over MCL.</p>
+<p>The  <a href="http://wiki.ros.org/amcl">ROS AMCL package (http://wiki.ros.org/amcl)</a>  implements this variant and you will integrate this package with your robot to localize it inside the provided map.</p>
+<p align="center">
+<img src="img/ros-wiki-amcl.png" alt="drawing" width="700">
+</p>
+<p>As you have learned in the previous projects, ROS utilizes <code>launch</code> files to run ROS nodes. In the following concepts, you will start to build the <code>launch</code> file for the AMCL package!</p>
+<h1 class="mume-header" id="amcl-launch-file">AMCL  <code>launch</code>  file</h1>
+
+<p>First things first, create a  <code>launch</code>  file for the AMCL node in the  <code>launch</code>  folder of your package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/<span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span>/launch/
+$ <span class="token function">vi</span> amcl.launch <span class="token comment"># nano, gedit</span>
+</pre><p>Feel free to use whichever editor you prefer:  <code>vi</code>,  <code>nano</code>, or  <code>gedit</code>.</p>
+<p>Add the root element  <code>&lt;launch&gt;</code>  tag in the  <code>amcl.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+<span class="token comment">&lt;!-- TODO: Add nodes here --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Great, we have the  <code>launch</code>  file in place! Now, let&apos;s add nodes to this  <code>amcl.launch</code>  file. A list of nodes is provided below as a tracker of your progress. You don&apos;t need to complete that now - come back when you have all three nodes added!</p>
+<h1 class="mume-header" id="map-server-node">Map Server Node</h1>
+
+<p>The first node is the  <code>map_server</code>  node (<a href="http://wiki.ros.org/map_server">http://wiki.ros.org/map_server)</a>). The  <code>map_server</code>  node provides map data as a ROS service to other nodes such as the  <code>amcl</code>  node. Here,  <code>map_server</code>  node will locate the map you created in the  <a href="https://classroom.udacity.com/nanodegrees/nd209-beta/parts/930229bf-7a57-45c8-9111-83c1d2954661/modules/b66739be-878e-4cea-8569-881b7eb2d34c/lessons/7dfe4265-e484-4efc-89e7-088540ff6720/concepts/f97e67d6-2baa-4022-853d-b5b6d39be176">Map Setup</a>  step and send it out as the map data.</p>
+<p>First, add an argument of the path to your map file so that you could easily change the map loaded and avoid typing long paths again:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find &lt;YOUR PACKAGE NAME&gt;)/maps/&lt;YOUR MAP NAME&gt;.yaml<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>Then, add the  <code>map_server</code>  node, which utilizes the argument you created just now:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_server<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_server<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_server<span class="token punctuation">&quot;</span></span> <span class="token attr-name">args</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(arg map_file)<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</pre><p>Your  <code>amcl.launch</code>  file should look like this now:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Map Server --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_server<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Nice, we have the  <code>map_server</code>  node set up. Let&apos;s move on to the  <code>amcl</code>  node.</p>
+<h1 class="mume-header" id="amcl-node">AMCL Node</h1>
+
+<p>The next node to be set up is the  <code>amcl</code>  node. As it was introduced in the previous concepts, it takes  <code>odometry</code>  and  <code>laser scan</code>  data to perform the AMCL localization.</p>
+<h3 class="mume-header" id="add-amcl-node">Add  <code>amcl</code>  Node</h3>
+
+<p>First, add the  <code>amcl</code>  node in your  <code>amcl.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Map Server --&gt;</span>
+  ...
+
+  <span class="token comment">&lt;!-- AMCL Node --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Ok, we created the  <code>amcl</code>  node. However it needs more information to localize the robot! For example, what are the sensor readings from the LiDAR?</p>
+<h3 class="mume-header" id="remap-scan-topic">Remap  <code>scan</code>  topic</h3>
+
+<p>By default,  <code>amcl</code>  package will look for the  <code>scan</code>  topic for LiDAR data. In the simulation, the  <code>Hokuyo</code>  LiDAR sensor actually publishes on the  <code>&lt;YOUR PACKAGE NAME&gt;/laser/scan</code>  topic. We will use the  <code>remap</code>  tag to remap the topic name  <code>scan</code>  to the actual topic name so that the  <code>amcl</code>  package could use it!</p>
+<p>Add this  <code>remap</code>  line to your  <code>amcl</code>  node in the  <code>amcl.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">...
+<span class="token comment">&lt;!-- AMCL Node --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remap</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scan<span class="token punctuation">&quot;</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR PACKAGE NAME&gt;/laser/scan<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+</pre><p>For more information on  <code>remap</code>, check out the ROS Wiki here:  <a href="http://wiki.ros.org/roslaunch/XML/remap">http://wiki.ros.org/roslaunch/XML/remap</a></p>
+<h3 class="mume-header" id="add-amcl-parameters">Add AMCL Parameters</h3>
+
+<p>The AMCL node also requires a set of parameters in order to connect the world (<code>map</code>  frame) with the robot (<code>odom</code>  frame).</p>
+<p>Add the following parameter tags to the  <code>amcl</code>  node in the  <code>amcl.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">...
+<span class="token comment">&lt;!-- AMCL Node --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remap</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scan<span class="token punctuation">&quot;</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR PACKAGE NAME&gt;/laser/scan<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom_model_type<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>diff-corrected<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>base_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_footprint<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>global_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+</pre><p>From the ROS Wiki (<a href="http://wiki.ros.org/amcl">http://wiki.ros.org/amcl)</a>), we could find the purpose of the parameters added above:</p>
+<ul>
+<li><code>odom_frame_id</code>  (string, default: &quot;odom&quot;): Which frame to use for odometry</li>
+<li><code>odom_model_type</code>  (string, default: &quot;diff&quot;): Which model to use, either &quot;diff&quot;, &quot;omni&quot;, &quot;diff-corrected&quot; or &quot;omni-corrected&quot;</li>
+<li><code>base_frame_id</code>  (string, default: &quot;base_link&quot;): Which frame to use for the robot base</li>
+<li><code>global_frame_id</code>  (string, default: &quot;map&quot;): The name of the coordinate frame published by the localization system</li>
+</ul>
+<p>Remember, AMCL package &apos;links&apos; the robot (<code>odom</code>  frame) with the world (<code>map</code>  frame). These parameters are required for  <code>amcl</code>  package to localize the robot in the world.</p>
+<h3 class="mume-header" id="optional-set-initial-position">Optional: Set Initial Position</h3>
+
+<p>You could use the RViz  <code>2D Pose Estimate</code>  function to give AMCL a pose estimate as position, but you could also have it defined in the launch file.</p>
+<p>Add the following parameters to the AMCL node, the values should correspond to your  <code>world.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>initial_pose_x<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR X VALUE&gt;<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>initial_pose_y<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR Y VALUE&gt;<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><h3 class="mume-header" id="the-launch-file">The Launch File</h3>
+
+<p>Now, your  <code>amcl.launch</code>  file should look like this:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Map Server --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map_server<span class="token punctuation">&quot;</span></span> <span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span>
+
+  <span class="token comment">&lt;!-- AMCL Node --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>amcl<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remap</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scan<span class="token punctuation">&quot;</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR PACKAGE NAME&gt;/laser/scan<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>odom_model_type<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>diff-corrected<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>base_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_footprint<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>global_frame_id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>map<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+
+    <span class="token comment">&lt;!-- If you choose to define initial pose here --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>initial_pose_x<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>initial_pose_y<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Now, the robot has a map and the  <code>amcl</code>  package to localize itself. But how could it navigate to other positions to collect more information about its surroundings?  <code>ROS Navigation Stack</code>  is the answer.</p>
+<h1 class="mume-header" id="move-base-node">Move Base Node</h1>
+
+<p>Two nodes down, one node to go!</p>
+<p>You will be working with the  <a href="http://wiki.ros.org/move_base"><code>move_base</code></a>  package using which you can define a navigation goal position for your robot in the map, and the robot will navigate to that goal position. Note that this step is optional if you choose to use  <code>teleop</code>  node to control and localize your robot.</p>
+<p>The  <code>move_base</code>  package is a very powerful tool. It utilizes a costmap - where each part of the map is divided into which area is occupied, like walls or obstacles, and which area is unoccupied. As the robot moves around, a local costmap, in relation to the global costmap, keeps getting updated allowing the package to define a continuous path for the robot to move along.</p>
+<p>What makes this package more remarkable is that it has some built-in corrective behaviors or maneuvers. Based on specific conditions, like detecting a particular obstacle or if the robot is stuck, it will navigate the robot around the obstacle or rotate the robot till it finds a clear path ahead.</p>
+<h3 class="mume-header" id="add-ros-move_base-node">Add ROS  <code>move_base</code>  Node</h3>
+
+<p>Let&apos;s add the  <code>move_base</code>  node to the  <code>amcl.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- Map Server --&gt;</span>
+  ...
+
+  <span class="token comment">&lt;!-- AMCL Node --&gt;</span>
+  ...
+
+  <span class="token comment">&lt;!-- Move Base --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>move_base<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>move_base<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>move_base<span class="token punctuation">&quot;</span></span> <span class="token attr-name">respawn</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><h3 class="mume-header" id="remap-scan-topic-1">Remap  <code>scan</code>  Topic</h3>
+
+<p>Again, we need to  <code>remap</code>  the  <code>scan</code>  topic to the correct one.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remap</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scan<span class="token punctuation">&quot;</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>&lt;YOUR PACKAGE NAME&gt;/laser/scan<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><h3 class="mume-header" id="add-parameters-to-move_base-node">Add Parameters to  <code>move_base</code>  Node</h3>
+
+<p>Similar to the  <code>amcl</code>  node,  <code>move_base</code>  node requires a set of parameters to move the robot in the world. As we already know , we could use the  <code>param</code>  tag to specify the parameter. But when there are plenty of parameters, we could use the  <code>rosparam</code>  tag to include config files to set multiple parameters directly!</p>
+<h3 class="mume-header" id="planners">Planners</h3>
+
+<p>Add the following  <code>param</code>  tags to the  <code>move_base</code>  node:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>base_global_planner<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>navfn/NavfnROS<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>base_local_planner<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>base_local_planner/TrajectoryPlannerROS<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><h3 class="mume-header" id="load-config-files">Load Config Files</h3>
+
+<p>Then we need to create/get the config files and load them in the  <code>launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+$ <span class="token function">mkdir</span> config
+$ <span class="token builtin class-name">cd</span> config
+</pre><p>Download the  <code>config</code>  files from Udacity S3 bucket and add them to the  <code>config</code>  folder:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">wget</span> https://s3-us-west-1.amazonaws.com/udacity-robotics/Resource/where_am_i/config.zip
+<span class="token function">unzip</span> config.zip
+<span class="token function">rm</span> config.zip
+</pre><p>These config files have a preset of parameters defined for you to navigate the robot if you choose to send navigation goal to the robot in testing.</p>
+<h3 class="mume-header" id="config-files">Config Files</h3>
+
+<p>Now that we have the  <code>config</code>  files ready, we will include them in the  <code>launch</code>  file, in the  <code>move_base</code>  node:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find udacity_bot)/config/costmap_common_params.yaml<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>load<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>global_costmap<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find udacity_bot)/config/costmap_common_params.yaml<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>load<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>local_costmap<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find udacity_bot)/config/local_costmap_params.yaml<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>load<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find udacity_bot)/config/global_costmap_params.yaml<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>load<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find udacity_bot)/config/base_local_planner_params.yaml<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>load<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</pre><p>Well done! That was a lot of work. Let us move on!</p>
+<h1 class="mume-header" id="teleop-package">Teleop Package</h1>
+
+<p>If you prefer to control your robot to help it localize itself as you did in the lab, you would need to add the  <code>teleop</code>  node to your package. Thanks to the ROS community, we could use  <code>ros-teleop</code>  package to send command to the robot using keyboard or controller.</p>
+<p>Clone the  <code>ros-teleop</code>  package to your  <code>src</code>  folder:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+<span class="token function">git</span> clone https://github.com/ros-teleop/teleop_twist_keyboard
+</pre><p>Build the package and source the setup script:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+catkin_make
+<span class="token builtin class-name">source</span> devel/setup.bash
+</pre><p>Now you could run the  <code>teleop</code>  script as is described in the  <code>README</code>  file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+</pre><h1 class="mume-header" id="localization-launching">Localization: Launching</h1>
+
+<p>You have your robot, your map, your localization and navigation nodes. Let&#x2019;s launch it all and test it!</p>
+<p>First, launch the simulation:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ roslaunch <span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>YOUR WORLD<span class="token operator">&gt;</span>.launch
+</pre><p>In a new terminal, launch the  <code>amcl</code>  launch file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch <span class="token operator">&lt;</span>YOUR PACKAGE NAME<span class="token operator">&gt;</span> amcl.launch
+</pre><h2 class="mume-header" id="rviz-configuration">Rviz Configuration</h2>
+
+<p>As you did in a previous section, setup your RViz by adding the necessary displays and selecting the required topics to visualize the robot and also the map.</p>
+<h3 class="mume-header" id="add-by-display-type">Add by display type</h3>
+
+<p>In Rviz,</p>
+<ul>
+<li>Select  <code>odom</code>  for fixed frame</li>
+<li>Click the &#x201C;Add&#x201D; button and
+<ul>
+<li>add  <code>RobotModel</code>: this would add the robot itself to RViz</li>
+<li>add  <code>Map</code>  and select first  <code>topic/map</code>: the second and third topics in the list will show the global costmap, and the local costmap. Both can be helpful to tune your parameters</li>
+<li>add  <code>PoseArray</code>  and select  <code>topic/particlecloud</code>: this will display a set of arrows around the robot</li>
+</ul>
+</li>
+</ul>
+<p>Each arrow is essentially a particle defining the pose of the robot that your localization package created. Your goal is to add/tune the parameters that will help localize your robot better and thereby improve the pose array.</p>
+<p><em>Note:</em>  You can save the above RViz setup in a configuration file and launch RViz with the same configuration every time. This will make the process more efficient for you! Click  <code>file</code>  -&gt;  <code>save config</code>  to save the current configuration.</p>
+<p align="center">
+<img src="img/launch1.png" alt="drawing" width="700">
+</p>
+<h3 class="mume-header" id="add-by-topic">Add by topic</h3>
+
+<p>When adding elements to RViz, you could also select  <code>By topic</code>  tab. Here, all valid topics would be displayed and you could locate what you need faster!</p>
+<p align="center">
+<img src="img/launch2.png" alt="drawing" width="700">
+</p>
+<h3 class="mume-header" id="transform-timeout-and-map-update-loop"><code>Transform Timeout</code>  and  <code>Map Update Loop</code></h3>
+
+<p>If you received warning on  <code>Transform Timeout</code>  and  <code>Map Update Loop</code>, you might want to configure the corresponding parameters. Namely larger  <code>transform_tolerance</code>  value for the AMCL node and lower  <code>update_frequency</code>  &amp;  <code>publish_frequency</code>  values in the configuration files.</p>
+<h1 class="mume-header" id="localization-parameters">Localization: Parameters</h1>
+
+<p>For the next part of the project, you will identify and tune parameters for your  <code>amcl</code>  node in the  <code>amcl.launch</code>  file, to achieve better results.</p>
+<h3 class="mume-header" id="amcl-parameters">AMCL Parameters</h3>
+
+<p>The  <a href="http://wiki.ros.org/amcl#Parameters">amcl package</a>  has a lot of parameters to select from. Different sets of parameters contribute to different aspects of the algorithm. Broadly speaking, they can be categorized into three categories - overall filter, laser, and odometry. Let&#x2019;s cover some of the parameters that we recommend you start with or details to focus on.</p>
+<h4 class="mume-header" id="overall-filter">Overall Filter</h4>
+
+<ul>
+<li><code>min_particles</code>  and  <code>max_particles</code>  - As amcl dynamically adjusts its particles for every iteration, it expects a range of the number of particles as an input. Often, this range is tuned based on your system specifications. A larger range, with a high maximum might be too computationally extensive for a low-end system.</li>
+<li><code>initial_pose</code>  - For the project, you should set the position to [0, 0]. Feel free to play around with the mean yaw value.</li>
+<li><code>update_min*</code>  -  <code>amcl</code>  relies on incoming laser scans. Upon receiving a scan, it checks the values for  <code>update_min_a</code>  and  <code>update_min_d</code>  and compares to how far the robot has moved. Based on this comparison it decides whether or not to perform a filter update or to discard the scan data. Discarding data could result in poorer localization results, and too many frequent filter updates for a fast moving robot could also cause computational problems.</li>
+</ul>
+<h4 class="mume-header" id="laser">Laser</h4>
+
+<p>There are two different types of models to consider under this - the  <code>likelihood_field</code>  and the  <code>beam</code>. Each of these models defines how the laser rangefinder sensor estimates the obstacles in relation to the robot.</p>
+<p>The  <code>likelihood_field</code>  model is usually more computationally efficient and reliable for an environment such as the one you are working with. So you can focus on parameters for that particular model such as the -</p>
+<ul>
+<li><code>laser_*_range</code></li>
+<li><code>laser_max_beams</code></li>
+<li><code>laser_z_hit</code>  and  <code>laser_z_rand</code></li>
+</ul>
+<p>Tuning of these parameters will have to be experimental. While tuning them, observe the laser scan information in RViz and try to make sure that the laser scan matches or is aligned with the actual map, and how it gets updated as the robot moves. The better the estimation of where the obstacles are, the better the localization results.</p>
+<h4 class="mume-header" id="odometry">Odometry</h4>
+
+<p><code>odom_model_type</code>  - Since you are working with a differential drive mobile robot, it&#x2019;s best to use the  <code>diff-corrected</code>  type. There are additional parameters that are specific to this type - the  <code>odom_alphas</code>  (1 through 4). These parameters define how much noise is expected from the robot&apos;s movements/motions as it navigates inside the map.</p>
+<p><strong>Note:</strong> The odometry information for this project is received directly from Gazebo, and is equivalent to the ground truth value (no noise expected). So, you need not have to tune these parameters and can leave them at their default values. But feel free to experiment with some values and see if you notice any changes.</p>
+<p><strong>Important:</strong>  The above set of parameters should help you get started, however they aren&apos;t the only ones that can improve your results. You are encouraged and required to go through the documentation, identify which parameters might help you improve your localization results, and experiment with them. All the remaining parameters and corresponding documentation can be found on the  <a href="http://wiki.ros.org/amcl#Parameters">ROS wiki&apos;s amcl page</a>.</p>
+<p>Identifying and tuning all these parameters can take time and effort. But don&apos;t worry. Based on the information and resources provided, you are well-equipped to tackle the problem head-on! Make sure to discuss your approaches with your fellow students in the ND Slack, and to reach out to your mentor for any further help.</p>
+<h1 class="mume-header" id="localization-testing">Localization: Testing</h1>
+
+<p>Now, let us test the performance of your AMCL package! You have two options to control your robot while it localize itself here:</p>
+<ul>
+<li>Send  <code>navigation goal</code>  via RViz</li>
+<li>Send move command via  <code>teleop</code>  package.</li>
+</ul>
+<p>Navigate your robot, observe its performance and tune your parameters for AMCL! Capture screenshots and include them in your project submission.</p>
+<h3 class="mume-header" id="option-1-send-2d-navigation-goal">Option 1: Send  <code>2D Navigation Goal</code></h3>
+
+<p>Your first option would be sending a  <code>2D Nav Goal</code>  from RViz. The  <code>move_base</code>  will try to navigate your robot based on the localization. Based on the new observation and the odometry, the robot to further perform the localization.</p>
+<p>Click the  <code>2D Nav Goal</code>  button in the toolbar, then click and drag on the map to send the goal to the robot. It will start moving and localize itself in the process. If you would like to give  <code>amcl</code>  node a nudge, you could give the robot an initial position estimate on the map using  <code>2D Pose Estimate</code>.</p>
+<p align="center">
+<img src="img/testing1.png" alt="drawing" width="700">
+</p>
+<h3 class="mume-header" id="option-2-use-teleop-node">Option 2: Use  <code>teleop</code>  Node</h3>
+
+<p>You could also use  <code>teleop</code>  node to control your robot and observe it localize itself in the environment, if you have set it up in the  <code>Optional: Teleop Package</code>  part.</p>
+<p>Open another terminal and launch the  <code>teleop</code>  script:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+</pre><p>You could control your robot by keyboard commands now.</p>
+<p align="center">
+<img src="img/testing2.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="recap">Recap</h1>
+
+<p>You have successfully build and implemented the AMCL localization package on your robot! Let us review what are needed for the submission:</p>
+<ul>
+<li>Your Localization ROS Workspace folder</li>
+<li>Screenshot(s) of your robot localizing in the simulation</li>
+</ul>
+<h1 class="mume-header" id="submit-your-project">Submit Your Project</h1>
+
+<p>Once you have completed your project, use the  <a href="https://review.udacity.com/#!/rubrics/2351/view"><strong>Project Rubric</strong></a>  to review the project. If you have covered all of the points in the rubric, then you are ready to submit! If you see room for improvement in  <strong>any</strong>  category in which you do not meet specifications, keep working!</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

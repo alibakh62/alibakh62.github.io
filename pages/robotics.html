@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #04aa6d;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="#home">Home</a>
+      <a class="active" href="blog.html">Blog</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </div>
+
+    <div style="padding-left: 16px">
+      <h1>Robotics</h1>
+      <p>
+        My notes of the <strong>Udacity Nano-degree Robotics</strong> course I
+        took in 2019.
+      </p>
+      <ul>
+        <li>
+          Localization
+          <ul>
+            <li>
+              <a href="robotics/localization/1_kalman_filters.html"
+                >Kalman Filters</a
+              >
+            </li>
+            <li>
+              <a href="robotics/localization/2_kalman_filter_lab.html"
+                >Kalman Filters: lab</a
+              >
+            </li>
+            <li>
+              <a href="robotics/localization/3_monte_carlo_localization.html"
+                >Monte Carlo Localization</a
+              >
+            </li>
+            <li>
+              <a href="robotics/localization/4_build_mcl_in_CPP.html"
+                >Build MCL in C++</a
+              >
+            </li>
+            <li>
+              Codes
+              <ul>
+                <li>
+                  <a href="robotics/localization/codes/gaussian.cpp"
+                    >gaussian.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/localization/codes/kalman_filter.cpp"
+                    >kalman_filter.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/localization/codes/measurement_update.cpp"
+                    >measurement_update.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/localization/codes/multidim_kf.cpp"
+                    >multidim_kf.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/localization/codes/state_prediction.cpp"
+                    >state_prediction.cpp</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Path Planning and Navigation
+          <ul>
+            <li>
+              <a
+                href="robotics/path_planning_navigation/1_classic_path_planning.html"
+                >Classic Path Planning</a
+              >
+            </li>
+            <li>
+              <a
+                href="robotics/path_planning_navigation/2_lab_path_planning.html"
+                >Path Planning: lab</a
+              >
+            </li>
+            <li>
+              <a
+                href="robotics/path_planning_navigation/3_probabilistic_path_planning.html"
+                >Probabilistic Path Planning</a
+              >
+            </li>
+            <li>
+              Codes
+              <ul>
+                <li>
+                  <a
+                    href="robotics/path_planning_navigation/codes/a_star_realworld.cpp"
+                    >a_star_realworld.cpp</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="robotics/path_planning_navigation/codes/a_star_shotestpath.cpp"
+                    >a_star_shortestpath.cpp</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="robotics/path_planning_navigation/codes/bfs_shortestpath.cpp"
+                    >bfs_shortestpath.cpp</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="robotics/path_planning_navigation/codes/minkowski_sum.cpp"
+                    >minkowski_sum.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/path_planning_navigation/codes/map.txt"
+                    >map.txt</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          ROS
+          <ul>
+            <li>
+              <a href="robotics/ros/1_gazebo.html">Gazebo</a>
+            </li>
+            <li>
+              <a href="robotics/ros/2_ROS.html">ROS</a>
+            </li>
+            <li>
+              <a href="robotics/ros/3_TurtleSim.html">TurtleSim</a>
+            </li>
+            <li>
+              <a href="robotics/ros/4_catkin.html">catkin</a>
+            </li>
+            <li>
+              <a href="robotics/ros/5_write_ROS_nodes.html">Write ROS nodes</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          SLAM
+          <ul>
+            <li>
+              <a href="robotics/slam/1_occupancy_grid_mapping.html"
+                >Occupancy Grid Mapping</a
+              >
+            </li>
+            <li>
+              <a href="robotics/slam/2_FastSLAM.html">FastSLAM</a>
+            </li>
+            <li>
+              <a href="robotics/slam/3_GraphSLAM.html">GraphSLAM</a>
+            </li>
+            <li>
+              Codes
+              <ul>
+                <li>
+                  <a href="robotics/slam/codes/occupancy_grid_mapping.cpp"
+                    >occupancy_grid_mapping.cpp</a
+                  >
+                </li>
+                <li>
+                  <a href="robotics/slam/codes/measurement.txt"
+                    >measurement.txt</a
+                  >
+                </li>
+                <li><a href="robotics/slam/codes/poses.txt">poses.txt</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Projects
+          <ul>
+            <li>
+              <a href="robotics/projects/project1_build_my_world.html"
+                >Build My World</a
+              >
+            </li>
+            <li>
+              <a href="robotics/projects/project2_go_chase_it.html"
+                >Go Chase It!</a
+              >
+            </li>
+            <li>
+              <a href="robotics/projects/project3_where_am_i.html"
+                >Where Am I?</a
+              >
+            </li>
+            <li>
+              <a href="robotics/projects/project4_map_my_world.html"
+                >Map My World</a
+              >
+            </li>
+            <li>
+              <a href="robotics/projects/project5_home_service_robot.html"
+                >Home Service Robot</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

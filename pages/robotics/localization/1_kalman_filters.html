@@ -1,0 +1,1000 @@
+<!DOCTYPE html><html><head>
+      <title>1_kalman_filters</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="localization-in-robotics">Localization in Robotics</h1>
+
+<p>Localization is the challenge of determining your robot&apos;s pose in a mapped environment. We do this by implementing a probabilistic algorithm to filter noisy sensor measurements and track the robot&apos;s position and orientation. Robot&apos;s pose consists of its <code>X</code> and <code>Y</code> position coordinates within the room and its orientation, <code>theta</code>.</p>
+<p>There are four very popular localization algorithms.</p>
+<ul>
+<li><strong>Extended Kalman Filter (EKF):</strong> the most common Gaussian filter that helps in estimating the state of non-linear models.</li>
+<li><strong>Markov Localization:</strong> which is a base filter localization algorithm. Markov maintains a probability distribution over the set of all possible positions and orientation the robot might be located at.</li>
+<li><strong>Grid Localization:</strong> it is referred to as histogram filter since it&apos;s capable of estimating the robot&apos;s pose using grids.</li>
+<li><strong>Monte Carlo Localization (MCL):</strong> also known as <strong>particle filter</strong> because it estimates the robot&apos;s pose using particles.</li>
+</ul>
+<p>Here, we&apos;ll be covering EKF and MCL algorithms.</p>
+<p>See the video <a href="https://youtu.be/AcZY7n8XPZo">here</a>.</p>
+<p><strong>Resources for Additional Localization Knowledge:</strong></p>
+<p>Textbook: <a href="http://www.probabilistic-robotics.org/">Probabilistic Robotics</a> by Sebastian Thrun,&#x200E; Wolfram Burgard,&#x200E; and Dieter Fox.</p>
+<h2 class="mume-header" id="localization-challenges">Localization Challenges</h2>
+
+<p>There are <strong>three different types of localization problems</strong>. These problems are not all equal. The amount of information present and the nature of the environment that a robot is operating determine the difficulty of the localization task.</p>
+<p>The easiest localization problem is called <strong>Position Tracking</strong>, also known as <strong>Local Localization</strong>. In this problem, the robot knows its initial pose and the localization challenge entails estimating the robot&apos;s pose as it moves out on the environment. This problem is not that trivial, since there is always some uncertainty in robot motion. However, the uncertainty is limited to regions surrounding the robot.</p>
+<p>A more complicated localization challenge is called <strong>Global Localization</strong>. In this case, the robot&apos;s initial pose is unknown and the robot must determine its pose relative to the ground truth map. The amount of uncertainty in <strong>Global Localization</strong> is much greater than that in <strong>Position Tracking</strong>, making it a much more difficult problem.</p>
+<p>The most challenging localization problem is the <strong>Kidnapped Robot</strong> problem. This problem is just like <strong>Global Localization</strong> except that the robot may be kidnapped at any time and moved to a new location on the map. Although, this is that common, but we can think of it as the worst possible case. <em>As a roboticist, one should always design robots to deal with the worst circumstances.</em></p>
+<p>It should be noted that localization algorithms are not free from error and there will instances of a robot miscalcualting where it is. The <strong>Kidnapped Robot</strong> problem teaches the robot to recover from such instances, and once again, correctly locate itself on a map. Doing so is critical to building robot&apos;s localization algorithms.</p>
+<p>See the video <a href="https://youtu.be/J_ggwD8zip0">here</a>.</p>
+<h2 class="mume-header" id="overview">Overview</h2>
+
+<p>We&apos;re going to be covering the implementation of the two most common localization algoruthms. We&apos;ll be learning about <strong>Kalman Filter</strong>, a very robust algorithm for filtering noisy sensor data. We&apos;ll also talk about the limitations of KF and the variations (e.g. Extended KF) to overcome those limitations. We&apos;ll learn about <strong>sensor fusion</strong>, which is the process of combining data from multiple sensors to calculate the most accurate estimate of a measured value. We&apos;ll then use our knowledge and apply sensor fusion Extended Kalman Filter package with ROS to estimate the robot&apos;s pose.</p>
+<p>We&apos;ll also learn about <strong>Monte Carlo Localization</strong>. MCL uses particle filters to track your robot pose and present many advantages over EKF. After learning MCL algorithm, we&apos;ll code in C++ to generate particles and localize our robot in a 2D map. And we&apos;ll also visualize how particles can estimate our robot&apos;s pose.</p>
+<p>Finally, we&apos;ll build and customize our mobile robot in Gazebo. We&apos;ll be tracking the robot&apos;s pose while it navigates in a map using the adaptive Monte Carlo Localization package in ROS.</p>
+<p>See the video <a href="https://youtu.be/NV1j739Tlw8">here</a>.</p>
+<h1 class="mume-header" id="kalman-filters">Kalman Filters</h1>
+
+<p>See the video <a href="https://youtu.be/nA7tllSCpRA">here</a>.</p>
+<h2 class="mume-header" id="whats-a-kalman-filter">What&apos;s a Kalman Filter?</h2>
+
+<p>The Kalman filter is an estimation algorithm that is <strong>very prominent in controls</strong>. <strong>It&apos;s used to estimate the value of a variable in real time as the data is being collected</strong>. This variable can represent the position or velocity of a robot, or for example, the temperature of a process. <strong>The reason that the Kalman filter is so noteworthy is because it can take data with a lot of uncertainty or noise in the measurements, and provide a very accurate estimate of the real value, and it can do so fast</strong>. Unlike other estimation algorithms, <strong>you don&apos;t need to wait for a lot of data to come in in order to calculate an accurate estimate</strong>.</p>
+<p>In the most general level, KF is a continuous iteration of a <strong>two-step process</strong>. The <strong>first step</strong> is a <strong>measurement update</strong>. We use the recorded measurement to update our state. The <strong>second step</strong> is <strong>state prediction</strong>. We use the information that we have about the current state to predict what the future state will be. At the start, we use an initial guess. We continue to iterate through these two steps and it doesn&apos;t take many iteration to converge on real value.</p>
+<p>See the video <a href="https://youtu.be/Cd5KKT7PfdE">here</a>.</p>
+<p>Another way of looking at a Kalman Filter is just like you&#x2019;d look at any other filter. What does it take as an input, what does it filter out, and what important substance does it let through? The graphic below compares a household coffee filter, an engineering low-pass filter, and a Kalman filter.</p>
+<p>At the start, we use an <strong>initial guess</strong>. We continue to iterate through these two steps and it doesn&apos;t take many iterations for our estimate to converge on the real value.</p>
+<p align="center">
+<img src="img/kalman-filter.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="history">History</h2>
+
+<p>The Kalman filter was invented by Rudolph Kalman at a very convenient time in American history. Soon after developing the algorithm, Kalman visited his acquaintance Stanley Schmit at his workplace in NASA and introduced the algorithm to NASA staff. At the time, NASA was struggling to apply existing algorithms to the nonlinear problem of trajectory estimation for the Apollo program. The hope was to launch a spacecraft into a trajectory around the moon. The challenge lay in being able to create something accurate enough to guide the spacecraft through very narrow corridors of space but also efficient enough to run on an onboard computer in the 1960s. At the time, computing power was very limited in both the onboard computer and the computer that was used for simulation and testing. Another challenge was that during the flight of the spacecraft measurements would be coming in at irregular time intervals. After some tweaks, the Kalman filter algorithm provided the Apollo mission with a navigational accuracy to successfully enter orbit around the moon.</p>
+<p>See the video <a href="https://youtu.be/K1PT5I5hro0">here</a>.</p>
+<h2 class="mume-header" id="applications">Applications</h2>
+
+<p>Since its success with the Apollo program, the Kalman filter has become one of the most practical algorithms in the field of controls engineering. Today, the Kalman filter is applied in many different disciplines. Within <strong>engineering</strong> the Kalman filter is often used to estimate the state of a system when the measurements are noisy. For example, the fluid level in a tank, or position tracking of a mobile robot. Outside of engineering, the Kalman filter is very popular in the field of <strong>economics</strong>. For instance, to esimtate the exchange rate of a particular currency or the global domestic product (GDP). <strong>Computer vision</strong> is another big user of the Kalman filter for many different applications including feature tracking.</p>
+<p>See the video <a href="https://youtu.be/EIOqFwzB4j8">here</a>.</p>
+<h2 class="mume-header" id="variations">Variations</h2>
+
+<p>There are three common types of Kalman filters:</p>
+<ul>
+<li><strong>Standard Kalman filter (KF):</strong> linear</li>
+<li><strong>Extended Kalman filter (EKF):</strong> nonlinear (more applicable in robotics)</li>
+<li><strong>Unscented Kalman filter (UKF):</strong> highly nonlinear (where EKF fail to converge)</li>
+</ul>
+<p>See the video <a href="https://youtu.be/ldg7uIhA08k">here</a>.</p>
+<p>Resources for UKF:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Kalman_filter#Unscented_Kalman_filter">UKF-Wikipedia</a></li>
+<li><a href="http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam05-ukf.pdf">UKF by Cyrill Stachniss, University of Freiburg</a></li>
+</ul>
+<h2 class="mume-header" id="robot-uncertainty">Robot Uncertainty</h2>
+
+<p>Before diving into KF, it&apos;s important to understand a few intercacies of robot operation that will context to why KF works the way it does.</p>
+<p><strong>Motion Uncertainty</strong></p>
+<p>Let&apos;s explore two different robot worlds: the <em>ideal world</em> and the <em>real world</em>. In both worlds, the robots know their starting positions. In the <strong>ideal world</strong>, the robot is instructed to move 10 meters forward. The robot proceeds to do so and stops precisely 10 meters from its starting position. The movement was error-free. The robot in the <strong>real world</strong> is also asked to move forward 10 meters. In the real world, however, there are few complexities that result in the robot&apos;s movement being imprecise. The robot may encounter imperfections in the terrain, experience wheel slip, or adversely affected by other factors in its environment. Upon completion of its movement, the robot may not be at the 10 meter mark precisely, but some distance ahead of or behind of its desired goal. This error will be different with every movement performed due to the randomness encountered in the environment.</p>
+<p>We can think of as if there is normal distribution stopped position around the 10 meter mark for the robot in real world. The shape of the Gaussian is specific to the robot and environment it is operating in. For example, in less noisy environment (factory floor), the distribution will be narrower, whereas a more risky environment (like a rescue mission where robot can affected by many adverse effects like weather, unstable terrain, etc.), will have a wider Gaussian distribution.</p>
+<p><strong>Sensor Uncertainty</strong><br>
+But, the distribution of uncertainty is not the only problem here. If a robot were to continue to take blind movements one after the other, then its location would become less and less certain with every movement (the uncertainties stack up over time). <strong>With all these uncertainties in motion, a robot needs a way to sense its own action. But, unfortunately, the sensory data is often uncertain, too</strong>. Examples would be sensors to measure speed of the robot through sensor which will contain some amount of noise.</p>
+<p>See the video <a href="https://youtu.be/5NAb2iyu2uo">here</a>.</p>
+<h2 class="mume-header" id="kalman-filter-advantage">Kalman Filter Advantage</h2>
+
+<p>Now that we know that both movements and sensory measurements are uncertain, how can the Kalman filter help us make better sense of our robot&apos;s current state? <strong>The Kalman filter can very quickly develop a surprising accurate estimate of the true value of the variable being measured</strong>. For instance, the robot&apos;s location in the one dimensional real world, in the previous example. <strong>Unlike other algorithms that require a lot of data to make an estimate, the Kalman filter is able to do so after just a few sensor measurements</strong>. It does so by using an initial guess and taking into account the expected uncertainty of a sensor or movement.</p>
+<p>There is another advantageous application of the Kalman filter. Let&apos;s say that your robot is using GPS data to identify its location. Today&apos;s GPS measurements are only accurate to a few meters. It is possible that by using the GPS alone, you cannot obtain accurate enough estimate of your robot&apos;s location. However, if you use additional sensors onboard the robot, you may be able to combine measurements from all of them to obtain a more accurate estimate. This is called <strong>sensor fusion</strong>. Sensor fusion uses the Kalman filter to calculate a more accurate estimate using data from multiple sensors. Once again, Kalman filter takes into account the uncertainty of each sensor&apos;s measurements. So, whether it&apos;s making sense of noisy data from one sensor or from multiple. The Kalman filter is a very useful algorithm to learn.</p>
+<p>See the video <a href="https://youtu.be/thwTZvbzAgk">here</a>.</p>
+<h2 class="mume-header" id="1d-gaussian">1D Gaussian</h2>
+
+<p>At the basis of the Kalman Filter is the Gaussian distribution, sometimes referred to as a bell curve or normal distribution. Recall the rover example - after executing one motion, the rover&#x2019;s location was represented by a Gaussian. It&#x2019;s exact location was not certain, but the level of uncertainty was bounded. It was unlikely that the rover would be more than a few meters away from its target location, and it would be nearly impossible for it to show up at the 50 meter mark.</p>
+<p align="center">
+<img src="img/1d-gaussian.png" alt="drawing" width="600">
+</p>
+<p>This is the role of a Kalman Filter - after a movement or a measurement update, it outputs a unimodal Gaussian distribution. This is its best guess at the true value of a parameter.</p>
+<p>A Gaussian distribution is a probability distribution, which is a continuous function. The probability that a random variable, x, will take a value between <code>x_1</code> and <code>x_2</code> is given by the integral of the function from <code>x1</code> to <code>x2</code>.</p>
+<p align="center">
+<img src="img/gaussian.png" alt="drawing" width="300">
+</p>
+<p>In the image below, the probability of the rover being located between 8.7m and 9m is 7%.</p>
+<p align="center">
+<img src="img/prob-dist.png" alt="drawing" width="500">
+</p>
+<h3 class="mume-header" id="mean-and-variance">Mean and Variance</h3>
+
+<p>A Gaussian is characterized by two parameters - its mean (&#x3BC;) and its variance (&#x3C3;&#xB2;). The mean is the most probable occurrence and lies at the centre of the function, and the variance relates to the width of the curve. The term unimodal implies a single peak present in the distribution.</p>
+<p>Gaussian distributions are frequently abbreviated as N(x: &#x3BC;, &#x3C3;&#xB2;), and will be referred to in this way throughout the coming lessons.</p>
+<p>The formula for the Gaussian distribution is printed below. Notice that the formula contains an exponential of a quadratic function. The quadratic compares the value of x to &#x3BC;, and in the case that x=&#x3BC;, the exponential is equal to 1 (<code>e^0 = 1</code>). You&#x2019;ll note here, that the constant in front of the exponential is a necessary normalizing factor.</p>
+<p align="center">
+<img src="img/prob-dist2.png" alt="drawing" width="200">
+</p>
+<p>Just like with discrete probability, like a coin toss, the probabilities of all the options must sum to one. Therefore, the area underneath the function always sums to one.</p>
+<p align="center">
+<img src="img/prob-dist3.png" alt="drawing" width="150">
+</p>
+<p>Now that you are familiar with the formula, it&#x2019;s time to code the Gaussian in C++. This will allow you to calculate the probability of a value occurring given a mean and a variance!</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> mu<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> sigma2<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//Use mu, sigma2 (sigma squared), and x to code the 1-dimensional Gaussian</span>
+    <span class="token comment">//Put your code here</span>
+    <span class="token keyword keyword-double">double</span> prob <span class="token operator">=</span> <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token function">sqrt</span><span class="token punctuation">(</span><span class="token number">2.0</span> <span class="token operator">*</span> M_PI <span class="token operator">*</span> sigma2<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">exp</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">0.5</span> <span class="token operator">*</span> <span class="token function">pow</span><span class="token punctuation">(</span><span class="token punctuation">(</span>x <span class="token operator">-</span> mu<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">)</span> <span class="token operator">/</span> sigma2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> prob<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">,</span> <span class="token number">4.0</span><span class="token punctuation">,</span> <span class="token number">8.0</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p><strong>What is represented by a Gaussian distribution?</strong></p>
+<ul>
+<li>Predicted motion</li>
+<li>Sensor measurement</li>
+<li>Estimated state of robot</li>
+</ul>
+<p>That&#x2019;s right, the Kalman Filter treats all noise as unimodal Gaussian. In reality, that&#x2019;s not the case. However, the algorithm is optimal if the noise is Gaussian. The term optimal expresses that the algorithm minimizes the mean square error of the estimated parameters.</p>
+<h2 class="mume-header" id="designing-1d-kalman-filters">Designing 1D Kalman Filters</h2>
+
+<p>Before we dive into designing a Kalman filter, let&apos;s make sure that we&apos;re on the same page when it comes to naming conventions. Since a robot is unable to sense the world around it with complete uncertainty, it holds an internal belief which is its best guess at the state of the environment, including itself. As mentioned before, a robot constraint to a plane can be described with three state variables: two coordinates <code>x</code> and <code>y</code> to identify its position and one angle <code>\theta</code> to identify its orientation. These are its state variables and we will denote a state the bold letter <strong><code>x</code></strong>. <strong>States</strong> may change over time so sometimes we will use a subscript to represent state <code>x</code> at time <code>t</code>.</p>
+<p>Two steps are involved in the Kalman filter algorithm: <strong>measurement update</strong>, and <strong>state prediction</strong>.</p>
+<p><strong>Measurement Update:</strong> You know that a robot can perceive its environment using sensors which produces a <strong>measurement</strong>. This is denoted with the letter <strong><code>z</code></strong> and <code>z_t</code> represents measurement obtained at time <code>t</code>. Next, our control actions such as movement can change the state of our environment. <strong>Control options</strong> are denoted by <strong><code>u</code></strong> and <code>u_t</code> represents the change of state that occurred between time <code>t-1</code> and <code>t</code>.</p>
+<p>We need to start Kalman filter cycle somewhere and this is usually with an initial estimate of the state. The estimate does not have to be accurate. It can be aweful guess and the Kalman filter will still manage to give us good results very quickly.</p>
+<p>Then, we iterate between the measurement update where we gain knowledge about our environment and the state prediction which causes us to lose knowledge due to uncertainty of robot motion.</p>
+<p>See the video <a href="https://youtu.be/5YChifc8z1M">here</a>.</p>
+<p><strong>Variable Naming Conventions</strong></p>
+<p align="center">
+<img src="img/1d-kl.png" alt="drawing" width="200">
+</p>
+<h2 class="mume-header" id="measurement-update">Measurement Update</h2>
+
+<p>Let&apos;s begin our KF implementation with measurement update and et&apos;s use the previous example (mobile robot in real world moving 10 meters etc.) here. Let&apos;s assume that our robot has been roaming around for a while. However, we have an inkling that the robot&apos;s current position is near 20 meter mark. But we are not certain. So, the prior belief Gaussian has a rather wide probability distribution.</p>
+<p>Next, the robot takes its first sensory measurement providing us with data to work with. The measurement data, <strong><code>z</code></strong>, is more certain. So, it&apos;ll have a narrower Gaussian with a mean of 30.</p>
+<p>See the video <a href="https://youtu.be/OaLfGr8xx9Q">here</a>.</p>
+<p><strong>Given our prior belief about the robot&apos;s state and the measurement that is collected, where do you think the robot&apos;s new belief will be?</strong></p>
+<ul>
+<li><code>&#x3BC;</code>: Mean of the prior belief</li>
+<li><code>&#x3C3;^2</code>: Variance of the prior belief</li>
+<li><code>&#x3BD;</code>: Mean of the measurement</li>
+<li><code>r^2</code>: Variance of the measurement</li>
+</ul>
+<p align="center">
+<img src="img/quiz.png" alt="drawing" width="500">
+</p>
+<p>See the video <a href="https://youtu.be/cKEVFynbJfs">here</a>.</p>
+<p>The new mean is a weighted sum of the prior belief and measurement means. With uncertainty, a larger number represents a more uncertain probability distribution. However, the new mean should be biased towards the measurement update, which has a smaller standard deviation than the prior. How do we accomplish this?</p>
+<p align="center">
+<img src="img/measure-update.png" alt="drawing" width="200">
+</p>
+<p>The answer is - the uncertainty of the prior is multiplied by the mean of the measurement, to give it more weight, and similarly the uncertainty of the measurement is multiplied with the mean of the prior. Applying this formula to our example generates a new mean of 27.5, which we can label on our graph below.</p>
+<p align="center">
+<img src="img/quiz2.png" alt="drawing" width="500">
+</p>
+<h3 class="mume-header" id="variance-calculation">Variance Calculation</h3>
+
+<p>Next, we need to determine the variance of the new state estimate.</p>
+<p>The two Gaussians provide us with more information together than either Gaussian offered alone. As a result, our new state estimate is more confident than our prior belief and our measurement. This means that it has a higher peak and is narrower. You can see this in the graph below.</p>
+<p align="center">
+<img src="img/quiz3.png" alt="drawing" width="500">
+</p>
+<p>The formula for the new variance is presented below.</p>
+<p align="center">
+<img src="img/measure-var-update.png" alt="drawing" width="200">
+</p>
+<p>Entering the variances from our example into this formula produces a new variance of 2.25. The new state estimate, often called the posterior, is drawn below.</p>
+<p align="center">
+<img src="img/quiz4.png" alt="drawing" width="500">
+</p>
+<ul>
+<li><code>&#x3BC;</code>: Mean of the prior belief</li>
+<li><code>&#x3C3;^2</code>: Variance of the prior belief</li>
+<li><code>&#x3BD;</code>: Mean of the measurement</li>
+<li><code>r^2</code>: Variance of the measurement</li>
+<li><code>&#x3C4;</code>: Mean of the posterior</li>
+<li><code>s^2</code>: Variance of the posterior</li>
+</ul>
+<p>It&#x2019;s time to implement these two formulas in C++. Place your code within a function called measurement_update, such that you can use it as a building block in your Kalman Filter implementation.</p>
+<p>When you&#x2019;re done, calculate the posterior mean and variance for a prior of <code>N(x: &#x3BC;_1=10, &#x3C3;^2=8)</code> and measurement <code>N(x: &#x3BC;_2=13, &#x3C3;^2=2)</code>. Is it what you expected?</p>
+<p><strong>Programming Quiz</strong><br>
+In this C++ code, the <strong>measurement update</strong> function returns two values: the newly computed mean and variance. Usually, a <code>tuple</code> or <code>struct</code> should be used in C++ to return more than one value from a function and easily assign them later to multiple variables. For more information on <code>tuples</code> and <code>structs</code> take a look at this <a href="https://dzone.com/articles/returning-multiple-values-from-functions-in-c">link</a>.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple&gt;</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">;</span>
+
+tuple<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> <span class="token function">measurement_update</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> mean1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> mean2<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    new_mean <span class="token operator">=</span> <span class="token punctuation">(</span>var2 <span class="token operator">*</span> mean1 <span class="token operator">+</span> var1 <span class="token operator">*</span> mean2<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>var1 <span class="token operator">+</span> var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    new_var <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">/</span> var1 <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">/</span> var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token function">make_tuple</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token function">tie</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">measurement_update</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;[%f, %f]&quot;</span><span class="token punctuation">,</span> new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>I encourage you to think about what the posterior Gaussian would look like for the following example, and even calculate the exact values using your measurement_update function.</p>
+<p align="center">
+<img src="img/quiz5.png" alt="drawing" width="500">
+</p>
+<h2 class="mume-header" id="state-prediction">State Prediction</h2>
+
+<p>By implementing the measurement update, we&apos;ve completed half of KF&apos;s iterative cycle. <strong>State prediction</strong> is the estimation that takes place after an inevitably uncertain motion. Continuing from previous section example and after taking into account the measurement, the posterior distribution was a Gaussian with a mean of 27.5 and a variance of 2.25. However, since we moved onto the state predictions step in the KF cycle, this Gaussian is now referred to as the <strong>prior belief</strong>. This is the robot&apos;s best estimate of its current location.</p>
+<p>Next, the robot executes a command. &quot;Move forward 7.5 meters.&quot; The result of this motion is a Gaussian distribution centered around 7.5 meters with a variance of 5 meters.</p>
+<p><strong>Calculating the new estimate is as easy as adding the mean of the motion to the mean of the prior</strong>. Similarly, <strong>adding two variances together to produce the posterior Gaussian</strong>.</p>
+<p>See the video <a href="https://youtu.be/mjBpoGmNaqU">here</a>.</p>
+<h3 class="mume-header" id="state-prediction-formulas">State Prediction Formulas</h3>
+
+<p align="center">
+<img src="img/state-prediction.png" alt="drawing" width="300">
+</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple&gt;</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">;</span>
+
+tuple<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> <span class="token function">state_prediction</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> mean1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> mean2<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    new_mean <span class="token operator">=</span> mean1 <span class="token operator">+</span> mean2<span class="token punctuation">;</span>
+    new_var <span class="token operator">=</span>  var1 <span class="token operator">+</span> var2<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token function">make_tuple</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token function">tie</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">state_prediction</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;[%f, %f]&quot;</span><span class="token punctuation">,</span> new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="1d-kalman-filter">1D Kalman Filter</h2>
+
+<p>So far we learned that the <strong>measurement update</strong> is a weighted sum of the prior belief and the measurement. The <strong>state prediction</strong> is the addition of the prior belief&apos;s mean and variance to the motion&apos;s mean and variance.</p>
+<p>As long as measurement data is available, and the robot has motions to implement. Below, we write the code that will iteratively go through the available measurements and motions, and apply a measurement update or a state prediction to each one of them.</p>
+<p>See the video <a href="https://youtu.be/1nHSG4U_v2g">here</a>.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple&gt;</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">;</span>
+
+tuple<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> <span class="token function">measurement_update</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> mean1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> mean2<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    new_mean <span class="token operator">=</span> <span class="token punctuation">(</span>var2 <span class="token operator">*</span> mean1 <span class="token operator">+</span> var1 <span class="token operator">*</span> mean2<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>var1 <span class="token operator">+</span> var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    new_var <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">/</span> var1 <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">/</span> var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token function">make_tuple</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+tuple<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> <span class="token function">state_prediction</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> mean1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var1<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> mean2<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> var2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    new_mean <span class="token operator">=</span> mean1 <span class="token operator">+</span> mean2<span class="token punctuation">;</span>
+    new_var <span class="token operator">=</span> var1 <span class="token operator">+</span> var2<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token function">make_tuple</span><span class="token punctuation">(</span>new_mean<span class="token punctuation">,</span> new_var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//Measurements and measurement variance</span>
+    <span class="token keyword keyword-double">double</span> measurements<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> measurement_sig <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">//Motions and motion variance</span>
+    <span class="token keyword keyword-double">double</span> motion<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> motion_sig <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">//Initial state</span>
+    <span class="token keyword keyword-double">double</span> mu <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> sig <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>measurements<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>measurements<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">tie</span><span class="token punctuation">(</span>mu<span class="token punctuation">,</span> sig<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">measurement_update</span><span class="token punctuation">(</span>mu<span class="token punctuation">,</span> sig<span class="token punctuation">,</span> measurements<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> measurement_sig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;update:  [%f, %f]\n&quot;</span><span class="token punctuation">,</span> mu<span class="token punctuation">,</span> sig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">tie</span><span class="token punctuation">(</span>mu<span class="token punctuation">,</span> sig<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">state_prediction</span><span class="token punctuation">(</span>mu<span class="token punctuation">,</span> sig<span class="token punctuation">,</span> motion<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> motion_sig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;predict: [%f, %f]\n&quot;</span><span class="token punctuation">,</span> mu<span class="token punctuation">,</span> sig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="multivariate-gaussians">Multivariate Gaussians</h2>
+
+<p>Most robots that we would be interested in modeling are moving in more than one dimension. For instance, a robot on a plane would have an x &amp; y position.</p>
+<p>The simple approach to take, would be to have a 1-dimensional Gaussian represent each dimension - one for the x-axis and one for the y-axis.</p>
+<p>Do you see any problems with this?</p>
+<p><strong>Why couldn&apos;t we use multiple 1-dimensional Gaussians to represent multi-dimensional systems?</strong></p>
+<p>There may be correlations between dimensions that we would not be able to model by using independent 1-dimensional Gaussians.</p>
+<p>The image below depicts a two-dimensional Gaussian distribution.</p>
+<p align="center">
+<img src="img/multivariate-gaussian.png" alt="drawing" width="400">
+</p>
+<p>For more details on multivariate Gaussian see <a href="https://youtu.be/ih69P0KJgII">this video</a>.</p>
+<h3 class="mume-header" id="formulas-for-the-multivariate-gaussian">Formulas for the Multivariate Gaussian</h3>
+
+<p><strong>Mean</strong></p>
+<p>The mean is now a vector,</p>
+<p align="center">
+<img src="img/kl-mean.png" alt="drawing" width="150">
+</p>
+<p><strong>Covariance</strong></p>
+<p>And the multidimensional equivalent of variance is a covariance matrix,</p>
+<p align="center">
+<img src="img/kl-var.png" alt="drawing" width="200">
+</p>
+<p>where <code>{&#x3C3;_x}^2</code> and <code>{&#x3C3;_y}^2</code> represent the variances, while <code>&#x3C3;_y.&#x3C3;_x</code> and <code>&#x3C3;_x.&#x3C3;_y</code> are correlation terms. These terms are non-zero if there is a correlation between the variance in one dimension and the variance in another. When that is the case, the Gaussian function looks &apos;skewed&apos; when looked at from above.</p>
+<p>If we were to evaluate this mathematically, the eigenvalues and eigenvectors of the covariance matrix describe the amount and direction of uncertainty.</p>
+<p><strong>Multivariate Gaussian</strong></p>
+<p>Below is the formula for the multivariate Gaussian. Note that <code>x</code> and <code>&#x3BC;</code> are vectors, and &#x3A3; is a matrix.</p>
+<p align="center">
+<img src="img/multivar-gaussian.png" alt="drawing" width="300">
+</p>
+<p>If D=1, the formula simplifies to the formula for the one-dimensional Gaussian that you have seen before.</p>
+<h2 class="mume-header" id="intro-to-multi-dimensional-kf">Intro to Multi-dimensional KF</h2>
+
+<p>In our multi-dimensional examples, the system state was represented by one variable. In <em>N-dimensional</em> systems, the state is a vector with <strong>N</strong> state variables. If we are to explore a two dimensional example, these two state variables could be the <code>x</code> and <code>y</code> positions of a robot. Or, if you&apos;re looking for a more interesting example, it could be the position and velocity of a robot.</p>
+<p>This leads right into another important matter. <strong>When working in one dimension, your state has to be observable, meaning that it had to be something that can be measured directly. In multi-dimensional states, there may exist hidden state variables, ones that you cannot measure with the sensors available</strong>. However, you may be able to infer value from other states and measurements.</p>
+<p>In the 2D example of position and velocity, the <strong>location of the robot is observable while its velocity is not, making it a hidden state variable</strong>. However, a robot&apos;s position and velocity over time are linked through a very simple formula (see below).</p>
+<p align="center">
+<img src="img/state-trans.png" alt="drawing" width="150">
+</p>
+<p>If initially, the position of the robot is known but its velocity is not. The estimate of the robot&apos;s state will be a Gaussian that is very narrow in the <code>x</code> dimension, representing confidence about the robot&apos;s location, and very wide in the <code>x_dot</code> dimension, since the robot&apos;s velocity is completely unknown. (see the figure below)</p>
+<p align="center">
+<img src="img/multi-kf1.png" alt="drawing" width="500">
+</p>
+<p>Next, a state prediction can be calculated. <strong>Knowing the relationship between the hidden variable and observable variable is key here</strong>. Let&apos;s assume that one iteration of the Kalman filter takes 1 second. Now, using the formula, we can calculate the posterior state for each possible velocity. For instance, if the velocity is zero, the posterior state would be identical to the prior and if the velocity is one, the posterior will move, and so forth. From this, we can draw a posterior Gaussian that looks like image below,</p>
+<p align="center">
+<img src="img/multi-kf3.png" alt="drawing" width="500">
+</p>
+<p>However, it doesn&apos;t tell us anything about the velocity. It just graphs the correlation between the velocity and the location of the robot. However, what we do next, is a <strong>measurement update</strong>. The initial belief was useful to calculate state prediction but has no additional value and the result of state prediction can be called a <strong>prior belief</strong> for our measurement update.</p>
+<p>Let&apos;s say that the new measurement suggests a location of <code>x = 50</code>.  Now, if we apply the measurement update to our prior, we will have a very small posterior centered around <code>x = 50</code> and <code>x_dot = 15</code>. (see the image below)</p>
+<p align="center">
+<img src="img/multi-kf4.png" alt="drawing" width="500">
+</p>
+<p>This is the very similar measurement update in 1D case. The posterior belief is the sume of the prior belief and the measurement, which is more confident that either the prior or the measurement.</p>
+<p align="center">
+<img src="img/multi-kf5.png" alt="drawing" width="500">
+</p>
+<p>Then, the relationship between the two dimensions narrows down the posterior for the <code>x_dot</code> axis. After all, if the robot moved from <code>x = 35</code> to <code>x = 50</code> in one second, the speed should be trivial to calculate. And so it seems that two iterations of the Kalman filter cycle were enough to infer the robot&apos;s velocity. Continuing iterating through the measurement update and state prediction steps will update the robot&apos;s internal state to keep it aligned with where it is in the real world.</p>
+<p>See the video <a href="https://youtu.be/9Xb5WavDqKE">here</a>.</p>
+<h2 class="mume-header" id="design-of-multi-dimensional-kalman-filters">Design of Multi-Dimensional Kalman Filters</h2>
+
+<p>From this point forward we will transition to using linear algebra, as it allows us to easily work with multi-dimensional problems. To begin with, let&#x2019;s write the state prediction in linear algebra form.</p>
+<h3 class="mume-header" id="state-transition">State Transition</h3>
+
+<p>The formula below is the state transition function that advances the state from time <em>t</em> to time <em>t + 1</em>. It is just the relationship between the robot&#x2019;s position, <code>x</code>, and velocity, <code>xdot</code>. Here, we will assume that the robot&#x2019;s velocity is not changing.</p>
+<p align="center">
+<img src="img/state-trans.png" alt="drawing" width="150">
+</p>
+<p>We can express the same relationship in matrix form, as seen below. On the left, is the posterior state (denoted with the prime symbol, &apos;<br>
+&#x2032;<br>
+), and on the right are the state transition function and the prior state. This equation shows how the state changes over the time period, <code>&#x394;t</code>. Note that we are only working with the means here; the covariance matrix will appear later.</p>
+<p align="center">
+<img src="img/state-trans.png" alt="drawing" width="150">
+</p>
+<p>The State Transition Function is denoted <code>F</code>, and the formula can be written as so,</p>
+<p align="center">
+<img src="img/state-trans3.png" alt="drawing" width="100">
+</p>
+<p>In reality, the equation should also account for process noise, as its own term in the equation. However, process noise is a Gaussian with a mean of 0, so the update equation for the mean need not include it.</p>
+<p align="center">
+<img src="img/state-trans4.png" alt="drawing" width="150">
+</p>
+<p>Now, what happens to the covariance? How does it change in this process?</p>
+<p><strong>NOTE:</strong> While it is common to use <code>&#x3A3;</code> to represent the covariance of a Gaussian distribution in mathematics, it is more common to use the letter PP to represent the state covariance in localization.</p>
+<p>If you multiply the state, xx, by FF, then the covariance will be affected by the square of FF. In matrix form, this will look like so:</p>
+<p align="center">
+<img src="img/state-trans5.png" alt="drawing" width="100">
+</p>
+<p>However, your intuition may suggest that it should be affected by more than just the state transition function. For instance, additional uncertainty may arise from the prediction itself. If so, you&#x2019;re correct!</p>
+<p>To calculate the posterior covariance, the prior covariance is multiplied by the state transition function squared, and <code>Q</code> added as an increase of uncertainty due to process noise. <code>Q</code> can account for a robot slowing down unexpectedly, or being drawn off course by an external influence.</p>
+<p align="center">
+<img src="img/state-trans6.png" alt="drawing" width="150">
+</p>
+<p>Now we&#x2019;ve updated the mean and the covariance as part of the state prediction.</p>
+<p><strong>Quiz</strong></p>
+<p>Now that you&apos;ve seen how a simple state transition function is created, let&apos;s see if you can construct a more complicated one for the following problem:</p>
+<p>You are tracking the position and velocity of a robot in two dimensions, x and y. The state is represented as so,</p>
+<p align="center">
+<img src="img/state-trans7.png" alt="drawing" width="150">
+</p>
+<p>Find the state update function, F, that will advance the state from time <em>t</em> to time <em>t + 1</em> based on the state transition equation below.</p>
+<p align="center">
+<img src="img/state-trans3.png" alt="drawing" width="100">
+</p>
+<p><strong>Which of the following matrices is the correct state transition function for the problem defined above?</strong></p>
+<p align="center">
+<img src="img/state-trans8.png" alt="drawing" width="200">
+</p>
+<h3 class="mume-header" id="measurement-update-1">Measurement Update</h3>
+
+<p>Next, we move onto the measurement update step. If we return to our original example, where we were tracking the position and velocity of a robot in the x-dimension, the robot was taking measurements of the location only (the velocity is a hidden state variable). Therefore the measurement function is very simple - a matrix containing a one and a zero. This matrix demonstrates how to map the state to the observation, <code>z</code>.</p>
+<p align="center">
+<img src="img/meas-update1.png" alt="drawing" width="150">
+</p>
+<p>This matrix, called the Measurement Function, is denoted <code>H</code>.</p>
+<p>For the measurement update step, there are a few formulas. First, we calculate the measurement residual, <code>y</code>. The measurement residual is the difference between the measurement and the expected measurement based on the prediction (ie. we are comparing where the measurement tells us we are vs. where we think we are). The measurement residual will be used later on in a formula.</p>
+<p align="center">
+<img src="img/meas-update2.png" alt="drawing" width="150">
+</p>
+<p>Next, it&apos;s time to consider the measurement noise, denoted <code>R</code>. This formula maps the state prediction covariance into the measurement space and adds the measurement noise. The result, <code>S</code>, will be used in a subsequent equation to calculate the Kalman Gain.</p>
+<p align="center">
+<img src="img/meas-update3.png" alt="drawing" width="150">
+</p>
+<p>These equations need not be memorized, instead they can be referred to in text or implemented in code for use and reuse.</p>
+<h3 class="mume-header" id="kalman-gain">Kalman Gain</h3>
+
+<p>Next, we calculate the Kalman Gain, K. As you will see in the next equation, the Kalman Gain determines how much weight should be placed on the state prediction, and how much on the measurement update. It is an averaging factor that changes depending on the uncertainty of the state prediction and measurement update.</p>
+<p align="center">
+<img src="img/kl-gain.png" alt="drawing" width="150">
+</p>
+<p>These equations may look complicated and intimidating, but they do nothing more than calculate an average factor.</p>
+<p>See the video <a href="https://youtu.be/K-FobmdRMtI">here</a>, for a thorough explanation of how the equations are derived.</p>
+<p>The last step in the Kalman Filter is to update the new state&#x2019;s covariance using the Kalman Gain.</p>
+<p align="center">
+<img src="img/kl-gain2.png" alt="drawing" width="150">
+</p>
+<h3 class="mume-header" id="kalman-filter-equations">Kalman Filter Equations</h3>
+
+<p>These are the equations that implement the Kalman Filter in multiple dimensions.</p>
+<p><strong>State Prediction:</strong></p>
+<p align="center">
+<img src="img/eq1.png" alt="drawing" width="150">
+</p>
+<p><strong>Measurement Update:</strong></p>
+<p align="center">
+<img src="img/eq2.png" alt="drawing" width="150">
+</p>
+<p><strong>Calculation of Kalman Gain:</strong></p>
+<p align="center">
+<img src="img/eq3.png" alt="drawing" width="150">
+</p>
+<p><strong>Calculation of Posterior State and Covariance:</strong></p>
+<p align="center">
+<img src="img/eq4.png" alt="drawing" width="180">
+</p>
+<p>The Kalman Filter can successfully recover from inaccurate initial estimates, but it is very important to estimate the noise parameters, Q and R, as accurately as possible - as they are used to determine which of the estimate or the measurement to believe more.</p>
+<h3 class="mume-header" id="programming-exercise">Programming Exercise</h3>
+
+<p>Now it&#x2019;s your chance to code the multi-dimensional Kalman Filter in C++. The code below uses the C++ <code>eigen</code> library to define matrices and easily compute their inverse and transpose. Check out the <code>eigen</code> library full documentation <a href="https://eigen.tuxfamily.org/dox/group__QuickRefPage.html">here</a> and go through some of their examples. Here&apos;s a list of useful commands that you&apos;ll need while working on this quiz:</p>
+<ul>
+<li>Initializing a 2x1 float matrix K: <code>MatrixXf K(2, 1);</code></li>
+<li>Inserting values to matrix K: <code>K &lt;&lt; 0, 0</code></li>
+<li>Computing the transpose of matrix K: <code>K.transpose()</code></li>
+<li>Computing the inverse of matrix K: <code>K.inverse()</code></li>
+</ul>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;Core&quot;</span> <span class="token comment">// Eigen Library</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;LU&quot;</span>   <span class="token comment">// Eigen Library</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> Eigen<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-float">float</span> measurements<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+tuple<span class="token operator">&lt;</span>MatrixXf<span class="token punctuation">,</span> MatrixXf<span class="token operator">&gt;</span> <span class="token function">kalman_filter</span><span class="token punctuation">(</span>MatrixXf x<span class="token punctuation">,</span> MatrixXf P<span class="token punctuation">,</span> MatrixXf u<span class="token punctuation">,</span> MatrixXf F<span class="token punctuation">,</span> MatrixXf H<span class="token punctuation">,</span> MatrixXf R<span class="token punctuation">,</span> MatrixXf I<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>measurements<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>measurements<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token comment">// Measurement Update</span>
+        MatrixXf <span class="token function">Z</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Z <span class="token operator">&lt;&lt;</span> measurements<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        MatrixXf <span class="token function">y</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        y <span class="token operator">&lt;&lt;</span> Z <span class="token operator">-</span> <span class="token punctuation">(</span>H <span class="token operator">*</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        MatrixXf <span class="token function">S</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        S <span class="token operator">&lt;&lt;</span> H <span class="token operator">*</span> P <span class="token operator">*</span> H<span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> R<span class="token punctuation">;</span>
+
+        MatrixXf <span class="token function">K</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        K <span class="token operator">&lt;&lt;</span> P <span class="token operator">*</span> H<span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> S<span class="token punctuation">.</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        x <span class="token operator">&lt;&lt;</span> x <span class="token operator">+</span> <span class="token punctuation">(</span>K <span class="token operator">*</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        P <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>I <span class="token operator">-</span> <span class="token punctuation">(</span>K <span class="token operator">*</span> H<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> P<span class="token punctuation">;</span>
+
+        <span class="token comment">// Prediction</span>
+        x <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>F <span class="token operator">*</span> x<span class="token punctuation">)</span> <span class="token operator">+</span> u<span class="token punctuation">;</span>
+        P <span class="token operator">&lt;&lt;</span> F <span class="token operator">*</span> P <span class="token operator">*</span> F<span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token function">make_tuple</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> P<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    MatrixXf <span class="token function">x</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// Initial state (location and velocity) </span>
+    x <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    	 <span class="token number">0</span><span class="token punctuation">;</span> 
+    MatrixXf <span class="token function">P</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//Initial Uncertainty</span>
+    P <span class="token operator">&lt;&lt;</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+    	 <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">;</span> 
+    MatrixXf <span class="token function">u</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// External Motion</span>
+    u <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    	 <span class="token number">0</span><span class="token punctuation">;</span> 
+    MatrixXf <span class="token function">F</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//Next State Function</span>
+    F <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    	 <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">;</span> 
+    MatrixXf <span class="token function">H</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//Measurement Function</span>
+    H <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    	 <span class="token number">0</span><span class="token punctuation">;</span> 
+    MatrixXf <span class="token function">R</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//Measurement Uncertainty</span>
+    R <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    MatrixXf <span class="token function">I</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// Identity Matrix</span>
+    I <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    	 <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">;</span> 
+
+    <span class="token function">tie</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> P<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">kalman_filter</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> P<span class="token punctuation">,</span> u<span class="token punctuation">,</span> F<span class="token punctuation">,</span> H<span class="token punctuation">,</span> R<span class="token punctuation">,</span> I<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;x= &quot;</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;P= &quot;</span> <span class="token operator">&lt;&lt;</span> P <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="introduction-to-the-extended-kalman-filter">Introduction to the Extended Kalman Filter</h2>
+
+<p>The assumptions under which the Kalman filter operates are:</p>
+<ul>
+<li>Motion and measurement functions are <strong>linear</strong>,</li>
+<li>State space can be represented by a unimodal Gaussian distribution.</li>
+</ul>
+<p>It turns out that <strong>these assumptions are very limiting</strong>, and would only suffice for very primitive robots. <strong>Most mobile robots will execute non-linear motions</strong>. For example, moving in a circle or following a curve.</p>
+<p>So, <em>what can we do if our Kalman filter can&apos;t be applied to most robotics problems?</em></p>
+<p>First, let&apos;s understand <strong>why we can&apos;t apply the Kalman filter</strong> in more detail and maybe we&apos;ll find answers there.</p>
+<p>Let&apos;s consider a prior distribution which is a unimodal Gaussian distribution with a mean of <code>mu</code> and the variance of <code>sigma^2</code>. When this distribution undergoes a linear transformation, for instance <code>y=ax+b</code>, the resulting posterior distribution is another Gaussian distribution with a mean of <code>a*mu + b</code> and a variance of <code>a^2 * sigma^2</code>. This is precisely what can happen in a state prediction. The <strong>important thing</strong> to note is that <strong>a linear transformation that takes a Gaussian as input, will always have a Gaussian as output</strong>.</p>
+<p><strong>What happens if the transformation is non-linear?</strong></p>
+<p>Let&apos;s assume the same unimodal Gaussian distribution of previous example. But now, let&apos;s assume the transformation function is a non-linear function, say <code>atan(x)</code>. <strong>The resulting distribution is no longer a Gaussian</strong>. <strong>In fact, the distribution cannot be computed in closed form, instead, to model this distribution many thousands of samples must be collected according to the prior distribution and pass through the function to create the posterior distribution</strong>. What used to be simple algebra or matrix manipulation has become much more computationally intensive which is not the responsiveness that the Kalman filter is known for.</p>
+<p><strong>So, what can we do?</strong></p>
+<p>For small section of the function, we can use linear approximation. If it&apos;s centered on the best estimate, the mean and updated with every step, it turns out that it can produce sufficiently accurate results. <strong>The mean can continue to be updated with a non-linear function, but the covariance must be updated by a linearization of the function <code>f(x)</code></strong>.</p>
+<p>To calculate the <strong>local linear approximation</strong>, a <strong>Taylor series</strong> can be of help. A function can be represented by the sum of an <strong>infinite</strong> number of terms as represented in the Taylor series formula. However, <strong>an infinite number of terms is not needed</strong>. <strong>An approximation can be obtained by using just a few of the terms</strong>. <strong>A linear approximation can be obtained by using just the first two terms of the Taylor series</strong>. <strong>This linear approximation centered around the mean, will be used to update the covariance matrix of the prior state Gaussian</strong>.</p>
+<p>By applying the linear approximation, we&apos;ll again be able to get Gaussain output, however, it will inevitably have an error. <strong>The tradeoff is in the simplicity and speed of the calculation</strong>.</p>
+<p>To recap the differences between KF and EKF:</p>
+<ul>
+<li>Either the state transformation function, measurement function, or both are non-linear.</li>
+<li>These non-linear functions can be used to update the mean, but not the variance, as this would result in a non-Gaussian distribution.</li>
+<li>For this reason, locally linear approximations are calculated and used to update the variance.</li>
+</ul>
+<p>See the video <a href="https://youtu.be/dwpKthaQ6ts">here</a>.</p>
+<p>Additional Resources:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series Wikipedia page</a></li>
+</ul>
+<h3 class="mume-header" id="summary">Summary</h3>
+
+<p>The Kalman Filter is applicable to problems with linear motion and measurement functions. This is limiting, as much of the real world is nonlinear.</p>
+<p>A nonlinear function can be used to update the mean of a function,</p>
+<p align="center">
+<img src="img/ekf.png" alt="drawing" width="100">
+</p>
+<p>but not the variance, as this would result in a non-Gaussian distribution which is much more computationally expensive to work with. To update the variance, the Extended Kalman Filter linearizes the nonlinear function f(x) over a small section and calls it F. This linearization, F, is then used to update the state&apos;s variance.</p>
+<p align="center">
+<img src="img/ekf1.png" alt="drawing" width="100">
+</p>
+<p>The linear approximation can be obtained by using the first two terms of the Taylor Series of the function centered around the mean.</p>
+<p align="center">
+<img src="img/ekf2.png" alt="drawing" width="200">
+</p>
+<h2 class="mume-header" id="multi-dimensional-extended-kalman-filter">Multi-dimensional Extended Kalman Filter</h2>
+
+<p>Now you&#x2019;ve seen the fundamentals behind the Extended Kalman Filter. The mechanics are not too different from the Kalman Filter, with the exception of needing to linearize a nonlinear motion or measurement function to be able to update the variance.</p>
+<p>You&#x2019;ve seen how this can be done for a state prediction or measurement function that is of one-dimension, but now it&#x2019;s time to explore how to linearize functions with multiple dimensions. To do this, we will be using multi-dimensional Taylor series.</p>
+<h3 class="mume-header" id="linearization-in-multiple-dimensions">Linearization in Multiple Dimensions</h3>
+
+<p>The equation for a multidimensional Taylor Series is presented below.</p>
+<p align="center">
+<img src="img/taylor.png" alt="drawing" width="500">
+</p>
+<p>You will see that it is very similar to the 1-dimensional Taylor Series. As before, to calculate a linear approximation, we only need the first two terms.</p>
+<p align="center">
+<img src="img/taylor1.png" alt="drawing" width="300">
+</p>
+<p>You may notice a new term, Df(a). This is the Jacobian matrix, and it holds the partial derivative terms for the multi-dimensional equation.</p>
+<p align="center">
+<img src="img/taylor2.png" alt="drawing" width="150">
+</p>
+<p>You may notice a new term, Df(a). This is the Jacobian matrix, and it holds the partial derivative terms for the multi-dimensional equation.</p>
+<p align="center">
+<img src="img/jacobian.png" alt="drawing" width="150">
+</p>
+<p>In it&apos;s expanded form, the Jacobian is a matrix of partial derivatives. It tells us how each of the components of f changes as we change each of the components of the state vector.</p>
+<p align="center">
+<img src="img/jacobian1.png" alt="drawing" width="300">
+</p>
+<p>The rows correspond to the dimensions of the function, f, and the columns relate to the dimensions (state variables) of x. The first element of the matrix is the first dimension of the function derived with respect to the first dimension of x.</p>
+<p>The Jacobian is a generalization of the 1-dimensional case. In a 1-dimensional case, the Jacobian would have df/dx as its only term.</p>
+<h3 class="mume-header" id="example-application">Example Application</h3>
+
+<p>This will make more sense in context, so let&#x2019;s look at a specific example. Let&#x2019;s say that we are tracking the x-y coordinate of an object. This is to say that our state is a vector x, with state variables x and y.</p>
+<p align="center">
+<img src="img/ex1.png" alt="drawing" width="100">
+</p>
+<p>However, our sensor does not allow us to measure the x and y coordinates of the object directly. Instead, our sensor measures the distance from the robot to the object, <code>r</code>, as well as the angle between r and the x-axis, <code>&#x3B8;</code>.</p>
+<p align="center">
+<img src="img/ex2.png" alt="drawing" width="100">
+</p>
+<p>It is important to notice that our state is using a Cartesian representation of the world, while the measurements are in a polar representation. How will this affect our measurement function?</p>
+<p>Our measurement function maps the state to the observation, as so,</p>
+<p align="center">
+<img src="img/ex3.png" alt="drawing" width="200">
+</p>
+<p>Thus, our measurement function must map from Cartesian to polar coordinates. But there is no matrix, <code>H</code>, that will successfully make this conversion, as the relationship between Cartesian and polar coordinates is nonlinear.</p>
+<p align="center">
+<img src="img/ex4.png" alt="drawing" width="150">
+</p>
+<p>For this reason, instead of using the measurement residual equation</p>
+<p align="center">
+<img src="img/meas-update2.png" alt="drawing" width="150">
+</p>
+<p>the mapping must be made with a dedicated function, <code>h(x&apos;)</code>.</p>
+<p align="center">
+<img src="img/ex5.png" alt="drawing" width="200">
+</p>
+<p>Then the measurement residual equation becomes</p>
+<p align="center">
+<img src="img/ex7.png" alt="drawing" width="300">
+</p>
+<p>The Jacobian, <code>Df(mu)</code>,  is defined below. But let&apos;s call it H since it&apos;s the linearization of our measurement function, <code>h(x)</code>.</p>
+<p align="center">
+<img src="img/ex8.png" alt="drawing" width="200">
+</p>
+<p>If you were to compute each of those partial derivatives, the matrix would reduce to the following,</p>
+<p align="center">
+<img src="img/ex9.png" alt="drawing" width="250">
+</p>
+<p>It&apos;s this matrix, <code>H</code>, that can then be used to update the state&apos;s covariance.</p>
+<p>To summarize the flow of calculations for the Extended Kalman Filter, it&apos;s worth revisiting the equations to see what has changed and what has remained the same.</p>
+<h3 class="mume-header" id="extended-kalman-filter-equations">Extended Kalman Filter Equations</h3>
+
+<p>These are the equations that implement the Extended Kalman Filter - you&apos;ll notice that most of them remain the same, with a few changes highlighted in red.</p>
+<p><strong>State Prediction</strong></p>
+<p align="center">
+<img src="img/ex10.png" alt="drawing" width="250">
+</p>
+<p><strong>Measurement Update</strong></p>
+<p align="center">
+<img src="img/ex11.png" alt="drawing" width="300">
+</p>
+<p><strong>Calculation of Kalman Gain</strong></p>
+<p align="center">
+<img src="img/ex12.png" alt="drawing" width="150">
+</p>
+<p><strong>Calculation of Posterior State and Covariance</strong></p>
+<p align="center">
+<img src="img/ex13.png" alt="drawing" width="180">
+</p>
+<p>Highlighted in blue are the Jacobians that replaced the measurement and state transition functions.</p>
+<p>The Extended Kalman Filter requires us to calculate the Jacobian of a nonlinear function as part of every single iteration, since the mean (which is the point that we linearize about) is updated.</p>
+<h3 class="mume-header" id="summary-1">Summary</h3>
+
+<p>Here are the key take-aways about Extended Kalman Filters:</p>
+<ul>
+<li>The Kalman Filter cannot be used when the measurement and/or state transition functions are nonlinear, since this would result in a non-Gaussian distribution.</li>
+<li>Instead, we take a local linear approximation and use this approximation to update the covariance of the estimate. The linear approximation is made using the first terms of the Taylor Series, which includes the first derivative of the function.</li>
+<li>In the multi-dimensional case, taking the first derivative isn&apos;t as easy as there are multiple state variables and multiple dimensions. Here we employ a Jacobian, which is a matrix of partial derivatives, containing the partial derivative of each dimension with respect to each state variable.</li>
+</ul>
+<p>While it&apos;s important to understand the underlying math to employ the Kalman Filter, don&apos;t feel the need to memorize these equations. Chances are, whatever software package or programming language you&apos;re working with will have libraries that allow you to apply the Kalman Filter, or at the very least perform linear algebra calculations (such as matrix multiplication and calculating the Jacobian).</p>
+<h2 class="mume-header" id="ekf-example">EKF Example</h2>
+
+<p>Let&apos;s look at another example of a vehicle taking measurements - this time, a quadrotor! This quadrotor is a bit simplified - it&apos;s motion is constrained to the y-axis. Therefore, it&apos;s state can be defined by the following vector,</p>
+<p align="center">
+<img src="img/ex14.png" alt="drawing" width="120">
+</p>
+<p>that is: its roll angle, its velocity, and its position.</p>
+<p>Imagine you have a quadrotor, such as the one in the image below. This quadrotor would like to know the distance between it and the wall. This is an important measurement to have if the quadrotor would like to traverse the inside of a room, or outside of a building, while maintaining a safe distance from the wall.</p>
+<p>To estimate this distance, the quadrotor is equipped with a range finger.</p>
+<p align="center">
+<img src="img/ekf-example-1.png" alt="drawing" width="500">
+</p>
+<p>Shown in blue, are the true distances from an arbitrary point on the left to the quadrotor, and to the wall.</p>
+<p><strong>In the quadrotor&apos;s current configuration, what would you expect it&apos;s measurement to the wall to be?</strong></p>
+<p><code>h(x) = wall - y</code></p>
+<p>That&apos;s right - while the quadrotor is hovering perpendicular to the wall, the measurement, <code>h(x)</code>, is equal to <code>wall - y</code>.</p>
+<p>Now, what would happen if the quadrotor were to roll to some angle <code>&#x3D5;</code>? What is a more general equation for the measurement that takes into account the roll angle?</p>
+<p align="center">
+<img src="img/ekf-example-2.png" alt="drawing" width="500">
+</p>
+<p><strong>What is the equation for the measurement when the quadrotor has a roll angle of <code>&#x3D5;</code>?</strong></p>
+<p><code>h(x) = (wall - y)/cos&#x3D5;</code></p>
+<p>Applying some basic trigonometry, we&apos;ve now determined the measurement model for this quadrotor&apos;s range finder.</p>
+<p align="center">
+<img src="img/ex15.png" alt="drawing" width="200">
+</p>
+<p>The function has a cosine in it&apos;s denominator, making this function non-linear. This means that we will need to use the Extended Kalman Filter for our estimation, and in the process, linearize the function.</p>
+<h3 class="mume-header" id="calculating-h">Calculating <code>H</code></h3>
+
+<p>To apply the Extended Kalman Filter, we will need to calculate H, the Jacobian of the measurement model that we defined above. This won&apos;t be too strenuous since the measurement function is a 1x1 matrix.</p>
+<p><strong>Without calculating the partial derivatives, which of the following is the correct Jacobian for the measurement model?</strong></p>
+<p align="center">
+<img src="img/ex16.png" alt="drawing" width="500">
+</p>
+<p>Calculating the three partial derivatives will result in the following,</p>
+<p align="center">
+<img src="img/ex17.png" alt="drawing" width="200">
+</p>
+<p>When implementing the Extended Kalman Filter in code, there are software libraries that can take the partial derivative of a function, simplifying your implementation. There are, of course, also EKF implementations readily available too. However, it&apos;s <em>always</em> helpful to understand the inner workings of an algorithm and apply it intelligently to the problem at hand.</p>
+<p>After calculating <code>H</code>,</p>
+<p align="center">
+<img src="img/ex18.png" alt="drawing" width="300">
+</p>
+<p>it can be used in the EKF equations to update the covariance of the state.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
