@@ -1,6 +1,7 @@
-theme: jekyll-theme-minimal
+theme: minima
 
 title: [My Data Science Notes]
-description: [I am sharing my notes from difference source here]
+description: [My personal website]
 show_downloads: ["true"]
 #google_analytics: [Your Google Analytics tracking ID]
+markdown: kramdown
