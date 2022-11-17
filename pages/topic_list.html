@@ -45,26 +45,23 @@
         line-height: 1.1;
         color: inherit;
         margin-top: 20px;
-        margin-bottom: 5rem;
+        margin-bottom: 2rem;
         font-family: inherit;
+        text-align: left;
       }
-      .main_container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 1rem;
-        margin: 0 auto;
-        margin-top: 5rem;
-        max-width: 80%;
-        padding: 2rem;
-        /* background-color: rgba(152, 152, 152, 0.1); */
-        border-radius: 10px;
+
+      p {
+        margin: 0 0 10px;
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: light;
+        font-size: 20px;
       }
       .body_container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: left;
         justify-content: center;
-        text-align: center;
+        text-align: left;
         max-width: 80%;
         margin: auto;
       }
@@ -105,9 +102,9 @@
 
       /* Current/active navbar link */
       .active {
-        /* background-color: #a5a5a5;
-        border-radius: 40px; */
         color: #333;
+        /* background-color: #a5a5a5; */
+        /* border-radius: 40px; */
       }
 
       .navbar i {
@@ -137,118 +134,63 @@
         padding-top: 60px;
       }
 
-      .card {
-        /* display: none; */
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        width: 20rem;
-        height: 15rem;
-        border-radius: 20px;
-        margin: 2rem;
-        background-color: transparent;
+      img {
+        border-radius: 50%;
+        width: 20%;
+        /* height: auto; */
+      }
+      /* Style the button that is used to open and close the collapsible content */
+      .collapsible {
+        background-color: rgb(181, 181, 181);
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        width: 50%;
+        font-family: "Open Sans", sans-serif;
+        font-weight: bold;
+        font-size: 24px;
       }
 
-      .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+      .active,
+      .collapsible:hover {
+        /* background-color: #ccc; */
+        color: #333;
       }
 
-      .card img {
-        border-radius: 20px 20px 0 0;
-        width: 100%;
-        height: 50%;
-        background-color: transparent;
-        padding: 3px;
-      }
-
-      /* img {
-        border-radius: 5px 5px 0 0;
-        width: 100%;
-      } */
-
-      .container {
-        width: 100%;
-        height: 50%;
-        padding: 2px 16px;
-        background-color: #f8f8f97a;
-        border-radius: 0 0 20px 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      }
-
-      .container:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      /* Style the collapsible content. Note: hidden by default */
+      .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+        width: 50%;
+        /* border-radius: 20px; */
       }
     </style>
     <title>My Data Science Notes</title>
   </head>
   <body>
     <div class="navbar">
-      <a href="../index.html"><i class="fa fa-fw fa-home"></i> Home</a>
+      <a class="#" href="../index.html"
+        ><i class="fa fa-fw fa-home"></i> Home</a
+      >
       <a class="active" href="./notes.html"
         ><i class="bi bi-journals"></i> Data Science Notes</a
       >
       <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
       <!-- <a href="#"><i class="bi bi-0-square"></i> Login</a> -->
     </div>
-    <template id="card_template">
-      <div
-        class="card"
-        onclick="this.querySelector('a').click(); console.log(this.querySelector('a')); return true;"
-      >
-        <a href="#"></a>
-        <img src="img_avatar2.png" />
-        <div class="container">
-          <h4><b>Jane Doe</b></h4>
-          <p>Interior Designer</p>
-        </div>
+    <div class="body_container">
+      <h1>Table of Content</h1>
+      <button type="button" class="collapsible">Open Collapsible</button>
+      <div class="content">
+        <p>Lorem ipsum...</p>
       </div>
-    </template>
-
-    <!-- ##### This is where all the cards are add #####	-->
-
-    <div class="main_container">
-      <!-- <h1>My Data Science Notes</h1> -->
-      <script
-        src="../js/show_card.js"
-        title="Django"
-        description="Tutorial on Django"
-        img_url="../assets/django-logo-positive.svg"
-        a_href="./django/django_tutorial.html"
-      ></script>
-      <script
-        src="../js/show_card.js"
-        title="Topic List"
-        description="Collapsible list of topics"
-        img_url="../assets/profile_pic.jpg"
-        a_href="./topic_list.html"
-      ></script>
-      <script
-        src="../js/show_card.js"
-        title="ML Eng. 3"
-        description="Machine Learning Engineer"
-        img_url="../assets/profile_pic.jpg"
-        a_href="./topic_list.html"
-      ></script>
-      <script
-        src="../js/show_card.js"
-        title="ML Eng. 4"
-        description="Machine Learning Engineer"
-        img_url="../assets/profile_pic.jpg"
-        a_href="./topic_list.html"
-      ></script>
-      <script
-        src="../js/show_card.js"
-        title="ML Eng. 5"
-        description="Machine Learning Engineer"
-        img_url="../assets/profile_pic.jpg"
-        a_href="./topic_list.html"
-      ></script>
-      <script
-        src="../js/show_card.js"
-        title="ML Eng. 6"
-        description="Machine Learning Engineer"
-        img_url="../assets/profile_pic.jpg"
-        a_href="./topic_list.html"
-      ></script>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -267,9 +209,24 @@
         if (window.pageYOffset >= sticky) {
           navbar.classList.add("sticky");
         } else {
-          console.log("sticky should be removed");
-          //   navbar.classList.remove("sticky");
+          navbar.classList.remove("sticky");
         }
+      }
+    </script>
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
       }
     </script>
   </body>
