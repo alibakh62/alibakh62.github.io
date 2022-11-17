@@ -1,0 +1,18 @@
+console.log("showContent");
+title = document.currentScript.getAttribute("title");
+description = document.currentScript.getAttribute("description");
+img_url = document.currentScript.getAttribute("img_url");
+console.log(title);
+console.log(description);
+console.log(img_url);
+var template = document.querySelector("template");
+var img = template.content.querySelector("img");
+var h4 = template.content.querySelector("h4");
+var p = template.content.querySelector("p");
+h4.innerHTML = title;
+p.innerHTML = description;
+img.src = img_url;
+var node = document.importNode(template.content, true);
+console.log(node);
+document.getElementsByClassName("main_container")[0].appendChild(node);
+document.body.appendChild(node);

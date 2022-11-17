@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        background-color: #f5f5f5;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        margin: 0;
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        line-height: 1.1;
+        color: inherit;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        font-family: inherit;
+      }
+
+      p {
+        margin: 0 0 10px;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: 24px;
+      }
+      .main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: right;
+        text-align: left;
+        margin: 0 auto;
+        margin-top: 5rem;
+        max-width: 60%;
+        padding: 2rem;
+        /* background-color: rgba(152, 152, 152, 0.1); */
+        border-radius: 10px;
+      }
+      .body_container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 80%;
+        margin: auto;
+      }
+      .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: space-between;
+        width: 80%;
+        background-color: rgba(112, 138, 242, 0.833);
+        overflow: auto;
+        margin: 0 auto;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        border-radius: 40px;
+        padding: 1rem;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+        position: sticky;
+      }
+
+      /* Navbar links */
+      .navbar a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      /* Navbar links on mouse-over */
+      .navbar a:hover {
+        /* background-color: rgb(84, 84, 84); */
+        color: rgb(84, 84, 84);
+      }
+
+      /* Current/active navbar link */
+      .active {
+        background-color: #a5a5a5;
+        border-radius: 40px;
+      }
+
+      .navbar i {
+        margin-right: 10px;
+        align-items: center;
+      }
+
+      /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+      @media screen and (max-width: 500px) {
+        .navbar a {
+          float: left;
+          display: block;
+        }
+      }
+
+      .content {
+        padding: 16px;
+      }
+
+      .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      .sticky + .content {
+        padding-top: 60px;
+      }
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 20%;
+        border-radius: 5px;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      img {
+        border-radius: 50%;
+        width: 20%;
+        /* height: auto; */
+      }
+
+      .container {
+        padding: 2px 16px;
+      }
+    </style>
+    <title>My Data Science Notes</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <a class="active" href="index.html"
+        ><i class="fa fa-fw fa-home"></i> Home</a
+      >
+      <a href="pages/notes.html"
+        ><i class="bi bi-journals"></i> Data Science Notes</a
+      >
+      <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+      <!-- <a href="#"><i class="bi bi-0-square"></i> Login</a> -->
+    </div>
+    <div class="body_container">
+      <img src="assets/profile_pic.jpg" />
+      <div class="main_container">
+        <h1>About Me</h1>
+        <p>
+          Hi, my name is <span style="font-weight: bold">Ali Bakhtiari</span>. I
+          am originally from Iran. I came to U.S. in 2009, just a couple of
+          weeks before Obama's inauguration!
+        </p>
+        <br />
+        <p>
+          I have been working as a data scientist since 2014. I have a Ph.D. in
+          Management Science from the University of Texas at Dallas. I have
+          worked on various projects in the field of data science and machine
+          learning. My current interest is MLOps and learning how to deploy a ML
+          project to production.
+        </p>
+        <br />
+        <p>
+          I am a tennis <span>🎾</span>fanatic and also a decent player myself.
+          Hit me up if you live in Dallas and looking for someone to hit with
+          <span>🙂</span>
+        </p>
+
+        <br />
+        <p>
+          Also, please check out my
+          <a href="pages/notes.html">data science notes</a>. I decided to
+          publish my data science/ML notes from all the courses and materials I
+          have studied over the years. I hope you find them helpful.
+        </p>
+        <br />
+        <p>
+          Check out my
+          <a href="assets/AliBakhtiari_Resume_AUG2022_Final.pdf">resume</a> to
+          get more familiar with my background and work experiences.
+        </p>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.onscroll = function () {
+        myFunction();
+      };
+
+      var navbar = document.getElementsByClassName("navbar");
+      var sticky = navbar.offsetTop;
+
+      function myFunction() {
+        if (window.pageYOffset >= sticky) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      }
+    </script>
+  </body>
+</html>
