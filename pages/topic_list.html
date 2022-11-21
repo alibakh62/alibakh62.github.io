@@ -54,7 +54,7 @@
         margin: 0 0 10px;
         font-family: "Source Sans Pro", sans-serif;
         font-weight: light;
-        font-size: 20px;
+        font-size: 17px;
       }
       .body_container {
         display: flex;
@@ -71,14 +71,15 @@
         justify-content: left;
         align-items: space-between;
         width: 80%;
-        background-color: rgba(112, 138, 242, 0.833);
+        /* background-color: rgba(112, 138, 242, 0.833); */
+        background-color: transparent;
         overflow: auto;
         margin: 0 auto;
         margin-top: 2rem;
         margin-bottom: 2rem;
         border-radius: 40px;
         padding: 1rem;
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+        /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3); */
         position: sticky;
       }
 
@@ -89,9 +90,9 @@
         align-items: center;
         text-align: left;
         padding: 20px;
-        color: white;
+        color: rgb(38, 142, 211);
         text-decoration: none;
-        font-size: 17px;
+        font-size: 17px !important;
       }
 
       /* Navbar links on mouse-over */
@@ -171,6 +172,22 @@
         width: 50%;
         /* border-radius: 20px; */
       }
+      a:link {
+        text-decoration: none;
+        font-size: 24px;
+      }
+
+      a:visited {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:active {
+        text-decoration: underline;
+      }
     </style>
     <title>My Data Science Notes</title>
   </head>
@@ -185,11 +202,84 @@
       <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
       <!-- <a href="#"><i class="bi bi-0-square"></i> Login</a> -->
     </div>
+
+    <!--###### List of topics are defined here #####-->
     <div class="body_container">
-      <h1>Table of Content</h1>
-      <button type="button" class="collapsible">Open Collapsible</button>
+      <h1>Machine Learning</h1>
+      <button type="button" class="collapsible">
+        Machine Learning Crash Course
+      </button>
       <div class="content">
-        <p>Lorem ipsum...</p>
+        <li>
+          <a href="./content/ml_crash_course/1_naive_bayes.html">Naive Bayes</a>
+        </li>
+        <li>
+          <a
+            href="./content/ml_crash_course/2_model_performance_evaluation.html"
+            >Model Performance Evaluation</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/3_knn.html"
+            >K-Nearest Neighbors (KNN)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/4_decision_tree.html"
+            >Decision Trees</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/5_linear_regression.html"
+            >Linear Regression</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/6_logistic_regression.html"
+            >Logistic Regression</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/7_svm.html"
+            >Support Vector Machines (SVM)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/#.html">K-Means Clustering</a>
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/9_svd.html"
+            >Singular Value Decomposition (SVD)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/10_nn.html">Neural Networks</a>
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/#.html"
+            >Convolutional Neural Networks (CNN)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/#.html"
+            >Recurrent Neural Networks (RNN)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/13_gan.html"
+            >Generative Adversarial Networks (GAN)</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/14_recommender_systems.html"
+            >Recommender Systems</a
+          >
+        </li>
+        <li>
+          <a href="./content/ml_crash_course/15_learning_to_rank.html"
+            >Learning to Rank</a
+          >
+        </li>
       </div>
     </div>
     <script
