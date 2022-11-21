@@ -142,7 +142,7 @@
       }
       /* Style the button that is used to open and close the collapsible content */
       .collapsible {
-        background-color: rgb(181, 181, 181);
+        background-color: rgba(151, 232, 186, 0.249);
         color: #444;
         cursor: pointer;
         padding: 18px;
@@ -154,6 +154,9 @@
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
         font-size: 24px;
+        border-radius: 10px;
+        border: 1px solid rgb(113, 113, 113);
+        margin-bottom: 10px;
       }
 
       /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -170,11 +173,12 @@
         overflow: hidden;
         background-color: #f1f1f1;
         width: 50%;
-        /* border-radius: 20px; */
+        border-radius: 10px;
+        margin-bottom: 10px;
       }
       a:link {
         text-decoration: none;
-        font-size: 24px;
+        font-size: 20px;
       }
 
       a:visited {
@@ -188,15 +192,128 @@
       a:active {
         text-decoration: underline;
       }
+      /* .button-33 {
+        background-color: #c2fbd7;
+        border-radius: 100px;
+        box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+          rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+          rgba(44, 187, 99, 0.15) 0 16px 32px;
+        color: green;
+        cursor: pointer;
+        display: inline-block;
+        font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto,
+          sans-serif;
+        padding: 7px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 50%;
+      }
+
+      .button-33:hover {
+        box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+          rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+          rgba(44, 187, 99, 0.25) 0 16px 32px;
+        /* transform: scale(1.05) rotate(-1deg); */
+      /* transform: scale(1.05);
+      }
+      .button-30 {
+        align-items: center;
+        appearance: none;
+        background-color: #fcfcfd;
+        border-radius: 4px;
+        border-width: 0;
+        box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+        box-sizing: border-box;
+        color: #36395a;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: "JetBrains Mono", monospace;
+        height: 48px;
+        justify-content: center;
+        line-height: 1;
+        list-style: none;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transition: box-shadow 0.15s, transform 0.15s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        will-change: box-shadow, transform;
+        font-size: 18px;
+        width: 50%;
+      }
+
+      .button-30:focus {
+        box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+      }
+
+      .button-30:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+        transform: translateY(-2px);
+      }
+
+      .button-30:active {
+        box-shadow: #d6d6e7 0 3px 7px inset;
+        transform: translateY(2px);
+      } */
+      .button-35 {
+        align-items: center;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: transparent 0 0 0 3px, rgba(18, 18, 18, 0.1) 0 6px 20px;
+        box-sizing: border-box;
+        color: #121212;
+        cursor: pointer;
+        display: inline-flex;
+        flex: 1 1 auto;
+        font-family: Inter, sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        justify-content: center;
+        line-height: 1;
+        margin: 0;
+        outline: none;
+        padding: 1rem 1.2rem;
+        text-align: center;
+        text-decoration: none;
+        transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
+        white-space: nowrap;
+        border: 0;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 50%;
+        margin-bottom: 10px;
+      }
+
+      .button-35:hover {
+        box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+      }
     </style>
     <title>My Data Science Notes</title>
   </head>
   <body>
     <div class="navbar">
-      <a class="#" href="../index.html"
+      <a class="#" href="../../index.html"
         ><i class="fa fa-fw fa-home"></i> Home</a
       >
-      <a class="active" href="./notes.html"
+      <a class="active" href="../notes.html"
         ><i class="bi bi-journals"></i> Data Science Notes</a
       >
       <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
@@ -206,78 +323,101 @@
     <!--###### List of topics are defined here #####-->
     <div class="body_container">
       <h1>Machine Learning</h1>
-      <button type="button" class="collapsible">
+      <!-- <button type="button" class="collapsible">
+        Machine Learning Crash Course
+      </button> -->
+      <button class="button-35" type="button">
         Machine Learning Crash Course
       </button>
       <div class="content">
         <li>
-          <a href="./content/ml_crash_course/1_naive_bayes.html">Naive Bayes</a>
+          <a href="../content/ml_crash_course/1_naive_bayes.html">Naive Bayes</a>
         </li>
         <li>
           <a
-            href="./content/ml_crash_course/2_model_performance_evaluation.html"
+            href="../content/ml_crash_course/2_model_performance_evaluation.html"
             >Model Performance Evaluation</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/3_knn.html"
+          <a href="../content/ml_crash_course/3_knn.html"
             >K-Nearest Neighbors (KNN)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/4_decision_tree.html"
+          <a href="../content/ml_crash_course/4_decision_tree.html"
             >Decision Trees</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/5_linear_regression.html"
+          <a href="../content/ml_crash_course/5_linear_regression.html"
             >Linear Regression</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/6_logistic_regression.html"
+          <a href="../content/ml_crash_course/6_logistic_regression.html"
             >Logistic Regression</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/7_svm.html"
+          <a href="../content/ml_crash_course/7_svm.html"
             >Support Vector Machines (SVM)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/#.html">K-Means Clustering</a>
+          <a href="../content/ml_crash_course/#.html">K-Means Clustering</a>
         </li>
         <li>
-          <a href="./content/ml_crash_course/9_svd.html"
+          <a href="../content/ml_crash_course/9_svd.html"
             >Singular Value Decomposition (SVD)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/10_nn.html">Neural Networks</a>
+          <a href="../content/ml_crash_course/10_nn.html">Neural Networks</a>
         </li>
         <li>
-          <a href="./content/ml_crash_course/#.html"
+          <a href="../content/ml_crash_course/#.html"
             >Convolutional Neural Networks (CNN)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/#.html"
+          <a href="../content/ml_crash_course/#.html"
             >Recurrent Neural Networks (RNN)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/13_gan.html"
+          <a href="../content/ml_crash_course/13_gan.html"
             >Generative Adversarial Networks (GAN)</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/14_recommender_systems.html"
+          <a href="../content/ml_crash_course/14_recommender_systems.html"
             >Recommender Systems</a
           >
         </li>
         <li>
-          <a href="./content/ml_crash_course/15_learning_to_rank.html"
+          <a href="../content/ml_crash_course/15_learning_to_rank.html"
             >Learning to Rank</a
+          >
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+        Google ML Course for Developers
+      </button> -->
+      <button class="button-35" type="button">
+        Google ML Course for Developers
+      </button>
+      <div class="content">
+        <li>
+          <a href="./content/ml_crash_course/1_naive_bayes.html">Chapter 1</a>
+        </li>
+        <li>
+          <a
+            href="./content/ml_crash_course/2_model_performance_evaluation.html"
+            >Chapter 2</a
           >
         </li>
       </div>
@@ -305,6 +445,22 @@
     </script>
     <script>
       var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    </script>
+    <script>
+      var coll = document.getElementsByClassName("button-35");
       var i;
 
       for (i = 0; i < coll.length; i++) {
