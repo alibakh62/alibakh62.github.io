@@ -1,0 +1,646 @@
+<!DOCTYPE html><html><head>
+      <title>3_GraphSLAM</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>GraphSLAM is a SLAM algorithm that solves the full SLAM problem. This means that the algorithm recovers the entire path and map, instead of just the most recent pose and map. This difference allows it to consider dependencies between current and previous poses.</p>
+<p>One example of GraphSLAM would be applicable is an underground mining. Large machines called &quot;bores&quot; spent every day cutting away at the rockface. The environment changes rapidly, and it&apos;s important to keep an accurate map of the workspace. One way to map this workspace would be to drive a vehicle with a LIDAR around the environment and collects data about the surroundings. Then, after the fact, the data can be analyzed to create an accurate map of the environment.</p>
+<p><strong>GraphSLAM vs FastSLAM</strong></p>
+<p>GraphSLAM has several advantages including the reduced need for significant onboard processing capability. Another advantage that can be immediately appreciated is its improved accuracy over FastSLAM. FastSLAM uses particles to estimate the robot&apos;s most likely pose. However, at any point in time, it&apos;s possible that there isn&apos;t a particle in the most likely location. In fact, the chances are slim to none especially in large environments. Since GraphSLAM solves the full SLAM problem, this means that it can work with all of the data at once to find the optimal solution. FastSLAM uses tidbits of information with a finite number of particles, so there is room for error.</p>
+<h2 class="mume-header" id="graphs">Graphs</h2>
+
+<p>GraphSLAM uses graphs to represent robot&apos;s poses and environment.</p>
+<p>A robot&apos;s pose, i.e. its position and orientation, can be represented by a node. Usually the first node is arbitrarily constrained to (0,0) or its equivalent in greater dimensions. The robot&apos;s pose at time step 1 can be represented by another node and the two would be connected by an edge (sometimes called an arc). This edge is a soft spatial constraint between the two robot poses. These constraints are called &quot;soft&quot; because as we have seen before motion and measurement data is uncertain. The constraint will have some have some amount of error present.</p>
+<p><strong>Soft constraints</strong> come in two forms. <strong>Motion constraints</strong> between two successive robot poses and <strong>measurement constraints</strong> between a robot pose and a feature in the environment.</p>
+<p align="center">
+<img src="img/graphs.png" alt="drawing" width="500">
+</p>
+<p><strong>NOTE:</strong> Note that we use solid edges for motion constraints and dashed edges for measurement constraints.</p>
+<p>Over time the graph constructed by the mobile robot becomes very large in size. Luckily, GraphSLAM is able to handle large numbers of features.</p>
+<p align="center">
+<img src="img/graphs-large.png" alt="drawing" width="500">
+</p>
+<p><strong>Summary of Notation</strong></p>
+<ul>
+<li><strong>Poses</strong> are represented with triangles.</li>
+<li><strong>Features</strong> from the environment are represented with stars.</li>
+<li><strong>Motion constraints</strong> tie together two poses, and are represented by a solid line.</li>
+<li><strong>Measurement constraints</strong> tie together a feature and a pose, and are represented by a dashed line.</li>
+</ul>
+<h2 class="mume-header" id="constraints">Constraints</h2>
+
+<p>One way to look at soft constraints is to intrepret them as masses connected by rubber bands or springs. When no external forces are acting on them, the springs will naturally bring the system into a configuration, where the forces exprienced by all of the springs are minimized. When the nodes are connected in a linear function as so, the resting configuration is easy to find, but the process become more challenging as nodes become more and more inter-connected. The spring will all try to push or pull the system in their own ways.</p>
+<p>This is very similar to how constraints work in a graph. Every motion or measurement constraint pulls a system closer to that constraints desired state. Since the measurement and motions are uncertain, constraints will conflict with each other and there will always be some error present. In the end, the goal is to find the node configuration that minimizes the overall error present in all constraints.</p>
+<p>See the video <a href="https://youtu.be/oo6G_ABDa80">here</a>.</p>
+<h2 class="mume-header" id="front-end-vs-back-end">Front-End vs Back-End</h2>
+
+<p>The goal of GraphSLAM is to create a graph of all robot poses and features encountered in the environment and find the most likely robot&apos;s path and map of the environment. This task can be broken into two sections, the front-end and the back-end.</p>
+<p>The <strong>front-end</strong> of the GraphSLAM looks at how to construct the graph using the odometry and the sensory measurements collected by the robot. This includes interpreting sensory data, creating the graph, and continuing to add nodes and edges to it as the robot traverses the environment. Naturally, the front-end can differ greatly from application to application depending on the desired goal, including accuracy, the sensor used, and other forces. For instance, the front-end of a mobile robot applying SLAM in the office using a laser rangefinder would differ greatly from the front-end for a vehicle operating on a large outdoor environment and using a stereo camera. The front-end of GraphSLAM also has the challenge of solving the data association problem. In simpler terms, this means accurately identifying whether features in the environment have been previously seen.</p>
+<p>The <strong>back-end</strong> of GraphSLAM is where the magic happens. The input to the back-end is the completed graph with all of the constraints, and the output is the most probable configuration of robot poses and map features. The back-end is an optimization process that takes all of the constraints and find the system configuration that produces the smallest error. The back-end is a lot more consistent across applications.</p>
+<p>The front-end and the back-end can be completed in succession or can be preformed iteratively where the back-end feeding an updated graph to the front-end for furthe processing.</p>
+<p>See the video <a href="https://youtu.be/mLKwe-AAJc8">here</a>.</p>
+<h2 class="mume-header" id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h2>
+
+<p>At the core of GraphSLAM is graph optimization - the process of minimizing the error present in all of the constraints in the graph. Let&#x2019;s take a look at what these constraints look like, and learn to apply a principle called <em>maximum likelihood estimation</em> (MLE) to structure and solve the optimization problem for the graph.</p>
+<p><strong>Likelihood</strong></p>
+<p>Likelihood is a complementary principle to probability. While probability tries to estimate the outcome given the parameters, likelihood tries to estimate the parameters that best explain the outcome. For example,</p>
+<blockquote>
+<p><strong>Probability:</strong> What is the probability of rolling a 2 on a 6-sided die?</p>
+</blockquote>
+<p>(Answer: 1/6)</p>
+<blockquote>
+<p><strong>Likelihood:</strong> I&#x2019;ve rolled a die 100 times, and a 2 was rolled 10% of the time, how many sides does my die have?</p>
+</blockquote>
+<p>(Answer: 10 sides)</p>
+<p>When applied to SLAM, likelihood tries to estimate the most likely configuration of state and feature locations given the motion and measurement observations.</p>
+<p><strong>Feature Measurement Example</strong></p>
+<p>Let&#x2019;s look at a very simple example - one where our robot is taking repeated measurements of a feature in the environment. This example will walk you through the steps required to solve it, which can then be applied to more complicated problems.</p>
+<p>The robot&#x2019;s initial pose has a variance of 0 - simply because this is its start location. Recall that wherever the start location may be - we call it location 0 in our relative map. Every action pose and measurement hereafter will be uncertain. In GraphSLAM, we will continue to make the assumption that motion and measurement data has Gaussian noise.</p>
+<p>The robot takes a measurement of a feature, <code>m_1</code>, and it returns a distance of 1.8 metres.</p>
+<p>If we return to our spring analogy - 1.8m is the spring&#x2019;s resting length. This is the spring&#x2019;s most desirable length; however, it is possible for the spring to be compressed or elongated to accommodate other forces (constraints) that are acting on the system.</p>
+<p>This probability distribution for this measurement can be defined as so,</p>
+<p align="center">
+<img src="img/eq1.png" alt="drawing" width="300">
+</p>
+<p>In simpler terms, the probability distribution is highest when z1 and x0 are 1.8 meters apart.</p>
+<p align="center">
+<img src="img/mle1.png" alt="drawing" width="500">
+</p>
+<p>However, since the location of the first pose <code>x_0</code> is set to 0, this term can simply be removed from the equation.</p>
+<p>Next, the robot takes another measurement of the same feature in the environment. This time, the data reads 2.2m. With two conflicting measurements, this is now an overdetermined system - as there are more equations than unknowns!</p>
+<p align="center">
+<img src="img/mle2.png" alt="drawing" width="500">
+</p>
+<p>With two measurements, the most probable location of the feature can be represented by the product of the two probabilities.</p>
+<p align="center">
+<img src="img/eq2.png" alt="drawing" width="400">
+</p>
+<p>In this trivial example, it is probably quite clear to you that the most likely location of the feature is at the 2.0 meter mark. However, it is valuable to go through the maximum likelihood estimation process to understand the steps entailed, to then be able to apply it to more complicated systems.</p>
+<p>To solve this problem analytically, a few steps can be taken to reduce the equations into a simpler form.</p>
+<p><strong>Remove Scaling Factors</strong></p>
+<p>The value of m that maximizes the equation does not depend on the constants in front of each of the exponentials. These are scaling factors, however in SLAM we are not usually interested in the absolute value of the probabilities, but finding the maximum likelihood estimate. For this reason, the factors can simply be removed.</p>
+<p align="center">
+<img src="img/eq3.png" alt="drawing" width="400">
+</p>
+<p><strong>Log-Likelihood</strong></p>
+<p>The product of the probabilities has been simplified, but the equation is still rather complicated - with exponentials present. There exists a mathematical property that can be applied here to convert this product of exponentials into the sum of their exponents.</p>
+<p align="center">
+<img src="img/eq4.png" alt="drawing" width="300">
+</p>
+<p align="center">
+<img src="img/eq5.png" alt="drawing" width="350">
+</p>
+<p>The natural logarithm is a <a href="https://en.wikipedia.org/wiki/Monotonic_function">monotonic function</a> - in the log&#x2019;s case - it is always increasing - as can be seen in the graph below. There can only be a one-to-one mapping of its values. This means that optimizing the logarithm of the likelihood is no different from maximizing the likelihood itself.</p>
+<p align="center">
+<img src="img/mle3.png" alt="drawing" width="400">
+</p>
+<p>One thing to note when working with logs of likelihoods, is that they are always negative. This is because probabilities assume values between 0 and 1, and the log of any value between 0 and 1 is negative. This can be seen in the graph above. For this reason, when working with log-likelihoods, optimization entails minimizing the negative log-likelihood; whereas in the past, we were trying to maximize the likelihood.</p>
+<p>Lastly, as was done before, the constants in front of the equation can be removed without consequence. As well, for the purpose of this example, we will assume that the same sensor was used in obtaining both measurements - and will thus ignore the variance in the equation.</p>
+<p align="center">
+<img src="img/eq6.png" alt="drawing" width="250">
+</p>
+<p><strong>Optimization</strong></p>
+<p>At this point, the equation has been reduced greatly. To get it to its simplest form, all that is left is to multiply out all of the terms. To find the minimum of this equation, you can take the first derivative of the equation and set it to equal 0.</p>
+<p>By doing this, you are finding the location on the curve where the slope (or gradient, in multi-dimensional equations) is equal to zero - the trough! This property can be visualized easily by looking at a graph of the error function.</p>
+<p align="center">
+<img src="img/mle4.png" alt="drawing" width="400">
+</p>
+<p>In more complex examples, the curve may be multimodal, or exist over a greater number of dimensions. If the curve is multimodal, it may be unclear whether the locations discovered by the first derivative are in fact troughs, or peaks. In such a case, the second derivative of the function can be taken - which should clarify whether the local feature is a local minimum or maximum.</p>
+<p><strong>Overview</strong></p>
+<p>The procedure that you executed here is the analytical solution to an MLE problem. The steps included,</p>
+<ul>
+<li>Removing inconsequential constants,</li>
+<li>Converting the equation from one of likelihood estimation to one of negative log-likelihood estimation, and</li>
+<li>Calculating the first derivative of the function and setting it equal to zero to find the extrema.</li>
+<li></li>
+</ul>
+<p>In GraphSLAM, the first two steps can be applied to every constraint. Thus, any measurement or motion constraint can simply be labelled with its negative log-likelihood error. For a <strong>measurement constraint</strong>, this would resemble the following,</p>
+<p align="center">
+<img src="img/eq7.png" alt="drawing" width="200">
+</p>
+<p>And for a <strong>motion constraint</strong>, the following,</p>
+<p align="center">
+<img src="img/eq8.png" alt="drawing" width="220">
+</p>
+<p>Thus, from now on, constraints will be labelled with their negative log-likelihood error,</p>
+<p align="center">
+<img src="img/mle5.png" alt="drawing" width="400">
+</p>
+<p>with the estimation function trying to minimize the sum of all constraints,</p>
+<p align="center">
+<img src="img/eq9.png" alt="drawing" width="600">
+</p>
+<p><strong>Optimization with Non-Trivial Variances</strong></p>
+<p>For this calculation, assume that the measurements and motion have equal variance. To make matters a little bit more complicated, let&#x2019;s actually take into consideration the variances of each measurement and motion. Turns out that our robot has the fanciest wheels on the market - they&#x2019;re solid rubber (they won&#x2019;t deflate at different rates) - with the most expensive encoders. But, it looks like the funds ran dry after the purchase of the wheels - the sensor is of very poor quality.</p>
+<p>Redo your math with the following new information,</p>
+<ul>
+<li>Motion variance: 0.02,</li>
+<li>Measurement variance: 0.1.</li>
+</ul>
+<p>That seemed to be a fair bit more work than the first example! At this point, we just have three constraints - imagine how difficult this process would be if we had collected measurement and motion data over a period of half-an hour, as may happen when mapping a real-life environment. The calculations would be tedious - even for a computer!</p>
+<p>Solving the system analytically has the advantage of finding the correct answer. However, doing so can be very computationally intensive - especially as you move into multi-dimensional problems with complex probability distributions. In this example, the steps were easy to perform, but it only takes a short stretch of the imagination to think of how complicated these steps can become in complex multidimensional problems.</p>
+<p>Well, what is the alternative? you may ask. Finding the maximum value can be done in two ways - analytically and numerically. Solving the problem numerically allows for a solution to be found rather quickly, however its accuracy may be sub-optimal. Next, you will look at how to solve complicated MLE problems numerically.</p>
+<h2 class="mume-header" id="numerical-solution-to-mle">Numerical Solution to MLE</h2>
+
+<p>The method that you applied in the previous two examples was very effective at finding a solution quickly - but that is not always the case. In more complicated problems, finding the analytical solution may involve lengthy computations.</p>
+<p>Luckily there is an alternative - numerical solutions to maximum likelihood problems can be found in a fraction of the time. We will explore what a numerical solution to the previous example would look like.</p>
+<h3 class="mume-header" id="numerical-solution">Numerical solution</h3>
+
+<p>The graph of the error function from the previous example is seen below. In this example, it is very easy to see where the global minimum is located. However, in more complicated examples with multiple dimensions this is not as trivial.</p>
+<p align="center">
+<img src="img/numerical-mle.png" alt="drawing" width="600">
+</p>
+<p>This MLE can be solved numerically by applying an optimization algorithm. The goal of an optimization algorithm is to speedily find the optimal solution - in this case, the local minimum. There are several different algorithms that can tackle this problem; in SLAM, the <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a>, <a href="https://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm">Levenberg-Marquardt</a>, and <a href="https://en.wikipedia.org/wiki/Conjugate_gradient_method">conjugate gradient</a> algorithms are quite common. A brief summary of gradient descent.</p>
+<p><strong>Quick Refresher on Gradient Descent</strong></p>
+<p>Recall that the gradient of a function is a vector that points in the direction of the greatest rate of change; or in the case of an extrema, is equal to zero.</p>
+<p>In gradient descent - you make an initial guess, and then adjust it incrementally in the direction opposite the gradient. Eventually, you should reach a minimum of the function.</p>
+<p>This algorithm does have a shortcoming - in complex distributions, the initial guess can change the end result significantly. Depending on the initial guess, the algorithm converges on two different local minima. The algorithm has no way to determine where the global minimum is - it very naively moves down the steepest slope, and when it reaches a local minima, it considers its task complete. One solution to this problem is to use stochastic gradient descent (SGD), an iterative method of gradient descent using subsamples of data.</p>
+<h2 class="mume-header" id="recap">Recap</h2>
+
+<p>Watch the video <a href="https://youtu.be/_xbQgoFqNgE">here</a></p>
+<h2 class="mume-header" id="1-d-to-n-d">1-D to n-D</h2>
+
+<h3 class="mume-header" id="1-dimensional-graphs">1-Dimensional Graphs</h3>
+
+<p>In the previous examples, you were working with 1-dimensional graphs. The robot&apos;s motion and measurements were limited to one dimension - they could either be performed forwards or backwards.</p>
+<p>In such a case, each constraint could be represented in the following form,</p>
+<p><strong>1-D Measurement constraint:</strong></p>
+<p align="center">
+<img src="img/eq7.png" alt="drawing" width="200">
+</p>
+<p><strong>1-D Motion constraint:</strong></p>
+<p align="center">
+<img src="img/eq8.png" alt="drawing" width="220">
+</p>
+<h3 class="mume-header" id="n-dimensional-graphs">n-Dimensional Graphs</h3>
+
+<p>In multi-dimensional systems, we must use matrices and covariances to represent the constraints. This generalization can be applied to system of 2-dimensions, 3-dimensions, and really any n-number of dimensions. The equations for the constraints would look like so,</p>
+<p><strong>n-D Measurement constraint:</strong></p>
+<p align="center">
+<img src="img/eq10.png" alt="drawing" width="300">
+</p>
+<p><strong>n-D Motion constraint:</strong></p>
+<p align="center">
+<img src="img/eq11.png" alt="drawing" width="300">
+</p>
+<p>where <code>h()</code> and <code>g()</code> represent the measurement and motion functions, and <code>Q_t</code> and <code>R_t</code> are the covariances of the measurement and motion noise. These naming conventions should be familiar to you, as they were all introduced in the Localization module.</p>
+<p>The multidimensional formula for the sum of all constraints is presented below.</p>
+<p align="center">
+<img src="img/eq12.png" alt="drawing" width="500">
+</p>
+<p>The first element in the sum is the initial constraint - it sets the first robot pose to equal to the origin of the map. The covariance, <code>&#x3A9;_0</code>, represents complete confidence. Essentially,</p>
+<p align="center">
+<img src="img/eq13.png" alt="drawing" width="200">
+</p>
+<p>Now that we are working with multi-dimensional graphs and multi-dimensional constraints, it makes sense to use a more intelligent data structure to work with our data. The information matrix and information vector are just that!</p>
+<h2 class="mume-header" id="information-matrix-and-vector">Information Matrix and Vector</h2>
+
+<p>Now that we know what multi-dimensional matrix looks like, it&apos;s time to learn a more elegant solution to solving the system of linear equations produced by a graph of constraints. The <strong>information matrix</strong> and <strong>information vector</strong> are two data structures that we will use to store information from our constraints.</p>
+<p>The information matrix is denoted <code>&#x3A9;</code>, and the information vector is denoted <code>&#x3BE;</code>. Fundamentally, the information matrix is the inverse of the covariance matrix. This means that higher certainty is represented with larger values in the information matrix, the opposite of the covariance matrix, where complete certainty was represented by zero.</p>
+<p>The matrix and vector hold over all of the poses and all of the features in the environment. Every off-diagonal cell in the matrix is a link between two poses, a pose and a feature, or two features. When no information is available about a link, the cell has a value of zero. The information matrix and information vector exploit the additive property of the negative log likelihood of constraints. For a system with linear measurement and motion models, the constraints can be populated into the information matrix and information vector in an additive manner.</p>
+<p>It is common for the number of poses and features to be in the thousands or even tens of thousands. The <strong>information matrix is considered sparse</strong> because most off-diagonal elements are zero, since there is no relative information to tie them together. <strong>This sparsity is very valuable</strong> when it comes to solving the system of equations that is embedded in the information matrix and vector.</p>
+<p>To recap:</p>
+<ul>
+<li>A motion constraint ties together two poses,</li>
+<li>A measurement constraint ties together the feature and the pose from which is was measured,</li>
+<li>Each operation updates 4 cells in the information matrix and 2 cells in the information vector,</li>
+<li>All other cells remain 0. Matrix is called &#x2018;sparse&#x2019; due to large number of zero elements,</li>
+<li>Sparsity is a very helpful property for solving the system of equations.</li>
+</ul>
+<p>See the video <a href="https://youtu.be/3rsLNj2fQ4Y">here</a>.</p>
+<h2 class="mume-header" id="inference">Inference</h2>
+
+<p>Once the information matrix and information vector have been populated, the path and map can be recovered by the following operation,</p>
+<p align="center">
+<img src="img/eq14.png" alt="drawing" width="150">
+</p>
+<p>The result is a vector, <code>&#x3BC;</code> defined over all poses and features, containing the best estimate for each. This operation is very similar to what you encountered before in the simple one-dimensional case, with a bit of added structure. Just as before, all constraints are considered when computing the solution.</p>
+<p>Completing the above operation requires solving a system of equations. In small systems, this is an easily realizable task, but as the size of the graph and matrix grows - efficiency becomes a concern.</p>
+<p>The efficiency of this operation, specifically the matrix inversion, depends greatly on the topology of the system.</p>
+<h3 class="mume-header" id="linear-graph">Linear Graph</h3>
+
+<p>If the robot moves through the environment once, without ever returning to a previously visited location, then the topology is linear. Such a graph will produce a rather sparse matrix that, with some effort, can be reordered to move all non-zero elements to near the diagonal. This will allow the above equation to be completed in linear time.</p>
+<h3 class="mume-header" id="cyclical-graph">Cyclical Graph</h3>
+
+<p>A more common topology is cyclical, in which a robot revisits a location that it has been to before, after some time has passed. In such a case, features in the environment will be linked to multiple poses - ones that are not consecutive, but spaced far apart. The further apart in time that these poses are - the more problematic, as such a matrix cannot be reordered to move non-zero cells closer to the diagonal. The result is a matrix that is more computationally challenging to recover.</p>
+<p>However, all hope is not lost - a variable elimination algorithm can be used to simplify the matrix, allowing for the inversion and product to be computed quicker.</p>
+<h3 class="mume-header" id="variable-elimination">Variable Elimination</h3>
+
+<p>Variable elimination can be applied iteratively to remove all cyclical constraints. Just like it sounds, variable elimination entails removing a variable (ex. feature) entirely from the graph and matrix. This can be done by adjusting existing links or adding new links to accommodate for those links that will be removed.</p>
+<p>If you recall the spring analogy, variable elimination removes features, but keeps the net forces in the springs unaltered by adjusting the tension on other springs or adding new springs where needed.</p>
+<p>This process is demonstrated in the following two images. The first image shows the graph, matrix, and vector as they were presented in the previous video.</p>
+<p align="center">
+<img src="img/inference1.png" alt="drawing" width="500">
+</p>
+<p>The second image shows the elimination of <code>m_1</code>. You can see that in this process the matrix will have five cells reset to zero (indicated in red), and four cells will have their values adjusted (indicated in green) to accommodate the variable elimination. Similarly, the information vector will have one cell removed and two adjusted.</p>
+<p align="center">
+<img src="img/inference2.png" alt="drawing" width="500">
+</p>
+<p>This process is repeated for all of the features, and in the end the matrix is defined over all robot poses. At this point, the same procedure as before can be applied,</p>
+<img src="img/eq14.png" alt="drawing" width="100">
+<p>Performing variable elimination on the information matrix/vector prior to performing inference is less computationally intense than attempting to solve the inference problem directly on the unaltered data.</p>
+<p>In practice, the analytical inference method described above is seldom applied, as numerical methods are able to converge on a sufficiently accurate estimate in a fraction of the time. More will be said on this topic later, but first it is important to explore how nonlinear constraints are handled in GraphSLAM.</p>
+<h2 class="mume-header" id="nonlinear-constraints">Nonlinear Constraints</h2>
+
+<p>In the Localization lesson, you were introduced to nonlinear motion and measurement models. The idea that a robot only moves in a linear fashion is quite limiting, and so it became important to understand how to work with nonlinear models. In localization, nonlinear models couldn&#x2019;t be applied directly, as they would have turned the Gaussian distribution into a much more complicated distribution that could not be computed in closed form (analytically, in a finite number of steps). The same is true of nonlinear models in SLAM - most motion and measurement constraints are nonlinear, and must be linearized before they can be added to the information matrix and information vector. Otherwise, it would be impractical, if not impossible, to solve the system of equations analytically.</p>
+<p>Luckily, you will be able to apply the same procedure that you learned in the EKF lesson of Localization to linearize nonlinear constraints for SLAM.</p>
+<p>If you recall, a Taylor Series approximates a function using the sum of an infinite number of terms. A linear approximation can be computed by using only the first two terms and ignoring all higher order terms. In multi-dimensional models, the first derivative is replaced by a Jacobian - a matrix of partial derivatives.</p>
+<h3 class="mume-header" id="linearizing-constraints">Linearizing Constraints</h3>
+
+<p>A linearization of the measurement and motion constraints is the following,</p>
+<p align="center">
+<img src="img/eq15.png" alt="drawing" width="400">
+</p>
+<p>To linearize each constraint, you need a value for <code>&#x3BC;_{t-1}</code> or <code>&#x3BC;_t</code> to linearize about. This value is quite important since the linearization of a nonlinear function can change significantly depending on which value you choose to do so about. So, what <code>&#x3BC;_{t-1}</code> or <code>&#x3BC;_t</code> is a reasonable estimate for each constraint?</p>
+<p>Well, when presented with a completed graph of nonlinear constraints, you can apply only the motion constraints to create a pose estimate, <code>[x_0, ..., x_t]^T</code> , and use this primitive estimate in place of <code>&#x3BC;</code> to linearize all of the constraints. Then, once all of the constraints are linearized and added to the matrix and vector, a solution can be computed as before, using<br>
+<img src="img/eq14.png" alt="drawing" width="100"></p>
+<p>This solution is unlikely to be an accurate solution. The pose vector used for linearization will be erroneous, since applying just the motion constraints will lead to a graph with a lot of drift, as errors accumulate with every motion. Errors in this initial pose vector will propagate through the calculations and affect the accuracy of the end result. This is especially so because the errors may increase in magnitude significantly during a poorly positioned linearization (where the estimated <code>&#x3BC;_t</code> is far from reality, or the estimated <code>&#x3BC;_t</code>  lies on a curve where a small step in either direction will make a big difference).</p>
+<p>To reduce this error, we can repeat the linearization process several times, each time using a better and better estimate to linearize the constraints about.</p>
+<h3 class="mume-header" id="iterative-optimization">Iterative Optimization</h3>
+
+<p>The first iteration will see the constraints linearized about the pose estimate created using solely motion constraints. Then, the system of equations will be solved to produce a solution, <code>&#x3BC;</code>.</p>
+<p>The next iteration will use this solution, <code>&#x3BC;</code>, as the estimate used to linearize about. The thought is that this estimate would be a little bit better than the previous; after all, it takes into account the measurement constraints too.</p>
+<p>This process continues, with all consequent iterations using the previous solution as the vector of poses to linearize the constraints about. Each solution incrementally improves on the previous, and after some number of iterations the solution converges.</p>
+<h3 class="mume-header" id="summary">Summary</h3>
+
+<p>Nonlinear constraints can be linearized using Taylor Series, but this inevitably introduces some error. To reduce this error, the linearization of every constraint must occur as close as possible to the true location of the pose or measurement relating to the constraint. To accomplish this, an iterative solution is used, where the point of linearization is improved with every iteration. After several iterations, the result, <code>&#x3BC;</code>, becomes a much more reasonable estimate for the true locations of all robot poses and features.</p>
+<p>The workflow for GraphSLAM with nonlinear constraints is summarized below:</p>
+<ul>
+<li>Collect data, create graph of constraints,</li>
+<li>Until convergence:</li>
+<li>Linearize all constraints about an estimate, \mu&#x3BC;, and add linearized constraints to the information matrix &amp; vector,</li>
+<li>Solve system of equations using<br>
+<img src="img/eq14.png" alt="drawing" width="100"></li>
+</ul>
+<h2 class="mume-header" id="graphslam-at-a-glance">GraphSLAM at a Glance</h2>
+
+<p>So far, we&apos;ve learned how to:</p>
+<ul>
+<li>construct a graph: of poses and features,</li>
+<li>define constraints: both in 1-D and multi-D systems,</li>
+<li>solve the system of equations: to determine the most likely set of poses given the observations.</li>
+<li>linearize: to handle non-linear measurement in motion constraints by linearizing them,</li>
+<li>iterate: to solve the system of equations iteratively until convergence to achieve the best results.</li>
+</ul>
+<p>If you&apos;d like to dive deeper into the mathematics of GraphSLAM, feel free to explore the following resources:</p>
+<p><a href="http://www2.informatik.uni-freiburg.de/~stachnis/pdf/grisetti10titsmag.pdf">A Tutorial on Graph-Based SLAM, Grisetti</a></p>
+<p><a href="http://robot.cc/papers/thrun.graphslam.pdf">The GraphSLAM Algorithm with Applications to Large-Scale Mapping of Urban Structures, Thrun</a></p>
+<h2 class="mume-header" id="intro-to-3d-slam-with-rtab-map">Intro to 3D SLAM with RTAB-Map</h2>
+
+<p>We&apos;re going to dive into a GraphSLAM approach called <strong>Real-Time Appearance-Based Mapping</strong> or <strong>RTAB-Map</strong>.</p>
+<p><strong>Appearance-Based</strong> SLAM means that the algorithm uses data collected from vision sensors to localize the robot and map the environment. In Appearance-Based methods, a process called loop closure is used to determine whether the robot has seen a location before. As the robot travels to new areas in its environment, the map is expanded, and the number of images that each new image must be compared to increases. This causes the loop closure to take longer with complexity increasing linearly.</p>
+<p>RTAB-Map is optimized for large-scale and long-term SLAM by using multiple strategies to allow for loop closure to be done in real-time. In this context, this means that the loop closure is happening fast enough that the result can be obtained before the next camera images are acquired.</p>
+<p>See the video <a href="https://youtu.be/CbVNZ0J5Pmg">here</a>.</p>
+<h2 class="mume-header" id="3d-slam-with-rtab-map">3D SLAM with RTAB-Map</h2>
+
+<p>Here, we discuss the front-end and back-end specific to RTAB-Map.</p>
+<p>The <strong>front-end</strong> focuses on sensor data used to obtain the constraints that are used for feature optimization approaches. Although landmark constraints are used for othe GraphSLAM methods like 2D GraphSLAM method we saw earlier, RTAB-Map does not use them. Only <strong>odometry constraints</strong> and <strong>loop closure constraints</strong> are considered here.</p>
+<p>The <strong>odometry constraints</strong> can come from wheel encoders, IMU, LIDAR, or visual odometry. <strong>Visual odometry</strong> is accomplished using 2D features such as Speeded Up Robust Features or <em>SURF</em>. Remember that RTAB-Map is appearance-based with no metric distance information. RTAB-Map can use a single monocular camera to detect loop closure. For metric GraphSLAM, RTAB-Map requires an RGB-D camera or a stereo camera to compute the geometric constraint between the images of a loop closure. A laser rangefinder can also be used to improve or refine this geometric constraint by providing a more precise localization.</p>
+<p>The frint-end also involves graph management, which includes node creation and loop closure detection using bag-of-words.</p>
+<p>The <strong>back-end</strong> includes graph optimization, an assembly of an occupancy grid from the data of the graph. We will discuss these components in more detail starting with loop closure.</p>
+<p><strong>Loop closure</strong> detection is the process of finding a match between the current and previously visited location ins SLAM. There are <strong>two types</strong> of loop closure detection: <strong>local</strong> and <strong>global</strong>.</p>
+<p>Many probabilistic SLAM methods use <strong>local</strong> loop closure detection where matches are found a new observation and a limited map region. The size and location of this limited map region is determined by the uncertainty associated with the robot&apos;s position. This type of approach fails if the estimated position is incorrect. As we&apos;ve already seen, it is likely that the events in real world that the robot is operating in will cause errors in the estimated position.</p>
+<p>In a <strong>global</strong> loop closure detection, a new location is compared with previously viewed locations. If no matched found, the new location is added to the memory. As the map grows and more locations are added, the amount of time to check whether the location has been previously seen increases linearly. If the time it takes to search and compare new images to the one stored in the memory becomes larger than the acquisition time, the map becomes ineffective. RTAB-Map uses a global loop closure approach combined with other techniques to ensure that the loop closure process happens in real time.</p>
+<p>As you can see in below image the ultimate map output is significantly improved with loop closure detection.</p>
+<p align="center">
+<img src="img/loop-closure.png" alt="drawing" width="600">
+</p>
+<p>The importance of loop closure is best understood by seeing a map result without it!</p>
+<p>When loop closure is disabled, you can see parts of the map output that are repeated, and the resulting map looks a lot more choppy. It is not an accurate representation of the environment. This is caused by the robot not using loop closure to compare new images and locations to ones that are previously viewed, and instead it registers them as new locations. When loop closure is enabled, the map is significantly smoother and is an accurate representation of the room.</p>
+<p>For example, on the left, where loop closure is disabled, you&apos;ll see highlighted where the door is represented as multiple corners and parts of a door, where on the right, you see a single clearly defined door.</p>
+<p>See the video <a href="https://youtu.be/YpDVapcNaVw">here</a>.</p>
+<h2 class="mume-header" id="visual-bag-of-words">Visual Bag-of-Words</h2>
+
+<p>In RTAB-Mapping, loop closure is detected using a bag-of-words approach. Bag-of-words is commonly used in vision-based mapping. A feature is a very specific characteristic of an image like a patch with a complex texture or a well-defined edge or corner.</p>
+<p>In RATB-Map, the default method for extracting features from an image is called <strong>Speeded Up Robust Features</strong> or <strong>SURF</strong>. Each feature has a descriptor associated with it. A <strong>feature descriptor</strong> is a unique and robust representation of the pixels that make up a feature. In SURF, the point of interests where the feature is located is split into smaller square sub-regions. From these sub-regions, the pixel intensities in regions of regularly spaced sample points are calculated and compared. The differences between the sample points are used to categorize the sub-regions of the image.</p>
+<p>Comparing feature descriptors directly is time consuming, so vocabulary is used for faster comparison. This is where similar features or synonyms are <strong>clustered</strong> together. The collection of these clusters represent the <strong>vocabulary</strong>. When a feature descriptor is mapped to one of the vocabulary, it is called <strong>quantization</strong>. At this point, the feature is now linked to a word that can be referred to as a visual word. <strong>When all the features in an image are quantized, the image is now a bag-of-words</strong>.</p>
+<p align="center">
+<img src="img/bow1.png" alt="drawing" width="600">
+</p>
+<p>Each words keeps a link to images that it is associated with, making image retrieval more efficient over a large data set. To compare an image with our previous images, a matching score is given to all images containing the same words. Each word keeps track of whic images it has been seen in, so similar images can be found. This is called <strong>inverted index</strong>. If a word is seen in an image, the score of this image will increase. If an image shares many visual words with the query image, it will score higher. A <strong>Bayesian filter is used to evaluate the scores</strong>. This is the hypothesis that an image has been seen before. When the hypothesis reaches a predefined threshold H, a loop closure is detected.</p>
+<p align="center">
+<img src="img/bow2.png" alt="drawing" width="600">
+</p>
+<p>See the video <a href="https://youtu.be/7-T3Vo5bWnI">here</a>.</p>
+<h2 class="mume-header" id="rtab-map-memory-management">RTAB-Map Memory Management</h2>
+
+<p>!! ADD EXPLANATION HERE</p>
+<p>See the video <a href="https://youtu.be/Cs4mO5y4xYY">here</a>.</p>
+<p>RTAB-Map uses a memory management technique to limit the number of locations considered as candidates during loop closure detection. This technique is a key feature of RTAB-Map and allows for loop closure to be done in real time.</p>
+<p>The overall strategy is to keep the most recent and frequently observed locations in the robot&#x2019;s <strong>Working Memory (WM)</strong>, and transfer the others into <strong>Long-Term Memory (LTM)</strong>.</p>
+<ul>
+<li>When a new image is acquired, a new node is created in the <strong>Short Term Memory (STM)</strong>.</li>
+<li>When creating a node, recall that features are extracted and compared to the vocabulary to find all of the words in the image, creating a bag-of-words for this node.</li>
+<li>Nodes are assigned a weight in the STM based on how long the robot spent in the location - where a longer time means a higher weighting.</li>
+<li>The STM has a fixed size of S. When STM reaches S nodes, the oldest node is moved to WM to be considered for loop closure detection.</li>
+<li>Loop closure happens in the WM.</li>
+<li>WM size depends on a fixed time limit T. When the time required to process new data reaches T, some nodes of graph are transferred from WM to LTM - as a result, WM size is kept nearly constant.</li>
+<li>Oldest and less weighted nodes in WM are transferred to LTM before others, so WM is made up of nodes seen for longer periods of time.</li>
+<li>LTM is not used for loop closure detection and graph optimization.</li>
+<li>If loop closure is detected, neighbours in LTM of an old node can be transferred back to the WM (a process called retrieval).</li>
+</ul>
+<p align="center">
+<img src="img/rtab-memory.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="rtab-map-optimization-and-output">RTAB-Map Optimization and Output</h2>
+
+<p>Here we will discuss graph and map optimization, as well as time complexity considerations.</p>
+<h3 class="mume-header" id="graph-optimization">Graph Optimization</h3>
+
+<p>When a loop closure hypothesis is accepted, a new constraint is added to the map&#x2019;s graph, then a graph optimizer minimizes the errors in the map. RTAB-Map supports 3 different graph optimizations: Tree-based network optimizer, or TORO, General Graph Optimization, or G2O and GTSAM (Smoothing and Mapping).</p>
+<p>All of these optimizations use node poses and link transformations as constraints. When a loop closure is detected, errors introduced by the odometry can be propagated to all links, correcting the map.</p>
+<p>Recall that Landmarks are used in the graph optimization process for other methods, whereas RTAB-Map doesn&apos;t use them. Only odometry constraints and loop closure constraints are optimized.</p>
+<p>You can see the impact of graph optimization in the comparison below.</p>
+<p align="center">
+<img src="img/rtab-opt1.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="map-assembly-and-output">Map assembly and Output</h3>
+
+<p>The possible outputs of RTAB-Map are a 2d Occupancy grid map, 3d occupancy grid map (3d octomap), or a 3D point cloud.</p>
+<p align="center">
+<img src="img/rtab-opt2.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="graph-slam-complexity-and-the-complexity-of-rtab-map">Graph SLAM Complexity and the Complexity of RTAB-Map</h3>
+
+<p>By providing constraints associated with how many nodes are processed for loop closure by memory management, the time complexity becomes constant in RTAB-Map.</p>
+<p align="center">
+<img src="img/rtab-opt3.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="recep">Recep</h2>
+
+<p>!! ADD EXPLANATION HERE</p>
+<p>See the video <a href="https://youtu.be/PN6cQJA1N40">here</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

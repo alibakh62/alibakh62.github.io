@@ -176,6 +176,12 @@
         border-radius: 10px;
         margin-bottom: 10px;
       }
+      /* #sub1.content {
+        width: 100%;
+      } */
+      #sub2.content {
+        width: 100%;
+      }
       a:link {
         text-decoration: none;
         font-size: 20px;
@@ -305,6 +311,15 @@
       .button-35:hover {
         box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
       }
+      #sub1.button-35 {
+        width: 90% !important;
+        margin-top: 1rem;
+      }
+      #sub2.button-35 {
+        width: 100% !important;
+        margin-top: 1rem;
+        color: red;
+      }
     </style>
     <title>My Data Science Notes</title>
   </head>
@@ -418,20 +433,27 @@
       </button>
       <div class="content">
         <li>
-          <a href="../content/google_ml_developers/#">Problem Framing</a>
+          <a href="../content/google_ml_developers/1_problem_framing/index.html"
+            >Problem Framing</a
+          >
         </li>
         <li>
-          <a href="../content/google_ml_developers/#"
+          <a
+            href="../content/google_ml_developers/2_transforming_numeric_data/index.html"
             >Transforming Numeric Data</a
           >
         </li>
         <li>
-          <a href="../content/google_ml_developers/#"
+          <a
+            href="../content/google_ml_developers/3_transforming_categorical_data/index.html"
             >Transforming Categorical Data</a
           >
         </li>
         <li>
-          <a href="../content/google_ml_developers/#">Testing and Debugging</a>
+          <a
+            href="../content/google_ml_developers/4_testing_debugging/index.html"
+            >Testing and Debugging</a
+          >
         </li>
         <li>
           <a href="../content/google_ml_developers/#"
@@ -485,15 +507,255 @@
       <button class="button-35" type="button">ML Topics and Articles</button>
       <div class="content">
         <li>
-          <a href="../content/ml_topics/#"
+          <a href="../content/ml_topics/xgb_everything/index.html"
             >XGBoost: Everything You Need to Know</a
           >
         </li>
         <li>
-          <a href="../content/ml_topics/#"
+          <a href="../content/ml_topics/math_of_gb/index.html"
             >Math of Gradient Boosting Explained</a
           >
         </li>
+        <li>
+          <a href="../content/ml_topics/dimensionality_reduction.html"
+            >Dimensionality Reduction</a
+          >
+        </li>
+        <li>
+          <a href="../content/ml_topics/pca_and_clustering_sklearn.html"
+            >PCA and Clustering - sklearn</a
+          >
+        </li>
+        <li>
+          <a href="../content/ml_topics/clustering.html">Clustering</a>
+        </li>
+        <li>
+          <a href="../content/ml_topics/measuring_similarity.html"
+            >Measuring Similarity</a
+          >
+        </li>
+        <li>
+          <a href="../content/ml_topics/recommendation.html">Recommendation</a>
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+                Google ML Course for Developers
+              </button> -->
+      <button class="button-35" type="button">Utils</button>
+      <div class="content" id="sub1">
+        <button class="button-35" type="button" id="sub1">Cheat Sheets</button>
+        <div class="content" id="sub2">
+          <button class="button-35" type="button" id="sub2">
+            Interview Preparation Summaries
+          </button>
+          <div class="content">
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/calculus.pdf"
+                >Calculus</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-applications.pdf"
+                >Applications</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-deep-learning.pdf"
+                >Deep Learning</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-deep-learning-tips-tricks.pdf"
+                >Deep Learning Tips and Tricks</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-convolutional-neural-networks.pdf"
+                >Convolutional Neural Netowrks</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-recurrent-neural-networks.pdf"
+                >Recurrent Neural Networks</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-first-ode.pdf"
+                >First-Order ODE</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-second-ode.pdf"
+                >Second-Order ODE</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-logic-models.pdf"
+                >Logic Models</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-machine-learning-tips-and-tricks.pdf"
+                >Machine Learning Tips and Tricks</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-probability.pdf"
+                >Probability</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-statistics.pdf"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-reflex-models.pdf"
+                >Reflex Models</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-supervised-learning.pdf"
+                >Supervised Learning</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-unsupervised-learning.pdf"
+                >Unsupervised Learning</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-states-models.pdf"
+                >States-based Models</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/cheatsheet-variables-models.pdf"
+                >Variables-based Models</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/conversion-guide-r-python-data-manipulation.pdf"
+                >Conversion Guide: R -> Python (Data Manipulation)</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/conversion-guide-r-python-data-visualization.pdf"
+                >Conversion Guide: R -> Python (Data Visualization)</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/linear-algebra.pdf"
+                >Linear Algebra</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/refresher-algebra-calculus.pdf"
+                >Algebra Calculus</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/refresher-probabilities-statistics.pdf"
+                >Probabilities and Statistics</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/study-guide-data-retrieval-with-sql.pdf"
+                >Data Retrieval with SQL</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/study-guide-data-manipulation-with-python.pdf"
+                >Data Manipulation with Python</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/study-guide-data-visualization-with-python.pdf"
+                >Data Visualization with Python</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/study-guide-engineering-productivity-tips.pdf"
+                >Engineering Productivity Tips</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/super-cheatsheet-artificial-intelligence.pdf"
+                >Artificial Intelligence</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/super-cheatsheet-deep-learning.pdf"
+                >Deep Learning - All</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/super-cheatsheet-machine-learning.pdf"
+                >Machine Learning - All</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/super-study-guide-data-science-tools.pdf"
+                >Data Science</a
+              >
+            </li>
+            <li>
+              <a href="../content/utils/cheat_sheets/stanford/trigonometry.pdf"
+                >Trigonometry</a
+              >
+            </li>
+          </div>
+          <li>
+            <a href="../content/utils/cheat_sheets/Scikit_Learn_Cheat_Sheet_Python.pdf">Scikit-learn</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/pandas cheat sheet.pdf">Pandas</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/Numpy_Python_Cheat_Sheet.pdf">Numpy</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/keras cheat sheet.pdf">Keras</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/Python_Matplotlib_Cheat_Sheet.pdf">Matplotlib</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/seaborn cheat sheet.pdf">Seaborn</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/scipy cheat sheet.pdf">Scipy</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/cheatSheet_pyspark.pdf">PySpark</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/keras cheat sheet.pdf">Keras</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/sql-basics-cheat-sheet-a4.pdf">SQL</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/sql-cheat-sheet.pdf">SQL-More Detailed</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/pyspark-RDD basics cheat sheet.pdf">PySpark RDD</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/pyspark-sql basics cheat sheet.pdf">PySpark SQL</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/10-Best-VIM-Cheat-Sheet-02.jpg">VIM</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/tmux.html">tmux</a>
+          </li> 
+          <li>
+            <a href="../content/utils/cheat_sheets/Clean-Code-Cheat-Sheet-V1-3.pdf">Clean Code</a>
+          </li> 
       </div>
     </div>
     <script

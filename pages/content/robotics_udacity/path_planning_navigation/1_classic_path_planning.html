@@ -1,0 +1,949 @@
+<!DOCTYPE html><html><head>
+      <title>1_classic_path_planning</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction-to-this-lesson">Introduction to this Lesson</h1>
+
+<p>In this lesson, we&apos;ll focus on the decision making aspects of mobile robotics, i.e. path planning and navigation. Path planning is a strategic solution to the problem of &quot;How do I get there?&quot;, while obstacle avoidance is a series of tactical decisions the robot must make as it moves along its path.</p>
+<h1 class="mume-header" id="applications">Applications</h1>
+
+<p>Before we dive into the details - let&#x2019;s look at where path planning can be applied!</p>
+<p>Sitting in your home or office, some environment-specific examples come to mind right away - vacuum robots plan their paths around a house to ensure that every square inch of space gets cleaned. Self-driving cars are starting to appear around us. These vehicles can accept a destination as an input from a human and plan an efficient path that avoids collisions and obeys all traffic regulations.</p>
+<p>More peculiar applications of path planning in robotics include assistive robotics. Whether working with the disabled or elderly, robots are starting to appear in care homes and hospitals to assist humans with their everyday tasks. Such robots must be mindful of their surroundings when planning paths - some obstacles stay put over time, such as walls and large pieces of furniture, while others may move around from day to day. Path planning in dynamic environments is undoubtedly more difficult.</p>
+<p>Another robotic application of path planning is the planning of paths by exploratory rovers, such as Curiosity on Mars. The rover must safely navigate the surface of Mars (which is between 55 and 400 million kilometers away!). Accurate problem-free planning that avoids risks is incredibly important.</p>
+<p>Path planning is not limited to robotics applications, in fact it is widely used in several other disciplines. Computer graphics and animation use path planning to generate the motion of characters. While computational biology applies path planning to the folding of protein chains.</p>
+<p>With many different applications, there are naturally many different approaches. In the next few lessons you will gain the knowledge required to implement several different path planning algorithms.</p>
+<p align="center">
+<img src="img/applications.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="introduction-to-path-planning">Introduction to Path Planning</h1>
+
+<p>It relates to teaching our robot to operate in the real world. Just like in localization and SLAM, there&apos;s one correct way to accomplish the task of path planning.</p>
+<p>A <strong>Path Planning Algorithm</strong> takes in as input the provided <em>environment geometry</em>, the <em>robot&apos;s geometry</em>, and the <em>start</em> and <em>goal</em> poses and uses this information to produce a path from start to goal.</p>
+<h1 class="mume-header" id="examples-of-path-planning">Examples of Path Planning</h1>
+
+<p>Let&apos;s look at an application of path building to gain a better understanding of the problem at hand and to learn some relevant terminology that we will use throughout the lesson.</p>
+<p>An exploratory robot may find itself dropped off at a starting position and need to traverse the land, water, or air to get to its goal position. In between its <em>start</em> and <em>goal</em> locations, there will inevitably be some obstacles. Let&apos;s assume that our rover on land, performing a recovery operation after a natural disaster. The rover was dropped off at one position and needs to get to another position to evaluate whether it&apos;s safer for humans to follow his path.</p>
+<p>From the map, the robot knows that there&apos;s rubble present along its path. Using GPS data and aerial photographs of the environment, the rover must plan a path through the rubble to get to its destination.</p>
+<p>One option that the rover has is to follow the shortest path; the straight line between a start and goal locations. However, due to the large amount of rubble present, the rover might have to slow down considerably to safely navigate this path. If time is of the essence, this is likely not the ideal path to take. Taking the direct route may not even be possible if there are large obstacles in the way of that the rover is unable to overcome. The rover will need a solution to this problem instead of just stopping dead in its tracks.</p>
+<p align="center">
+<img src="img/path-planning-intro.png" alt="drawing" width="600">
+</p>
+<p>One algorithm that the robot can apply would have the robot traverse and encountered obstacles clockwise until it reaches its intended path once again. This algorithm often referred to as the <strong>Bug Algorithm</strong>.</p>
+<p>An alternate route altogether would be to go around as much rubble as possible. To accomplish this, the path planning algorithm would need a way to evaluate how long it takes to traverse different types of land and take this information into account when planning a path. Although the resulting path is longer, the rover would get to the goal location faster because it can move quicker on flat land.</p>
+<p>More sophisticated algorithms may take into account the risk that rover faces. Rovers are expensive tools. So, it&apos;d be wise to avoid unnecessary danger in their operation. The rover&apos;s path planning algorithm may have it avoid unstable terrain or moving too closely to a cliff.</p>
+<p>Two methods of evaluating algorithms are to assess whether they are <strong>complete</strong> and whether they are <strong>optimal</strong>.</p>
+<p><strong>An algorithm is complete</strong> if it&apos;s able to find a path between the start and the goal when one exists. A <strong>complete algorithm</strong> is able to solve all solvable problems and return no solution found to unsolvable problems.</p>
+<p><strong>An algorithm is optimal</strong> if it is able to find the <em>best</em> solution. <strong>Best</strong> may mean different things. In the simplest case, <em>best</em> refers to the shortest path. But <em>best</em> can also mean quickest or the path that minimizes the risk the most or a combination of factors.</p>
+<h3 class="mume-header" id="is-bug-algorithm-complete-or-optimal">Is Bug Algorithm complete or optimal?</h3>
+
+<p>Neither! The bug algorithm is neither complete nor optimal. It would be able to solve some rudimentary path planning problems, but as you will see in the image below - others can certainly stumble this naive algorithm.</p>
+<p>The problem below will demonstrate one instance where a solution exists, but the bug algorithm is unable to find it.</p>
+<p align="center">
+<img src="img/bug-algo.png" alt="drawing" width="600">
+</p>
+<p>In the above example, the robot would end up traversing the outer wall of the obstacle endlessly. There exist variants to the bug algorithm that will remedy this error, but the bulk of path planning algorithms rely on other principles that you will be introduced to throughout this lesson. In studying new algorithms, we will revisit the notion of Completeness and Optimality in analyzing the applicability of an algorithm to a task.</p>
+<p>See the video <a href="https://youtu.be/uIHSZ6N7Xok">here</a>.</p>
+<h1 class="mume-header" id="approaches-to-path-planning">Approaches to Path Planning</h1>
+
+<p>In this lesson, you will be studying <em><strong>three</strong></em> different approaches to path planning. The first, called <strong>discrete (or combinatorial) path planning</strong>, is the most straightforward of the three approaches. The other two approaches, called <strong>sample-based path planning</strong> and <strong>probabilistic path planning</strong>, will build on the foundation of discrete planning to develop more widely applicable path planning solutions.</p>
+<h3 class="mume-header" id="discrete-planning">Discrete Planning</h3>
+
+<p>Discrete planning looks to explicitly discretize the robot&#x2019;s workspace into a connected graph, and apply a graph-search algorithm to calculate the best path. This procedure is very precise (in fact, the precision can be adjusted explicitly by changing how fine you choose to discretize the space) and very thorough, as it discretizes the <em>complete</em> workspace. As a result, <em><strong>discrete planning can be very computationally expensive - possibly prohibitively so for large path planning problems</strong></em>.</p>
+<p>The image below displays one possible implementation of discrete path planning applied to a 2-dimensional workspace.</p>
+<p align="center">
+<img src="img/discrete-planning.png" alt="drawing" width="600">
+</p>
+<p><em><strong>Discrete path planning is elegant in its preciseness, but is best suited for low-dimensional problems. For high-dimensional problems, sample-based path planning is a more appropriate approach.</strong></em></p>
+<h3 class="mume-header" id="sample-based-planning">Sample-Based Planning</h3>
+
+<p>Sample-based path planning probes the workspace to incrementally construct a graph. Instead of discretizing every segment of the workspace, sample-based planning takes a number of samples and uses them to build a discrete representation of the workspace. The resultant graph is not as precise as one created using discrete planning, but it is <em>much quicker to construct</em> because of the relatively small number of samples used.</p>
+<p>A path generated using sample-based planning <em>may not be the best path</em>, but in certain applications - <em><strong>it&#x2019;s better to generate a feasible path quickly than to wait hours or even days to generate the optimal path</strong></em>.</p>
+<p>The image below displays a graph representation of a 2-dimensional workspace created using sample-based planning.</p>
+<p align="center">
+<img src="img/sample-based-planning.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="probabilistic-path-planning">Probabilistic Path Planning</h3>
+
+<p>The last type of path planning that you will learn about in this module is probabilistic path planning. While the first two approaches looked at the path planning problem generically - with no understanding of who or what may be executing the actions - probabilistic path planning takes into account the uncertainty of the robot&#x2019;s motion.</p>
+<p>While this may not provide significant benefits in some environments, it is especially helpful in highly-constrained environment or environments with sensitive or high-risk areas.</p>
+<p>The image below displays probabilistic path planning applied to an environment containing a hazard (the lake at the top right).</p>
+<p align="center">
+<img src="img/prob-planning.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="discrete-planning-1">Discrete Planning</h1>
+
+<p>Solving the path planning problem through discrete planning, otherwise known as combinatorial planning can be broken down into <em><strong>three distinct steps</strong></em>.</p>
+<ul>
+<li>The <strong>first</strong> is to develop a convenient continuous representation. This can be done by representing the problem space as the <strong>configuration space</strong>. The <strong>configuration space</strong>, also known as a <strong>C space</strong>, is an alternative way of representing the problem space. The <em>C space</em> takes into account the geometry of the robot and makes it easier to apply discrete search algorithms.</li>
+<li>Next, the configuration space must be discretized into a representation that is more easily manipulated by algorithms. The <strong>discretized space</strong> is represented by a <strong>graph</strong>.</li>
+<li>Finally, a <em>search algorithm</em> can be applied to the graph to find the best path from the start node to the goal node. For each of these steps, there are a variety of methods that can be applied to accomplish the desired outcomes, each with their own advantages and disadvantages.</li>
+</ul>
+<p>See the video <a href="https://youtu.be/paeOudcnghM">here</a>.</p>
+<h1 class="mume-header" id="continuous-representation">Continuous Representation</h1>
+
+<p>Here, we have an environment with several obstables. We can call this the <em><strong>workspace</strong></em>. Our goal in path planning is to find a path between some start location and some end location that avoids collision with obstacles.</p>
+<p align="center">
+<img src="img/cont-repr.png" alt="drawing" width="600">
+</p>
+<p><em><strong>If we treat the robot as a single point, then the task of path planning is quite simple</strong></em>. Within this workspace, the robot can move anywhere in the free space. That is the space not occupied by obstacles. The robot can even travel along the wall of an obstacle. After all, we&apos;re representing it as a dimensionless point. In such as case, the path planning problem is relatively simple. <em><strong>Find a curve or piece-wise linear path connecting the robot&apos;s start pose to the goal pose that does not collide with any obstacles</strong></em>. As long as there&apos;s an infinitesimally small gap between two obstacles, a point robot would be able to squeeze through.</p>
+<p>However, <strong>in reality robots have more dimensions that a point</strong>. If we model a robot as two-dimensional disc, and try to attempt to follow the same paths that we developed earlier for point robot, we run into trouble. Some of the paths may have the robot collide with obstacles. <strong>So, what do we do?</strong></p>
+<p>For every step of the path, we could compute the distance from the robot center to every obstacle, and ensure that the space is greater than the radius of the robot. But, that would be a lot of work.</p>
+<p>The same can be accomplished in an easier manner. We can inflate every single obstacle by the radius of the robot, and then treat the robot as a point. Doing so, may show that some paths may no longer an option for the robot of this size. The robot would not be able to fit in between the two obstacles. This representation of the environment is called the <strong>Configuration Space (or C Space)</strong>.</p>
+<p align="center">
+<img src="img/c-space1.png" alt="drawing" width="600">
+</p>
+<p>A configuration space is a set of all robot poses. The C space is divided into <strong>C Free</strong> and <strong>C Obstacle</strong>.</p>
+<p><strong>C Free</strong> represents the set of poses in the free space that do not collide with obstacles. <strong>C Obstacle</strong> is the compliment to C Free, representing the set of robot poses that are in collision with obstacles or walls.</p>
+<p align="center">
+<img src="img/c-space2.png" alt="drawing" width="600">
+</p>
+<p>See the video <a href="https://youtu.be/4Npk-v3sg2U">here</a>.</p>
+<p><strong>Summary</strong></p>
+<p>To account for the geometry of a robot and simplify the task of path planning, obstacles in the workspace can be inflated to create a new space called the configuration space (or C-space). With the obstacles inflated by the radius of the robot, the robot can then be treated as a point, making it easier for an algorithm to search for a path. The C-space is the set of all robot poses, and can be broken-down into <code>C_{Free}</code> and <code>C_{Obs}</code>.</p>
+<h1 class="mume-header" id="minkowski-sum">Minkowski Sum</h1>
+
+<p>The Minkowski sum is a mathematical property that can be used to compute the configuration space given an obstacle geometry and robot geometry.</p>
+<p>The intuition behind how the Minkowski sum is calculated can be understood by imagining to paint the outside of an obstacle using a paintbrush that is shaped like your robot, with the robot&#x2019;s origin as the tip of the paintbrush. The painted area is <code>C_{Obs}</code>. The image below shows just this.</p>
+<p align="center">
+<img src="img/minkowski-sum1.png" alt="drawing" width="600">
+</p>
+<p>To create the configuration space, the Minkowski sum is calculated in such a way for every obstacle in the workspace. The image below shows three configuration spaces created from a single workspace with three different sized robots. As you can see, if the robot is just a dot, then the obstacles in the workspace are only inflated by a small amount to create the C-space. As the size of the robot increases, the obstacles are inflated more and more.</p>
+<p align="center">
+<img src="img/minkowski-sum2.png" alt="drawing" width="600">
+</p>
+<p>For convex polygons, computing the convolution is trivial and can be done in linear time - however for non-convex polygons (i.e. ones with gaps or holes present), the computation is much more expensive.</p>
+<p>If you are interested in understanding the Minkowski Sum in more detail, then you may find the following resources helpful:</p>
+<ul>
+<li><a href="http://twistedoakstudios.com/blog/Post554_minkowski-sums-and-differences">A blog post on Minkowski sums and differences</a>,</li>
+<li><a href="https://www.toptal.com/game/video-game-physics-part-ii-collision-detection-for-solid-objects">An interesting read on how collisions are detected in video games</a>.</li>
+</ul>
+<h1 class="mume-header" id="minkowski-sum-c">Minkowski Sum C++</h1>
+
+<p>Now that you&apos;ve learned the Minkowski Sum, you&apos;ll get a chance to code it in C++!</p>
+<p><strong>Example</strong></p>
+<p align="center">
+<img src="img/minkowski-sum3.png" alt="drawing" width="600">
+</p>
+<p>In this example, you can see two triangles - a blue and a red one. Let&apos;s suppose the robot is represented by a blue triangle and the obstacle is represented by a red triangle. Your task is to compute the configuration space <strong>C</strong> of robot <strong>A</strong> and obstacle <strong>B</strong> in C++.</p>
+<ul>
+<li><strong>Robot:</strong> Blue triangle denoted by A</li>
+<li><strong>Obstacle:</strong> Red triangle denoted by B</li>
+</ul>
+<p>Here are the steps that you should follow in order to code the Minkowski Sum in C++.</p>
+<ul>
+<li><code>main()</code>: Define the coordinates of triangle A and B in 2D vectors.</li>
+<li><code>minkowski_sum()</code>: Compute the Minkowski Sum of two vectors</li>
+<li><code>delete_duplicate()</code>: Check for duplicate coordinates inside a 2D vector and delete them.</li>
+</ul>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm&gt;</span></span>
+
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token comment">// Print 2D vectors coordinate values</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">print2DVector</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> vec<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Sorting the vector for grading purpose</span>
+    <span class="token function">sort</span><span class="token punctuation">(</span>vec<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> vec<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> vec<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                cout <span class="token operator">&lt;&lt;</span> vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;  &quot;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Check for duplicate coordinates inside a 2D vector and delete them</span>
+vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> <span class="token function">delete_duplicate</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> C<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Sort the C vector</span>
+    <span class="token function">sort</span><span class="token punctuation">(</span>C<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> C<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Initialize a non duplicated vector</span>
+    vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> Cn<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> C<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Check if it&apos;s a duplicate coordinate</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> C<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Cn<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>C<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    Cn<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>C<span class="token punctuation">[</span>C<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> Cn<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Compute the Minkowski Sum of two vectors</span>
+vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> <span class="token function">minkowski_sum</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> A<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> B<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> C<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> A<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> B<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Compute the current sum</span>
+            vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> Ci <span class="token operator">=</span> <span class="token punctuation">{</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token comment">// Push it to the C vector</span>
+            C<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>Ci<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    C <span class="token operator">=</span> <span class="token function">delete_duplicate</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> C<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Define the coordinates of triangle A and B using 2D vectors</span>
+    vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> <span class="token function">A</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    A <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    B <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Compute the minkowski sum of triangle A and B</span>
+    vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> <span class="token operator">&gt;</span> C<span class="token punctuation">;</span>
+    C <span class="token operator">=</span> <span class="token function">minkowski_sum</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Print the resulting vector</span>
+    <span class="token function">print2DVector</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h3 class="mume-header" id="generated-configuration-space">Generated Configuration Space</h3>
+
+<p align="center">
+<img src="img/minkowski-sum4.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="translation">Translation</h3>
+
+<p>You successfully coded the Minkowski sum in C++ and generated the configuration space. You can easily notice that the red obstacle is not well inflated and the blue robot can still hit the obstacle. That&apos;s because the configuration space still has to be shifted to the obstacle.</p>
+<p>Initially, the robot should be translated to the obstacle, and then after computing the configuration space, it should be translated to both the robot and obstacle.</p>
+<h3 class="mume-header" id="final-result">Final Result</h3>
+
+<p align="center">
+<img src="img/minkowski-sum5.png" alt="drawing" width="600">
+</p>
+<p>Above is the resulting image where both the blue robot and the green configuration space have been shifted. You can now see the yellow padding which represents the translated configurations space all around the red obstacle. The blue robot will never be able to hit the red obstacle since it&apos;s well inflated.</p>
+<h3 class="mume-header" id="plotting">Plotting</h3>
+
+<p>If you are eager to know how I generated these plots and translated the shapes, you can clone the <a href="https://github.com/udacity/RoboND-MinkowskiSum">GitHub repo</a> and read through the C++ code. In short, I had to follow these steps to generate any polygon:</p>
+<ol>
+<li>Computed the centroid of each polygon</li>
+<li>Computed the angle of each point-centroid with respect to the x-axis</li>
+<li>Sorted the points in ascending order of their angles (clockwise)</li>
+<li>Plotted a line between each consecutive point</li>
+</ol>
+<h1 class="mume-header" id="translation-and-rotation">Translation and Rotation</h1>
+
+<p>In first few examples above, the robot was represented by a circle. This was a very easy shape to use because its rotation did not affect the geometry of the configuration space. Our most recent representation of a robot has been a triangle (image below).</p>
+<p align="center">
+<img src="img/mink-sum1.png" alt="drawing" width="600">
+</p>
+<p>Now, <strong>what would happen if we were to rotate our robot by, say, 38 degrees?</strong></p>
+<p>Well, the configuration would look quite different (image below). So, what do we do?</p>
+<p align="center">
+<img src="img/mink-sum2.png" alt="drawing" width="600">
+</p>
+<p><strong>The configuration space changes depending on the orientation of the robot</strong>.</p>
+<p>One way to <strong>standardize the configuration space</strong> for an odd shape robot would be to enclose the robot in a <strong>bounding circle</strong>. The circle represents the worst-case scenario. For some orientation of the robot, it is a relatively accurate representation of the bounds of its vertices. But, for others, it may be a significant exaggeration. However, at all times, the bounding circle is equal to or larger than the robot and is current configuration. So, if a path is found for the bounding circle, it will work for the robot.</p>
+<p>This method is simple, but it does come with a significant <em><strong>drawback</strong></em>. An algorithm applied to this generalization <strong>would not be complete</strong>. Let&apos;s look at a particular example to understand this.</p>
+<p>Here, the robot is represented by the triangle. It must navigate a tight corridor and get to its goal. The task is possible. With two rotations the robot can navigate the corner and make it to the other end of the corridor.</p>
+<p align="center">
+<img src="img/rotation1.png" alt="drawing" width="600">
+</p>
+<p>However, if we were to enclose a triangle robot representation into a bounding circle, the algorithm would not be able to find a solution, since the circle&apos;s diameter is larger than the width of the corridor. Any algorithm applied here will return no solution found.</p>
+<p>So, while <strong>bounding circles</strong> can be an acceptable solution to some planning problems, for instance, ones in a wide open environments, they <strong>are not a complete solution</strong>.</p>
+<p>When you add the ability for the robot to rotate, you are adding a <em>degree of freedom</em>. The appropriate way to represent this in the configuration space is to <em>add a dimension</em>. The XY plane would continue to represent the translation of the robot in the workspace, while the vertical axis would represent rotation of the robot.</p>
+<p>See the video <a href="https://youtu.be/ZVAJmzOk5p4">here</a>.</p>
+<h1 class="mume-header" id="3d-configuration-space">3D Configuration Space</h1>
+
+<p>As you saw, the configuration space for a robot changes depending on its rotation. Allowing a robot to rotate adds a degree of freedom - so, sensibly, it complicates the configuration space as well. Luckily, this is actually very simple to handle. The dimension of the configuration space is equal to the number of degrees of freedom that the robot has.</p>
+<p>While a 2D configuration space was able to represent the x- and y-translation of the robot, a third dimension is required to represent the rotation of the robot.</p>
+<p>Let&#x2019;s look at a robot and its corresponding configuration space for two different rotations. The first will have the robot at 0&#xB0;, and the second at 18&#xB0;.</p>
+<p align="center">
+<img src="img/3d-c-space1.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/3d-c-space2.png" alt="drawing" width="600">
+</p>
+<p>A three-dimensional configuration space can be generated by stacking two-dimensional configuration spaces as layers - as seen in the image below.</p>
+<p align="center">
+<img src="img/3d-c-space3.png" alt="drawing" width="600">
+</p>
+<p>If we were to calculate the configuration spaces for infinitesimally small rotations of the robot, and stack them on top of each other - we would get something that looks like the image below.</p>
+<p align="center">
+<img src="img/3d-c-space4.png" alt="drawing" width="600">
+</p>
+<p>The image above displays the configuration space for a triangular robot that is able to translate in two dimensions as well as rotate about its z-axis. While this image looks complicated to construct, there are a few tricks that can be used to generate 3D configuration spaces and move about them. The following video from the Freie Universit&#xE4;t Berlin is a wonderful visualization of a 3D configuration space. The video will display different types of motion, and describe how certain robot motions map into the 3D configuration space.</p>
+<p><a href="https://www.youtube.com/watch?v=SBFwgR4K1Gk">Configuration Space Visualization</a> - This is a must watch!</p>
+<h1 class="mume-header" id="discretization">Discretization</h1>
+
+<p>To be able to apply a search algorithm, the configuration space must be reduced to a finite size that an algorithm can traverse in a reasonable amount of time, as it searches for a path from the start to the goal. This reduction in size can be accomplished by discretization.</p>
+<p><strong>Discretization</strong> is the process of breaking down a continuous entity, in this case a configuration space, into discrete segments.</p>
+<p>There different methods that can be applied to discretize a continuous space. Here, we&apos;ll learn about <strong>three different methods of discretization</strong>.</p>
+<ul>
+<li>Roadmap</li>
+<li>Cell Decomposition</li>
+<li>Gradient Field</li>
+</ul>
+<p>Each has its own advantages and disadvantages, balancing tradeoffs such as time and the level of detail. After that, we&apos;ll dive into graph search which can be applied to find a path from start node to goal node.</p>
+<h1 class="mume-header" id="roadmap">Roadmap</h1>
+
+<p>The first group of discretization approaches that you will learn is referred to by the name Roadmap. These methods represent the configuration space using a simple connected graph - similar to how a city can be represented by a metro map.</p>
+<p align="center">
+<img src="img/roadmap1.png" alt="drawing" width="600">
+</p>
+<p>Roadmap methods are typically implemented in two phases:</p>
+<ul>
+<li>The <strong>construction phase</strong> builds up a graph from a continuous representation of the space. This phase usually takes a significant amount of time and effort, but the resultant graph can be used for multiple queries with minimal modifications.</li>
+<li>The <strong>query phase</strong> evaluates the graph to find a path from a start location to a goal location. This is done with the help of a search algorithm.</li>
+</ul>
+<p>In this Discretization section, we will only discuss and evaluate the construction phase of each Roadmap method. Whereas the query phase will be discussed in more detail in the Graph Search section, following Discretization.</p>
+<p>The two roadmap methods that you will learn next are the <strong>Visibility Graph</strong>, and <strong>Voronoi Diagram</strong> methods.</p>
+<h1 class="mume-header" id="visibility-graph">Visibility Graph</h1>
+
+<p>The Visibility Graph builds a roadmap by connecting the start node, all of the obstacles&#x2019; vertices, and goal node to each other - except those that would result in collisions with obstacles. The Visibility Graph has its name for a reason - it connects every node to all other nodes that are &#x2018;visible&#x2019; from its location.</p>
+<blockquote>
+<p><strong>Nodes:</strong> Start, Goal, and all obstacle vertices.</p>
+</blockquote>
+<blockquote>
+<p><strong>Edges:</strong> An edge between two nodes that does not intersect an obstacle, including obstacle edges.</p>
+</blockquote>
+<p>The following image illustrates a visibility graph for a configuration space containing polygonal obstacles.</p>
+<p align="center">
+<img src="img/visibility-graph1.png" alt="drawing" width="600">
+</p>
+<p>The motivation for building Visibility Graphs is that the shortest path from the start node to the goal node will be a piecewise linear path that bends only at the obstacles&#x2019; vertices. This makes sense intuitively - the path would want to hug the obstacles&#x2019; corners as tightly as possible, as not to add any additional length.</p>
+<p>Once the Visibility Graph is built, a search algorithm can be applied to find the shortest path from Start to Goal. The image below displays the shortest path in this visibility graph.</p>
+<p align="center">
+<img src="img/visibility-graph2.png" alt="drawing" width="600">
+</p>
+<p><strong>Is the visibility graph complete? Does it contain the optimal path?</strong></p>
+<p>Yes, That&#x2019;s right, it is complete and contains the optimal path!</p>
+<p>Having completed the quiz, you should have by now seen the advantages of the Visibility Graph method. One <strong>disadvantage</strong> to the Visibility Graph is that it leaves no clearance for error. A robot traversing the optimal path would have to pass incredibly close to obstacles, increasing the risk of collision significantly. In certain applications, such as animation or path planning for video games, this is acceptable. However the uncertainty of real-world robot localization makes this method impractical.</p>
+<h1 class="mume-header" id="voronoi-diagram">Voronoi Diagram</h1>
+
+<p>Another discretization method that generates a roadmap is called the Voronoi Diagram. Unlike the visibility graph method which generates the shortest paths, Voronoi Diagrams maximize clearance between obstacles.</p>
+<p>A Voronoi Diagram is a graph whose edges bisect the free space in between obstacles. Every edge lies equidistant from each obstacle around it - with the greatest amount of clearance possible. You can see a Voronoi Diagram for our configuration space in the graphic below.</p>
+<p align="center">
+<img src="img/voronoi-diagram1.png" alt="drawing" width="600">
+</p>
+<p>Once a Voronoi Diagram is constructed for a workspace, it can be used for multiple queries. Start and goal nodes can be connected into the graph by constructing the paths from the nodes to the edge closest to each of them.</p>
+<p>Every edge will either be a straight line, if it lies between the edges of two obstacles, or it will be a quadratic, if it passes by the vertex of an obstacle.</p>
+<p><strong>Is the Voronoi Diagram complete? Does it contain the optimal path?</strong></p>
+<p>The Voronoi Diagram is complete, but it does not contain the optimal path. However, it contains a path from start to goal with the most possible clearance, which in certain applications is more desirable than the optimal path.</p>
+<h1 class="mume-header" id="cell-decomposition">Cell Decomposition</h1>
+
+<p>Another discretization method that can be used to convert a configuration space into a representation that can easily be explored by a search algorithm is cell decomposition. Cell decomposition divides the space into discrete cells, where each cell is a node and adjacent cells are connected with edges. There are two distinct types of cell decomposition:</p>
+<ul>
+<li>Exact Cell Decomposition</li>
+<li>Approximate Cell Decomposition.</li>
+</ul>
+<h3 class="mume-header" id="exact-cell-decomposition">Exact Cell Decomposition</h3>
+
+<p>Exact cell decomposition divides the space into non-overlapping cells. This is commonly done by breaking up the space into triangles and trapezoids, which can be accomplished by adding vertical line segments at every obstacle&#x2019;s vertex. You can see the result of exact cell decomposition of a configuration space in the image below.</p>
+<p align="center">
+<img src="img/cell-decomposition1.png" alt="drawing" width="600">
+</p>
+<p>Once a space has been decomposed, the resultant graph can be used to search for the shortest path from start to goal. The resultant graph can be seen in the image below.</p>
+<p align="center">
+<img src="img/cell-decomposition2.png" alt="drawing" width="600">
+</p>
+<p>Exact cell decomposition is elegant because of its precision and completeness. Every cell is either &#x2018;full&#x2019;, meaning it is completely occupied by an obstacle, or it is &#x2018;empty&#x2019;, meaning it is free. And the union of all cells exactly represents the configuration space. If a path exists from start to goal, the resultant graph will contain it.</p>
+<p>To implement exact cell decomposition, the algorithm must order all obstacle vertices along the x-axis, and then for every vertex determine whether a new cell must be created or whether two cells should be merged together. Such an algorithm is called the Plane Sweep algorithm.</p>
+<p>Exact cell decomposition results in cells of awkward shapes. Collections of uniquely-shaped trapezoids and triangles are more difficult to work with than a regular rectangular grid. This results in an added computational complexity, especially for environments with greater numbers of dimensions. It is also difficult to compute the decomposition when obstacles are not polygonal, but of an irregular shape.</p>
+<p>For this reason, there is an alternate type of cell decomposition, that is much more practical in its implementation.</p>
+<h1 class="mume-header" id="approximate-cell-decomposition">Approximate Cell Decomposition</h1>
+
+<p>Approximate cell decomposition divides a configuration space into discrete cells of simple, regular shapes - such as rectangles and squares (or their multidimensional equivalents). Aside from simplifying the computation of the cells, this method also supports hierarchical decomposition of space (more on this below).</p>
+<h3 class="mume-header" id="simple-decomposition">Simple Decomposition</h3>
+
+<p>A 2-dimensional configuration space can be decomposed into a grid of rectangular cells. Then, each cell could be marked full or empty, as before. A search algorithm can then look for a sequence of free cells to connect the start node to the goal node.</p>
+<p>Such a method is more efficient than exact cell decomposition, but it loses its completeness. It is possible that a particular configuration space contains a feasible path, but the resolution of the cells results in some of the cells encompassing the path to be marked &#x2018;full&#x2019; due to the presence of obstacles. A cell will be marked &#x2018;full&#x2019; whether 99% of the space is occupied by an obstacle or a mere 1%. Evidently, this is not practical.</p>
+<h3 class="mume-header" id="iterative-decomposition">Iterative Decomposition</h3>
+
+<p>An alternate method of partitioning a space into simple cells exists. Instead of immediately decomposing the space into small cells of equal size, the method recursively decomposes a space into four quadrants. Each quadrant is marked full, empty, or a new label called &#x2018;mixed&#x2019; - used to represent cells that are somewhat occupied by an obstacle, but also contain some free space. If a sequence of free cells cannot be found from start to goal, then the mixed cells will be further decomposed into another four quadrants. Through this process, more free cells will emerge, eventually revealing a path if one exists.</p>
+<p>The 2-dimensional implementation of this method is called quadtree decomposition. It can be seen in the graphic below.</p>
+<p align="center">
+<img src="img/cell-decomposition3.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="algorithm">Algorithm</h3>
+
+<p>The algorithm behind approximate cell decomposition is much simpler than the exact cell decomposition algorithm. The pseudocode for the algorithm is provided below.</p>
+<ul>
+<li>
+<blockquote>
+<p>Decompose the configuration space into four cells, label cells free, mixed, or full.</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Search for a sequence of free cells that connect the start node to the goal node.</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>If such a sequence exists:</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Return path</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Else:</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Further decompose the mixed cells</p>
+</blockquote>
+</li>
+</ul>
+<p align="center">
+<img src="img/cell-decomposition4.png" alt="drawing" width="600">
+</p>
+<p>The three dimensional equivalent of quadtrees are octrees, depicted in the image below. The method of discretizing a space with any number of dimensions follows the same procedure as the algorithm described above, but expanded to accommodate the additional dimensions.</p>
+<p align="center">
+<img src="img/cell-decomposition5.png" alt="drawing" width="600">
+</p>
+<p>Although exact cell decomposition is a more elegant method, it is much more computationally expensive than approximate cell decomposition for non-trivial environments. For this reason, approximate cell decomposition is commonly used in practice.</p>
+<p>With enough computation, approximate cell decomposition approaches completeness. However, it is not optimal - the resultant path depends on how cells are decomposed. Approximate cell decomposition finds the obvious solution quickly. It is possible that the optimal path squeezes through a minuscule opening between obstacles, but the resultant path takes a much longer route through wide open spaces - one that the recursively-decomposing algorithms would find first.</p>
+<p>Approximate cell decomposition is functional, but like all discrete/combinatorial path planning methods - it starts to be computationally intractable for use with high-dimensional environments.</p>
+<ul>
+<li>In practice, approximate cell decomosition is preferred due to its more manageable computation.</li>
+<li>Approximate cell decomposition is not optimal because obvious (wide/open) paths are found first.</li>
+<li>The quadtree and octree methods recursively decompose mixed cells until they find a sequence of free cells from start to goal.</li>
+</ul>
+<h1 class="mume-header" id="potential-field">Potential Field</h1>
+
+<p>Onto the last discretization method that you will be learning in this lesson - potential field method. Unlike the methods discussed thus far that discretize the continuous space into a connected graph, the potential field method performs a different type of discretization.</p>
+<p>To accomplish its task, the potential field method generates two functions - one that attracts the robot to the goal and one that repels the robot away from obstacles. The two functions can be summed to create a discretized representation. By applying an optimization algorithm such as gradient descent, a robot can move toward the goal configuration while steering around obstacles. Let&#x2019;s look at how each of these steps is implemented in more detail.</p>
+<h3 class="mume-header" id="attractive-potential-field">Attractive Potential Field</h3>
+
+<p>The attractive potential field is a function with the global minimum at the goal configuration. If a robot is placed at any point and required to follow the direction of steepest descent, it will end up at the goal configuration. This function does not need to be complicated, a simple quadratic function can achieve all of the requirements discussed above.</p>
+<p align="center">
+<img src="img/eq1.png" alt="drawing" width="300">
+</p>
+<p>Where <strong><code>x</code></strong> represents the robot&#x2019;s current position, and <strong><code>x_goal</code></strong> the goal position. <strong><code>&#x3BD;</code></strong> is a scaling factor.</p>
+<p>A fragment of the attractive potential field is displayed in the image below.</p>
+<p align="center">
+<img src="img/potential-field1.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="repulsive-potential-field">Repulsive Potential Field</h3>
+
+<p>The repulsive potential field is a function that is equal to zero in free space, and grows to a large value near obstacles. One way to create such a potential field is with the function below.</p>
+<p align="center">
+<img src="img/eq2.png" alt="drawing" width="350">
+</p>
+<p>Where the function <strong><code>&#x3C1;(x)</code></strong> returns the distance from the robot to its nearest obstacle, <strong><code>&#x3C1;0</code></strong><br>
+&#x200B;	  is a scaling parameter that defines the reach of an obstacle&#x2019;s repulsiveness, and <strong><code>&#x3BD;</code></strong> is a scaling parameter.</p>
+<p>An image of a repulsive potential field for an arbitrary configuration space is provided below.</p>
+<p align="center">
+<img src="img/potential-field2.png" alt="drawing" width="600">
+</p>
+<p>The value <strong><code>&#x3C1;0</code></strong> controls how far from an obstacle the potential field will be non-zero, and how steep the area surrounding an obstacle will be.</p>
+<p>Past <strong><code>&#x3C1;0</code></strong>, the potential field is zero. Within a <strong><code>&#x3C1;0</code></strong> distance of the obstacle, the potential field scales with proximity to the obstacle.</p>
+<h3 class="mume-header" id="potential-field-sum">Potential Field Sum</h3>
+
+<p>The attractive and repulsive functions are summed to produce the potential field that is used to guide the robot from anywhere in the space to the goal. The image below shows the summation of the functions, and the image immediately after displays the final function.</p>
+<p align="center">
+<img src="img/potential-field3.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/potential-field4.png" alt="drawing" width="600">
+</p>
+<p>Imagine placing a marble onto the surface of the function - from anywhere in the field it will roll in the direction of the goal without colliding with any of the obstacles (as long as <strong><code>&#x3C1;0</code></strong> is set appropriately)!</p>
+<p>The gradient of the function dictates which direction the robot should move, and the speed can be set to be constant or scaled in relation to the distance between the robot and the goal.</p>
+<h3 class="mume-header" id="problems-with-the-potential-field-method">Problems with the Potential Field Method</h3>
+
+<p>The potential field method is not without its faults - the method is neither complete nor optimal. In certain environments, the method will lead the robot to a <strong>local minimum</strong>, as opposed to the global minimum. The images below depict one such instance. Depending on where the robot commences, it may be led to the bottom of the smile.</p>
+<p>The image below depicts the configuration space, and the following image displays the corresponding potential field.</p>
+<p align="center">
+<img src="img/potential-field5.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/potential-field6.png" alt="drawing" width="600">
+</p>
+<p>The problem of a robot becoming stuck in a local minimum can be resolved by adding random walks, and other strategies that are commonly applied to gradient descent, but ultimately the method is not complete.</p>
+<p>The potential field method isn&#x2019;t optimal either, as it may not always find the shortest (or cheapest) path from start to goal. The shortest path may not follow the path of steepest descent. In addition, potential field does not take into consideration the cost of every step.</p>
+<h1 class="mume-header" id="discretization-wrap-up">Discretization Wrap-Up</h1>
+
+<p>In this lesson, we are studying <strong>Discrete Path Planning</strong>, which we&apos;ve broken down into three steps:</p>
+<ul>
+<li>Continuous Representation</li>
+<li>Discretization</li>
+<li>Graph Search</li>
+</ul>
+<p>In <strong>continuous representation</strong>, we learned how to create a configuration space. In <strong>discretization</strong>, we learned about three different types of methods that can be used to represent a configuration space with discrete segments. The first of these methods is the <strong>roadmap</strong> group of methods. Here, we modeled the configuration space as a simple graph by either connecting the vertices of the obstacles or building a Voronoi diagram. Next, we looked at <strong>cell decomposition</strong>, which broke the space into a finite number of cells, each of which was assessed to be empty, full, or mixed. The empty cells were then linked together to create a graph. Lastly, <strong>gradient field</strong> is a method that models the configuration space using a 3D function that has the goal as global minimum and obstacles as tall structures. Most of these methods left us with a <strong>graph representation</strong> of the space. Later, we&apos;ll learn how to traverse a graph to find the best path for your robot.</p>
+<p>See the video <a href="https://youtu.be/YuH5HQ7DJUE">here</a>.</p>
+<h1 class="mume-header" id="graph-search">Graph Search</h1>
+
+<p>Graph search is used to find a finite sequence of discrete actions to connect a start state to a goal state. It does so by searching. Visiting states sequentially asking every goal state. Computer (unlike humans) has to go node by node and doesn&apos;t see the goal node until it&apos;s next to it.</p>
+<p>As the size of space grows and dimensions are added, the problem naturally becomes less trivial. It becomes imperative to choose the appropriate algorithm for the task to achieve satisfactory results.</p>
+<p>There <strong>two</strong> different types of search algorithms:</p>
+<ul>
+<li><strong>Informed</strong></li>
+<li><strong>Uninformed</strong></li>
+</ul>
+<p><strong>Uninformed algorithms</strong> search blindly. They&apos;re not given any contextual information about how close they are to the goal or how much of an effect every consequent action has.</p>
+<p><strong>Infomed searches</strong>, on the other hand, can guide the search algorithm to make more intelligent decisions. Ideally, getting them to the goal faster.</p>
+<h3 class="mume-header" id="uninformed-vs-informed-search">Uninformed Vs Informed Search</h3>
+
+<p>Uninformed search algorithms are not provided with any information about the whereabouts of the goal, and thus search blindly. The only difference between different uninformed algorithms is the order in which they expand nodes. Several different types of uninformed algorithms are listed below:</p>
+<ul>
+<li>Breadth-first Search</li>
+<li>Depth-first Search</li>
+<li>Uniform Cost Search</li>
+</ul>
+<p>Informed searches, on the other hand, are provided with information pertaining to the location of the goal. As a result, these search algorithms are able to evaluate some nodes to be more promising than others. This makes their search more efficient. The informed algorithm that you will be learning in this lesson is,</p>
+<ul>
+<li>A* Search</li>
+</ul>
+<p>Several variations on the above searches exist, and will be briefly discussed.</p>
+<p>See the video <a href="https://youtu.be/aA17XOlX044">here</a>.</p>
+<h1 class="mume-header" id="terminology">Terminology</h1>
+
+<p>You are already familiar with two terms that can be used to describe an algorithm - completeness and optimality. However, there are a few others that you should know before starting to learn individual graph search algorithms.</p>
+<p>The <strong>time complexity</strong> of an algorithm assesses how long it takes an algorithm to generate a path, usually with respect to the number of nodes or dimensions present. It can also refer to the trade-off between quality of an algorithm (ex. completeness) vs its computation time.</p>
+<p>The <strong>space complexity</strong> of an algorithm assesses how much memory is required to execute the search. Some algorithms must keep significant amounts of information in memory throughout their run-time, while others can get away with very little.</p>
+<p>The <strong>generality</strong> of an algorithm considers the type of problems that the algorithm can solve - is it limited to very specific types of problems, or will the algorithm perform well in a broad range of problems?</p>
+<p>Keep these concepts in mind as you learn about each search algorithm. Let&#x2019;s dive into the algorithms!</p>
+<h1 class="mume-header" id="breadth-first-search-bfs">Breadth-First Search (BFS)</h1>
+
+<p>One of the simplest types of search is called breadth-first search (or BFS). It has its name because the algorithm searches a space broadly before it search deeply. Let&apos;s look at a the search tree below.</p>
+<p align="center">
+<img src="img/bfs1.png" alt="drawing" width="600">
+</p>
+<p>Here, we have a number of interconnected nodes with the start node at the top of the tree. BFS traverses the tree exploring at one level at a time. It will traverse all the nodes at the highest level (the children nodes), before it moves on to traverse the grandchildren nodes and so forth.</p>
+<p><em>How the algorithm breaks ties changes from implementation to implementation</em>. But on a search tree like above, <strong>it is usually implied that you move left to right</strong>. So, after a few steps of searching through the tree, the nodes would have been seach in this order:</p>
+<p align="center">
+<img src="img/bfs2.png" alt="drawing" width="600">
+</p>
+<p>Here&apos;s the search tree with all of its values filled in. As you can see, the BFS algorithm would have reached node A on the 23rd step, node B on the 27th step, and node C on the 22nd.</p>
+<p align="center">
+<img src="img/bfs3.png" alt="drawing" width="600">
+</p>
+<p><strong>BFS is an uninformed search algorithm</strong>. This means that it searches blindly without any knowledge of the space it&apos;s traversing or where the goal may be. For this reason, it isn&apos;t the most efficient in its operation. For this reason, it isn&apos;t the most efficient in its operation.</p>
+<p>Let&apos;s look at a more complicated example. Below is a discretized map of an environment. The robot starts off at the &apos;S&apos; location (blue cell) in the middle of the open space and would like to find a path to its goal location marked in green.</p>
+<p align="center">
+<img src="img/bfs4.png" alt="drawing" width="200">
+</p>
+<p>Let&apos;s assume that the space is four connected, meaning that the robot can move up, right, down, or left, but not diagonally. Thus, from a start location, the robot has four options for where to explore next. We can&apos;t expect all four at once. So, we&apos;re going to add each of these options to something called the <strong>frontier</strong>. The <strong>frontier</strong> is the collection of all nodes that we have seen but not yet explored. When the time comes, each of these nodes will be removed from the frontier and explored.</p>
+<p>Before we add these nodes to the frontier, let&apos;s set a standard. In our examples, we will <em><strong>break ties</strong></em> in the following manner. When we have new nodes to add to the frontier, we will choose the add the top node first, then the one on the right, then the left, and if no other options are available, then the node directly below. Now, we can add four nodes to our frontier.</p>
+<p>For BFS, the <strong>data structure</strong> underlying frontier is a <strong>queue</strong>. In a queue, the first element to enter will be the first to exit. So, we remove the first element from the frontier and explore that node. In this manner, we won&apos;t be always exploring the top node, but the first one in the queue (see the <a href="https://youtu.be/Z_ZvAnyfUeE">video</a>, minute 2 to 3).</p>
+<p>Exploring in this fashion, you&apos;ll notice that the explored area radiates outward from the starting node. BFS searches broadly, visiting the closest nodes first. For this reason, it takes the algorithm a long time to travel a certain distance because it is radiating in all directions. Eventually, the algorithm will find the goal node.</p>
+<p align="center">
+<img src="img/bfs5.png" alt="drawing" width="200">
+</p>
+<p>BFS is <em><strong>complete</strong></em> because it will always find <em>a</em> solution, and it is <em><strong>optimal</strong></em> because it will always find the shortest solution (since it explores the shortest routes first), but it might take the algorithm a loooong time to find the solution. So the algorithm is <em><strong>not efficient</strong></em>!</p>
+<p>See the video 1 <a href="https://youtu.be/5JUpzI75iuk">here</a>.</p>
+<p>See the video 2 <a href="https://youtu.be/Z_ZvAnyfUeE">here</a></p>
+<h1 class="mume-header" id="depth-first-search-dfs">Depth-First Search (DFS)</h1>
+
+<p>DFS is another <strong>uninformed</strong> search algorithm. Like the name suggests, DFS searches deep before it searches broadly. Going back to our search tree from BFS section, instead of commencing at the top node and searching level by level, DFS will explore the start node&apos;s first child and then that node&apos;s first child and so on until it hits the lowest leaf in a branch. Only then will DFS back up a node which had more than one child and explore this node&apos;s second child.</p>
+<p align="center">
+<img src="img/dfs1.png" alt="drawing" width="400">
+</p>
+<p>After few steps of searching through the tree, the nodes would&apos;ve been searched in this order:</p>
+<p align="center">
+<img src="img/dfs2.png" alt="drawing" width="400">
+</p>
+<p>Below, is the search tree with all of its values filled in.</p>
+<p align="center">
+<img src="img/dfs3.png" alt="drawing" width="400">
+</p>
+<p>Let&apos;s return to our discretized environment (from BFS section) to see how DFS would perform. Our start and goal nodes will remain the same and so will our rules for breaking ties. However, __<strong>our frontier will change</strong>_.</p>
+<p>In <strong>BFS</strong>, we use the queue for our frontier which supported expanding the <em>oldest</em> nodes first. In <strong>DFS</strong>, we wish to expand <em>newly</em> visited nodes first. To accomodate this, the data structure underlying the frontier will be a stack and so the four nodes visible from the start location will be added to the frontier stack. They&apos;re ordered in a way that would have the node <em>above expanded before the right, left, or below nodes</em>. After adding these nodes, to the frontier, DFS would pop the top element off the stack and explore it next. And the process continues like that (See the <a href="https://youtu.be/2_hHQBhD1n8">video</a>, minute 1 to 2).</p>
+<p>DFS is exploring deep on the upwards direction. Simply, because that&apos;s the way that ties are broken. The DFS algorithm continues searching and soon finds itself at the goal.</p>
+<p align="center">
+<img src="img/dfs4.png" alt="drawing" width="400">
+</p>
+<p>Now, if we were to number the nodes in the order that they were explored, the goal would be number 5 (vs 29 in BFS). <strong>Will that be always the case?</strong></p>
+<p>No, it&apos;s certainly not guaranteed. Let&apos;s see what would happen if the goal node was placed in the bottom right instead (image below). It&apos;d take DFS 30 moves to find the goal. In comparison, BFS would have found it in 29.</p>
+<p align="center">
+<img src="img/dfs5.png" alt="drawing" width="500">
+</p>
+<p>Seems like neither of these algorithms are too efficient.</p>
+<p><strong>DFS is neither complete, nor optimal, nor efficient.</strong></p>
+<p>See the video 1 <a href="https://youtu.be/MxdxqfN1-P8">here</a>.</p>
+<p>See the video 2 <a href="https://youtu.be/2_hHQBhD1n8">here</a>.</p>
+<h1 class="mume-header" id="uniform-cost-search-ucs">Uniform Cost Search (UCS)</h1>
+
+<p>As we mentioned, <strong>BFS is optimal</strong> because it expands the shallowest unexplored node with every step. However, BFS is limited to graphs where all step costs are equal. <strong>The UCS algorithm builds upon BFS to be able to search graphs with differing edge costs</strong>.</p>
+<p><strong>UCS is also optimal</strong> because it expands in order of increasing path cost. In certain environments, you can assign a cost to every edge. The cost may represent one of many things. For instance, the time it takes a robot to move from one node to another. A robot may have to slow down to turn corners or to move across rough terrain. The associated delay can be represented with a higher cost to that edge.</p>
+<p>So far, every edge in our search tree has had the same cost. Now, let&apos;s add some costs to our search tree from previous section.</p>
+<p align="center">
+<img src="img/ucs1.png" alt="drawing" width="500">
+</p>
+<p>UCS explores nodes on the frontier starting with the node that has the lowest path cost. <strong>Path cost</strong> refers to the sum of all edge costs leading from the start to that node. For instance, the path costs of this node is just 2. But the path cost of this node is 2+3=5. If we start at the top of the search tree and explore the nodes, they are explored in the following manner. From the start node, we add two nodes to the frontier. One has a cost of 1 and the other, a cost of 2. Next, we explore the node with the lower path cost, the left node. This adds two more nodes to the frontier. One with the path cost of 3 and one with a cost of 2. Now, we&apos;ve explored all available nodes with a path cost 1. So, next, let&apos;s look for nodes with a path cost of 2 and explore them. There&apos;s one to the right and another one. We continue exploring the nodes on the frontier with the lowest path costs. We&apos;ll explore all nodes with the path cost of 1, 2, 3, and 4. For the video explanation, see <a href="https://youtu.be/27mdDguSqvM">here</a>.</p>
+<p><strong>If you are to expand the search to include all nodes with a path cost of 5, which of the following nodes will not be explored?</strong></p>
+<p align="center">
+<img src="img/ucs2.png" alt="drawing" width="600">
+</p>
+<p>Of all the nodes on the frontier, most would be explored with the exception of nodes B, D, and F, which all have a path cost of 6. They and a few other nodes would be explored in the following steps.</p>
+<p>Now, let&apos;s consider a more complicated example. The below is a graph where each node is labeled with a letter A through N, and each edge has a cost. We&apos;d like to apply UCS to find a path from the start node, E, to the goal node K. Recall that in the BFS, the frontier was represented by a queue. In DFS, the frontier was represented by a stack. Each accomodated the corresponding algorithms desired search order, <strong>first-in first-out (FIFO)</strong> or <strong>last-in first-out (LIFO)</strong>. In UCS, we wish to explore nodes with lowest path costs first. To accomodate this, we can use a <strong>priority queue</strong>, that is a queue that is organized by the path cost.</p>
+<p align="center">
+<img src="img/ucs3.png" alt="drawing" width="600">
+</p>
+<ul>
+<li>At the start, there are four nodes and their corresponding paths on the frontier. They&apos;re organized as such with nodes G and F at the top of the queue as they have the lowest path cost followed by nodes A and D.</li>
+<li>Next, we remove the top node from the frontier to explore it. As a result two more nodes are added to the frontier. They assume their appropriate positions in the prioritized queue. Node H has a path cost of 2+3=5, and node I has a path cost of 2+5=7. These are the shortest paths to these nodes that we are aware of at this time.</li>
+</ul>
+<p align="center">
+<img src="img/ucs4.png" alt="drawing" width="600">
+</p>
+<ul>
+<li>Next, we explore node F. In this process, node M is added to the queue and another interesting thing happens. The path cost of node I is reduced to 6. This is because a shorter route has been found to this node.</li>
+<li>The algorithm continues searching, exploring the node the frontier that has the lowest path cost. Adding new nodes to the frontier, and updating the path costs for a node if a shorter path has been found. After some time, the goal is found. It has a path cost of 9, following the path E, F, I, J, and K.</li>
+<li>See the video explanation <a href="https://youtu.be/hrhu6VXEq6U">here</a>.</li>
+</ul>
+<p><strong>NOTE:</strong> Uniform Cost Search is <em><strong>complete</strong></em> if every step cost is greater than some value, <strong><code>&#x3F5;</code></strong> (otherwise, it can get stuck in infinite loops). And it&#x2019;s also <strong>optimal</strong>. No uninformed search algorithm can be particularly efficient. They always search in all directions, as they have no information to lead them in the direction of their goal.</p>
+<h1 class="mume-header" id="a-search">A* Search</h1>
+
+<p>The algorithms that we&apos;ve learned thus far have been <em><strong>uninformed</strong></em>. Their search was sprawled in all directions because they lacked any information regarding the whereabouts of the goal.</p>
+<p><em><em>A</em> Search</em>* is an <em><strong>informed</strong></em> search. This means that it takes into account information about the goal&apos;s location as it goes about its search. <strong>It does so by using a heuristic function</strong>. A heuristic function, <code>h(n)</code>, represents the distance from a node to the goal. <code>h(n)</code> is only an <em><strong>estimate of the distance</strong></em>, as the only way to know the true distance would be to traverse the graph. However, even an estimate is beneficial as it steers a search in the appropriate direction.</p>
+<p>A* uses more than just a heuristic function in the search strategy. It also takes into account the path cost, <code>g(n)</code>. A* chooses the path that minimize the sum of the path cost and the heuristic function. This sum is denoted by <code>f(n)</code> (<code>f(N) = h(n) + g(n)</code>). By doing so, it accomplishes two things at once; <strong>minimizing <code>g(n)</code> favors shorter paths and minimizing <code>h(n)</code> favors paths in the direction of the goal</strong>. <em><em>A</em> searches for the shortest path in the direction of the goal</em>*. Let&apos;s go back to our graph from previous section to see A* in action.</p>
+<p align="center">
+<img src="img/ucs3.png" alt="drawing" width="600">
+</p>
+<p>The objective that we have is to find the shortest path from node E to node K. Let&apos;s try to search this graph once more, this time with the help of a heuristic to guide the algorithm to the goal. For two-dimensional graphs like the one above, a <em>valid heuristic</em> would be the <em><strong>Euclidean distance</strong></em> from a node to the goal. As you can see in the picture below, <strong>nodes close to the goal have a low heuristic value and nodes further away from the goal have a higher heuristic value</strong>. The goal itself has a heuristic value of 0.</p>
+<p align="center">
+<img src="img/as1.png" alt="drawing" width="600">
+</p>
+<p>If we wanted to calculate <code>f(n)</code> for a node, we would add the path cost, <code>g(n)</code>, to the heuristic, <code>h(n)</code>. Now let&apos;s go through the algorithm steps.</p>
+<p>Just like the UCS, we will be using a priority queue for the frontier. For A* Search, we will order it <code>f(n)</code>.</p>
+<ul>
+<li>At the start, we have four nodes and their corresponding paths on the frontier. The path to node G has the lowest of <code>f(n)</code>, so we&apos;ll explore it first.</li>
+<li>As new nodes are added to the frontier, they are inserted in the appropriate location in the priority queue based on <code>f(n)</code>. Once again, if a shorter route is found to a node, the path and the value of <code>f(n)</code> for that node will be updated. You can see this happening with node I in this step.</li>
+</ul>
+<p align="center">
+<img src="img/as2.png" alt="drawing" width="600">
+</p>
+<ul>
+<li>The A* search continues. Unlike uniform cost search, you can see that A* search is directed towards the goal. The nodes on the left hand side of the graph have not been explored. However, A* will still explore what it believes to be promising sections like the dead end at node N.</li>
+</ul>
+<p><strong>NOTE:</strong> Note that A* search took less steps to complete than UCS, as it used a heuristic value for each node to keep itself oriented toward the goal.</p>
+<p>See the video explanation <a href="https://youtu.be/i6OQJIFL9dA">here</a></p>
+<ul>
+<li>A heuristic function provides the robot with some sort of knowledge about the whereabouts of the goal.</li>
+<li>A* orders the frontier by f(n), where f(n) = g(n) + h(n), the sum of the path-cost and the heuristic function.</li>
+<li>A* and uniform cost search both implement the frontier using a priority queue. Whereas BFS &amp; DFS implement the frontier with a queue and stack, respectively.</li>
+<li>This one&#x2019;s tricky! A* is <strong>guaranteed to be optimal only if several conditions are met</strong>.</li>
+</ul>
+<p>As you saw in the video above, A* search orders the frontier using a priority queue, ordered by f(n), the sum of the path cost and the heuristic function. This is very effective, as it requires the search to keep paths short, while moving towards the goal. However, as you may have discovered in the quiz - A* search is not guaranteed to be optimal. Let&#x2019;s look at why this is so!</p>
+<p>A* search will find the optimal path if the following conditions are met,</p>
+<ul>
+<li>Every edge must have a cost greater than some value, \epsilon&#x3F5;, otherwise, the search can get stuck in infinite loops and the search would not be complete.</li>
+<li>The heuristic function must be consistent. This means that it must obey the triangle inequality theorem. That is, for three neighbouring points <code>(x1, x2, x3)</code>, the heuristic value for <code>x1</code> to <code>x3</code> must be less than the sum of the heuristic values for <code>x1</code> to <code>x2</code> and <code>x2</code> to <code>x3</code> .</li>
+<li>The heuristic function must be admissible. This means that <code>h(n)</code> must always be less than or equal to the true cost of reaching the goal from every node. In other words, <code>h(n)</code> must never overestimate the true path cost.</li>
+</ul>
+<p>To understand where the admissibility clause comes from, take a look at the image below. Suppose you have two paths to a goal where one is optimal (the highlighted path), and one is not (the lower path). Both heuristics overestimate the path cost. From the start, you have four nodes on the frontier, but Node N would be expanded first because its <code>h(n)</code> is the lowest - it is equal to 62. From there, the goal node is added to the frontier - with a cost of 23 + 37 = 60. This node looks more promising than Node P, whose <code>h(n)</code> is equal to 63. In such a case, A* finds a path to the goal which is not optimal. If the heuristics never overestimated the true cost, this situation would not occur because Node P would look more promising than Node N and be explored first.</p>
+<p align="center">
+<img src="img/as3.png" alt="drawing" width="600">
+</p>
+<p>As you saw in the image above, admissibility is a requirement for A* to be optimal. For this reason, common heuristics include the Euclidean distance from a node to the goal (as you saw in the video), or in some applications the Manhattan distance. When comparing two different types of values - for instance, if the path cost is measured in hours, but the heuristic function is estimating distance - then you would need to determine a scaling parameter to be able to sum the two in a useful manner.</p>
+<p>If you are interested in learning more about heuristics, visit <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html">Amit&#x2019;s Heuristics Guide</a> on Stanford&#x2019;s website.</p>
+<p>While A* is a much more efficient search in most situations, there will be environments where it will not outperform other search algorithms. This happens if the path to the goal happens to go in the opposite direction first.</p>
+<p>Variants of A* search exist - some accommodate the use of A* search in dynamic environments, while others help A* become more manageable in large environments.</p>
+<h3 class="mume-header" id="additional-resources">Additional Resources</h3>
+
+<p>The following visualization is a great tool that allows you to draw your own obstacles, set your own rules, and perform search using different algorithms.</p>
+<p><a href="https://qiao.github.io/PathFinding.js/visual/">Path Finding Visualization</a></p>
+<p>For more information on A* variants, take a look at:<br>
+<a href="http://movingai.com/astar-var.html">MovingAI A* Variants</a><br>
+<a href="http://theory.stanford.edu/~amitp/GameProgramming/Variations.html">Variants of A* - Stanford</a></p>
+<p>Take some time to investigate the efficiency of A* over BFS in different scenarios! And if you&apos;re feeling extra adventurous, research some of the other algorithms that are provided in the simulation and compare their results to those of BFS &amp; A*.</p>
+<h1 class="mume-header" id="overall-concerns-regarding-search">Overall Concerns Regarding Search</h1>
+
+<h3 class="mume-header" id="bidirectional-search">Bidirectional Search</h3>
+
+<p>One way to improve a search&#x2019;s efficiency is to conduct two searches simultaneously - one rooted at the start node, and another at the goal node. Once the two searches meet, a path exists between the start node and the goal node.</p>
+<p>The advantage with this approach is that the number of nodes that need to be expanded as part of the search is decreased. As you can see in the image below, the volume swept out by a unidirectional search is noticeably greater than the volume swept out by a bidirectional search for the same problem.</p>
+<h3 class="mume-header" id="path-proximity-to-obstacles">Path Proximity to Obstacles</h3>
+
+<p>Another concern with the search of discretized spaces includes the proximity of the final path to obstacles or other hazards. When discretizing a space with methods such as cell decomposition, empty cells are not differentiated from one another. The optimal path will often lead the robot very close to obstacles. In certain scenarios this can be quite problematic, as it will increase the chance of collisions due to the uncertainty of robot localization. The optimal path may not be the best path. To avoid this, a map can be &#x2018;smoothed&#x2019; prior to applying a search to it, marking cells near obstacles with a higher cost than free cells. Then the path found by A* search may pass by obstacles with some additional clearance.</p>
+<h3 class="mume-header" id="paths-aligned-to-grid">Paths Aligned to Grid</h3>
+
+<p>Another concern with discretized spaces is that the resultant path will follow the discrete cells. When a robot goes to execute the path in the real world, it may seem funny to see a robot zig-zag its way across a room instead of driving down the room&#x2019;s diagonal. In such a scenario, a path that is optimal in the discretized space may be suboptimal in the real world. Some careful path smoothing, with attention paid to the location of obstacles, can fix this problem.</p>
+<h1 class="mume-header" id="wrap-up">Wrap-Up</h1>
+
+<p>We&apos;ve learned some very applicable search algorithms for path planning in a discretized space. Using this knowledge, you&apos;ll be able to direct your robot to get from one point on a map to another. The search algorithms are also relevant in many other fields, from planning routes for your next drive to finding your friends on social media sites. Graph search is widely used in today&apos;s digital society. In addition to learning the algorithms themselves, you&apos;ve also learned some essential vocabulary and should be able to assess an algorithm&apos;s optimality, efficiency, and other qualities.</p>
+<p>To sum up, the three main processes to discrete path planning are:</p>
+<ul>
+<li>Continuous Representation</li>
+<li>Discretization</li>
+<li>Graph Search</li>
+</ul>
+<p>See the video <a href="https://youtu.be/tplAoLJeBS0">here</a> and <a href="https://youtu.be/UKntCcGaFNo">here</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

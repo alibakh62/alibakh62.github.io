@@ -1,0 +1,387 @@
+<!DOCTYPE html><html><head>
+      <title>4_catkin</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>ROS software is organized and distributed into packages, which are directories that might contain source code for ROS nodes, libraries, datasets, and more. Each package also contains a file with build instructions - the CMakeLists.txt file - and a package.xml file with information about the package. Packages enable ROS users to organize useful functionality in a convenient and reusable format.</p>
+<p>A catkin workspace is a top-level directory where you build, install, and modify catkin packages. The workspace contains all of the packages for your project, along with several other directories for the catkin system to use when building executables and other targets from your source code.</p>
+<h1 class="mume-header" id="create-a-catkin-workspace">Create a Catkin Workspace</h1>
+
+<p><strong>Step 1: Create a catkin workspace and a sub directory</strong></p>
+<p>First, create the top level catkin workspace directory and a sub-directory named <code>src</code> (pronounced source). The top level directory name is arbitrary, but is often called <code>catkin_ws</code> (an abbreviation of catkin_workspace), so we will follow this convention. You can create these two directories in <code>/home/workspace/</code> with a single command:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">mkdir</span> -p /home/workspace/catkin_ws/src
+</pre><p><strong>Step 2: Navigate to the source directory</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+</pre><p><strong>Step 3: Initialize the catkin workspace</strong></p>
+<p>Now you can initialize the catkin workspace which will create a <code>CMakeLists.txt</code> file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_init_workspace
+</pre><p>Notice that a symbolic link (<code>CMakeLists.txt</code>) has been created to: <code>/opt/ros/kinetic/share/catkin/cmake/toplevel.cmake</code></p>
+<p><strong>Step 4: Return to top level directory</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+</pre><p><strong>Step 5: Build the Workspace</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_make
+</pre><p><strong>NOTE:</strong> This command must issue from within the top level directory (i.e., within <code>catkin_ws</code> NOT <code>catkin_ws/src</code>)</p>
+<p>While it is not essential that you have a deep understanding of the catkin build system, particularly if you are doing most of your development work in Python, it is helpful to learn about it. We encourage you to read the <a href="http://wiki.ros.org/catkin/conceptual_overview">ROS wiki</a>.</p>
+<p>After the command is executed you will notice the output of the build processes being echoed to your display. When it has finished you should see the following lines at the end of the output:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">-- BUILD_SHARED_LIBS is on
+-- Configuring <span class="token keyword keyword-done">done</span>
+-- Generating <span class="token keyword keyword-done">done</span>
+-- Build files have been written to: /home/workspace/catkin_ws/build
+<span class="token comment">####</span>
+<span class="token comment">#### Running command: &quot;make -j4 -l4&quot; in &quot;/home/workspace/catkin_ws/build&quot;</span>
+<span class="token comment">####</span>
+</pre><p>You now have two new directories: <code>build</code> and <code>devel</code>. The aptly named <code>build</code> directory is the build space for C++ packages and, for the most part, you will not interact with it. The <code>devel</code> directory does contain something of interest, a file named <code>setup.bash</code>. This setup.bash script must be sourced before using the catkin workspace with <code>source devel/setup.bash</code>.</p>
+<h1 class="mume-header" id="add-a-package">Add a package</h1>
+
+<p><strong>Cloning the simple_arm Package</strong></p>
+<p>One of the biggest benefits of using ROS is that it has a really large community of users and developers who have already created a lot of code that you can reuse.</p>
+<p>Let&#x2019;s clone an existing package and add it to our newly created workspace.</p>
+<p>Start by navigating to the src directory and cloning the simple_arm package for this lesson from its GitHub repo:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+$ <span class="token function">git</span> clone -b first_interaction https://github.com/udacity/RoboND-simple_arm/ simple_arm
+</pre><p><strong>Building the simple_arm package</strong></p>
+<p>After the repo has finished cloning, you can change directory to the top-level of the ROS workspace and build the new package.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p><strong>Getting Errors?</strong></p>
+<p>Sometimes you might get a missing package error while building the catkin workspace. For example: &quot;Could not find a package configuration file provided by controller_manager&quot;</p>
+<p>I happen to know that <code>controller_manager</code> refers to a ROS package from ROS Control. We can fix this by installing the associated Linux package, which itself contains and will install the necessary ROS package. But, if I didn&apos;t already know this, I would probably have to rely on a Google search to figure out the exact name of the package required.</p>
+<p>You can always re-install the package with this command:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-controller-manager
+</pre><p>See the video <a href="https://youtu.be/yGxHsCVcuk4">here</a></p>
+<h1 class="mume-header" id="roslaunch">Roslaunch</h1>
+
+<p><code>roslaunch</code> allows you to do the following</p>
+<ul>
+<li>Launch the ROS Master and multiple nodes with one simple command</li>
+<li>Set default parameters on the parameter server</li>
+<li>Automatically re-spawn processes that have died</li>
+</ul>
+<p>To use <code>roslaunch</code>, you must first make sure that your workspace has been built and sourced:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p>Once the workspace has been built, you can source it&#x2019;s setup script:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">source</span> devel/setup.bash
+</pre><p>With your workspace sourced you can now launch <code>simple_arm</code>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch simple_arm robot_spawn.launch
+</pre><p>See the video <a href="https://youtu.be/GlsCmgDa7ZU">here</a></p>
+<h1 class="mume-header" id="rosdep">Rosdep</h1>
+
+<p><strong>ROS Package Dependencies</strong></p>
+<p>ROS packages have two types of dependencies: build dependencies and run dependencies.</p>
+<p>The <code>rosdep</code> tool will check for a package&apos;s missing dependencies, download them, and install them.</p>
+<p>To check for missing dependencies in a ROS package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosdep check <span class="token operator">&lt;</span>package name<span class="token operator">&gt;</span>
+</pre><p><strong>NOTE:</strong> In order for the command to work, the workspace must be first sourced with <code>source devel/setup.bash</code>.</p>
+<p>This gives you a list of the system dependencies that are missing, and tells you where to get them.</p>
+<p>To have <code>rosdep</code> install packages, invoke the following command from the root of the catkin workspace:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosdep <span class="token function">install</span> -i <span class="token operator">&lt;</span>package name<span class="token operator">&gt;</span>
+</pre><p><strong><code>simple_arm</code> Package Dependencies</strong></p>
+<p>Fortunately, the build and run dependencies for <code>simple_arm</code> package have been already installed in the workspace. You can double-check using <code>rosdep check</code>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/ 
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosdep check simple_arm
+</pre><h1 class="mume-header" id="dive-deeper-into-packages">Dive deeper into packages</h1>
+
+<p>You&apos;ll begin your dive into ROS packages by creating one of your own. All ROS packages should reside under the <code>src</code> directory.</p>
+<p>Assuming you have already sourced your ROS environment and your catkin workspace, navigate to the src directory:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+</pre><p>The syntax for creating a catkin package is:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_create_pkg <span class="token operator">&lt;</span>your_package_name<span class="token operator">&gt;</span> <span class="token punctuation">[</span>dependency1 dependency2 &#x2026;<span class="token punctuation">]</span>
+</pre><p>The name of your package is arbitrary but you will run into trouble if you have multiple packages with the same name in your catkin workspace. Try to make it descriptive and unique without being excessively long. Let&#x2019;s name ours &#x201C;first_package&#x201D; and we won&#x2019;t specify any dependencies. By convention, package names are lowercase.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_create_pkg first_package
+</pre><p>Navigating inside our newly created package reveals that it contains just two files: <code>CMakeLists.txt</code> and <code>package.xml</code>. This is a minimum working catkin package. It is not very interesting because it doesn&apos;t do anything, but it meets all the requirements for a catkin package. One of the main functions of these two files is to describe dependencies and how catkin should interact with them. We won&#x2019;t pay much attention to them right now.</p>
+<p>It&apos;s mentioned earlier that ROS packages have a conventional directory structure. Let&#x2019;s take a look at a more typical package.</p>
+<ul>
+<li>scripts (python executables)</li>
+<li>src (C++ source files)</li>
+<li>msg (for custom message definitions)</li>
+<li>srv (for service message definitions)</li>
+<li>include -&gt; headers/libraries that are needed as dependencies</li>
+<li>config -&gt; configuration files</li>
+<li>launch -&gt; provide a more automated way of starting nodes</li>
+</ul>
+<p>Other folders may include</p>
+<ul>
+<li>urdf (Universal Robot Description Files)</li>
+<li>meshes (CAD files in .dae (Collada) or .stl (STereoLithography) format)</li>
+<li>worlds (XML like files that are used for Gazebo simulation environments)</li>
+</ul>
+<p align="center">
+<img src="img/ros-package-format.png" alt="drawing" width="600">
+</p>
+<p>There are many packages that you can install. To see a list of available packages for the Kinetic distribution, take some time to explore <a href="http://www.ros.org/browse/list.php">the list of ROS package online</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bootstrapping.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#bootstrapping">Bootstrapping</a></li>
+<li><a href="#standard-error-and-ci-with-bootstrapping">Standard Error and CI with Bootstrapping</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="introduction">Introduction</h1>
+<p>Imagine we have a new drug to test an illness and we gave that drug to 8 different people that had that illness. For 5 of them, the drug help them feel better, but 3 of them felt worse. If we calculate the mean response to the drug it’s 0.5.</p>
+<ul>
+<li>0.5 is not a huge improvement.</li>
+<li>But, since most (5 of 8) people improved, maybe this drug is better than using no drugs at all.</li>
+<li>However, maybe these 5 people all felt better because they were healthier to begin with.</li>
+<li>So, <em><strong>how can we tell if the response 0.5 (or any other number for that matter) is actually not due to some random things out of our control?</strong></em></li>
+<li><strong><mark>Is there anything we can do to decide if the drug works or not?</mark></strong> YES
+<ul>
+<li>Replicate the experiment bunch of times (expensive and time-consuming)</li>
+<li>Bootstrapping</li>
+</ul>
+</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/51946676655/in/dateposted-friend/" title="Screen Shot 2022-03-18 at 12.41.54 PM"><img src="https://live.staticflickr.com/65535/51946676655_63b46a7085_o.png" width="647" height="131" alt="Screen Shot 2022-03-18 at 12.41.54 PM"></a>
+</center><h1 id="bootstrapping">Bootstrapping</h1>
+<p>How to bootstrapp the above example?</p>
+<ul>
+<li>For <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>→</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \rightarrow n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">n</span></span></span></span></span>:
+<ul>
+<li>From each measurements, choose one at random.</li>
+<li>Repeat this process 8 times (<strong>Note:</strong> same values can be selected more than once <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <mark><strong>Sampling with Replacement</strong></mark>)
+<ul>
+<li>This new dataset is called <mark><em><strong>Bootstrapped Dataset</strong></em></mark>.</li>
+</ul>
+</li>
+<li>Calculate the mean of the bootstrapped dataset.</li>
+</ul>
+</li>
+<li>Create a histogram of bootstrapped means.</li>
+</ul>
+<hr>
+<p><strong>Bootstrapping</strong> consists of 4 steps:</p>
+<ol>
+<li>Make a Bootstrapped Dataset.</li>
+<li>Calculate something (e.g. mean, median, std. , etc.)</li>
+<li>Keep track of that calculation.</li>
+<li>Repeat steps 1 to 3 a bunch of times (1000s of times).</li>
+</ol>
+<h1 id="standard-error-and-ci-with-bootstrapping">Standard Error and CI with Bootstrapping</h1>
+<p>You can plot a histrogram of those calculated values to get a sense of likelihood of each calculation.</p>
+<p><strong>Note:</strong> Because the histrogram tells us how the mean might change if we redid the expriment a bunch of times, if we want to know the <em><strong>Standard Error</strong></em> of the mean value from the original dataset, we only need to calculate the <em><strong>Standard Deviation</strong></em> of the histogram. A <em><strong>95% Confidence Interval</strong></em> is just an interval that covers 95% of the bootstrapped means.</p>
+<p><strong>Note:</strong> There are other fancier ways to use bootstrapping to calculate confidence intervals.</p>
+<p><strong>Note:</strong> So far, we have used bootstrapping to calculate SE and CI for the mean. BUT, both SE and CI can be calculated directly with a formula, without having to create bootstrapped datasets. <strong><mark>So, what is it that makes bootstrapping so awesome?</mark></strong></p>
+<ul>
+<li>The <mark>awesome thing about bootstrapping is</mark> that we can apply it to any statistic to create a histogram of what might happen if we repeated the experiment a bunch of times. We can use that histogram to calculate stuff like SE and CI without having to worry about whether or not there is a nice formula.</li>
+</ul>
+<blockquote>
+<p><strong>Regardless of the statistic we calculate, bootstrapping allows us to see it in the context of a distribution and we can use that distribution to help us intrepret the initial results.</strong></p>
+</blockquote>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

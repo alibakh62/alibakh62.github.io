@@ -1,0 +1,487 @@
+<!DOCTYPE html><html><head>
+      <title>project_description</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="overview">Overview</h1>
+
+<p>The goal of this project is to program a robot that can autonomosly map an environment and navigate to pick up and drop virtual objects.This project will mainly test your abilities and skills in setting the correct parameters, communicating between different nodes of different packages, coding nodes with C++, publishing and subscribing to different topics, writing launch files, and many others.</p>
+<p>The home service robot project is composed of multiple steps:</p>
+<ul>
+<li>First, you will learn the &quot;Building Editor&quot; in Gazebo, which is a user-friendly tool that enables you to professionally model real-world environments in simulation.</li>
+<li>Then, you will interface SLAM with with a &quot;Wall Follower&quot; node to autonomosly map an environment.</li>
+<li>After building the map, you&apos;ll test your robot&apos;s ability in reaching multiple goals and orient itself with respect to them using the ROS &quot;Navigation&quot; stack.</li>
+<li>Finally, you will model virtual objects with &quot;Markers&quot; and learn how to deploy them with ROS.</li>
+</ul>
+<p><a href="https://youtu.be/WchXpePVMuI">video</a>.</p>
+<h1 class="mume-header" id="working-environment">Working Environment</h1>
+
+<p>In this project, Udacity provides you a in Classroom Workspace with ROS set up for you in the  <a href="https://classroom.udacity.com/nanodegrees/nd209/parts/75c8f42b-c844-4f61-b3c6-521956c5cf70/modules/de8554d1-78db-4d1d-9a78-9b9a93d2879e/lessons/1ccf2893-a07b-41c5-b2ed-7cdc48bd26fc/concepts/acd9e789-8460-48a7-ace8-9f6b2aea25c9">Project Workspace concept</a>. If you are not familiar with the Workspace, please review the  <a href="https://classroom.udacity.com/nanodegrees/nd209/parts/0778207d-f34a-4178-8ccf-9e06b5bd2203/modules/48156d08-abb1-4c03-a18d-9db738a0b92b/lessons/e0c61e8d-7eac-4807-8737-d2bd321ae7a2/concepts/47784838-aea6-4834-9ebb-79fbb3e135af?contentVersion=2.0.0&amp;contentLocale=en-us">Workspace Introduction lessons</a>!</p>
+<p align="center">
+<img src="img/udacity-workspace.png" alt="drawing" width="700">
+</p>
+<p>After you enter the Workspace Desktop, please upgrade the system using the command</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> upgrade
+</pre><h1 class="mume-header" id="shell-scripts">Shell Scripts</h1>
+
+<p>A shell script is a file containing a series of commands and could be executed. It is commonly used to set up environment, run a program, etc.</p>
+<p>You already know how to build a  <code>roslaunch</code>  file. It is very convenient to launch multiple ROS nodes and set parameters from a single  <code>roslaunch</code>  command. However, when developing robotic software with different packages, it might get harder to track errors and bugs generated from different nodes.</p>
+<p>That&apos;s when shell scripts come in handy! After you create a shell script file to launch one or many nodes each in separate terminals, you will have the power to track the output of different nodes and keep the convenience of running a single command to launch all nodes.</p>
+<h2 class="mume-header" id="your-launchsh-script">Your  <code>launch.sh</code>  Script</h2>
+
+<p>Let us start by creating this  <code>launch.sh</code>  script in the Udacity Workspace. Its goal is to launch Gazebo and Rviz in separate instances of terminals. Note that we are using  <code>xterm</code>  terminal in the script here.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell"><span class="token shebang important">#!/bin/sh</span>
+xterm  -e  <span class="token string">&quot; gazebo &quot;</span> <span class="token operator">&amp;</span>
+<span class="token function">sleep</span> <span class="token number">5</span>
+xterm  -e  <span class="token string">&quot; source /opt/ros/kinetic/setup.bash; roscore&quot;</span> <span class="token operator">&amp;</span> 
+<span class="token function">sleep</span> <span class="token number">5</span>
+xterm  -e  <span class="token string">&quot; rosrun rviz rviz&quot;</span> 
+</pre><p>The  <code>launch.sh</code>  shell script launches three terminals and issues one or multiple commands in each terminal. Let&#x2019;s break down this script to understand the meaning of each line.</p>
+<h3 class="mume-header" id="code-breakdown">Code Breakdown</h3>
+
+<p><code>#!/bin/sh</code></p>
+<p>This statement is called a  <code>shebang</code>. It must be included in every shell script you write since it specifies the full path of the UNIX interpreter to execute it.</p>
+<p><code>xterm -e &quot; gazebo &quot; &amp;</code></p>
+<p>With the  <code>xterm -e</code>  statement, we launch a new instance of an  <code>xterminal</code>. Inside this terminal, we launch gazebo using the command  <code>&quot;gazebo&quot;</code>. Then we add an ampersand  <code>&amp;</code>  to indicate that another instance of an xterm terminal will be created in a separate statement.</p>
+<p><code>sleep 5</code></p>
+<p>We pause this script for 5 seconds using  <code>sleep</code>.</p>
+<p><code>xterm -e &quot; source /opt/ros/kinetic/setup.bash; roscore&quot; &amp;</code></p>
+<p>We launch a second instance of the xterm terminal. Inside this terminal, we source the ROS workspace and launch the ROS master node.</p>
+<p><code>sleep 5</code></p>
+<p>We pause this script for another 5 seconds.</p>
+<p><code>xterm -e &quot; rosrun rviz rviz&quot;</code></p>
+<p>We are launching a third instance of the xterm terminal, and running rviz.</p>
+<p>Save your script file and give it  <code>execute</code>  pemission by  <code>chmod +x launch.sh</code>. Then launch the shell script with  <code>./launch.sh</code>.</p>
+<p>After launching this script, we&#x2019;ll have three open xterm terminals, and we will be able to track any errors or bugs that occur. To recap, this script will open the first terminal and launch gazebo. Then it will pause for 5 seconds and open a second terminal to launch the ROS master. It will pause for another 5 seconds and, finally, open a third terminal to launch RVIZ.</p>
+<p>Try to launch your script in the Workspace and verify its functions!</p>
+<h1 class="mume-header" id="simulation-setup">Simulation Setup</h1>
+
+<h3 class="mume-header" id="catkin-workspace">Catkin Workspace</h3>
+
+<p>To program your home service robot, you will need to interface it with different ROS packages. Some of these packages are  <strong>official ROS packages</strong>  which offer great tools and others are  <strong>packages that you&#x2019;ll create</strong>. The goal of this section is to prepare and build your  <code>catkin workspace</code>.</p>
+<p>Here&#x2019;s the list of the official ROS packages that you will need to grab, and other packages and directories that you&#x2019;ll need to create at a later stage as you go through the project. Your  <code>catkin_ws/src</code>  directory should look as follows:</p>
+<h3 class="mume-header" id="official-ros-packages">Official ROS packages</h3>
+
+<p>Import these packages now and install them in the  <code>src</code>  directory of your  <code>catkin workspace</code>. Be sure to clone the full GitHub directory and not just the package itself.</p>
+<ol>
+<li><a href="http://wiki.ros.org/gmapping">gmapping:</a>  With the  <strong>gmapping_demo.launch</strong>  file, you can easily perform SLAM and build a map of the environment with a robot equipped with laser range finder sensors or RGB-D cameras.</li>
+<li><a href="http://wiki.ros.org/turtlebot_teleop">turtlebot_teleop:</a>  With the  <strong>keyboard_teleop.launch</strong>  file, you can manually control a robot using keyboard commands.</li>
+<li><a href="http://wiki.ros.org/turtlebot_rviz_launchers">turtlebot_rviz_launchers:</a>  With the  <strong>view_navigation.launch</strong>  file, you can load a preconfigured rviz workspace. You&#x2019;ll save a lot of time by launching this file, because it will automatically load the robot model, trajectories, and map for you.</li>
+<li><a href="http://wiki.ros.org/turtlebot_gazebo">turtlebot_gazebo:</a>  With the  <strong>turtlebot_world.launch</strong>  you can deploy a turtlebot in a gazebo environment by linking the world file to it.</li>
+</ol>
+<h4 class="mume-header" id="your-packages-and-directories">Your Packages and Directories</h4>
+
+<p>You&#x2019;ll install these packages and create the directories as you go through the project.</p>
+<ol>
+<li><strong>map:</strong>  Inside this directory, you will store your gazebo world file and the map generated from SLAM.</li>
+<li><strong>scripts:</strong>  Inside this directory, you&#x2019;ll store your shell scripts.</li>
+<li><strong>rvizConfig:</strong>  Inside this directory, you&#x2019;ll store your customized rviz configuration files.</li>
+<li><strong>pick_objects:</strong>  You will write a node that commands your robot to drive to the pickup and drop off zones.</li>
+<li><strong>add_markers:</strong>  You will write a node that model the object with a marker in rviz.</li>
+</ol>
+<p>Your package should look like this now:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>    &#x251C;&#x2500;&#x2500;                                # Official ROS packages
+    |
+    &#x251C;&#x2500;&#x2500; slam_gmapping                  # gmapping_demo.launch file                   
+    &#x2502;   &#x251C;&#x2500;&#x2500; gmapping
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500; turtlebot                      # keyboard_teleop.launch file
+    &#x2502;   &#x251C;&#x2500;&#x2500; turtlebot_teleop
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500; turtlebot_interactions         # view_navigation.launch file      
+    &#x2502;   &#x251C;&#x2500;&#x2500; turtlebot_rviz_launchers
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500; turtlebot_simulator            # turtlebot_world.launch file 
+    &#x2502;   &#x251C;&#x2500;&#x2500; turtlebot_gazebo
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500;                                # Your packages and direcotries
+    |
+    &#x251C;&#x2500;&#x2500; map                          # map files
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500; scripts                   # shell scripts files
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500;rvizConfig                      # rviz configuration files
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500;pick_objects                    # pick_objects C++ node
+    &#x2502;   &#x251C;&#x2500;&#x2500; src/pick_objects.cpp
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x251C;&#x2500;&#x2500;add_markers                     # add_marker C++ node
+    &#x2502;   &#x251C;&#x2500;&#x2500; src/add_markers.cpp
+    &#x2502;   &#x251C;&#x2500;&#x2500; ...
+    &#x2514;&#x2500;&#x2500;
+</code></pre><h1 class="mume-header" id="slam-testing">SLAM Testing</h1>
+
+<p>The next task of this project is to autonomously map the environment you designed earlier with the Building Editor in Gazebo. But before you tackle autonomous mapping, it&#x2019;s important to test if you are able to manually perform SLAM by teleoperating your robot. The goal of this step is to manually test SLAM.</p>
+<p>Write a shell script  <code>test_slam.sh</code>  that will deploy a turtlebot inside your environment, control it with keyboard commands, interface it with a SLAM package, and visualize the map in  <code>rviz</code>. We will be using turtlebot for this project but feel free to use your personalized robot to make your project stand out!</p>
+<h2 class="mume-header" id="run-and-test">Run and Test</h2>
+
+<p>Launch your test_slam.sh file, search for the  <code>xterminal</code>  running the  <code>keyboard_teleop</code>node, and start controlling your robot. You are not required to fully map your environment but just make sure everything is working fine. You might notice that the map is low quality, but don&#x2019;t worry about that for now. If everything seems to be working fine, move on to the next concept!</p>
+<p align="center">
+<img src="img/l6-c6-testing-slam.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="localization-and-navigation-testing">Localization and Navigation Testing</h1>
+
+<p>The next task of this project is to pick two different goals and test your robot&apos;s ability to reach them and orient itself with respect to them. We will refer to these goals as the pickup and drop off zones. This section is only for testing purposes to make sure our robot is able to reach these positions before autonomously commanding it to travel towards them.</p>
+<p>We will be using the ROS Navigation stack, which is based on the Dijkstra&apos;s, a variant of the Uniform Cost Search algorithm, to plan our robot trajectory from start to goal position. The ROS navigation stack permits your robot to avoid any obstacle on its path by re-planning a new trajectory once your robot encounters them. You are familiar with this navigation stack from the localization project where you interfaced with it and sent a specific goal for your robot to reach while localizing itself with AMCL. If you are planning to modify the ROS navigation algorithm or you are curious to know how it&apos;s done, take a look at this official tutorial which teaches you how to write a global path planner as a plugin in ROS.</p>
+<p>See <a href="https://youtu.be/t-0li7H131A">this video</a> to learn how to manually command the robot.</p>
+<h2 class="mume-header" id="test-it">Test it</h2>
+
+<p>Once you launch all the nodes, you will initially see the particles around your robot, which means that AMCL recognizes the initial robot pose. Now, manually point out to two different goals, one at a time, and direct your robot to reach them and orient itself with respect to them.</p>
+<h1 class="mume-header" id="reaching-multiple-goals">Reaching Multiple Goals</h1>
+
+<p>Earlier, you tested your robot capabilities in reaching multiple goals by manually commanding it to travel with the 2D NAV Goal arrow in rviz. Now, you will write a node that will communicate with the ROS navigation stack and autonomously send successive goals for your robot to reach. As mentioned earlier, the ROS navigation stack creates a path for your robot based on  <strong>Dijkstra&apos;s</strong>  algorithm, a variant of the  <strong>Uniform Cost Search</strong>  algorithm, while avoiding obstacles on its path.</p>
+<p>There is an official ROS tutorial that teaches you how to send a single goal position and orientation to the navigation stack. You are already familiar with this code from the Localization project where you used it to send your robot to a pre-defined goal. Check out the  <a href="http://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals">tutorial</a>  and go through its documentation.</p>
+<p>Here&#x2019;s the C++ code of this node which sends a  <strong>single goal</strong>  for the robot to reach. I included some extra comments to help you understand it:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;move_base_msgs/MoveBaseAction.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;actionlib/client/simple_action_client.h&gt;</span></span>
+
+<span class="token comment">// Define a client for to send goal requests to the move_base server through a SimpleActionClient</span>
+<span class="token keyword keyword-typedef">typedef</span> actionlib<span class="token double-colon punctuation">::</span>SimpleActionClient<span class="token operator">&lt;</span>move_base_msgs<span class="token double-colon punctuation">::</span>MoveBaseAction<span class="token operator">&gt;</span> MoveBaseClient<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment">// Initialize the simple_navigation_goals node</span>
+  ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;simple_navigation_goals&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//tell the action client that we want to spin a thread by default</span>
+  MoveBaseClient <span class="token function">ac</span><span class="token punctuation">(</span><span class="token string">&quot;move_base&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Wait 5 sec for move_base action server to come up</span>
+  <span class="token keyword keyword-while">while</span><span class="token punctuation">(</span><span class="token operator">!</span>ac<span class="token punctuation">.</span><span class="token function">waitForServer</span><span class="token punctuation">(</span>ros<span class="token double-colon punctuation">::</span><span class="token function">Duration</span><span class="token punctuation">(</span><span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;Waiting for the move_base action server to come up&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  move_base_msgs<span class="token double-colon punctuation">::</span>MoveBaseGoal goal<span class="token punctuation">;</span>
+
+  <span class="token comment">// set up the frame parameters</span>
+  goal<span class="token punctuation">.</span>target_pose<span class="token punctuation">.</span>header<span class="token punctuation">.</span>frame_id <span class="token operator">=</span> <span class="token string">&quot;base_link&quot;</span><span class="token punctuation">;</span>
+  goal<span class="token punctuation">.</span>target_pose<span class="token punctuation">.</span>header<span class="token punctuation">.</span>stamp <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Define a position and orientation for the robot to reach</span>
+  goal<span class="token punctuation">.</span>target_pose<span class="token punctuation">.</span>pose<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+  goal<span class="token punctuation">.</span>target_pose<span class="token punctuation">.</span>pose<span class="token punctuation">.</span>orientation<span class="token punctuation">.</span>w <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+
+   <span class="token comment">// Send the goal position and orientation for the robot to reach</span>
+  <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;Sending goal&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ac<span class="token punctuation">.</span><span class="token function">sendGoal</span><span class="token punctuation">(</span>goal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Wait an infinite time for the results</span>
+  ac<span class="token punctuation">.</span><span class="token function">waitForResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Check if the robot reached its goal</span>
+  <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>ac<span class="token punctuation">.</span><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> actionlib<span class="token double-colon punctuation">::</span>SimpleClientGoalState<span class="token double-colon punctuation">::</span>SUCCEEDED<span class="token punctuation">)</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;Hooray, the base moved 1 meter forward&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;The base failed to move forward 1 meter for some reason&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Watch the <a href="https://youtu.be/RcbjN6KFJq8">video</a>.</p>
+<h2 class="mume-header" id="customize-the-code">Customize the code</h2>
+
+<p>You will need to modify this code and edit its node name to  <strong>pick_objects</strong>. Then, edit the  <strong>frame_id</strong>  to  <code>map</code>, since your fixed frame is the map and not base_link. After that, you will need to modify the code and include an extra goal position and orientation for your robot to reach.</p>
+<p>The first goal should be your desired pickup goal and the second goal should be your desired drop off goal. The robot has to travel to the desired pickup zone, display a message that it reached its destination, wait 5 seconds, travel to the desired drop off zone, and display a message that it reached the drop off zone.</p>
+<h1 class="mume-header" id="modeling-virtual-objects">Modeling Virtual Objects</h1>
+
+<p>The final task of this project is to model a virtual object with markers in rviz. The virtual object is the one being picked and delivered by the robot, thus it should first appear in its pickup zone, and then in its drop off zone once the robot reaches it.</p>
+<p>First, let&#x2019;s see how markers can be drawn in rviz. Luckily, there&#x2019;s an official ROS tutorial that teaches you how to do it. The tutorial is an excellent reference and includes a C++ node capable of drawing basic shapes like arrows, cubes, cylinders, and spheres in rviz. You will learn how to define a marker, scale it, define its position and orientation, and finally publish it to rviz. The node included in the tutorial will publish a different shape each second at the same position and orientation. Check out the  <a href="http://wiki.ros.org/rviz/Tutorials/Markers%3A%20Basic%20Shapes">tutorial</a>  and go through the documentation to get started.</p>
+<p>You will need to first run this node and visualize the markers in rviz. Then you&#x2019;ll need to modify the code and publish a single shape example: a cube. Your code should follow this  <strong>algorithm</strong>:</p>
+<ul>
+<li>Publish the marker at the pickup zone</li>
+<li>Pause 5 seconds</li>
+<li>Hide the marker</li>
+<li>Pause 5 seconds</li>
+<li>Publish the marker at the drop off zone</li>
+</ul>
+<p>Later you will be able to combine this node with the pick_objects node coded earlier to simulate the full home service robot.</p>
+<p>Watch <a href="https://youtu.be/Gq_FTu48ytc">the video</a>.</p>
+<h1 class="mume-header" id="your-home-service-robot">Your Home Service Robot</h1>
+
+<p>Now it&#x2019;s time to simulate a full home service robot capable of navigating to pick up and deliver virtual objects. To do so, the  <strong>add_markers</strong>  and  <strong>pick_objects</strong>  node should be communicating. Or, more precisely, the  <strong>add_markers</strong>  node should subscribe to your  <strong>odometry</strong>  to keep track of your robot pose.</p>
+<p>Modify the  <strong>add_markers</strong>  node as follows:</p>
+<ul>
+<li>Initially show the marker at the pickup zone</li>
+<li>Hide the marker once your robot reaches the pickup zone</li>
+<li>Wait 5 seconds to simulate a pickup</li>
+<li>Show the marker at the drop off zone once your robot reaches it</li>
+</ul>
+<h2 class="mume-header" id="note">Note</h2>
+
+<p>There are many ways to solve this problem. To establish communications between the robot and the markers, one method already mentioned is to let your  <code>add_markers</code>  node subscribe to your robot odometry and keep track of your robot pose.</p>
+<p>Other solutions to this problem might be to use ROS  <a href="http://wiki.ros.org/ROS/Tutorials/UnderstandingServicesParams">parameters</a>, subscribe to the AMCL pose, or even to publish a new variable that indicates whether or not your robot is at the pickup or drop off zone. Feel free to solve this problem in any way you wish.</p>
+<p>Watch <a href="https://youtu.be/MSiU6SB__Dk">the video</a>.</p>
+<h1 class="mume-header" id="project-submission">Project Submission</h1>
+
+<p>Once you have completed your project, use the <a href="https://review.udacity.com/#!/rubrics/2396/view"><strong>Project Rubric</strong></a> to review the project. If you have covered all of the points in the rubric, then you are ready to submit! If you see room for improvement in <strong>any</strong> category in which you do not meet specifications, keep working!</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

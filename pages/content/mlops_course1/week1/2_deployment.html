@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2_Deployment</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#key-challenges">Key Challenges</a></li>
+<li><a href="#concept-drift-and-data-drift">Concept Drift and Data Drift</a></li>
+<li><a href="#software-engineering-issues">Software Engineering Issues</a></li>
+<li><a href="#deployment-patterns">Deployment Patterns</a>
+<ul>
+<li><a href="#common-deployment-cases">Common deployment cases:</a></li>
+<li><a href="#shadow-mode-deployment">Shadow Mode Deployment</a></li>
+<li><a href="#canary-deployment">Canary Deployment</a></li>
+<li><a href="#blue-green-deployment">Blue Green Deployment</a></li>
+</ul>
+</li>
+<li><a href="#degrees-of-automation">Degrees of Automation</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="key-challenges">Key Challenges</h1>
+<p>What makes deployment hard?</p>
+<ul>
+<li>ML/statistical issues</li>
+<li>Software engineering issues</li>
+</ul>
+<h1 id="concept-drift-and-data-drift">Concept Drift and Data Drift</h1>
+<p>One of the challenges of deployment is concenpt and data drift. Loosely, it means <strong>what if your data changes after your system has already been deployed?</strong></p>
+<ul>
+<li>
+<p>Example: detecting scratches on smartphone manufacturing. You’ve trained the model on images with a certain lighting conditions but when deployed the images you receive have a different lighting condition (probably because the lighting in the factory changes).</p>
+</li>
+<li>
+<p><strong>Example: Speech recognition</strong></p>
+<ul>
+<li>Training set:
+<ul>
+<li>Purchase data, historical user data with transcripts</li>
+</ul>
+</li>
+<li>Test set:
+<ul>
+<li>Data from a few months ago (relatively recent data)</li>
+</ul>
+</li>
+<li>How has the data changed?
+<ul>
+<li>The language changes</li>
+<li>People are using a newer smartphone model which has a different microphone and sounds different.</li>
+<li>This can result in the performance of the speech recognition system to degrade.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>It is important to recognize if the data has changed and if you need to update your learning algorithm as a result.</p>
+</li>
+<li>
+<p>Data changes:</p>
+<ul>
+<li>Gradual: English language, it changes but very slowly (with new vocabulary introduced, etc.)</li>
+<li>Suddenly: shock to the system. When COVID happened, a lot of credit card fraud detection systems started not working because the purchase patterns of individuals suddenly changed.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Concept drift:</strong> if the desired mapping <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">X \rightarrow y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> changes.<br>
+- <em>Example:</em> before COVID-19 perhaps for a given user, a lot of surprising online purchases should have flagged that account for fraud. But after COVID started, maybe those same purchases would not have really been any cause for alaram.<br>
+- <em>Example:</em> Let’s say <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span> is the size of a house and <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> is the home price. If because of inflation (or changes in the market), houses become more expensive over time, then the same size house will end up having higher price.</p>
+<p>So, in <strong>concept drift</strong> refers to when <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> from the <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">X \rightarrow y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> mapping changes (i.e. the definition of what is <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> given <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span></span></span></span></span> changes), whereas <strong>data drift</strong> refers to when the input data distribution, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span></span></span></span></span>, changes (i.e. the distribution of <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span></span></span></span></span> changes). In example above, data drift would be that people start building houses in different sizes.</p>
+<p><strong>Note:</strong> When you deploy a ML system, one of the important tasks is to make sure you are able to detect and manages any changes to the data.</p>
+<h1 id="software-engineering-issues">Software Engineering Issues</h1>
+<p>Let’s say you want to deploy a prediction service which receives <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07847em;">X</span></span></span></span></span> and returns prediction <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span>. You have a lot of design choices as to how to implement this piece of software.</p>
+<p>Here’s a checklist of questions to help you make appropriate decisions:</p>
+<ul>
+<li><strong>Realtime or batch systems</strong></li>
+<li><strong>Cloud vs. edge/browser</strong></li>
+<li><strong>Compute resources (CPU/GPU/memory)</strong></li>
+<li><strong>Latency, throughput (QPS</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> <strong>Query Per Second)</strong></li>
+<li><strong>Logging</strong></li>
+<li><strong>Security and privacy</strong></li>
+</ul>
+<p><strong>Note:</strong> Advantages of edge deployment vs cloud deployment</p>
+<ul>
+<li>Lower latency</li>
+<li>Can function even if the network connection is down</li>
+<li>Less network bandwidth needed</li>
+</ul>
+<p><strong>Note:</strong> One of the things you see when you’re building ML systems is that the practices for the very deployments will be quite different compared to when you’re updating or maintaining a system that has already been deployed. Deployment is not about getting to the finish line. First deployment is maybe just half of the way. The other half starts after your first deployment with tasks like feeding the data back and keep updating the model, or monitoring and managing possible concept or data drift cases.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51607743674/in/dateposted-friend/" title="Screen Shot 2021-10-19 at 11.27.26 AM"><img src="https://live.staticflickr.com/65535/51607743674_ce58f50e62_z.jpg" width="640" height="267" alt="Screen Shot 2021-10-19 at 11.27.26 AM"></a></p>
+<p><strong>Note:</strong> A full cycle of a ML project is an <strong>iterative process</strong> where during the later stage we might go back to an earlier stage.</p>
+<h1 id="deployment-patterns">Deployment Patterns</h1>
+<h2 id="common-deployment-cases">Common deployment cases:</h2>
+<ol>
+<li><strong>New product/capability</strong>
+<ul>
+<li>Example: You’re offering a speech recognition service that you have not offerred before.
+<ul>
+<li>In this case, a common design pattern is to start up a small amount of traffic and then gradually ramp it up.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Automate/assist with manual task</strong>
+<ul>
+<li>Something that’s already done be a person, but we’d now want to use a learning algorithm to either automate or assist with that task.</li>
+<li>Example: people in the factory inspecting smartphones scratches, but now you want to use a learning algorithm to assist/automate that task.</li>
+<li>The fact that people were doing this gives a few more options for how to deploy.</li>
+<li>Shadow model deployment takes advantage of this.</li>
+</ul>
+</li>
+<li><strong>Replace previous ML systems</strong>
+<ul>
+<li>You’ve already been doing a task with previous implementation of a ML system, but now you want to replace it with hopefully a better one.</li>
+</ul>
+</li>
+</ol>
+<p>Two key ideas and recurring themes here are:</p>
+<ul>
+<li><strong>Gradual ramp up with monitoring</strong></li>
+<li><strong>Rollback</strong> <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> if for some reason you ML model is not working, roll back to earlier system.</li>
+</ul>
+<h2 id="shadow-mode-deployment">Shadow Mode Deployment</h2>
+<p>People are inspecting smartphone for scratches. Now, you want to automate some of this work with a learning algorithm.</p>
+<p><strong>Note:</strong> When you have people initially doing a task, one common deployment pattern is <em><strong>shadow mode deployment</strong></em>:</p>
+<ul>
+<li>ML system shadows the human (or even an older ML system) and runs in parallel.</li>
+<li>ML system’s output not used for any decisions during this phase, i.e. in discrepancy cases between human and ML, we always consider human to be correct.</li>
+</ul>
+<p>The <em>purpose</em> of shadow mode deployment is that it allows you to gather data of how the learning algorithm is performing and how it compares to the human judgement. You can use that maybe to allow the ML take some real decisions in the future.</p>
+<h2 id="canary-deployment">Canary Deployment</h2>
+<p>When you’re ready to let a ML system start making real decisions, a common deployment pattern is <strong>canary deployment</strong>.</p>
+<p>In canary deployment:</p>
+<ul>
+<li>Roll out to small fraction (say 5%) of traffic initially.</li>
+<li>Monitor the system and ramp up traffic gradually.</li>
+</ul>
+<p>Canary deployment allows to spot problems, hopefully, early on before there are maybe overly large consequences to a system.</p>
+<h2 id="blue-green-deployment">Blue Green Deployment</h2>
+<p><em>Blue</em> refers to the old version of your software and <em>green</em> is the new version. In blue green deployment, you have an old service (blue), you spin up a new service  (green), and you’d have the router <em><strong>suddenly</strong></em> switch the traffic from the old one to the new one.</p>
+<p>The advantage of this deployment method is that there’s an easy way to enable rollback. If something goes wrong, you can just very quickly have the router send the traffic back to the older system (assuming that you’ve kept the older version).</p>
+<h1 id="degrees-of-automation">Degrees of Automation</h1>
+<p>One of most useful frameworks on how to deploy a system is to think about deployment not as a 0, 1 i.e. either deploy or not deploy, but instead to design a system thinking about <em><strong>what is the appropriate degree of automation</strong></em>.</p>
+<p><strong>Example:</strong> in visual inspection of smartphones, here’s a range of automation you could have:</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51612773155/in/dateposted-friend/" title="Screen Shot 2021-10-20 at 4.50.36 PM"><img src="https://live.staticflickr.com/65535/51612773155_279cdee92f_z.jpg" width="640" height="306" alt="Screen Shot 2021-10-20 at 4.50.36 PM"></a></p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

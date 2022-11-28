@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>measuring_similarity.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><p><a href="https://developers.google.com/machine-learning/clustering/similarity/manual-similarity">Source</a></p>
+<h1 id="manual-similarity-measure">Manual Similarity Measure</h1>
+<p>To calculate the similarity between two examples, <mark>you need to combine all the feature data for those two examples and combine them into a single numerical value</mark>.</p>
+<p>Creating manual similarity measures is easier when the number of features is low.</p>
+<p><mark>As the number and complexity of features increase, it becomes harder to manually measure similarity. It’s better to use <strong>supervised similarity measure</strong> in such cases.</mark></p>
+<p><strong>Example:</strong> Suppose there are two features:</p>
+<ul>
+<li><em>shoe size</em>: Shoe size probably forms a Gaussian distribution. Confirm this. Then normalize the data.</li>
+<li><em>shoe price</em>: The data is probably a Poisson distribution. Confirm this. If you have enough data, convert the data to quantiles and scale to [0,1].</li>
+</ul>
+<p>We could use <em><strong>root mean square error (RMSE)</strong></em> to calculate a similarity measure.</p>
+<p><strong>Note:</strong> <mark>It’s a good idea to always <em><strong>scale</strong></em> (or normalize) the data before measuring similarity.</mark> This is to avoid one feature dominating the metric. If you don’t have enough data (to understand its distribution), scaling is enough.</p>
+<p><strong>Note:</strong> In general, you can prepare numerical data as described in <a href="https://developers.google.com/machine-learning/clustering/prepare-data">Prepare data</a>, and then combine the data by using Euclidean distance.</p>
+<h2 id="what-if-you-have-categorical-data">What if you have categorical data?</h2>
+<p>Categorical data can be either:</p>
+<ul>
+<li>Single valued (binary)</li>
+<li>Multi-valued</li>
+</ul>
+<p>In the case of <mark>binary</mark>, if the data <mark>matches similarity is 1, otherwise it’s 0.</mark></p>
+<p>For <mark>Multi-valued</mark>, if you know all the category values, you can calculate similarity using the <em><strong>ratio of common values</strong></em>, called <mark><a href="https://wikipedia.org/wiki/Jaccard_index">Jaccard similarity</a>.</mark></p>
+<p><strong>Example: Postal code</strong><br>
+Postal codes representing areas that are close to each other should have a higher similarity. To encode the info required to calculate this similarity accurately, you can convert the postal codes into latitude and longitude. For a pair of postal codes, separately calculate the difference between their latitude and their longitude. Then add the differences to get a single numeric value.</p>
+<p><strong>Example: Color</strong><br>
+Assume you have color data as text. Convert the textual values into numeric RGB values. Now you can find the difference in red, green, and blue values for two colors, and combine the differences into a numeric value by using the Euclidean distance</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><mark>In general, your similarity measure must directly correspond to the actual similarity. If your metric does not, then it isn’t encoding the necessary information.</mark></li>
+<li>The preceding example converted postal codes into latitude and longitude because postal codes by themselves did not encode the necessary information.</li>
+<li>Before creating your similarity measure, process your data carefully.</li>
+<li>Remember that <mark><em><strong>quantiles</strong></em> are a good default choice for processing numeric data.</mark></li>
+</ul>
+<h2 id="limitations-of-manual-similarity-measure">Limitations of Manual Similarity Measure</h2>
+<ul>
+<li>When data gets complex, it is increasingly hard to process and combine the data to accurately measure similarity in a semantically meaningful way.</li>
+<li>Consider the color data. Should color really be categorical? Or should we assign colors like red and maroon to have higher similarity than black and white?</li>
+<li>And regarding combining data, we just weighted the garage feature equally with house price. However, house price is far more important than having a garage. Does it really make sense to weigh them equally?</li>
+</ul>
+<p><mark>***If you create a similarity measure that doesn’t truly reflect the similarity between examples, your derived clusters will not be meaningful. This is often the case with categorical data and brings us to a supervised measure.***</mark></p>
+<p><a href="https://colab.research.google.com/drive/1nZUnw0PP8n8mxT3FVj5by0CUhWVWTtQV?usp=sharing">Coding example</a></p>
+<h1 id="supervised-similarity-measure-autoencoder">Supervised Similarity Measure (AutoEncoder)</h1>
+<ul>
+<li>Instead of comparing manually-combined feature data, you can reduce the feature data to representations called <a href="https://developers.google.com/machine-learning/glossary#embeddings"><strong>embeddings</strong></a>, and then compare the embeddings.</li>
+<li><mark>Embeddings are generated by training a supervised <strong>deep neural network</strong> (<strong>DNN</strong>) on the feature data itself.</mark></li>
+<li>The embeddings map the feature data to a vector in an embedding space.</li>
+<li><mark>Typically, the embedding space has fewer dimensions than the feature data in a way that captures some latent structure of the feature data set.</mark></li>
+<li>The embedding vectors for similar examples, such as YouTube videos watched by the same users, end up close together in the embedding space.</li>
+<li><strong>Note:</strong> Remember, we’re discussing supervised learning only to create our similarity measure. The similarity measure, whether manual or supervised, is then used by an algorithm to perform unsupervised clustering.</li>
+</ul>
+<h2 id="comparison-of-manual-and-supervised-measures">Comparison of Manual and Supervised Measures</h2>
+
+<table>
+<thead>
+<tr>
+<th align="left">Requirement</th>
+<th align="left">Manual</th>
+<th align="left">Supervised</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Eliminate redundant information in correlated features.</td>
+<td align="left">No, you need to separately investigate correlations between features.</td>
+<td align="left">Yes, DNN eliminates redundant information.</td>
+</tr>
+<tr>
+<td align="left">Provide insight into calculated similarities.</td>
+<td align="left">Yes</td>
+<td align="left">No, embeddings cannot be deciphered.</td>
+</tr>
+<tr>
+<td align="left">Suitable for small datasets with few features.</td>
+<td align="left">Yes, designing a manual measure with a few features is easy.</td>
+<td align="left">No, small datasets do not provide enough training data for a DNN.</td>
+</tr>
+<tr>
+<td align="left">Suitable for large datasets with many features.</td>
+<td align="left">No, manually eliminating redundant information from multiple features and then combining them is very difficult.</td>
+<td align="left">Yes, the DNN automatically eliminates redundant information and combines features.</td>
+</tr>
+</tbody>
+</table><h2 id="process-for-supervised-similarity-measure">Process for Supervised Similarity Measure</h2>
+<p>The following figure shows how to create a supervised similarity measure:</p>
+<p><img src="https://developers.google.com/machine-learning/clustering/images/SupervisedSimilarityProcess.svg" alt="Input feature data. Choose DNN: autoencoder or predictor.Extract embeddings. Choose measurement: Dot product, cosine, orEuclidean distance."></p>
+<h2 id="choose-dnn-based-on-training-labels">Choose DNN Based on Training Labels</h2>
+<ul>
+<li>Reduce your feature data to embeddings by training a DNN that <mark><em><strong>uses the same feature data both as input and as the labels</strong></em>.</mark>
+<ul>
+<li>For example, in the case of house data, the DNN would use the features—such as price, size, and postal code—to predict those features themselves.</li>
+</ul>
+</li>
+<li>In order to use the feature data to predict the same feature data, the DNN is forced to reduce the input feature data to embeddings. You use these embeddings to calculate similarity.</li>
+<li>A DNN that learns embeddings of input data by predicting the input data itself is called an <mark><strong>autoencoder</strong>.</mark>
+<ul>
+<li>Because an autoencoder’s hidden layers are smaller than the input and output layers, the autoencoder is forced to learn a compressed representation of the input feature data.</li>
+<li>Once the DNN is trained, you extract the embeddings from the <mark><em><strong>last hidden layer</strong></em></mark> to calculate similarity.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://developers.google.com/machine-learning/clustering/images/DNNs.svg" alt="A comparison between an autoencoder and a predictor DNN.The starting inputs and hidden layers are the same but the outputis filtered by the key feature in the predictor model."></p>
+<ul>
+<li>An autoencoder is the simplest choice to generate embeddings.
+<ul>
+<li>However, an <mark><em><strong>autoencoder isn’t the optimal choice when certain features could be more important than others in determining similarity</strong></em>.</mark></li>
+<li>For example, in house data, let’s assume “price” is more important than “postal code". <mark><em><strong>In such cases, use only the important feature as the training label for the DNN</strong></em>.</mark></li>
+<li>Since this DNN predicts a specific input feature instead of predicting all input features, it is called a <strong>predictor</strong> DNN.</li>
+<li><mark>Use the following guidelines to choose a feature as the label:</mark>
+<ul>
+<li>Prefer numeric features to categorical features as labels because loss is easier to calculate and interpret for numeric features.</li>
+<li>Do not use categorical features with cardinality ≲ 100 as labels. If you do, the DNN will not be forced to reduce your input data to embeddings because a DNN can easily predict low-cardinality categorical labels.</li>
+<li>Remove the feature that you use as the label from the input to the DNN; otherwise, the DNN will perfectly predict the output.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>Depending on your choice of labels, the resulting DNN is either an autoencoder DNN or a predictor DNN.</strong></em></p>
+<h2 id="loss-function-for-dnn">Loss Function for DNN</h2>
+<p>To train the DNN, you need to create a loss function by following these steps:</p>
+<ol>
+<li>Calculate the <mark>loss for every output</mark> of the DNN. For outputs that are:
+<ul>
+<li><mark>Numeric, use  <a href="https://developers.google.com/machine-learning/crash-course/descending-into-ml/training-and-loss"><strong>mean square error</strong></a>  (MSE).</mark></li>
+<li><mark>Univalent categorical</mark>, use  <mark><a href="https://developers.google.com/machine-learning/glossary#Log_Loss">log loss</a>.</mark> <strong>Note</strong> that you won’t need to implement log loss yourself because you can use a library function to calculate it.</li>
+<li><mark>Multivalent categorical</mark>, use  <mark><a href="https://developers.google.com/machine-learning/glossary/#softmax">softmax</a>  <a href="https://developers.google.com/machine-learning/glossary/#cross-entropy">cross entropy</a>  loss.</mark> Note that you won’t need to implement softmax cross entropy loss yourself because you can use a library function to calculate it.</li>
+</ul>
+</li>
+<li>Calculate the total loss by <mark>summing the loss for every output</mark>.</li>
+</ol>
+<p><mark><strong>Note:</strong></mark> When summing the losses, ensure that each feature contributes proportionately to the loss. For example, if you convert color data to RGB values, then you have three outputs. But summing the loss for three outputs means the loss for color is weighted three times as heavily as other features. Instead, multiply each output by 1/3.</p>
+<h2 id="using-dnn-in-an-online-system">Using DNN in an Online System</h2>
+<p>An online machine learning system has a continuous stream of new input data. You’ll need to train your DNN on the new data. However, if you retrain your DNN from scratch, then your embeddings will be different because DNNs are initialized with random weights. Instead, <mark><em><strong>always warm-start the DNN with the existing weights and then update the DNN with new data</strong></em>.</mark></p>
+<h1 id="generating-embeddings-example">Generating Embeddings Example</h1>
+<p>This example shows how to generate the embeddings used in a supervised similarity measure. Imagine you have this housing data:</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51830858931/in/dateposted-friend/" title="Screen Shot 2022-01-19 at 4.21.10 PM"><img src="https://live.staticflickr.com/65535/51830858931_1531ba4660_o.png" width="898" height="339" alt="Screen Shot 2022-01-19 at 4.21.10 PM"></a></p>
+<h2 id="preprocessing-data">Preprocessing Data</h2>
+<p>Before you use feature data as input, you need to preprocess the data. The preprocessing steps are based on the steps you took when creating a manual similarity measure. Here’s a summary:</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51830973843/in/dateposted-friend/" title="Screen Shot 2022-01-19 at 4.22.56 PM"><img src="https://live.staticflickr.com/65535/51830973843_8d8262f48d_o.png" width="839" height="315" alt="Screen Shot 2022-01-19 at 4.22.56 PM"></a></p>
+<h2 id="choose-predictor-or-autoencoder">Choose Predictor or Autoencoder</h2>
+<p>To generate embeddings, you can choose either an autoencoder or a predictor. <mark>Remember, your default choice is an autoencoder. You choose a predictor instead if specific features in your dataset determine similarity.</mark> For completeness, let’s look at both cases.</p>
+<h3 id="train-a-predictor">Train a Predictor</h3>
+<p>You need to choose those features as training labels for your DNN that are important in determining similarity between your examples. Let’s assume price is most important in determining similarity between houses.</p>
+<p>Choose price as the training label, and remove it from the input feature data to the DNN. Train the DNN by using all other features as input data. For training, the loss function is simply the MSE between predicted and actual price. To learn how to train a DNN, see <a href="https://developers.google.com/machine-learning/crash-course/training-neural-networks/video-lecture">Training Neural Networks</a>.</p>
+<h3 id="train-an-autoencoder">Train an Autoencoder</h3>
+<p>Train an autoencoder on our dataset by following these steps:</p>
+<ol>
+<li>Ensure the hidden layers of the autoencoder are smaller than the input and output layers.</li>
+<li>Calculate the loss for each output as described in  <a href="https://developer.google.com/machine-learning/clustering/similarity/supervised-similarity">Supervised Similarity Measure</a>.</li>
+<li>Create the loss function by summing the losses for each output. Ensure you weight the loss equally for every feature. For example, because color data is processed into RGB, weight each of the RGB outputs by 1/3rd.</li>
+<li>Train the DNN.</li>
+</ol>
+<h2 id="extracting-embeddings-from-the-dnn">Extracting Embeddings from the DNN</h2>
+<p>After training your DNN, whether predictor or autoencoder, extract the embedding for an example from the DNN. Extract the embedding by using the feature data of the example as input, and read the outputs of the final hidden layer. These outputs form the embedding vector. Remember, the vectors for similar houses should be closer together than vectors for dissimilar houses.</p>
+<p>Next, you’ll see how to quantify the similarity for pairs of examples by using their embedding vectors.</p>
+<h1 id="measuring-similarity-from-embeddings">Measuring Similarity from Embeddings</h1>
+<p>You now have embeddings for any pair of examples. A similarity measure takes these embeddings and returns a number measuring their similarity. Remember that embeddings are simply vectors of numbers. To find the similarity between two vectors <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false">[</mo><msub><mi>a</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">A=[a_1,a_2,...,a_n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></span> and <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><msub><mi>b</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>b</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[b_1,b_2,...,b_n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></span>, you have three similarity measures to choose from, as listed in the table below.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51829925947/in/dateposted-friend/" title="Screen Shot 2022-01-19 at 4.35.22 PM"><img src="https://live.staticflickr.com/65535/51829925947_2f8b06ae37_o.png" width="889" height="251" alt="Screen Shot 2022-01-19 at 4.35.22 PM"></a></p>
+<h2 id="choosing-a-similarity-measure">Choosing a Similarity Measure</h2>
+<p><mark>In contrast to the cosine, the dot product is proportional to the vector length</mark>. This is important because examples that appear very frequently in the training set (for example, popular YouTube videos) tend to have embedding vectors with large lengths. <mark>If you want to capture popularity, then choose dot product.</mark> However, the <mark>risk</mark> is that popular examples may <mark>skew the similarity metric.</mark> To balance this skew, you can raise the length to an exponent  <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha &lt; 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em;"></span><span class="mord mathnormal" style="margin-right: 0.0037em;">α</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span></span></span></span></span>  to calculate the dot product as  <mark><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>a</mi><msup><mi mathvariant="normal">∣</mi><mi>α</mi></msup><mi mathvariant="normal">∣</mi><mi>b</mi><msup><mi mathvariant="normal">∣</mi><mi>α</mi></msup><mi>cos</mi><mo>⁡</mo><mtext>⁡</mtext><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">|a|^{\alpha}|b|^{\alpha}\cos⁡(\theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal">a</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.664392em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0037em;">α</span></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathnormal">b</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.664392em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0037em;">α</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">⁡</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.02778em;">θ</span><span class="mclose">)</span></span></span></span></span>.</mark></p>
+<p>To better understand how vector length changes the similarity measure, normalize the vector lengths to 1 and notice that the three measures become proportional to each other.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51830880561/in/dateposted-friend/" title="Screen Shot 2022-01-19 at 4.37.28 PM"><img src="https://live.staticflickr.com/65535/51830880561_b8b533d9bc_o.png" width="886" height="256" alt="Screen Shot 2022-01-19 at 4.37.28 PM"></a></p>
+<p><a href="https://colab.research.google.com/drive/1zA2j4rnZIl-BazQFbz7I37x5Q-OnjwTH?usp=sharing">Supervised Similarity Calculation: Programming Exercise</a></p>
+<h1 id="similarity-measure-summary">Similarity Measure Summary</h1>
+<p>To summarize, a similarity measure quantifies the similarity between a pair of examples, relative to other pairs of examples. The table below compares the two types of similarity measures:</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51830997753/in/dateposted-friend/" title="Screen Shot 2022-01-19 at 4.40.57 PM"><img src="https://live.staticflickr.com/65535/51830997753_e0e66c8e90_o.png" width="892" height="224" alt="Screen Shot 2022-01-19 at 4.40.57 PM"></a></p>
+</div>
+</body>
+
+</html>

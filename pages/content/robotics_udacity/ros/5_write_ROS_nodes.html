@@ -1,0 +1,1084 @@
+<!DOCTYPE html><html><head>
+      <title>5_write_ROS_nodes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="overview">Overview</h1>
+
+<p>Here, we&apos;ll write nodes in C++. The first node that we&apos;ll write is called <code>simple_mover</code>. The <code>simple_mover</code> node does nothing more than publish joint angle commands to <code>simple_arm</code>.</p>
+<p>Then, we&apos;ll write another node called <code>arm_mover</code>. The <code>arm_mover</code> node provides a service called <code>safe_move</code>, which allows the arm to be moved to any position within its workspace that has been deemed safe. The safe zone is bounded by minimum and maximum joint angles, and is configurable via the ROS parameter server.</p>
+<p>The last node we&apos;ll write is the <code>look_away</code> node. This node subscribes to the arm joint positions and a topic where camera data is being published. When the camera detects an image with uniform color, meaning that it&#x2019;s looking at the sky, and the arm is not moving, the node will call the <code>safe_move</code> service via a client to move the arm to a new position.</p>
+<h1 class="mume-header" id="ros-publishers">ROS Publishers</h1>
+
+<p>Before we write the code for <code>simple_mover</code>, it may be helpful to see how ROS Publishers work in C++.</p>
+<p>Publishers allow a node to send messages to a topic, so that data from the node can be used in other parts of ROS. In C++, ROS publishers typically have the following definition format, although other parameters and arguments are possible:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Publisher pub1 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>message_type<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/topic_name&quot;</span><span class="token punctuation">,</span> queue_size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>pub1</code> object is a publisher object instantiated from the <code>ros::Publisher</code> class. This object allows you to publish messages by calling the <code>publish()</code> function.</p>
+<p>To communicate with ROS master in C++, you need a <strong>NodeHandle</strong>. The node handle <code>n</code> will fully initialize the node.</p>
+<p>The <code>advertise()</code> function is used to communicate with ROS and inform that you want to publish a message on a given topic name. The <code>&quot;/topic_name&quot;</code> indicates which topic the publisher will be publishing to.</p>
+<p>The <code>message_type</code> is the type of message being published on &quot;/topic_name&quot;. For example, the string message data type in ROS is <code>std_msgs::String</code>.</p>
+<p>The <code>queue_size</code> indicates the number of messages that can be stored in a queue. A publisher can store messages in a queue until the messages can be sent. If the number of messages stored exceeds the size of the queue, the oldest messages are dropped.</p>
+<p>Once the publisher object <code>pub1</code> has been created, as above, a <code>message</code> with the specified data type can be published as follows:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">pub1<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>For more information about C++ ROS publishers, see the documentation <a href="http://docs.ros.org/jade/api/roscpp/html/classros_1_1Publisher.html">here</a>.</p>
+<p><strong>Quiz!</strong> Assume that a queued message is typically picked up in an average time of 1/10th of a second with a standard deviation of 1/20th of a second, and your publisher is publishing at a frequency of 10Hz. Of the options below, which would be the best setting for <code>queue_size</code>?</p>
+<p><strong>Answer!</strong> Choosing a good queue_size is somewhat subjective, but since messages are picked up at roughly the same rate that they are published, a <code>queue_size</code> of 2 provides a little room for messages to queue without being too large.</p>
+<h1 class="mume-header" id="simple-mover">Simple Mover</h1>
+
+<p>You will now go through the process of implementing your first ROS node in C++. This node is called <code>simple_mover</code>. As its name implies, this node only has one responsibility,and that is to command joint movements for <code>simple_arm</code>.</p>
+<p><strong>Goal</strong></p>
+<p>The goal of the <code>simple_mover</code> node is to command each joint in the simple arm and make it swing between -pi/2 to pi/2 over time. Here&#x2019;s a demonstration of this node in action in <a href="https://youtu.be/Ki5LkE_xir4">this video</a>.</p>
+<h2 class="mume-header" id="topics">Topics</h2>
+
+<p>To do so, it must publish joint angle command messages to the following topics:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Topic Name</strong></td>
+<td>/simple_arm/joint_1_position_controller/command</td>
+</tr>
+<tr>
+<td><strong>Message Type</strong></td>
+<td>std_msgs/Float64</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Commands joint 1 to move counter-clockwise, units in radians</td>
+</tr>
+<tr>
+<td><strong>Topic Name</strong></td>
+<td>/simple_arm/joint_2_position_controller/command</td>
+</tr>
+<tr>
+<td><strong>Message Type</strong></td>
+<td>std_msgs/Float64</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Commands joint 2 to move counter-clockwise, units in radians</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> If you no longer have the <code>catkin_ws</code> or <code>simple_arm</code> package from the previous lesson, you need to re-create a new <code>catkin_ws</code> and clone the package inside your <code>/home/workspace/catkin_ws/src</code> with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">mkdir</span> -p /home/workspace/catkin_ws/src/
+$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+$ <span class="token function">git</span> clone -b first_interaction https://github.com/udacity/RoboND-simple_arm/ simple_arm
+</pre><h2 class="mume-header" id="adding-the-source-directory">Adding the source directory</h2>
+
+<p>In order to create a new node in C++, you must first create the <code>src</code> directory within the <code>simple_arm</code> package as it does not yet exist.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/
+$ <span class="token function">mkdir</span> src
+</pre><h2 class="mume-header" id="creating-a-new-script">Creating a new script</h2>
+
+<p>Once the source directory has been created, C++ scripts can be added to the package. Now, create the <code>simple_mover</code> C++ script inside the source directory of the package.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/src/
+$ <span class="token function">touch</span> simple_mover.cpp
+</pre><h2 class="mume-header" id="the-code">The code</h2>
+
+<p>Below is the complete code for the <code>simple_mover</code> C++ node, with line-by-line comments embedded. You can copy and paste this code into the <code>simple_mover</code> script you created in <code>/home/workspace/catkin_ws/src/simple_arm/src/</code> directory like this:</p>
+<p>First, open a new terminal. Then:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/src/
+$ gedit simple_mover.cpp
+</pre><p>Below is the code for <code>simple_mover</code>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;std_msgs/Float64.h&quot;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Initialize the arm_mover node</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;arm_mover&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Create a handle to the arm_mover node</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+
+    <span class="token comment">// Create a publisher that can publish a std_msgs::Float64 message on the /simple_arm/joint_1_position_controller/command topic</span>
+    ros<span class="token double-colon punctuation">::</span>Publisher joint1_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_1_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Create a publisher that can publish a std_msgs::Float64 message on the /simple_arm/joint_2_position_controller/command topic</span>
+    ros<span class="token double-colon punctuation">::</span>Publisher joint2_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_2_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Set loop frequency of 10Hz</span>
+    ros<span class="token double-colon punctuation">::</span>Rate <span class="token function">loop_rate</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-int">int</span> start_time<span class="token punctuation">,</span> elapsed<span class="token punctuation">;</span>
+
+    <span class="token comment">// Get ROS start time</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token operator">not</span> start_time<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        start_time <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toSec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ros<span class="token double-colon punctuation">::</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Get ROS elapsed time</span>
+        elapsed <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toSec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time<span class="token punctuation">;</span>
+
+        <span class="token comment">// Set the arm joint angles</span>
+        std_msgs<span class="token double-colon punctuation">::</span>Float64 joint1_angle<span class="token punctuation">,</span> joint2_angle<span class="token punctuation">;</span>
+        joint1_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token function">sin</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> M_PI <span class="token operator">*</span> <span class="token number">0.1</span> <span class="token operator">*</span> elapsed<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>M_PI <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        joint2_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token function">sin</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> M_PI <span class="token operator">*</span> <span class="token number">0.1</span> <span class="token operator">*</span> elapsed<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>M_PI <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Publish the arm joint angles</span>
+        joint1_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint1_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        joint2_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint2_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Sleep for the time remaining until 10 Hz is reached</span>
+        loop_rate<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>See the video <a href="https://youtu.be/mj7lwGqouEA">here</a></p>
+<h2 class="mume-header" id="the-code-explained">The code: Explained</h2>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+</pre><p><code>ros</code> is the official client library for ROS. It provides most of the fundamental functionality required for interfacing with ROS via C++. It has tools for creating Nodes and interfacing with Topics, Services, and Parameters.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;std_msgs/Float64.h&quot;</span></span>
+</pre><p>From the <code>std_msgs</code> package, the Float64 header file is imported. The <a href="http://wiki.ros.org/std_msgs">std_msgs</a> package also contains the primitive message types in ROS. Later, you will be publish Float64 messages to the position command topics for each joint.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;arm_mover&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>A ROS node is initialized with the <code>init()</code> function and registered with the ROS Master. Here <code>arm_mover</code> is the name of the node. Notice that the main function takes both <code>argc</code> and <code>argv</code> arguments and passes them to the <code>init()</code> function.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+</pre><p>A node handle object <code>n</code> is instantiated from the NodeHandle class. This node handle object will fully initialize the node and permits it to communicate with the ROS Master.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Publisher joint1_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_1_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>Publisher joint2_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_2_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Two publishers are declared, one for joint 1 commands, and one for joint 2 commands. The node handle will tell the ROS master that a Float64 message will be published on the joint topic. The node handle also sets the queue size to 10 in the second argument of the advertise function.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Rate <span class="token function">loop_rate</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>A frequency of 10HZ is set using the <code>loop_rate</code> object. Rates are used in ROS to limit the frequency at which certain loops cycle. Choosing a rate that is too high may result in unnecessary CPU usage, while choosing a value too low could result in high latency. Choosing sensible values for all of the nodes in a ROS system is a bit of a fine art.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">start_time <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toSec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>We set <code>start_time</code> to the current time. In a moment we will use this to determine how much time has elapsed. When using ROS with simulated time (as we are doing here), <code>ros-Time-now</code> will initially return 0, until the first message has been received on the <code>/clock</code> topic. This is why <code>start_time</code> is set and polled continuously until a nonzero value is returned.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">elapsed <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toSec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time<span class="token punctuation">;</span>
+</pre><p>In the main loop, the elapsed time is evaluated by measuring the current time and subtracting the start time.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">std_msgs<span class="token double-colon punctuation">::</span>Float64 joint1_angle<span class="token punctuation">,</span> joint2_angle<span class="token punctuation">;</span>
+joint1_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token function">sin</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> M_PI <span class="token operator">*</span> <span class="token number">0.1</span> <span class="token operator">*</span> elapsed<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>M_PI <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+joint2_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token function">sin</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> M_PI <span class="token operator">*</span> <span class="token number">0.1</span> <span class="token operator">*</span> elapsed<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>M_PI <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The joint angles are sampled from a sine wave with a period of 10 seconds, and in magnitude from [-pi/2, +pi/2].</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">joint1_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint1_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+joint2_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint2_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Each trip through the body of the loop will result in two joint command messages being published.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">loop_rate<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Due to the call to <code>loop_rate.sleep()</code>, the loop is traversed at approximately 10 Hertz. When the node receives the signal to shut down (either from the ROS Master, or via a signal from a console window), the loop will exit.</p>
+<h2 class="mume-header" id="build-and-run">Build and Run</h2>
+
+<p>Before you can run the <code>simple_mover</code> node, you have to compile the C++ script.</p>
+<p><strong>Modifying CMakeLists.txt</strong></p>
+<p>In order for catkin to generate the C++ libraries, you must first modify <code>simple_arm</code>&#x2019;s <code>CMakeLists.txt</code>.</p>
+<p>CMake is the build tool underlying catkin, and <code>CMakeLists.txt</code> is a CMake script used by catkin. If you&#x2019;re familiar with the concept of makefiles, this is similar.</p>
+<p>Navigate to the package <code>CMakeLists.txt</code> file and open it:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/
+$ gedit CMakeLists.txt 
+</pre><p>First, ensure that the <code>find_package()</code> macro lists <code>std_msgs</code>, <code>message_generation</code>, and <code>controller_manager</code> as required packages. The <code>find_package()</code> macro should look as follows:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">find_package</span><span class="token punctuation">(</span>catkin REQUIRED COMPONENTS
+        std_msgs
+        message_generation
+        controller_manager
+<span class="token punctuation">)</span>
+</pre><p>As the names might imply, the <code>std_msgs</code> package contains all of the basic message types, and <code>message_generation</code> is required to generate message libraries for all the supported languages (cpp, lisp, python, javascript). The <code>contoller_manager</code> is another package responsible for controlling the arm.</p>
+<p>Now, add the following block of code at the bottom of the file:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">include_directories</span><span class="token punctuation">(</span>include $<span class="token punctuation">{</span>catkin_INCLUDE_DIRS<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token function">add_executable</span><span class="token punctuation">(</span>simple_mover src<span class="token operator">/</span>simple_mover<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+<span class="token function">target_link_libraries</span><span class="token punctuation">(</span>simple_mover $<span class="token punctuation">{</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token function">add_dependencies</span><span class="token punctuation">(</span>simple_mover simple_arm_generate_messages_cpp<span class="token punctuation">)</span>
+</pre><p>These instructions ask the compiler to include the directories, executable file, link libraries, and dependencies for your C++ code:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">add_executable</span><span class="token punctuation">(</span>node_name sourcecode_directory<span class="token punctuation">)</span>
+</pre><p>Creates the executable <code>simple_mover</code> file.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">target_link_libraries</span><span class="token punctuation">(</span>node_name $<span class="token punctuation">{</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</pre><p>This will add all the linked libraries to the compiler.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token function">add_dependencies</span><span class="token punctuation">(</span>node_name package_name_generate_messages_cpp<span class="token punctuation">)</span>
+</pre><p>Generates message headers for this package before you can use them.</p>
+<p>Keep in mind that you should always include these instructions whenever you want to write a C++ ROS node. For more information about CMakeLists.txt check out <a href="http://wiki.ros.org/catkin/CMakeLists.txt">the CMakeLists.txt page</a> on the ROS wiki.</p>
+<p><strong>Building the Package</strong></p>
+<p>Now that you have included specific instructions for your compiler, let&#x2019;s build the package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p><strong>Running simple_mover</strong></p>
+<p>Assuming that your workspace has recently been built, you can launch <code>simple_arm</code> as follows:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch simple_arm robot_spawn.launch
+</pre><p>Once the ROS Master, Gazebo, and all of our relevant nodes are up and running, we can finally launch <code>simple_mover</code>. To do so, open a new terminal and type the following commands:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosrun simple_arm simple_mover
+</pre><p>You can always download a copy of this branch <a href="https://github.com/udacity/RoboND-simple_arm/tree/simple_mover">here</a>.</p>
+<h2 class="mume-header" id="ros-services">ROS Services</h2>
+
+<p>Now that you&apos;ve written your first ROS node, you&apos;ve seen how publishing to a topic works, and you were able to control the robotic arm by publishing to the <code>/simple_arm/joint_1_position_controller/command</code> topic and <code>/simple_arm/joint_2_position_controller/command</code> topic. Next, we&apos;ll see another node called <code>arm_mover</code>, which implements the <code>safe_move</code> service to allow service calls to control the arm.</p>
+<p><strong>Defining services</strong></p>
+<p>A ROS service allows request/response communication to exist between nodes. Within the node providing the service, request messages are handled by functions or methods. Once the requests have been handled successfully, the node providing the service sends a message back to the requester node. In C++, a ROS service server can be created using the following definition format:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>ServiceServer service <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">advertiseService</span><span class="token punctuation">(</span>`service_name`<span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>In ROS, the service class name <code>ServiceServer</code> comes from the file name where the service definition exists. Each service provides a definition in a <code>.srv</code> file; this is a text file that provides the proper message type for both requests and responses.</p>
+<p>The <code>advertiseService()</code> allows you to communicate with ROS through the node handle <code>n</code> and inform ROS that you want to create a service.</p>
+<p>The <code>service_name</code> is the name given to the service. Other nodes will use this name to specify the service to which they are sending requests.</p>
+<p>The <code>handler</code> is the name of the function or method that handles the incoming service message. This function is called each time the service is called, and the message from the service call is passed to the <code>handler</code> function as an argument. The <code>handler</code> should return an appropriate service response message.</p>
+<h3 class="mume-header" id="using-services">Using Services</h3>
+
+<p><strong>Command Line</strong></p>
+<p>Services can be called directly from the command line, with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosservice call service_name &#x201C;request&#x201D;
+</pre><p>After calling the service, you will wait for an answer.</p>
+<p><strong>ROS Service Client</strong></p>
+<p>Another approach is to use a ROS service programmatically, from within a node. You will define a <code>ROS client</code>, which provides the interface for sending messages to the service:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>ServiceClient client <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>package_name<span class="token double-colon punctuation">::</span>service_file_name<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;service_name&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>One way the <code>ROS Client</code> can then be used is to send requests is as follows:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">client<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// request a service </span>
+</pre><p>For now, we&#x2019;ll focus on how to create the ROS <strong>service server</strong>. Later, in the <code>look_away</code> node, we will practice calling the service from a <strong>service client</strong> node.</p>
+<p>See the ROS documentation <a href="http://wiki.ros.org/roscpp/Overview/Services">on services</a> for detailed instructions on how to create and call ROS services.</p>
+<p align="center">
+<img src="img/ros-services.png" alt="drawing" width="500">
+</p>
+<h1 class="mume-header" id="arm-mover">Arm Mover</h1>
+
+<p>But before we rush off, we have more ground to cover:</p>
+<ul>
+<li>Custom message generation</li>
+<li>Services</li>
+<li>Parameters</li>
+<li>Launch Files</li>
+</ul>
+<p>In order to gain an understanding of the above, we will write another node called <code>arm_mover</code>.</p>
+<p><strong>Description of Arm Mover</strong></p>
+<p>In many respects, <code>arm_mover</code> is quite similar to <code>simple_mover</code>. Like <code>simple_mover</code>, it is responsible for commanding the arm to move. However, instead of simply commanding the arm to follow a predetermined trajectory, the <code>arm_mover</code> node provides the service <code>safe_move</code>, which allows other nodes in the system to send <code>movement_commands</code>.</p>
+<p>In addition to allowing movements via a service interface, <code>arm_mover</code> also allows for configurable minimum and maximum joint angles, by using parameters.</p>
+<p><strong>Creating a new service definition</strong></p>
+<p>An interaction with a service consists of two messages. A node passes a request message to the service, and the service returns a response message to the node. The definitions of the request and response message types are contained within .srv files living in the <code>srv</code> directory under the package&#x2019;s root.</p>
+<p>Let&#x2019;s define a new service for <code>simple_arm</code>. We shall call it <code>GoToPosition</code>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/
+$ <span class="token function">mkdir</span> srv
+$ <span class="token builtin class-name">cd</span> srv
+$ gedit GoToPosition.srv
+</pre><p>You should now edit <code>GoToPosition.srv</code> with gedit, so it contains the following:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">float64 joint_1
+float64 joint_2
+---
+string msg_feedback
+</pre><p>Service definitions always contain two sections, separated by a &#x2018;---&#x2019; line. The first section is the definition of the request message. Here, a request consists of two float64 fields, one for each of <code>simple_arm</code>&#x2019;s joints. The second section contains the service response. The response contains only a single field, msg_feedback. The <code>msg_feedback</code> field is of type string, and is responsible for indicating that the arm has moved to a new position.</p>
+<p><strong>NOTE:</strong> Defining a custom message type is very similar. The only differences is that message definitions live within the <code>msg</code> directory of the package root, have a <code>.msg</code> extension, and do not contain the --- section divider. You can find more detailed information on creating <a href="http://wiki.ros.org/msg">messages</a> and <a href="http://wiki.ros.org/srv">services</a> on the ROS wiki.</p>
+<p><strong>Modifying CMakeLists.txt</strong></p>
+<p>As a reminder, in order for catkin to generate the C++ libraries which allow you to utilize messages in your code you must modify <code>simple_arm</code>&#x2019;s <code>CMakeLists.txt</code> file. You can find this file in <code>/home/workspace/catkin_ws/src/simple_arm/</code>.</p>
+<p>First, uncomment the <code>add_service_files()</code> macro so it looks like this:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">add_service_files(
+   FILES
+   GoToPosition.srv
+)
+</pre><p>This tells catkin to add the newly created service file.</p>
+<p>Then, make sure that the <code>generate_messages()</code> macro is uncommented:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+)
+</pre><p>This macro is actually responsible for generating the code.</p>
+<p>To force ROS to compile your C++ code with C++ 11 include this line of code:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">add_compile_options(-std=c++11)
+</pre><p><strong>Modifying package.xml</strong></p>
+<p>Now that you have updated the <code>CMakeLists.txt</code> file, there&#x2019;s one more file which needs to be modified: <code>package.xml</code>.</p>
+<p><code>package.xml</code> is responsible for defining many of the package&#x2019;s properties, such as the name of the package, version numbers, authors, maintainers, and dependencies.</p>
+<p>Right now, we&#x2019;ll focus on the dependencies. We already learned about build-time dependencies and run-time package dependencies. When <code>rosdep</code> is searching for these dependencies, it&#x2019;s the <code>package.xml</code> file that is being parsed. So we should make sure that the <code>message_generation</code> build dependency and the <code>message_runtime</code> run dependency exist in <code>package.xml</code>.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>buildtool_depend</span><span class="token punctuation">&gt;</span></span>catkin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>buildtool_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build_depend</span><span class="token punctuation">&gt;</span></span>message_generation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>controller_manager<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>effort_controllers<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>gazebo_plugins<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>gazebo_ros<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>gazebo_ros_control<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>joint_state_controller<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>joint_state_publisher<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>robot_state_publisher<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>message_runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>run_depend</span><span class="token punctuation">&gt;</span></span>xacro<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>run_depend</span><span class="token punctuation">&gt;</span></span>
+</pre><p>For more information about <code>package.xml</code>, check out the <a href="http://wiki.ros.org/catkin/package.xml">ROS Wiki</a>.</p>
+<p><strong>Checking Service with ROS</strong></p>
+<p>Now that you&#x2019;ve created your <code>GoToPosition</code> service file, let&apos;s make sure that ROS can see it using the <code>rossrv show</code> command:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rossrv show GoToPosition
+</pre><p>We will see:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">[simple_arm/GoToPosition]:
+float64 joint_1
+float64 joint_2
+---
+string msg_feedback
+</pre><p>This indicates that ROS can see your service.</p>
+<h2 class="mume-header" id="arm-mover-the-code">Arm Mover: The Code</h2>
+
+<h3 class="mume-header" id="creating-the-empty-arm_mover-node-script">Creating the empty <code>arm_mover</code> node script</h3>
+
+<p>The steps that we should take to create the <code>arm_mover</code> node are exactly the same as the steps we took to create the <code>simple_mover</code> node, except the actual name of the node itself.</p>
+<p>Open a new terminal, and type the following:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/src/
+$ gedit arm_mover.cpp
+</pre><p>Now copy and paste the code below into the source code and save the file.</p>
+<p><strong>arm_mover.cpp</strong></p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;simple_arm/GoToPosition.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;std_msgs/Float64.h&gt;</span></span>
+
+<span class="token comment">// Global joint publisher variables</span>
+ros<span class="token double-colon punctuation">::</span>Publisher joint1_pub<span class="token punctuation">,</span> joint2_pub<span class="token punctuation">;</span>
+
+<span class="token comment">// This function checks and clamps the joint angles to a safe zone</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> <span class="token function">clamp_at_boundaries</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span> requested_j1<span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> requested_j2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Define clamped joint angles and assign them to the requested ones</span>
+    <span class="token keyword keyword-float">float</span> clamped_j1 <span class="token operator">=</span> requested_j1<span class="token punctuation">;</span>
+    <span class="token keyword keyword-float">float</span> clamped_j2 <span class="token operator">=</span> requested_j2<span class="token punctuation">;</span>
+
+    <span class="token comment">// Get min and max joint parameters, and assigning them to their respective variables</span>
+    <span class="token keyword keyword-float">float</span> min_j1<span class="token punctuation">,</span> max_j1<span class="token punctuation">,</span> min_j2<span class="token punctuation">,</span> max_j2<span class="token punctuation">;</span>
+    <span class="token comment">// Assign a new node handle since we have no access to the main one</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n2<span class="token punctuation">;</span>
+    <span class="token comment">// Get node name</span>
+    std<span class="token double-colon punctuation">::</span>string node_name <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span>this_node<span class="token double-colon punctuation">::</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Get joints min and max parameters</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/min_joint_1_angle&quot;</span><span class="token punctuation">,</span> min_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/max_joint_1_angle&quot;</span><span class="token punctuation">,</span> max_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/min_joint_2_angle&quot;</span><span class="token punctuation">,</span> min_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/max_joint_2_angle&quot;</span><span class="token punctuation">,</span> max_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check if joint 1 falls in the safe zone, otherwise clamp it</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>requested_j1 <span class="token operator">&lt;</span> min_j1 <span class="token operator">||</span> requested_j1 <span class="token operator">&gt;</span> max_j1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        clamped_j1 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">min</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">max</span><span class="token punctuation">(</span>requested_j1<span class="token punctuation">,</span> min_j1<span class="token punctuation">)</span><span class="token punctuation">,</span> max_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ROS_WARN</span><span class="token punctuation">(</span><span class="token string">&quot;j1 is out of bounds, valid range (%1.2f,%1.2f), clamping to: %1.2f&quot;</span><span class="token punctuation">,</span> min_j1<span class="token punctuation">,</span> max_j1<span class="token punctuation">,</span> clamped_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// Check if joint 2 falls in the safe zone, otherwise clamp it</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>requested_j2 <span class="token operator">&lt;</span> min_j2 <span class="token operator">||</span> requested_j2 <span class="token operator">&gt;</span> max_j2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        clamped_j2 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">min</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">max</span><span class="token punctuation">(</span>requested_j2<span class="token punctuation">,</span> min_j2<span class="token punctuation">)</span><span class="token punctuation">,</span> max_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ROS_WARN</span><span class="token punctuation">(</span><span class="token string">&quot;j2 is out of bounds, valid range (%1.2f,%1.2f), clamping to: %1.2f&quot;</span><span class="token punctuation">,</span> min_j2<span class="token punctuation">,</span> max_j2<span class="token punctuation">,</span> clamped_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Store clamped joint angles in a clamped_data vector</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> clamped_data <span class="token operator">=</span> <span class="token punctuation">{</span> clamped_j1<span class="token punctuation">,</span> clamped_j2 <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> clamped_data<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This callback function executes whenever a safe_move service is requested</span>
+<span class="token keyword keyword-bool">bool</span> <span class="token function">handle_safe_move_request</span><span class="token punctuation">(</span>simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token double-colon punctuation">::</span>Request<span class="token operator">&amp;</span> req<span class="token punctuation">,</span>
+    simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token double-colon punctuation">::</span>Response<span class="token operator">&amp;</span> res<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;GoToPositionRequest received - j1:%1.2f, j2:%1.2f&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span>req<span class="token punctuation">.</span>joint_1<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span>req<span class="token punctuation">.</span>joint_2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check if requested joint angles are in the safe zone, otherwise clamp them</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> joints_angles <span class="token operator">=</span> <span class="token function">clamp_at_boundaries</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>joint_1<span class="token punctuation">,</span> req<span class="token punctuation">.</span>joint_2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Publish clamped joint angles to the arm</span>
+    std_msgs<span class="token double-colon punctuation">::</span>Float64 joint1_angle<span class="token punctuation">,</span> joint2_angle<span class="token punctuation">;</span>
+
+    joint1_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> joints_angles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    joint2_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> joints_angles<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    joint1_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint1_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    joint2_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint2_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Wait 3 seconds for arm to settle</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">Duration</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Return a response message</span>
+    res<span class="token punctuation">.</span>msg_feedback <span class="token operator">=</span> <span class="token string">&quot;Joint angles set - j1: &quot;</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token function">to_string</span><span class="token punctuation">(</span>joints_angles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; , j2: &quot;</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token function">to_string</span><span class="token punctuation">(</span>joints_angles<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">ROS_INFO_STREAM</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>msg_feedback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Initialize the arm_mover node and create a handle to it</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;arm_mover&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+
+    <span class="token comment">// Define two publishers to publish std_msgs::Float64 messages on joints respective topics</span>
+    joint1_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_1_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    joint2_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_2_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Define a safe_move service with a handle_safe_move_request callback function</span>
+    ros<span class="token double-colon punctuation">::</span>ServiceServer service <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">advertiseService</span><span class="token punctuation">(</span><span class="token string">&quot;/arm_mover/safe_move&quot;</span><span class="token punctuation">,</span> handle_safe_move_request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">&quot;Ready to send joint commands&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Handle ROS communication events</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>See the video <a href="https://youtu.be/TjYL_qmr_kg">here</a>.</p>
+<h3 class="mume-header" id="the-code-explained-1">The code: Explained</h3>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;simple_arm/GoToPosition.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;std_msgs/Float64.h&gt;</span></span>
+</pre><p>The included modules for <code>arm_mover</code> are the same as <code>simple_arm</code>, with the exception of one new file. Namely, the <code>GoToPosition.h</code> header file, which is the header file generated from the <code>GoToPosition.srv</code> file we created earlier.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;arm_mover&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+</pre><p>Inside the C++ main function, the <code>arm_mover</code> node is initialized and a ROS NodeHandle object <code>n</code> is instantiated to communicate with ROS.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">joint1_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_1_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+joint2_pub <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_msgs<span class="token double-colon punctuation">::</span>Float64<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_2_position_controller/command&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>As we did earlier in the <code>simple_arm</code> node, two publisher objects are created to publish joint angles to the arm. These objects are defined globally so as to be easily accessible from all the other functions.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>ServiceServer service <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">advertiseService</span><span class="token punctuation">(</span><span class="token string">&quot;/arm_mover/safe_move&quot;</span><span class="token punctuation">,</span> handle_safe_move_request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Next, the <code>GoToPosition</code> service is created with the node name followed by <code>safe_move</code>. Generally, you want to name your services with the node name first to easily find them in large projects. This service is defined with a <code>handle_safe_move_request</code> callback function. The callback function runs when a service request is received.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>ros::spin()</code> function simply blocks until a shutdown request is received by the node.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">handle_safe_move_request</span><span class="token punctuation">(</span>simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token double-colon punctuation">::</span>Request<span class="token operator">&amp;</span> req<span class="token punctuation">,</span> simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token double-colon punctuation">::</span>Response<span class="token operator">&amp;</span> res<span class="token punctuation">)</span>
+</pre><p>When a client sends a <code>GoToPosition</code> request to the <code>safe_move</code> service, either from the terminal or from a separate node the <code>handle_safe_move_request</code> function is called. The function parameter <code>req</code> is of type <code>GoToPosition::Request</code>. And the service response parameter <code>res</code> is of type <code>GoToPosition::Response</code>.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> joints_angles <span class="token operator">=</span> <span class="token function">clamp_at_boundaries</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>joint_1<span class="token punctuation">,</span> req<span class="token punctuation">.</span>joint_2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>This function passes the requested angles to the <code>clamp_at_boundaries()</code> function.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> <span class="token function">clamp_at_boundaries</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span> requested_j1<span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> requested_j2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Define clamped joint angles and assign them to the requested ones</span>
+    <span class="token keyword keyword-float">float</span> clamped_j1 <span class="token operator">=</span> requested_j1<span class="token punctuation">;</span>
+    <span class="token keyword keyword-float">float</span> clamped_j2 <span class="token operator">=</span> requested_j2<span class="token punctuation">;</span>
+
+    <span class="token comment">// Get min and max joint parameters, and assign them to their respective variables</span>
+    <span class="token keyword keyword-float">float</span> min_j1<span class="token punctuation">,</span> max_j1<span class="token punctuation">,</span> min_j2<span class="token punctuation">,</span> max_j2<span class="token punctuation">;</span>
+    <span class="token comment">// Assign a new node handle since we have no access to the main one</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n2<span class="token punctuation">;</span>
+    <span class="token comment">// Get node name</span>
+    std<span class="token double-colon punctuation">::</span>string node_name <span class="token operator">=</span> ros<span class="token double-colon punctuation">::</span>this_node<span class="token double-colon punctuation">::</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Get joints min and max parameters</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/min_joint_1_angle&quot;</span><span class="token punctuation">,</span> min_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/max_joint_1_angle&quot;</span><span class="token punctuation">,</span> max_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/min_joint_2_angle&quot;</span><span class="token punctuation">,</span> min_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n2<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">&quot;/max_joint_2_angle&quot;</span><span class="token punctuation">,</span> max_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check if joint 1 falls in the safe zone, otherwise clamp it</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>requested_j1 <span class="token operator">&lt;</span> min_j1 <span class="token operator">||</span> requested_j1 <span class="token operator">&gt;</span> max_j1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        clamped_j1 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">min</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">max</span><span class="token punctuation">(</span>requested_j1<span class="token punctuation">,</span> min_j1<span class="token punctuation">)</span><span class="token punctuation">,</span> max_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ROS_WARN</span><span class="token punctuation">(</span><span class="token string">&quot;j1 is out of bounds, valid range (%1.2f,%1.2f), clamping to: %1.2f&quot;</span><span class="token punctuation">,</span> min_j1<span class="token punctuation">,</span> max_j1<span class="token punctuation">,</span> clamped_j1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// Check if joint 2 falls in the safe zone, otherwise clamp it</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>requested_j2 <span class="token operator">&lt;</span> min_j2 <span class="token operator">||</span> requested_j2 <span class="token operator">&gt;</span> max_j2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        clamped_j2 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">min</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">max</span><span class="token punctuation">(</span>requested_j2<span class="token punctuation">,</span> min_j2<span class="token punctuation">)</span><span class="token punctuation">,</span> max_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ROS_WARN</span><span class="token punctuation">(</span><span class="token string">&quot;j2 is out of bounds, valid range (%1.2f,%1.2f), clamping to: %1.2f&quot;</span><span class="token punctuation">,</span> min_j2<span class="token punctuation">,</span> max_j2<span class="token punctuation">,</span> clamped_j2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Store clamped joint angles in a clamped_data vector</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-float">float</span><span class="token operator">&gt;</span> clamped_data <span class="token operator">=</span> <span class="token punctuation">{</span> clamped_j1<span class="token punctuation">,</span> clamped_j2 <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> clamped_data<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>The <code>clamp_at_boundaries()</code> function is responsible for enforcing the minimum and maximum joint angles for each joint. If the joint angles passed in are outside of the operable range, they will be &#x201C;clamped&#x201D; to the nearest allowable value. The minimum and maximum joint angles are retrieved from the parameter server each time <code>clamp_at_boundaries</code> is called. The rest of this function simply clamps the joint angle if necessary. Warning messages are logged if the requested joint angles are out of bounds.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">std_msgs<span class="token double-colon punctuation">::</span>Float64 joint1_angle<span class="token punctuation">,</span> joint2_angle<span class="token punctuation">;</span>
+
+joint1_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> joints_angles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+joint2_angle<span class="token punctuation">.</span>data <span class="token operator">=</span> joints_angles<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+joint1_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint1_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+joint2_pub<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>joint2_angle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Then, the <code>handle_safe_move_request()</code> function publishes the clamped joint angles to the arm.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">Duration</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>safe_move</code> service will be blocked for 3 seconds so the arm has enough time to move to the requested position.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">res<span class="token punctuation">.</span>msg_feedback <span class="token operator">=</span> <span class="token string">&quot;Joint angles set - j1: &quot;</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token function">to_string</span><span class="token punctuation">(</span>joints_angles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; , j2: &quot;</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token function">to_string</span><span class="token punctuation">(</span>joints_angles<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">ROS_INFO_STREAM</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>msg_feedback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Finally, the <code>safe_move</code> service returns back a message indicating that the arm has moved to its new position and displays the clamped joint angles.</p>
+<h2 class="mume-header" id="build-launch-and-interact">Build, Launch and Interact</h2>
+
+<p><strong>Modifying CMakeLists.txt</strong></p>
+<p>Before compiling the <code>arm_mover.cpp</code> code, you have to include instructions for the compiler. To do so, open the <code>simple_arm</code> package <code>CMakeLists.txt</code> file located in <code>/home/workspace/catkin_ws/src/simple_arm/</code>, and add the following instructions at the bottom of the file:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">add_executable(arm_mover src/arm_mover.cpp)
+target_link_libraries(arm_mover ${catkin_LIBRARIES})
+add_dependencies(arm_mover simple_arm_generate_messages_cpp)
+</pre><p><strong>Building the package</strong></p>
+<p>Now that you&#x2019;ve written the <code>arm_mover</code> C++ script, and included specific instructions for your compiler, let&#x2019;s build the package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p><strong>Launching the project with the new service</strong></p>
+<p>To get the <code>arm_mover</code> node, and accompanying <code>safe_move</code> service, to launch along with all of the other nodes, modify <code>robot_spawn.launch</code>.</p>
+<p>Launch files, when they exist, are located within the <code>launch</code> directory in the root of a catkin package. Inside a launch file, you can instruct ROS Master which nodes to run. Also you can specify certain parameters and arguments for each of your nodes. Thus, a launch file is necessary inside a ROS package containing more than one node or a node with multiple parameters and arguments. This launch file can run all the nodes within a single command:<br>
+<code>roslaunch package_name launch_file.launch</code>. <code>simple_arm</code>&#x2019;s launch file is located in <code>/home/workspace/catkin_ws/src/simple_arm/launch</code></p>
+<p>To get the <code>arm_mover</code> node to launch, add the following:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token comment">&lt;!-- The arm mover node --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>arm_mover<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>arm_mover<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>simple_arm<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span><span class="token punctuation">&gt;</span></span>
+      min_joint_1_angle: 0
+      max_joint_1_angle: 1.57
+      min_joint_2_angle: 0
+      max_joint_2_angle: 1.0
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rosparam</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Inside the launch file, the node tag specifies the name, type, package name and output channel. The ROS parameters specify the min and max joint angles. More information on the format of the launch file can be found on the <a href="http://wiki.ros.org/roslaunch/XML">XML page of the ROS wiki</a>.</p>
+<p><strong>Testing the new service</strong></p>
+<p>Now that you&apos;ve built your code and modified the launch file, you are ready to test it all out.<br>
+Launch the <code>simple_arm</code>, verify that the <code>arm_mover</code> node is running and that the <code>safe_move</code> service is listed:</p>
+<p><strong>NOTE:</strong> You will need to make sure that you&apos;ve exited your previous <code>roslaunch</code> session before re-launching.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch simple_arm robot_spawn.launch
+</pre><p>Then, in a new terminal, verify that the node and service have indeed launched.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosnode list
+$ rosservice list
+</pre><p>Check that both the service (<code>/arm_mover/safe_move</code>) and the node (<code>/arm_mover</code>) show up as expected. If they do not appear, check the logs in the <code>roscore</code> console. You can now interact with the service using <code>rosservice</code>.</p>
+<p>To view the camera image stream, you can use the command <code>rqt_image_view</code> (you can learn more about rqt and the associated tools on the <a href="http://wiki.ros.org/rqt">RQT page of the ROS wiki</a>):</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rqt_image_view /rgb_camera/image_raw
+</pre><p align="center">
+<img src="img/rqtimage.png" alt="drawing" width="600">
+</p>
+<p><strong>Adjusting the view</strong></p>
+<p>The camera is displaying a gray image. This is to be expected, given that it is pointing straight up, towards the gray sky of our Gazebo world.</p>
+<p>To point the camera towards the numbered blocks on the countertop, we need to rotate both joint 1 and joint 2 by approximately pi/2 radians. Let&#x2019;s give that a try:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosservice call /arm_mover/safe_move <span class="token string">&quot;joint_1: 1.57
+joint_2: 1.57&quot;</span>
+</pre><p><strong>NOTE:</strong> <code>rosservice call</code> can tab-complete the request message, so that you don&#x2019;t have to worry about writing it out by hand. Also, be sure to include a line break between the two joint parameters.</p>
+<p>Upon entering the command, you should see the arm move and eventually stop, reporting the new joint clamped angles to the console. This is as expected.</p>
+<p>What was not expected was the resulting position of the arm. Looking at the <code>roscore</code> console, we can see the problem. The requested angle for joint 2 was out of the safe bounds, so it was clamped. We requested 1.57 radians, but the maximum joint angle was set to 1.0 radians.</p>
+<p>By setting the <code>max_joint_2_angle</code> on the parameter server, we should be able to increase joint 2&#x2019;s maximum angle and bring the blocks into view the next time we request a service. To update that parameter, use the command <code>rosparam</code>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosparam <span class="token builtin class-name">set</span> /arm_mover/max_joint_2_angle <span class="token number">1.57</span>
+</pre><p>Now we should be able to move the arm such that all of the blocks are within the field of view of the camera:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosservice call /arm_mover/safe_move <span class="token string">&quot;joint_1: 1.57
+joint_2: 1.57&quot;</span>
+</pre><p align="center">
+<img src="img/camerablocks.png" alt="drawing" width="600">
+</p>
+<p>And there you have it. All of the blocks are within the field of view!</p>
+<p>Refer to this <a href="https://github.com/udacity/RoboND-simple_arm/tree/arm_mover">Github page</a> for a copy of this branch.</p>
+<h2>ROS Clients and Subscribers</h2>
+<p>Writing the <code>arm_mover node</code>, you practiced generating custom messages, publishing to a topic, building ROS services servers, setting parameters, and creating launch files. You almost have a complete overview of ROS, but you still have to learn ROS <strong>clients</strong> to request services from client nodes, as well as ROS <strong>subscribers</strong>.</p>
+<p><strong>ROS Clients</strong></p>
+<p>A service client defined inside a service client node can request services from a service server node. In C++, ROS clients frequently have the following format, although other parameters and arguments are possible:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>ServiceClient client <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>package_name<span class="token double-colon punctuation">::</span>service_file_name<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;service_name&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>client</code> object is instantiated from the ros::ServiceClient class. This object allows you to request services by calling the <code>client.call()</code> function.</p>
+<p>To communicate with the ROS Master in C++, you need a <strong>NodeHandle</strong>. The node handle <code>n</code> will initialize the node.</p>
+<p>The <code>package_name::service_file_name</code> indicates the name of the service file located in the <code>srv</code> directory of the package.</p>
+<p>The <code>service_name</code> argument indicates the name of the service which is defined in the service server node.</p>
+<p><strong>ROS Subscribers</strong></p>
+<p>A subscriber enables your node to read messages from a topic, allowing useful data to be streamed to the node. In C++, ROS subscribers frequently have the following format, although other parameters and arguments are possible:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Subscriber sub1 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;/topic_name&quot;</span><span class="token punctuation">,</span> queue_size<span class="token punctuation">,</span> callback_function<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>sub1</code> object is a subscriber object instantiated from the ros::Subscriber class. This object allows you to subscribe to messages by calling the <code>subscribe()</code> function.</p>
+<p>To communicate with the ROS Master in C++, you need a <strong>NodeHandle</strong>. The node handle <code>n</code> will initialize the node.</p>
+<p>The <code>&quot;/topic_name&quot;</code> indicates the topic to which the Subscriber should listen.</p>
+<p>The <code>queue_size</code> determines the number of messages that can be stored in a queue. If the number of messages published exceeds the size of the queue, the oldest messages are dropped. As an example, if the <code>queue_size</code> is set to 100 and the number of messages stored in the queue is equal to 100, we will have to start deleting old messages to make room in the queue for new messages. This means that we are unable to process messages fast enough and we probably need to increase the <code>queue_size</code>.</p>
+<p>The <code>callback_function</code> is the name of the function that will be run each incoming message. Each time a message arrives, it is passed as an argument to <code>callback_function</code>. Typically, this function performs a useful action with the incoming data. Note that unlike service handler functions, the <code>callback_function</code> is not required to return anything.</p>
+<p>For more information about subscribers, see the <a href="http://docs.ros.org/jade/api/roscpp/html/classros_1_1Subscriber.html">Subscriber documentation on the ROS wiki</a>.</p>
+<h1>Lookaway</h1>
+<p><strong>Description of Look Away</strong></p>
+<p>To see a ROS <strong>subscriber</strong> and <strong>client</strong> in action, you&apos;ll write a node called <code>look_away</code>. The <code>look_away</code> node will subscribe to the <code>/rgb_camera/image_raw</code> topic, which has image data from the camera mounted on the end of the robotic arm. Whenever the camera is pointed towards an uninteresting image - in this case, an image with uniform color - the callback function will request a <code>safe_move</code> service to safely move the arm to something more interesting. There are a few extra pieces in the code to ensure that this procedure is executed smoothly, but we&#x2019;ll focus on those later.</p>
+<p><strong>Updating the launch file</strong></p>
+<p>Just as we did with the <code>arm_mover</code> node, to get <code>look_away</code> to launch with the rest of the nodes, we will need to modify <code>robot_spawn.launch</code>, which can be found in <code>/home/workspace/catkin_ws/src/simple_arm/launch</code>. You can add the following code there:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>look_away<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>look_away<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>simple_arm<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>Remember that a half turn of a joint requires pi/2 radians of revolution. Numerically, pi/2 is approximately 1.57. Since we want to be able to revolve a joint halfway around with one request, it will be helpful to set <code>max_joint_2_angle: 1.57</code> in <code>arm_mover</code>:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token comment">&lt;!-- The arm mover node --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>arm_mover<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>arm_mover<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>simple_arm<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosparam</span><span class="token punctuation">&gt;</span></span>
+      min_joint_1_angle: 0
+      max_joint_1_angle: 1.57
+      min_joint_2_angle: 0
+      max_joint_2_angle: 1.57
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rosparam</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+</pre><h2>The Code</h2>
+<p><strong>Creating the empty <code>look_away</code> node script</strong></p>
+<p>The steps that you should take to create the <code>look_away</code> node are exactly the same as the steps you took to create the <code>simple_mover</code> and <code>arm_mover</code> scripts, but of course change the actual name of the file itself.</p>
+<p>Open a new terminal, and type the following:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/simple_arm/src/
+$ gedit look_away.cpp
+</pre><p>Now copy and paste the code below and save the file.</p>
+<p><strong>look_away.cpp</strong></p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-rosrosh&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&quot;simple_arm/GoToPosition.h&quot;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-simple_armgotopositionh&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;sensor_msgs/JointState.h&gt;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-sensor_msgsjointstateh&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;sensor_msgs/Image.h&gt;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-sensor_msgsimageh&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+
+<span class="token comment">// Define global vector of joints last position, moving state of the arm, and the client that can request services</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> joints_last_position<span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-bool">bool</span> moving_state <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>ServiceClient client<span class="token punctuation">;</span>
+
+<span class="token comment">// This function calls the safe_move service to safely move the arm to the center position</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">move_arm_center</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">ROS_INFO_STREAM</span><span class="token punctuation">(</span><span class="token string">&quot;Moving the arm to the center&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Request centered joint angles [1.57, 1.57]</span>
+    simple_arm<span class="token double-colon punctuation">::</span>GoToPosition srv<span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>joint_1 <span class="token operator">=</span> <span class="token number">1.57</span><span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>joint_2 <span class="token operator">=</span> <span class="token number">1.57</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Call the safe_move service and pass the requested joint angles</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>client<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">ROS_ERROR</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to call service safe_move&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This callback function continuously executes and reads the arm joint angles position</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">joint_states_callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> sensor_msgs<span class="token double-colon punctuation">::</span>JointState js<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Get joints current position</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> joints_current_position <span class="token operator">=</span> js<span class="token punctuation">.</span>position<span class="token punctuation">;</span>
+
+    <span class="token comment">// Define a tolerance threshold to compare double values</span>
+    <span class="token keyword keyword-double">double</span> tolerance <span class="token operator">=</span> <span class="token number">0.0005</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check if the arm is moving by comparing its current joints position to its latest</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">fabs</span><span class="token punctuation">(</span>joints_current_position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> joints_last_position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> tolerance <span class="token operator">&amp;&amp;</span> <span class="token function">fabs</span><span class="token punctuation">(</span>joints_current_position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> joints_last_position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> tolerance<span class="token punctuation">)</span>
+        moving_state <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+        moving_state <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        joints_last_position <span class="token operator">=</span> joints_current_position<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This callback function continuously executes and reads the image data</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">look_away_callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> sensor_msgs<span class="token double-colon punctuation">::</span><span class="token type-opencl-host-cpp keyword">Image</span> img<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token keyword keyword-bool">bool</span> uniform_image <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Loop through each pixel in the image and check if its equal to the first one</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> img<span class="token punctuation">.</span>height <span class="token operator">*</span> img<span class="token punctuation">.</span>step<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>img<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> img<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            uniform_image <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// If the image is uniform and the arm is not moving, move the arm to the center</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>uniform_image <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token operator">&amp;&amp;</span> moving_state <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+        <span class="token function">move_arm_center</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Initialize the look_away node and create a handle to it</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;look_away&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+
+    <span class="token comment">// Define a client service capable of requesting services from safe_move</span>
+    client <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/arm_mover/safe_move&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Subscribe to /simple_arm/joint_states topic to read the arm joints position inside the joint_states_callback function</span>
+    ros<span class="token double-colon punctuation">::</span>Subscriber sub1 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_states&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> joint_states_callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Subscribe to rgb_camera/image_raw topic to read the image data inside the look_away_callback function</span>
+    ros<span class="token double-colon punctuation">::</span>Subscriber sub2 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;rgb_camera/image_raw&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> look_away_callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Handle ROS communication events</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>See the video <a href="https://youtu.be/DwVkiRRykRU">here</a>.</p>
+<h2>The code: Explained</h2>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-rosrosh-1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&quot;simple_arm/GoToPosition.h&quot;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-simple_armgotopositionh-1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;sensor_msgs/JointState.h&gt;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-sensor_msgsjointstateh-1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;sensor_msgs/Image.h&gt;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-sensor_msgsimageh-1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+</pre><p>The header files are similar to those in <code>arm_mover</code>, except this time we included the <code>JointState.h</code> header file so that we can read the arm joints&#x2019; positions. We also include the <code>Image.h</code> header file so that we can use the camera data.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;look_away&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+</pre><p>Inside the C++ main function, the <code>look_away</code> node is initialized and a ROS NodeHandle object <code>n</code> is instantiated to communicate with ROS.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">client <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>simple_arm<span class="token double-colon punctuation">::</span>GoToPosition<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/arm_mover/safe_move&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>A <code>client</code> object is created here. This object can request <code>GoToPosition</code> services from the <code>/arm_mover/safe_move</code> service created earlier in the <code>arm_mover</code> node. This client object is defined globally in the code, so we can request services within any function. In particular, this happens in the <code>move_arm_center()</code> function.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Subscriber sub1 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;/simple_arm/joint_states&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> joint_states_callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The first subscriber object <code>sub1</code>, subscribes to the <code>/simple_arm/joint_states</code> topic. By subscribing to this topic, we can track the arm position by reading the angle of each joint. The <code>queue_size</code> is set to 10, meaning that a maximum of 10 messages can be stored in the queue. The data from each new incoming message is passed to the <code>joint_states_callback</code> function.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span>Subscriber sub2 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;rgb_camera/image_raw&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> look_away_callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The second subscriber object <code>sub2</code>, subscribes to the <code>/rgb_camera/image_raw</code> topic. The <code>queue_size</code> is also set to 10. And the <code>look_away_callback</code> function is called each time a new message arrives.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The <code>ros::spin()</code> function simply blocks until a shutdown request is received by the node.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">joint_states_callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> sensor_msgs<span class="token double-colon punctuation">::</span>JointState js<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Get joints current position</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-double">double</span><span class="token operator">&gt;</span> joints_current_position <span class="token operator">=</span> js<span class="token punctuation">.</span>position<span class="token punctuation">;</span>
+
+    <span class="token comment">// Define a tolerance threshold to compare double values</span>
+    <span class="token keyword keyword-double">double</span> tolerance <span class="token operator">=</span> <span class="token number">0.0005</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check if the arm is moving by comparing its current joints position to its latest</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">fabs</span><span class="token punctuation">(</span>joints_current_position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> joints_last_position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> tolerance <span class="token operator">&amp;&amp;</span> <span class="token function">fabs</span><span class="token punctuation">(</span>joints_current_position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> joints_last_position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> tolerance<span class="token punctuation">)</span>
+        moving_state <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+        moving_state <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        joints_last_position <span class="token operator">=</span> joints_current_position<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p>When <code>sub1</code> receives a message on the <code>/simple_arm/joint_states</code> topic, the message is passed to the <code>joint_states_callback</code> in the variable <code>js</code>. The <code>joint_states_callback()</code> function checks if the current joint states provided in <code>js</code> are the same as the previous joint states, which are stored in the global <code>joints_last_position</code> variable. If the current and previous joint states are the same (up to the specified error tolerance), then the arm has stopped moving, and the <code>moving_state</code> flag is set to <code>false</code>. This flag is defined globally so as to be shared with other functions in the code. On the other hand, if the current and previous joint states are different, then the arm is still moving. In this case, the function sets <code>moving_state</code> to <code>true</code> and updates the <code>joints_last_position</code> variable with current position data stored in <code>joints_current_position</code>.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">look_away_callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> sensor_msgs<span class="token double-colon punctuation">::</span><span class="token type-opencl-host-cpp keyword">Image</span> img<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token keyword keyword-bool">bool</span> uniform_image <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Loop through each pixel in the image and check if its equal to the first one</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> img<span class="token punctuation">.</span>height <span class="token operator">*</span> img<span class="token punctuation">.</span>step<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>img<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> img<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            uniform_image <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// If the image is uniform and the arm is not moving, move the arm to the center</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>uniform_image <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token operator">&amp;&amp;</span> moving_state <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+        <span class="token function">move_arm_center</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>The <code>look_away_callback()</code> function receives <a href="http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Image.html">image data</a> from the <code>/rgb_camera/image_raw</code> topic. The callback function first checks if all color values in the image are the same as the color value of the first pixel. Then, if the image is uniform and the arm is not moving, the <code>move_arm_center()</code> function is called.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">move_arm_center</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">ROS_INFO_STREAM</span><span class="token punctuation">(</span><span class="token string">&quot;Moving the arm to the center&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Request centered joint angles [1.57, 1.57]</span>
+    simple_arm<span class="token double-colon punctuation">::</span>GoToPosition srv<span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>joint_1 <span class="token operator">=</span> <span class="token number">1.57</span><span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>joint_2 <span class="token operator">=</span> <span class="token number">1.57</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Call the safe_move service and pass the requested joint angles</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>client<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">ROS_ERROR</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to call service safe_move&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Inside the <code>move_arm_center</code> function, a <code>GoToPosition</code> request message is created and sent using the <code>arm_mover/safe_move</code> service, moving both joint angles to <code>1.57</code> radians.</p>
+<h2>Build, Launch and Interact</h2>
+<p><strong>Modifying CMakeLists.txt</strong></p>
+<p>Before compiling the <code>look_away.cpp</code> code, you have to include instructions for the compiler. As a reminder, for every C++ ROS node you write, you have to add its dependencies in <code>CMakeLists.txt</code> file. Open the <code>simple_arm</code> package&#x2019;s <code>CMakeLists.txt</code> file, located in <code>/home/workspace/catkin_ws/src/simple_arm/</code>, and add the following instructions at the bottom of the file:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">add_executable(look_away src/look_away.cpp)
+target_link_libraries(look_away ${catkin_LIBRARIES})
+add_dependencies(look_away simple_arm_generate_messages_cpp)
+</pre><p><strong>Building the package</strong></p>
+<p>Now that you&#x2019;ve written the <code>look_away</code> C++ script, and included specific instructions for your compiler, let&#x2019;s build the package:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p><strong>Launching the nodes</strong></p>
+<p>You can now launch and interact with <code>simple_arm</code> just as before:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch simple_arm robot_spawn.launch
+</pre><p><strong>Interacting with the arm</strong></p>
+<p>After launching, the arm should move away from the grey sky and look towards the blocks. To view the camera image stream, you can use the same command as before:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rqt_image_view /rgb_camera/image_raw
+</pre><p>To check that everything is working as expected, open a new terminal and send a service call to point the arm directly up towards the sky (note that the line break in the message is necessary):</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosservice call /arm_mover/safe_move <span class="token string">&quot;joint_1: 0
+joint_2: 0&quot;</span>
+</pre><p>You can always download a copy of this lab that includes all three nodes by visiting the <a href="https://github.com/udacity/RoboND-simple_arm/">GitHub repo</a>.</p>
+<h2>Pub-Sub Class</h2>
+<p>Inside the publisher and subscriber nodes of this lesson, global variables and objects were defined to be used anywhere in the code. We did this to simplify the code, but it is not a good practice. You should always write a pub-sub class to easily share variables and objects with any callback function in your code. Here&#x2019;s a <a href="https://answers.ros.org/question/59725/publishing-to-a-topic-via-subscriber-callback-function/">ROS pub-sub template class</a> that you can use:</p>
+<p><strong>ROS Class C++ Code</strong></p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> id<span class="token operator">=</span><span class="token string">&quot;include-rosrosh-2&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">SubscribeAndPublish</span>
+<span class="token punctuation">{</span>
+<span class="token keyword keyword-public">public</span><span class="token operator">:</span>
+  <span class="token function">SubscribeAndPublish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token comment">//Topic you want to publish</span>
+    pub_ <span class="token operator">=</span> n_<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>PUBLISHED_MESSAGE_TYPE<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/published_topic&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//Topic you want to subscribe</span>
+    sub_ <span class="token operator">=</span> n_<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;/subscribed_topic&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>SubscribeAndPublish<span class="token double-colon punctuation">::</span>callback<span class="token punctuation">,</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword keyword-void">void</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> SUBSCRIBED_MESSAGE_TYPE<span class="token operator">&amp;</span> input<span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    PUBLISHED_MESSAGE_TYPE output<span class="token punctuation">;</span>
+    <span class="token comment">//.... do something with the input and generate the output...</span>
+    pub_<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token keyword keyword-private">private</span><span class="token operator">:</span>
+  ros<span class="token double-colon punctuation">::</span>NodeHandle n_<span class="token punctuation">;</span> 
+  ros<span class="token double-colon punctuation">::</span>Publisher pub_<span class="token punctuation">;</span>
+  ros<span class="token double-colon punctuation">::</span>Subscriber sub_<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token comment">//End of class SubscribeAndPublish</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">//Initiate ROS</span>
+  ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;subscribe_and_publish&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//Create an object of class SubscribeAndPublish that will take care of everything</span>
+  SubscribeAndPublish SAPObject<span class="token punctuation">;</span>
+
+  ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

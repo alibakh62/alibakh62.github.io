@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_big_O.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#useful-resources">Useful resources</a></li>
+<li><a href="#what-is-good-code">What is good code?</a></li>
+<li><a href="#time-complexity">Time complexity</a></li>
+<li><a href="#big-o-rules">Big-O rules</a></li>
+<li><a href="#space-complexity">Space complexity</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="useful-resources">Useful resources</h2>
+<p><strong>Note:</strong> The Python solutions to exercises can be found in these repos:</p>
+<ul>
+<li><a href="https://github.com/theja-m/Data-Structures-and-Algorithms">source 1</a></li>
+<li><a href="https://github.com/VicodinAbuser/ZTM-DS-and-Algo-Python">source 2</a></li>
+</ul>
+<p><strong>Big-O cheat sheet</strong></p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52116544563/in/dateposted-friend/" title="Screen Shot 2022-06-02 at 1.00.19 PM"><img src="https://live.staticflickr.com/65535/52116544563_4449caf0a3_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-02 at 1.00.19 PM"></a>
+</center><h2 id="what-is-good-code">What is good code?</h2>
+<p><strong>1. Readable</strong><br>
+<strong>2. Scalable:</strong> In terms of <em><strong>Speed (time complexity)</strong></em> and ***memory (space complexity)***. There’s usually a tradeoff between speed and memory.</p>
+<p><strong>Note:</strong> Big-O is what allows us to measure code scalability. Big-O is the language we use for talking about how long an algorithm takes to run. In here, we care about large inputs (the end of the graphs).</p>
+<ul>
+<li>We can compare two different algorithms and say which one is better than the other when it comes to scale, regardless of our computer differences.</li>
+</ul>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle mathsize="1.2em"><mrow><mtext mathvariant="bold">Data</mtext><mtext>&nbsp;</mtext><mtext mathvariant="bold">Structure</mtext><mtext>&nbsp;</mtext><mtext mathvariant="bold">+</mtext><mtext>&nbsp;</mtext><mtext mathvariant="bold">Algorithms</mtext><mtext>&nbsp;</mtext><mtext mathvariant="bold">=</mtext><mtext>&nbsp;</mtext><mtext mathvariant="bold">Programs</mtext></mrow></mstyle></mrow><annotation encoding="application/x-tex">\large{\textbf{Data Structure + Algorithms = Programs}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06666em; vertical-align: -0.233328em;"></span><span class="mord sizing reset-size6 size7"><span class="mord text"><span class="mord textbf">Data&nbsp;Structure&nbsp;+&nbsp;Algorithms&nbsp;=&nbsp;Programs</span></span></span></span></span></span></span></span></p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52116629166/in/dateposted-friend/" title="Screen Shot 2022-06-02 at 2.46.24 PM"><img src="https://live.staticflickr.com/65535/52116629166_530054d624_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-02 at 2.46.24 PM"></a>
+</center><center><a href="https://www.flickr.com/photos/192167571@N04/52168207720/in/dateposted-friend/" title="Screen Shot 2022-06-23 at 10.48.14 AM"><img src="https://live.staticflickr.com/65535/52168207720_58ca01a7e5_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-23 at 10.48.14 AM"></a>
+</center><center><a href="https://www.flickr.com/photos/192167571@N04/52167734648/in/dateposted-friend/" title="Screen Shot 2022-06-23 at 10.48.24 AM"><img src="https://live.staticflickr.com/65535/52167734648_c3d0281bf8_o.png" width="100%" height="auto" alt="Screen Shot 2022-06-23 at 10.48.24 AM"></a>
+</center><p><a href="bigocheatsheet.com">source</a></p>
+<h2 id="time-complexity">Time complexity</h2>
+<p><strong>What’s the big-O of the following scripts?</strong></p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">funChallenge</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  a <span class="token operator">=</span> <span class="token number">50</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">anotherFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> stranger <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    a<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Answer:</strong> O(n)</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">anotherFunChallenge</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> x <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> y <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> z <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> input<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> p <span class="token operator">=</span> j <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> q <span class="token operator">=</span> j <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">let</span> whoAmI <span class="token operator">=</span> <span class="token string">"I don't know"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Answer:</strong> O(n)</p>
+<h2 id="big-o-rules">Big-O rules</h2>
+<ul>
+<li><strong>Rule 1:</strong> Always considering the worst-case scenario.</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">const</span> nemo <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'nemo'</span><span class="token punctuation">,</span> <span class="token string">'nemo2'</span><span class="token punctuation">,</span> <span class="token string">'nemo3'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">findNemo1</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> array<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'nemo'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Found NEMO!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">findNemo1</span><span class="token punctuation">(</span>nemo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>Note:</strong> In the above example, although <code>nemo</code> is the first element in the array and the function finds it after only 1 iteration (i.e. O(1)), but it doesn’t matter because the worst-case scenario here is that <code>nemo</code> being the very last element in which case the big-O will be O(n).</p>
+<ul>
+<li><strong>Rule 2:</strong> Always remove the constants.</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">printFirstItemThenFirstHalfThenSayHi100Times</span><span class="token punctuation">(</span>items<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>items<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> middleIndex <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>items<span class="token punctuation">.</span>length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>index <span class="token operator">&lt;</span> middleIndex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>items<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        index<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Note:</strong> If we go line by line in the function above, we get <strong>O(1 + n/2 + 100)</strong>, which simplifies to <strong>O(n)</strong>, <em>because it’s still linear.</em></p>
+<ul>
+<li><strong>Rule 3:</strong> Different terms for inputs.</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">compressBoxesTwice</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	boxes<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	boxes<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Note:</strong> The example above is <strong>O(2n)</strong> which is <strong>O(n)</strong>. But if we have two inputs (like the example below), the big-O is no longer O(n). We have to consider both input sizes, therefore it is <strong>O(n + m)</strong>.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">compressBoxesTwice</span><span class="token punctuation">(</span>boxes<span class="token punctuation">,</span> boxes2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	boxes<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	boxes2<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Note:</strong> The example below shows a <em>nested loop</em> which is a <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><msup><mi mathvariant="bold">n</mi><mn mathvariant="bold">2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n^2)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span>, i.e. <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mi mathvariant="bold">n</mi><mo>∗</mo><mi mathvariant="bold">n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n*n)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">n</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord mathbf">n</span><span class="mclose">)</span></span></span></span></span></span></p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">const</span> boxes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">logAllPairsOfArray</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> array<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> array<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> array<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">logAllPairsOfArray</span><span class="token punctuation">(</span>boxes<span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><strong>Rule 4:</strong> Drop non-dominant terms.</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">printAllNumbersThenAllPairSums</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'these are the numbers:'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  numbers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'and these are their sums:'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  numbers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>firstNumber<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    numbers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>secondNumber<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstNumber <span class="token operator">+</span> secondNumber<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">printAllNumbersThenAllPairSums</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>Note:</strong> The above example is <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><mi mathvariant="bold">n</mi><mo>+</mo><msup><mi mathvariant="bold">n</mi><mn mathvariant="bold">2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n + n^2)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord mathbf">n</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord"><span class="mord mathbf">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span>. If we drop the non-dominent term it becomes <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><msup><mi mathvariant="bold">n</mi><mn mathvariant="bold">2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n^2)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span>.</p>
+<p><strong>Note:</strong> The <strong>O(n!)</strong> is the most inefficient. It basically means for every input we add a nested loop. This is probably the most trivial example of a function that runs in <code>O(n!)</code> time (where <code>n</code> is the argument to the function):</p>
+<pre class=" language-java"><code class="prism  language-java"><span class="token keyword">void</span> <span class="token function">nFacRuntimeFunc</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">nFacRuntimeFunc</span><span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="space-complexity">Space complexity</h2>
+<p>When a program executes, it has to ways to remember things:</p>
+<ul>
+<li><strong>Heap:</strong> is usually where we store variables that we assign values to.</li>
+<li><strong>Stack:</strong> is usually where we keep track of our function calls.</li>
+</ul>
+<p>In space complexity, we simply look at the total size relative to the size of the input and see how many <em><strong>additional</strong></em> new variables (or new memory) we’re allocating. In that sense, the size of the input doesn’t matter (because we can’t do anything about it). What we care about is what <em>additional space</em> we’re requiring in our code.</p>
+<p><strong>What causes space complexity?</strong></p>
+<ul>
+<li>Adding variables</li>
+<li>Data structures</li>
+<li>Function calls</li>
+<li>Allocations</li>
+</ul>
+<pre class=" language-js"><code class="prism  language-js"><span class="token comment">//#5 Space complexity O(1)</span>
+<span class="token keyword">function</span> <span class="token function">boooo</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'booooo'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// #6 Space complexity O(n)</span>
+<span class="token keyword">function</span> <span class="token function">arrayOfHiNTimes</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> hiArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        hiArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hi'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> hiArray<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">arrayOfHiNTimes</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>Example: Twitter</strong><br>
+Let’s say you’re working at Twitter and you’re asked to build a feature that allows anybody to click a button next to their name and retrieve their most recent tweet and their oldest tweet.</p>
+<ul>
+<li>We don’t know if the tweets are sorted (so can’t go by picking the first and last element of array).</li>
+<li>We gotta compare tweets to each other based on dates which is a <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">O</mi><mo stretchy="false">(</mo><msup><mi mathvariant="bold">n</mi><mn mathvariant="bold">2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{O(n^2)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span> (nested loop).</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

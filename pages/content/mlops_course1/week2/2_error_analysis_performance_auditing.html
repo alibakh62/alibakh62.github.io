@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2_Error Analysis and Performance Auditing</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#error-analysis-example">Error analysis example</a>
+<ul>
+<li><a href="#iterative-process-of-error-analysis-proposing-tags">Iterative process of error analysis: Proposing tags</a></li>
+<li><a href="#useful-metrics-for-each-tag">Useful metrics for each tag</a></li>
+</ul>
+</li>
+<li><a href="#prioritizing-what-to-work-on">Prioritizing what to work on</a>
+<ul>
+<li><a href="#prioritizing-what-to-work-on-1">Prioritizing what to work on</a></li>
+<li><a href="#addingimproving-data-for-specific-categories">Adding/improving data for specific categories</a></li>
+</ul>
+</li>
+<li><a href="#skewed-datasets">Skewed datasets</a>
+<ul>
+<li><a href="#f1-score">F1 score</a></li>
+<li><a href="#multi-class-metrics">Multi-class metrics</a></li>
+</ul>
+</li>
+<li><a href="#performance-auditing">Performance Auditing</a>
+<ul>
+<li><a href="#auditing-framework">Auditing framework</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="error-analysis-example">Error analysis example</h1>
+<p>The first time you train a learning algorithm, you can almost guarantee it won’t work. Therefore, we can think of the heart of the ML development process as <strong>error analysis</strong>. It can tell you what’s the most efficient use of your time in terms of what you should do to improve your learning algorithm’s performance.</p>
+<p><strong>Example: Speech recognition:</strong> After training your model, pick a number of (say 100) mislabeled examples from the dev set. Create a spreadsheet and for each example specify your guess on why that example is mislabeled by the model (see below). <em><strong>This process helps you understand whether specific categories, that may be the source of most errors, are worthy of further effort and attention.</strong></em></p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51689688255/in/dateposted-friend/" title="Screen Shot 2021-11-18 at 11.39.26 AM"><img src="https://live.staticflickr.com/65535/51689688255_08d96efff9_z.jpg" width="640" height="143" alt="Screen Shot 2021-11-18 at 11.39.26 AM"></a></p>
+<p>So far, most of the error analyses are done manually, in a Jupyter notebook or a spreadsheet (like the example above). There are emerging MLOps tools that are making this process easier.</p>
+<h2 id="iterative-process-of-error-analysis-proposing-tags">Iterative process of error analysis: Proposing tags</h2>
+<p>The goal is to come up with a few categories where you could productively improve the algorithm.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51688809536/in/dateposted-friend/" title="Screen Shot 2021-11-18 at 11.48.53 AM"><img src="https://live.staticflickr.com/65535/51688809536_86082246e2_z.jpg" width="640" height="237" alt="Screen Shot 2021-11-18 at 11.48.53 AM"></a></p>
+<h2 id="useful-metrics-for-each-tag">Useful metrics for each tag</h2>
+<p>As you’re going through the tags, here are a few useful metrics to look at,</p>
+<ul>
+<li>What fractions of errors have that tag?</li>
+<li>Of all the data with that tag, what fraction is misclassified?</li>
+<li>What fraction of data have that tag?</li>
+<li>How much room for improvement is there on data with that tag?</li>
+</ul>
+<h1 id="prioritizing-what-to-work-on">Prioritizing what to work on</h1>
+<p>In addition to comparing different tags’ performance to that of the baseline, one other useful metric to look at is the <strong>percentage of data with that tag</strong>.</p>
+<p>In the example below, the <em>percentage of data</em> for each tag tells us that we are better work more on improving performance Clean Speech and People Noise whereas solely looking at the Gap to HLP would suggest we should work on Car Noise tag.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04" title=""><img src="https://live.staticflickr.com/65535/51691327496_264693181b_z.jpg" width="640" height="480" alt=""></a></p>
+<h2 id="prioritizing-what-to-work-on-1">Prioritizing what to work on</h2>
+<p>Decide on the most important categories to work on based on:</p>
+<ul>
+<li>How much room for improvement there is.</li>
+<li>How frequently that category appears.</li>
+<li>How easy it is to improve accuracy in that category.</li>
+<li>How important it is to improve in that category.</li>
+</ul>
+<p>There’s no mathematical formula to tell you what to work on, but by looking at these factors, you should be able to make more fruitful decisions.</p>
+<h2 id="addingimproving-data-for-specific-categories">Adding/improving data for specific categories</h2>
+<p>Once you decided that there’s a category (or a few categories) to improve the average performance, consider adding data or improving the quality of the data for that category.</p>
+<p>For categories you want to prioritize:</p>
+<ul>
+<li>Collect more data</li>
+<li>Use data augmentation to get more data</li>
+<li>Improve label accuracy/data quality</li>
+</ul>
+<p>Going after improving data quality is generally time-consuming and expensive. By carrying out an analysis (like the above), you know exactly what type of data you need to collect. It makes the efforts more focused and efficient.</p>
+<h1 id="skewed-datasets">Skewed datasets</h1>
+<p>Datasets, where the ratio of positive and negative examples is very far from 50-50, are called <strong>skewed datasets</strong>.</p>
+<p>Examples of skewed datasets:</p>
+<ul>
+<li><strong>Manufacturing</strong>
+<ul>
+<li>99.7% no defect, %0.3 defect ⇒ just print(0) will achieve 99.7% accuracy.</li>
+</ul>
+</li>
+<li><strong>Medical diagnosis</strong>
+<ul>
+<li>99% of patients don’t have a disease.</li>
+</ul>
+</li>
+<li><strong>Speech recognition</strong>
+<ul>
+<li>In wake word detection, 96.7% of the time wake word doesn’t occur.</li>
+</ul>
+</li>
+</ul>
+<p>In skewed datasets, using accuracy is not a good idea because just <code>print(0)</code> can get very high accuracy. Instead, it’s more useful to build a <strong>confusion matrix</strong>.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51723002179/in/dateposted-friend/" title="Screen Shot 2021-12-03 at 3.47.49 PM"><img src="https://live.staticflickr.com/65535/51723002179_b31ab591f9_z.jpg" width="640" height="268" alt="Screen Shot 2021-12-03 at 3.47.49 PM"></a></p>
+<p>With the confusion matrix, if your algorithm outputs 0 all the time, it won’t do good on <em>recall</em>.</p>
+<h2 id="f1-score">F1 score</h2>
+<p>Sometimes you have a model with better recall and a different model with better precision. How do you compare these two models? There’s a common of doing that using <strong>F1 score</strong>.</p>
+<p>The intuition behind the F1 score is that you want an algorithm to do well on both precision and recall, and if it does worse on either of them, that’s pretty bad. F1 score is a way of combining precision and recall that emphasizes whichever of <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">P</span></span></span></span></span> or <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.00773em;">R</span></span></span></span></span> is worse.</p>
+<p><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mn>1</mn><mo>=</mo><mfrac><mstyle mathsize="1.2em"><mn>2</mn></mstyle><mstyle mathsize="1.44em"><mrow><mfrac><mn>1</mn><mi>P</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>R</mi></mfrac></mrow></mstyle></mfrac></mrow><annotation encoding="application/x-tex">F1 = \frac{\large{2}}{\Large{\frac{1}{P} + \frac{1}{R}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">F</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 2.68593em; vertical-align: -1.5186em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.16733em;"><span class="" style="top: -2.4182em;"><span class="pstrut" style="height: 3.44em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord sizing reset-size3 size8"><span class="mord"><span class="mopen nulldelimiter sizing reset-size8 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.841528em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.13889em;">P</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size8 size6"></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord"><span class="mopen nulldelimiter sizing reset-size8 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.841528em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.00773em;">R</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size8 size6"></span></span></span></span></span></span><span class="" style="top: -3.67em;"><span class="pstrut" style="height: 3.44em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.834em;"><span class="pstrut" style="height: 3.44em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord sizing reset-size3 size7"><span class="mord">2</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.5186em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>In mathematics, the above formula is technically called a <strong>harmonic mean</strong> between precision and recall, which is like taking an average but placing more emphasis on whichever is the lower number.</p>
+<p><strong>Note:</strong> F1 score is just one way of comparing models based on precision and recall. There are applications where precision and recall weighting are different.</p>
+<h2 id="multi-class-metrics">Multi-class metrics</h2>
+<p>Let’s say you’re detecting defects in smartphones, you may want to detect different types of defects.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51732372290/in/dateposted-friend/" title="Screen Shot 2021-12-07 at 11.59.47 AM"><img src="https://live.staticflickr.com/65535/51732372290_369882dcd4_z.jpg" width="636" height="334" alt="Screen Shot 2021-12-07 at 11.59.47 AM"></a></p>
+<h1 id="performance-auditing">Performance Auditing</h1>
+<p>Even when your algorithm is doing good on F1 or accuracy, it’s often worth one last performance audit before you push it to production.</p>
+<h2 id="auditing-framework">Auditing framework</h2>
+<p>Check for accuracy, fairness/bias, and other problems:</p>
+<ol>
+<li>Brainstorm the ways the system might  go wrong
+<ul>
+<li>Performance on subsets of data (e.g. ethnicity, gender)</li>
+<li>How common are certain errors (e.g. FP, FN)</li>
+<li>Performance in rare classes.</li>
+</ul>
+</li>
+<li>Establish metrics to assess the performance against these issues on appropriate slices of data.</li>
+<li>Get business/product owner buy-in.</li>
+</ol>
+<h3 id="speech-recognition-example">Speech recognition example</h3>
+<ol>
+<li>Brainstorm the ways the system might go wrong.
+<ul>
+<li>Accuracy on different genders and ethnicities</li>
+<li>Accuracy on different devices</li>
+<li>Prevalence of rude mis-transcriptions</li>
+</ul>
+</li>
+<li>Establish metrics to assess the performance against these issues on appropriate slices of data.
+<ul>
+<li>Mean accuracy for different genders and major accents.</li>
+<li>Mean accuracy on different devices.</li>
+<li>Check for the prevalence of offensive words in the output.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Note:</strong> The ways that a system could go wrong tends to be very <em><strong>problem-dependent</strong></em>.</p>
+<p><strong>Note:</strong> Rather than just one person trying to brainstorm what could go wrong, for high stakes applications if you could have a team (or external advisers) could help you brainstorm things that you want to watch out for and reduce the risk of the project not working.</p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

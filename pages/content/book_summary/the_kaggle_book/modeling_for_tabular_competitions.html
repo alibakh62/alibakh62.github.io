@@ -1,0 +1,697 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>modeling_for_tabular_competitions.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#ctgan">CTGAN</a></li>
+<li><a href="#reproducability">Reproducability</a></li>
+<li><a href="#setting-random-state-for-reproducability">Setting random state for reproducability</a></li>
+<li><a href="#eda">EDA</a></li>
+<li><a href="#dimensionality-reduction">Dimensionality reduction</a></li>
+<li><a href="#feature-engineering">Feature engineering</a></li>
+<li><a href="#meta-features-based-on-rows-and-columns">Meta-features based on rows and columns</a></li>
+<li><a href="#target-encoding">Target encoding</a></li>
+<li><a href="#using-feature-importance">Using feature importance</a></li>
+<li><a href="#pseudo-labeling">Pseudo-labeling</a></li>
+<li><a href="#denoising-with-autoencoders">Denoising with autoencoders</a></li>
+<li><a href="#neural-networks-for-tabular-competitions">Neural networks for tabular competitions</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="ctgan">CTGAN</h2>
+<ul>
+<li>There’s a GAN model called <strong>CTGAN</strong> which can be used for generating synthetic data.
+<ul>
+<li><a href="https://github.com/sdv-dev/CTGAN">CTGAN Github</a></li>
+<li>CTGAN works by modeling the probability distribution of rows in tabular data and then generating realistic synthetic data, <a href="https://arxiv.org/pdf/1907.00503v2.pdf">paper</a></li>
+<li>The <a href="https://sdv.dev/">Synthetic Data Vault</a> by MIT has CTGAN and few other tools around it.</li>
+<li><mark><strong>Note:</strong></mark> Think about the technology that Kaggle used to generate the data. If you can properly understand how the data has been generated, you get an important advantage. It gives you a way to easily obtain more varied data for training. <a href="https://www.kaggle.com/c/ventilator-pressure-prediction/discussion/285278">Example</a>
+<ul>
+<li><strong>Note:</strong> Keep in mind that understanding data distribution is no easy task, check out <a href="https://www.kaggle.com/code/lucamassaron/how-to-use-ctgan-to-generate-more-data/notebook">this notebook</a> for more explanation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="reproducability">Reproducability</h2>
+<ul>
+<li>
+<p>You’d want to maintain reproducability and save all:</p>
+<ul>
+<li>models (from every fold)</li>
+<li>the list of parameters used</li>
+<li>all the fold predictions</li>
+<li>all the out-of-fold predictions</li>
+<li>all the predictions from all the models</li>
+</ul>
+</li>
+<li>
+<p>You could use a simple <code>.txt</code> file or an Excel file to keep track of things. But, there are some tools out there that you could use:</p>
+<ul>
+<li><a href="https://dvc.org">DVC</a></li>
+<li>Weights and Biases</li>
+<li>MLflow</li>
+<li>Neptune</li>
+</ul>
+</li>
+</ul>
+<h2 id="setting-random-state-for-reproducability">Setting random state for reproducability</h2>
+<ul>
+<li>We have to set the <strong>seed</strong> number so that we get the same number every time we run the code.
+<ul>
+<li>The same random seed corresponds to the same sequence of random numbers.</li>
+</ul>
+</li>
+<li>For <code>sklearn</code> models, we could use the built-in <code>random_state</code>.</li>
+<li>For TensorFlow or PyTorch, we could use the following function:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">def</span> <span class="token function">seed_everything</span><span class="token punctuation">(</span>seed<span class="token punctuation">,</span> 
+                    tensorflow_init<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> 
+                    pytorch_init<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Seeds basic parameters for reproducibility of results
+    """</span>
+    random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"PYTHONHASHSEED"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+    np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> tensorflow_init <span class="token keyword">is</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        tf<span class="token punctuation">.</span>random<span class="token punctuation">.</span>set_seed<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> pytorch_init <span class="token keyword">is</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        torch<span class="token punctuation">.</span>manual_seed<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+        torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>manual_seed<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+        torch<span class="token punctuation">.</span>backends<span class="token punctuation">.</span>cudnn<span class="token punctuation">.</span>deterministic <span class="token operator">=</span> <span class="token boolean">True</span>
+        torch<span class="token punctuation">.</span>backends<span class="token punctuation">.</span>cudnn<span class="token punctuation">.</span>benchmark <span class="token operator">=</span> <span class="token boolean">False</span>
+</code></pre>
+<h2 id="eda">EDA</h2>
+<p>In an EDA, you’ll look for:</p>
+<ul>
+<li><strong>Missing values</strong> and, most importantly, missing value patterns correlated with the target.</li>
+<li><strong>Skewed numeric variables</strong> and their possible transformations.</li>
+<li><strong>Rare categories</strong> in categorical variables that can be grouped together.</li>
+<li><strong>Potential outliers</strong>, both univariate and multivariate.</li>
+<li><strong>Highly correlated</strong> (or even duplicated) features. For categorical variables, focus on categories that overlap.</li>
+<li><strong>The most predictive features</strong> for the problem.</li>
+</ul>
+<p>To simplify things and save some coding time, you could also use <mark><em><strong>EDA tools</strong></em></mark>:</p>
+<ul>
+<li>
+<p><strong>AutoViz:</strong> <a href="https://github.com/AutoViML/AutoViz">AutoViz</a></p>
+<ul>
+<li><a href="https://towardsdatascience.com/autoviz-a-new-tool-for-automated-visualization-ec9c1744a6ad">Understanding what AutoViz can do</a></li>
+<li><a href="https://www.kaggle.com/code/gvyshnya/automating-eda-and-feature-importance-detection/notebook">AutoViz notebook</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Sweetviz:</strong> <a href="https://github.com/fbdesignpro/sweetviz">Sweetviz</a></p>
+<ul>
+<li><a href="https://towardsdatascience.com/powerful-eda-exploratory-data-analysis-in-just-two-lines-of-code-using-sweetviz-6c943d32f34">Sweetviz overview</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Pandas Profiling:</strong> <a href="https://github.com/ydataai/pandas-profiling">Pandas Profiling</a></p>
+<ul>
+<li><a href="https://medium.com/analytics-vidhya/pandas-profiling-5ecd0b977ecd">Intro to Pandas Profiling</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> Obviously, you could also use other Kagglers EDA notebooks.</p>
+</li>
+</ul>
+<p><strong>Always make sure to do your own EDA:</strong> Remember that EDA stops being a commodity and becomes an asset for the competition when it is <em>highly specific to the problem at hand</em>; this is something that you will never find from automated solutions and seldom in public Notebooks. You have to do your EDA by yourself and gather key, winning insights.</p>
+<h2 id="dimensionality-reduction">Dimensionality reduction</h2>
+<p>Make sure to always consider using these dimensionality reduction techniques. They can be pretty helpful in <mark><strong>identifying outliers and presence of relevant clusters</strong></mark> in the data.</p>
+<ul>
+<li>
+<p><a href="https://lvdmaaten.github.io/tsne/">t-SNE</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lmcinnes/umap">UMAP</a></p>
+</li>
+<li>
+<p><strong>Note:</strong> <mark>Plot the scatter graph of 2-D projection</mark> and color it by target value.</p>
+<ul>
+<li><strong>Example:</strong> A good example of using t-SNE in an image competition <a href="https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/168028">here</a>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> You can <mark>use them as features</mark> in your modeling effort.</p>
+<ul>
+<li><a href="https://www.kaggle.com/c/otto-group-product-classification-challenge/discussion/14295">Example</a></li>
+</ul>
+</li>
+<li>
+<p><mark><strong>Note:</strong></mark> t-SNE and UMAP are more revealing than the classical methods based on variance restructuring by linear combination such as PCA or SVD.</p>
+<ul>
+<li>Compared to these approaches, UMAP and t-SNE manage to reduce the dimensionality extremely, allowing visual charting of the results while maintaining the topography of the data.</li>
+<li>The downside is they’re much slower to fit.
+<ul>
+<li><strong>Note:</strong> Nvidia has released <mark><strong>RAPIDS</strong></mark> <a href="https://developer.nvidia.com/rapids">suite</a> based on CUDA which returns the result in a reasonble timeframe. A <a href="https://www.kaggle.com/code/lucamassaron/interesting-eda-tsne-umap/notebook">notebook example</a> of using RAPIDS. <a href="https://www.kaggle.com/code/lucamassaron/really-not-missing-at-random/notebook">Another example</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Implementation tips:</strong><br>
+- <mark><strong>How to use t-SNE effectively?</strong></mark> Read the article <a href="https://distill.pub/2016/misread-tsne/">here</a><br>
+- <mark><strong>Understanding UMAP:</strong></mark> Read the article <a href="https://pair-code.github.io/understanding-umap/">here</a></p>
+<h3 id="reduing-data-size-avoiding-out-of-memory-error">Reduing data size, avoiding out-of-memory error</h3>
+<ul>
+<li>Unlike deep learning, where data is fed in batches, most of the algorithms that work with tabular data require handling all the data in memory.</li>
+<li>The most common situation is when read the data using Pandas <code>read_csv</code> but the dataframe is too large.</li>
+<li>The <em><strong>solution</strong></em> is to compress the size without losing any information, <mark><strong>lossless compression</strong></mark>.</li>
+<li>This can be achieved using the following <a href="https://www.kaggle.com/code/gemartin/load-data-reduce-memory-usage/notebook">script</a>:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">def</span> <span class="token function">reduce_mem_usage</span><span class="token punctuation">(</span>df<span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    numerics <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'int16'</span><span class="token punctuation">,</span> <span class="token string">'int32'</span><span class="token punctuation">,</span> <span class="token string">'int64'</span><span class="token punctuation">,</span> 
+                <span class="token string">'float16'</span><span class="token punctuation">,</span> <span class="token string">'float32'</span><span class="token punctuation">,</span> <span class="token string">'float64'</span><span class="token punctuation">]</span>'
+    start_mem <span class="token operator">=</span> df<span class="token punctuation">.</span>memory_usage<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1024</span><span class="token operator">**</span><span class="token number">2</span>    
+    <span class="token keyword">for</span> col <span class="token keyword">in</span> df<span class="token punctuation">.</span>columns<span class="token punctuation">:</span>
+        col_type <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>dtypes
+        <span class="token keyword">if</span> col_type <span class="token keyword">in</span> numerics<span class="token punctuation">:</span>
+            c_min <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            c_max <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token builtin">str</span><span class="token punctuation">(</span>col_type<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'int'</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> c_min <span class="token operator">&gt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int8<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">min</span> <span class="token operator">and</span> c_max <span class="token operator">&lt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int8<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">:</span>
+                    df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int8<span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> c_min <span class="token operator">&gt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int16<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">min</span> <span class="token operator">and</span> c_max <span class="token operator">&lt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int16<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">:</span>
+                    df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int16<span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> c_min <span class="token operator">&gt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int32<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">min</span> <span class="token operator">and</span> c_max <span class="token operator">&lt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int32<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">:</span>
+                    df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> c_min <span class="token operator">&gt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int64<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">min</span> <span class="token operator">and</span> c_max <span class="token operator">&lt;</span> np<span class="token punctuation">.</span>iinfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int64<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">:</span>
+                    df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>int64<span class="token punctuation">)</span>  
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> c_min <span class="token operator">&gt;</span> np<span class="token punctuation">.</span>finfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">min</span> <span class="token operator">and</span> c_max <span class="token operator">&lt;</span> np<span class="token punctuation">.</span>finfo<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">:</span>
+	                df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    df<span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>col<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float64<span class="token punctuation">)</span>    
+    end_mem <span class="token operator">=</span> df<span class="token punctuation">.</span>memory_usage<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1024</span><span class="token operator">**</span><span class="token number">2</span>
+    <span class="token keyword">if</span> verbose<span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Mem. usage decreased to {:5.2f} Mb ({:.1f}% reduction)'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>end_mem<span class="token punctuation">,</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token punctuation">(</span>start_mem <span class="token operator">-</span> end_mem<span class="token punctuation">)</span> <span class="token operator">/</span> start_mem<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> df        
+</code></pre>
+<p><strong>Note:</strong> Our suggestion is to apply it after feature engineering or before major transformations that do not rescale your existing data.</p>
+<p><strong>Note:</strong> Combining this with <mark><em><strong>garbage collection</strong></em></mark> library <code>gc</code> and the <code>gc.collect()</code> will improve the memory situation.</p>
+<p><strong>Note:</strong> Another way to reduce data size, it feature engineering and feature selection.</p>
+<h2 id="feature-engineering">Feature engineering</h2>
+<ul>
+<li>Mostly, the real differentiator is not just the lack of missing values, and reliability of the values (its quality), or the number of examples (its quantity).
+<ul>
+<li>The real differentiator is mostly the <mark><em><strong>informational value of the content itself</strong></em></mark>, which is represented by the type of features.</li>
+<li><mark>Models only make apparent the value in data. They are not magic in themselves.</mark></li>
+</ul>
+</li>
+</ul>
+<p><strong>Easily derived features</strong></p>
+<p>Here are the <mark>most common transformations to try</mark>:</p>
+<ul>
+<li><strong>Time feature processing:</strong>
+<ul>
+<li>Extracting day of the week, time of the day, month number, etc. from datetime variables.</li>
+<li><mark><em><strong>Cyclic continuous transformations</strong></em></mark> (based on sine and cosine transformations) are also useful for representing the continuity of time and creating periodic features:</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">cycle <span class="token operator">=</span> <span class="token number">7</span>
+df<span class="token punctuation">[</span><span class="token string">'weekday_sin'</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> np<span class="token punctuation">.</span>pi <span class="token operator">*</span> df<span class="token punctuation">[</span><span class="token string">'col1'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>dayofweek <span class="token operator">/</span> cycle<span class="token punctuation">)</span>
+df<span class="token punctuation">[</span><span class="token string">'weekday_cos'</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>cos<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> np<span class="token punctuation">.</span>pi <span class="token operator">*</span> df<span class="token punctuation">[</span><span class="token string">'col1'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>dayofweek <span class="token operator">/</span> cycle<span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><strong>Numeric feature transformations:</strong>
+<ul>
+<li>Scaling: obtained by standardization (the z-score method)</li>
+<li>Normalization: also called min-max scaling</li>
+<li>Logarithmic or exponential transformations</li>
+<li>Separating the integer and decimal parts</li>
+<li>Summing, subtracting, multiplying, or dividing two numeric features</li>
+</ul>
+</li>
+<li><strong>Binning of numeric features:</strong>
+<ul>
+<li>This is used to transform continuous variables into discrete ones by distributing their values into a number of bins.</li>
+<li>Binning helps remove noise and errors in data and it allows easy modeling of non-linear relationships between the binned features and the target variable when paired with one-hot encoding. See the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.KBinsDiscretizer.html">Scikit-learn implementation</a>.</li>
+</ul>
+</li>
+<li><strong>Categorical feature encoding:</strong>
+<ul>
+<li>One-hot encoding</li>
+</ul>
+</li>
+<li><strong>Splitting and aggregating categorical features based on levels:</strong>
+<ul>
+<li>See <a href="https://www.kaggle.com/c/titanic">this example</a>.</li>
+</ul>
+</li>
+<li><strong>Polynomial features:</strong>
+<ul>
+<li>In <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html">Scikit-learn</a></li>
+</ul>
+</li>
+<li><strong>Missing values treatment:</strong>
+<ul>
+<li>Make binary features that point out missing values, because sometimes missingness is not random and a missing value could have some important reason behind it.</li>
+<li>Usually, missingness points out something about the way data is recorded, acting like a proxy variable for something else.</li>
+<li>If required by your learning algorithm, replace the missing values with the mean, median, or mode (<mark>it is seldom necessary to use methods that are more sophisticated</mark>).</li>
+<li><mark>***A guide to handling missing values in Python:***</mark> <a href="https://www.kaggle.com/code/parulpandey/a-guide-to-handling-missing-values-in-python/notebook">Link here</a></li>
+<li><mark><strong>Note:</strong></mark> Just keep in mind that some models can handle missing values by themselves and do so fairly better than many standard approaches, because the missing-values handling is part of their optimization procedure. The models that can handle missing values by themselves are all gradient boosting models:
+<ul>
+<li>XGBoost, <a href="https://xgboost.readthedocs.io/en/latest/faq.html">read more</a></li>
+<li>LightGBM, <a href="https://lightgbm.readthedocs.io/en/latest/Advanced-Topics.html">read more</a></li>
+<li>CatBoost, <a href="https://catboost.ai/docs/concepts/algorithm-missing-values-processing.html">read more</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Outlier capping or removal:</strong>
+<ul>
+<li>Exclude, cap to a maximum or minimum value, or modify outlier values in your data.</li>
+<li><a href="https://scikit-learn.org/stable/modules/outlier_detection.html">Outlier detection in Scikit-learn</a>.</li>
+<li><mark><strong>Note:</strong></mark> Otherwise, you can simply locate the outlying samples in a univariate fashion, basing your judgment on how many standard deviations they are from the mean, or their distance from the boundaries of the interquartile range (IQR).
+<ul>
+<li>In this case, you might simply exclude any points that are above the value of <code>1.5 * IQR + Q3</code> (upper outliers) and any points that are below <code>Q1 - 1.5 * IQR</code> (lower outliers).</li>
+<li>Once you have found the outliers, you can also proceed by pointing them out with a binary variable.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><mark><strong>Note:</strong></mark> All these data transformations can add predictive performance to your models, but they are seldom decisive in a competition.</p>
+<h2 id="meta-features-based-on-rows-and-columns">Meta-features based on rows and columns</h2>
+<ul>
+<li>
+<p><mark>For competitions, you need trickier feature engineering.</mark></p>
+</li>
+<li>
+<p><strong>Meta features</strong> help to distinguish the different kinds of samples found in your data by pointing out specific groups of samples to your algorithm.</p>
+</li>
+<li>
+<p>A good place to start is looking at features based on each <mark><strong>row</strong></mark>:</p>
+<ul>
+<li>Compute the mean, median, sum, standard deviation, minimum, or maximum of the numeric values (or of a subset of them)</li>
+<li>Count the missing values</li>
+<li>Compute the frequencies of common values found in the rows (for instance, considering the binary features and counting the positive values)</li>
+<li>Assign each row to a cluster derived from a cluster analysis such as k-means.</li>
+</ul>
+</li>
+<li>
+<p>Meta features are also made based on <mark><strong>columns</strong></mark>.</p>
+<ul>
+<li>Aggregation and summarization operations on a single feature</li>
+<li>Is this characteristic common or rare? (for example in counting different categories in a feature).</li>
+<li>You can use any kind of column statistic: mode, median, mean, sum, standard deviation, min, max, skewness, kurtosis.</li>
+<li>There are other different ways:
+<ul>
+<li><strong>Frequency encoding:</strong> Count of frequency for categorical features (and replace categorical feature with its frequency count).</li>
+<li><strong>Frequencies (and column statistics) computed with respect to a relevant group:</strong> The <code>groupby</code> operation.
+<ul>
+<li>The group could be coming from cluster analysis, or one of the current features.</li>
+</ul>
+</li>
+<li><a href="https://www.kaggle.com/code/lucamassaron/meta-features-and-target-encoding/notebook">Example notebook</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="target-encoding">Target encoding</h2>
+<ul>
+<li>
+<p>Encoding categorical features can be done using Scikit-learn:</p>
+<ul>
+<li><code>LabelEncoder</code></li>
+<li><code>OneHotEncoder</code></li>
+<li><code>OrdinalEncoder</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> <mark>When the number of categories are too large</mark>, one-hot encoding becomes <strong>sparse</strong> and cumbersome to handle in memory. These are <mark><strong>high-cardinality-features</strong></mark> which require special handling.</p>
+<ul>
+<li>You could use an encoding function that is computed according to the <em><strong>Micci-Barreca</strong></em> paper: <em>A preprocessing scheme for high-cardinality categorical attributes in classification and prediction problems (2001)</em>.
+<ul>
+<li>The idea is to transform many categories of a categorical features into their corresponding expected target value.</li>
+<li>In case of regression, this is the average expected value for that category.</li>
+<li>For binary classification, it is the conditional probability given that category.</li>
+<li>For multiclass classification, the conditional probability for each possible outcome.</li>
+<li>This way categorical feature is transformed into a numeric one without having to convert the data into a larger and sparser dataset.</li>
+<li>This is <mark><strong>target encoding</strong></mark> and it is indeed very effective in many situation.</li>
+<li><strong>Note:</strong> When some categories are too rare, using target encoding is almost equivalent to providing the target label. There are ways to avoid this. The solution is to blend the observed posterior probability on that level (the probability of the target given a certain value of the encoded feature) with the a priori probability (the probability of the target observed on the entire sample) using a lambda factor. This is called <mark><strong>empirical Bayesian approach</strong></mark>.</li>
+<li>In practical terms, we are using a function to determine if, for a given level of a categorical variable, we are going to use the conditional target value, the average target value, or a blend of the two.</li>
+<li>This is dictated by the <mark><em><strong>lambda factor</strong></em></mark>, which, for a fixed <code>k</code> parameter (usually it has a unit value, implying a minimum cell frequency of two samples) has different output values depending on the <code>f</code> value that we choose.</li>
+<li>For a fixed <code>k</code>, higher values of <code>f</code> dictate less trust in the observed empirical frequency and more reliance on the empirical probability for all cells.</li>
+<li>The right value for <code>f</code> is usually a matter of testing (supported by cross-validation), since you can consider the <code>f</code> parameter a hyperparameter in itself.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>From: <a href="http://PetFinder.my">PetFinder.my</a> Adoption Prediction</strong></em></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>base <span class="token keyword">import</span> BaseEstimator<span class="token punctuation">,</span> TransformerMixin
+<span class="token keyword">class</span> <span class="token class-name">TargetEncode</span><span class="token punctuation">(</span>BaseEstimator<span class="token punctuation">,</span> TransformerMixin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> categories<span class="token operator">=</span><span class="token string">'auto'</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> f<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> 
+                 noise_level<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>categories<span class="token punctuation">)</span><span class="token operator">==</span><span class="token builtin">str</span> <span class="token operator">and</span> categories<span class="token operator">!=</span><span class="token string">'auto'</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>categories <span class="token operator">=</span> <span class="token punctuation">[</span>categories<span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>categories <span class="token operator">=</span> categories
+        self<span class="token punctuation">.</span>k <span class="token operator">=</span> k
+        self<span class="token punctuation">.</span>f <span class="token operator">=</span> f
+        self<span class="token punctuation">.</span>noise_level <span class="token operator">=</span> noise_level
+        self<span class="token punctuation">.</span>encodings <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>prior <span class="token operator">=</span> <span class="token boolean">None</span>
+        self<span class="token punctuation">.</span>random_state <span class="token operator">=</span> random_state
+        
+    <span class="token keyword">def</span> <span class="token function">add_noise</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> series<span class="token punctuation">,</span> noise_level<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> series <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> noise_level <span class="token operator">*</span>   
+                         np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>series<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        
+    <span class="token keyword">def</span> <span class="token function">fit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> X<span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		<span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>categories<span class="token punctuation">)</span><span class="token operator">==</span><span class="token string">'auto'</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>categories <span class="token operator">=</span> np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>X<span class="token punctuation">.</span>dtypes <span class="token operator">==</span> <span class="token builtin">type</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        temp <span class="token operator">=</span> X<span class="token punctuation">.</span>loc<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>categories<span class="token punctuation">]</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        temp<span class="token punctuation">[</span><span class="token string">'target'</span><span class="token punctuation">]</span> <span class="token operator">=</span> y
+        self<span class="token punctuation">.</span>prior <span class="token operator">=</span> np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> variable <span class="token keyword">in</span> self<span class="token punctuation">.</span>categories<span class="token punctuation">:</span>
+            avg <span class="token operator">=</span> <span class="token punctuation">(</span>temp<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span>by<span class="token operator">=</span>variable<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'target'</span><span class="token punctuation">]</span>
+                       <span class="token punctuation">.</span>agg<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'mean'</span><span class="token punctuation">,</span> <span class="token string">'count'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment"># Compute smoothing </span>
+            smoothing <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> np<span class="token punctuation">.</span>exp<span class="token punctuation">(</span><span class="token operator">-</span><span class="token punctuation">(</span>avg<span class="token punctuation">[</span><span class="token string">'count'</span><span class="token punctuation">]</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>k<span class="token punctuation">)</span> <span class="token operator">/</span>                 
+                         self<span class="token punctuation">.</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment"># The bigger the count the less full_avg is accounted</span>
+            self<span class="token punctuation">.</span>encodings<span class="token punctuation">[</span>variable<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>prior <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span>  
+                             smoothing<span class="token punctuation">)</span> <span class="token operator">+</span> avg<span class="token punctuation">[</span><span class="token string">'mean'</span><span class="token punctuation">]</span> <span class="token operator">*</span> smoothing<span class="token punctuation">)</span>
+            
+        <span class="token keyword">return</span> self
+    
+    <span class="token keyword">def</span> <span class="token function">transform</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> X<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        Xt <span class="token operator">=</span> X<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> variable <span class="token keyword">in</span> self<span class="token punctuation">.</span>categories<span class="token punctuation">:</span>
+            Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>self<span class="token punctuation">.</span>encodings<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">,</span> 
+                                 inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+            unknown_value <span class="token operator">=</span> <span class="token punctuation">{</span>value<span class="token punctuation">:</span>self<span class="token punctuation">.</span>prior <span class="token keyword">for</span> value <span class="token keyword">in</span> 
+                             X<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+                             <span class="token keyword">if</span> value <span class="token operator">not</span> <span class="token keyword">in</span> 
+                             self<span class="token punctuation">.</span>encodings<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>unknown_value<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>unknown_value<span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+            Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span> <span class="token operator">=</span> Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token builtin">float</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>noise_level <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> self<span class="token punctuation">.</span>random_state <span class="token keyword">is</span> <span class="token operator">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+	                np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span>self<span class="token punctuation">.</span>random_state<span class="token punctuation">)</span>
+                Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>add_noise<span class="token punctuation">(</span>Xt<span class="token punctuation">[</span>variable<span class="token punctuation">]</span><span class="token punctuation">,</span> 
+                                              self<span class="token punctuation">.</span>noise_level<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Xt
+    
+    <span class="token keyword">def</span> <span class="token function">fit_transform</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> X<span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>transform<span class="token punctuation">(</span>X<span class="token punctuation">)</span>
+
+<span class="token comment"># How to use the class</span>
+te <span class="token operator">=</span> TargetEncode<span class="token punctuation">(</span>categories<span class="token operator">=</span><span class="token string">'ROLE_TITLE'</span><span class="token punctuation">)</span>
+te<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>train<span class="token punctuation">,</span> train<span class="token punctuation">[</span><span class="token string">'ACTION'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+te<span class="token punctuation">.</span>transform<span class="token punctuation">(</span>train<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'ROLE_TITLE'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The input parameters of the function are:</p>
+<ul>
+<li><code>categories</code>: The column names of the features you want to target-encode. You can leave <code>auto</code> on and the class will pick the object strings.</li>
+<li><code>k</code> (int): Minimum number of samples to take a category average into account.</li>
+<li><code>f</code> (int): Smoothing effect to balance the category average versus the prior probability, or the mean value relative to all the training examples.</li>
+<li><code>noise_level</code>: The amount of noise you want to add to the target encoding in order to avoid overfitting. Start with very small numbers.</li>
+<li><code>random_state</code>: The reproducibility seed in order to replicate the same target encoding when <code>noise_level &gt; 0</code>.</li>
+</ul>
+<p><strong>Note:</strong> Instead writing your own code, you could also use this library: <a href="https://github.com/scikit-learn-contrib/category_encoders">category_encoders</a> and its <a href="http://contrib.scikit-learn.org/category_encoders/targetencoder.html">Target Encoder</a></p>
+<h2 id="using-feature-importance">Using feature importance</h2>
+<ul>
+<li>Applying too much feature engineering can have side effects.
+<ul>
+<li>Each variable carries some noise. With too many variables, you’re increasing the chance that model picks up on noise instead of signal.</li>
+</ul>
+</li>
+<li><em><strong>Only keep the relevant features</strong></em>.</li>
+<li>Figuring out the features you need to keep is a hard problem. As the number of features grows, the number of possible combinations grows as well.</li>
+<li><em><strong>Do the feature selection at end (after feature engineering) once you have all the features.</strong></em></li>
+</ul>
+<p><em><strong>How to select features?</strong></em></p>
+<ul>
+<li>Classical approach <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> forward addition or backward elimination. This is quite time-consuming.</li>
+<li>For <em><strong>regression models</strong></em>, using <em><strong>lasso selection</strong></em> can provide a hint about all the important yet correlated features by using <mark><em><strong>stability selection</strong></em></mark>. (<a href="https://github.com/scikit-learn-contrib/stability-selection">read more</a>)
+<ul>
+<li><strong>Note:</strong> The procedure may, in fact, retain even highly correlated features.</li>
+</ul>
+</li>
+<li>For <em><strong>tree-based models</strong></em> (random forests, gradient boosting), a <em><strong>descrease in impurity or a gain in the target metric based on splits are common ways to rank features.</strong></em></li>
+<li>Always for tree-based models, <mark><em><strong>test-based randomization of features</strong></em></mark> (or simple comparisons with random features) helps to distinguish features. <a href="https://www.kaggle.com/code/cdeotte/lstm-feature-importance/notebook">Example LSTM</a>, <a href="https://github.com/scikit-learn-contrib/boruta_py">Example Boruta</a>, <a href="https://github.com/Ekeany/Boruta-Shap">Example BorutaShap</a>.
+<ul>
+<li><strong>Note:</strong> Boruta or BorutaShap may take up to 100 iterations and it can only be performed using tree-based machine learning algorithms.</li>
+<li><strong>Note:</strong> If you are selecting features for a linear model, Boruta may actually overshoot. This is because it will consider the features important both for their main effects and their interactions together with other features (but in a linear model, you care only about the main effects and a selected subset of interactions).</li>
+<li><strong>Note:</strong> You can still effectively use Boruta when selecting for a linear model by using a gradient boosting whose max depth is set to one tree, so you are considering only the main effects of the features and not their interactions.</li>
+<li><a href="https://www.kaggle.com/code/lucamassaron/tutorial-feature-selection-with-boruta-shap/notebook">A BorutaShap feature selection notebook</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="pseudo-labeling">Pseudo-labeling</h2>
+<ul>
+<li>
+<p>In competitions where the number of examples used for training can make a difference, <strong>pseudo-labeling</strong> can boost your scores by providing further examples taken from the test set.</p>
+</li>
+<li>
+<p><mark>The idea</mark> is to add examples from the test set whose predictions you are confident about to your training set.</p>
+</li>
+<li>
+<p>Pseudo-labeling simply helps models to refine their coefficients thanks to more data available,</p>
+</li>
+<li>
+<p>Pseudo-labeling was first introduced in the <em>Santander Customer Transaction Prediction</em> competition by one of the team, <a href="https://www.kaggle.com/c/santander-customer-transaction-prediction/discussion/89003">notebook</a>.</p>
+</li>
+<li>
+<p><strong>Note:</strong> Pseudo-labeling won’t always work.</p>
+<ul>
+<li>You cannot know for sure beforehand whether or not pseudo-labeling will work in a competition. You have to test it empricially.
+<ul>
+<li><mark><em><strong>Plotting learning curves</strong></em></mark> may provide you with a hint as to whether having more data could be useful, <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html">example</a>.</li>
+</ul>
+</li>
+<li>It is not easy to decide which parts of the test set predictions to add or how to tune the entire procedure for the best results.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Generally, the procedure is like this:</strong></em></p>
+<ol>
+<li>Train your model</li>
+<li>Predict on the test set</li>
+<li>Establish a confidence measure</li>
+<li>Select the test set elements to add</li>
+<li>Build a new model with the combined data</li>
+<li>Predict using this model and submit</li>
+</ol>
+</li>
+</ul>
+<p>A <a href="https://www.kaggle.com/code/cdeotte/pseudo-labeling-qda-0-969/notebook">good example of the complete procedure</a>.</p>
+<ul>
+<li>There a few caveats when applying pseudo-labeling:
+<ul>
+<li>You should have a very good model that produces good predictions for them to be usable in training. Otherwise, you will just add more noise.</li>
+<li>Since it is impossible to have entirely perfect predictions in the test set, you need to distinguish the good ones from the ones you shouldn’t use. If you are predicting using CV folds, check the standard deviation of your predictions and pick only the test examples where the standard deviation is the lowest.
+<ul>
+<li>If you are predicting probabilities, use only high-end or low-end predicted probabilities (the cases where the model is actually more confident).</li>
+</ul>
+</li>
+<li>In the second stage, when you concatenate the training examples with the test ones, do not put in more than 50% test examples.
+<ul>
+<li>Ideally, a share of 70% original training examples and 30% pseudo-labeled examples is the best.</li>
+</ul>
+</li>
+<li>If you depend on validation for early stopping, fixing hyperparameters, or simply evaluating your model, do not use pseudo-labels in the validation.</li>
+<li>If possible, use a different kind of model when training to estimate the pseudo-labels and when training your final model using both the original labels and the pseudo-labels. This will ensure you are not simply enforcing the same information your previous model used, but you are also extracting new information from the pseudo-labels.</li>
+</ul>
+</li>
+</ul>
+<h2 id="denoising-with-autoencoders">Denoising with autoencoders</h2>
+<ul>
+<li>
+<p>Non-linear data compression, image denoising.</p>
+</li>
+<li>
+<p><a href="https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/discussion/44629">This post</a> explains how a DAE can not only remove noise but also automatically create new features, so the representation of the features is learned in a similar way to what happens in image competitions.</p>
+<ul>
+<li><strong>Note:</strong> In the post, he mentions the <mark>secret sauce for the DAE recipe</mark>, which is not simply the layers, but the <strong>noise</strong> you put into the data in order to augment it.</li>
+<li><strong>Note:</strong> He also made clear that the technique requires stacking together training and test data, implying that the technique would not have applications beyond winning a Kaggle competition.</li>
+</ul>
+</li>
+<li>
+<p>There are <em><strong>two types of DAEs:</strong></em></p>
+<ul>
+<li>In <strong>bottleneck DAEs</strong>, mimicking the approach used in image processing, you take as new features the activations from the middle layer, the one separating the encoding part from the decoding part. These architectures have an hourglass shape, first reducing the number of neurons layer by layer until the middle bottleneck layer, then enlarging it back in the second part. The number of hidden layers is always odd.</li>
+<li>In <strong>deep stack DAEs</strong>, you take all the activations from the hidden layers, without distinguishing between the encoding, decoding, or middle layer. In these architectures, layers are the same size. The number of hidden layers can be even or odd.</li>
+</ul>
+</li>
+<li>
+<p><strong>Random noise:</strong> In order to help train any kind of DAE, you need to inject noise that helps to augment the training data and avoid the overparameterized neural network just memorizing inputs (in other words, overfitting).</p>
+<ul>
+<li>In the Porto Seguro competition, Michael Jahrer added noise by using a technique called <mark><strong>swap noise</strong></mark>, which he described as follows:</li>
+<li>
+<blockquote>
+<p>Here I sample from the feature itself with a certain probability “inputSwapNoise” in the table above. 0.15 means 15% of features replaced by values from another row.</p>
+</blockquote>
+</li>
+<li>What is described is basically an augmentation technique called mixup (which is also used in image augmentation. <a href="https://arxiv.org/abs/1710.09412">Read more</a></li>
+<li><mark><em><strong>In mixup for tabular data</strong></em></mark>, you decide a probability for mixing up. Based on that probability, you change some of the original values in a sample, replacing them with values from a more or less similar sample from the same training data. <a href="https://www.kaggle.com/code/springmanndaniel/1st-place-turn-your-data-into-daeta/report">A walkthrough example of mixup</a>
+<ul>
+<li>In <strong>column-wise noise swapping</strong>, you swap values in a certain number of columns. The proportion of columns whose values are to be swapped is decided based on your mixup probability.</li>
+<li>In <strong>row-wise noise swapping</strong>, you always swap a certain number of the values in each row. Essentially, every row contains the same proportion of swapped values, based on the mixup probability, but the features swapped change from row to row.</li>
+<li>In <strong>random noise swapping</strong>, you fix a number of values to be swapped, based on the mixup probability, and you randomly pick them up from the entire dataset (this is somewhat similar to row-wise swapping in effect).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Important factors to keep an eye on when working with DAEs:</strong></p>
+<ul>
+<li>Architecture of the DAE (deep stack tends to work better, but you need to determine the number of units per layer and the number of layers)</li>
+<li>Learning rate and batch size</li>
+<li>Loss (also distinguishing between the loss of numeric and categorical features helps)</li>
+<li>Stopping point (the lowest loss is not always the best; use validation and early stopping if possible)</li>
+</ul>
+<p><strong>Examples of recent DAE implementations</strong></p>
+<ul>
+<li><a href="https://www.kaggle.com/c/tabular-playground-series-jan-2021/discussion/216037">Example 1</a></li>
+<li><a href="https://www.kaggle.com/c/tabular-playground-series-feb-2021/discussion/222745">Example 2</a></li>
+<li><a href="https://www.kaggle.com/c/tabular-playground-series-apr-2021/discussion/235739">Example 3</a></li>
+</ul>
+<p>==<strong>Note:</strong> If you don’t want to spend too much time building your own DAE, but you would like to explore whether something like it could work for the competition you are taking on, you can test out a couple of pre-prepared solutions. First, you can refer to <a href="https://www.kaggle.com/code/hungkhoi/train-denoise-transformer-autoencoder/notebook">this notebook</a>, and re-adapt it to your needs.</p>
+<ul>
+<li>Or, you can use <a href="https://www.kaggle.com/code/jeongyoonlee/dae-with-2-lines-of-code-with-kaggler/notebook">this library</a> from one the Kagglers.</li>
+</ul>
+<h2 id="neural-networks-for-tabular-competitions">Neural networks for tabular competitions</h2>
+<ul>
+<li>Gradient boosting solutions still clearly dominate tabular competitions (as well as real-world projects).
+<ul>
+<li>However, sometimes neural networks can catch signals that gradient boosting models cannot get, and can be excellent single models or models that shine in an ensemble.</li>
+</ul>
+</li>
+<li><mark><strong>Note:</strong></mark> As many Grandmasters of the present and the past often quote, mixing together diverse models (such as a neural network and a gradient boosting model) always produces better results than single models taken separately in a tabular data problem. Check out <a href="https://www.youtube.com/watch?v=LgLcfZjNF44">this video</a> from former number one on Kaggle regarding this.</li>
+<li><a href="https://github.com/lmassaron/deep_learning_for_tabular_data">Example 1: deep learning for tabular data</a></li>
+<li><a href="https://www.kaggle.com/code/lucamassaron/tutorial-tensorflow-2-x-for-tabular-data/notebook">Example 2: TensorFlow for tabular data</a></li>
+</ul>
+<p>The <mark><em><strong>key things to take into account</strong></em></mark> when building these solutions are:</p>
+<ul>
+<li><mark>Use activations such as GeLU, SeLU, or Mish instead of ReLU</mark>; they are quoted in quite a few papers as being more suitable for modeling tabular data and our own experience confirms that they tend to perform better.</li>
+<li>Experiment with batch size.</li>
+<li>Use augmentation with mixup (discussed in the section on autoencoders).</li>
+<li>Use <mark>quantile transformation</mark> on numeric features and force, as a result, uniform or Gaussian distributions.</li>
+<li>Leverage embedding layers, but also <mark>remember that embeddings do not model everything</mark>. In fact, they miss interactions between the embedded feature and all the others (so you have to force these interactions into the network with direct feature engineering).
+<ul>
+<li>In particular, remember that embedding layers are reusable.</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>Out-of-the-box solutions</strong></em><br>
+If you don’t want to build your own deep neural network in TensorFlow or PyTorch, you can rely on a few out-of-the-box architectural solutions. Here are the main ones you can try when taking on a tabular competition yourself:</p>
+<ul>
+<li>
+<p><strong>TabNet:</strong> Developed by Google researchers (2020).</p>
+<ul>
+<li><a href="https://www.aaai.org/AAAI21Papers/AAAI-1063.ArikS.pdf">Paper</a></li>
+<li><a href="https://www.kaggle.com/code/ludovick/introduction-to-tabnet-kfold-10-training/notebook">Implementation 1</a> using <a href="https://github.com/dreamquark-ai/tabnet">pytorch-tabnet package</a></li>
+<li><a href="https://www.kaggle.com/code/ludovick/introduction-to-tabnet-kfold-10-inference/notebook">Implementation 2</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Neural Oblivious Decision Ensembles (NODE):</strong></p>
+<ul>
+<li><a href="https://arxiv.org/abs/1909.06312">Paper</a></li>
+<li><a href="https://www.kaggle.com/code/gogo827jz/moa-neural-oblivious-decision-ensembles-tf-keras/notebook">TensorFlow implementation</a></li>
+<li><a href="https://www.kaggle.com/code/gogo827jz/moa-public-pytorch-node/notebook">PyTorch implementation</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Factorization machines:</strong> You can use a wide range of models, such as <em><strong>Wide &amp; Deep, DeepFM, xDeepFM, AutoInt</strong></em>, and many others based on <em>factorization machines</em> and <mark>mostly devised for <em>click-through rate estimation</em>.</mark></p>
+<ul>
+<li><a href="https://github.com/shenweichen/DeepCTR">DeepCTR</a></li>
+<li><a href="https://github.com/DataCanvasIO/deeptables">DeepTables</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Note:</strong> In conclusion, you can build your own neural network for tabular data by mixing together embedding layers for categorical features and dense layers for numeric ones.</p>
+</li>
+<li>
+<p><strong>Note:</strong> Always be on the lookout for a new package appearing.</p>
+</li>
+<li>
+<p><strong>Note:</strong> Don’t expect a neural network to be the best model in a tabular competition; this seldom happens.</p>
+<ul>
+<li>Instead, blend solutions from classical tabular data models, such as gradient boosting models and neural networks, because they tend to pick up different signals from the data that you can integrate together in an ensemble.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

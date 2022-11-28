@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tmux.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#sessions">Sessions</a></li>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#panes">Panes</a></li>
+<li><a href="#misc">Misc</a></li>
+<li><a href="#sources">Sources</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <p><strong>NOTE:</strong> <code>&lt;C-a&gt;</code> is the prefix. Here, it means Hitting Ctrl key and then ‘a’ key.<br>
+<strong>NOTE:</strong> In my own devices I set the prefix to <code>&lt;C-q&gt;</code>, since it’s easier in typing.</p>
+<h2 id="sessions">Sessions</h2>
+<h3 id="new-session">New Session</h3>
+<ul>
+<li><code>tmux new [-s name] [cmd]</code> (<code>:new</code>) - new session</li>
+</ul>
+<h3 id="switch-session">Switch Session</h3>
+<ul>
+<li><code>tmux ls</code> (<code>:ls</code>) - list sessions</li>
+<li><code>tmux switch [-t name]</code> (<code>:switch</code>) - switches to an existing session</li>
+<li><code>tmux as [id] [-t name]</code> (<code>:attach</code>) - attaches to an existing session</li>
+<li><code>&lt;C-a&gt;c</code> (<code>:detach</code>) - detach the currently attached session</li>
+</ul>
+<h3 id="session-management">Session Management</h3>
+<ul>
+<li><code>&lt;C-a&gt;s</code> - list sessions</li>
+<li><code>&lt;C-a&gt;$</code> - name session</li>
+</ul>
+<h3 id="close-session">Close Session</h3>
+<ul>
+<li><code>tmux kill-session [-t name]</code> (<code>:kill-session</code>)</li>
+</ul>
+<h2 id="windows">Windows</h2>
+<h3 id="new-window">New Window</h3>
+<ul>
+<li><code>&lt;C-a&gt;c</code> (<code>:neww [-n name] [cmd]</code>) - new window</li>
+</ul>
+<h3 id="cursor-movement">Cursor Movement</h3>
+<ul>
+<li><code>&lt;C-a&gt;[i]</code> (<code>:selectw -t [i]</code>) - go to window <code>[i]</code></li>
+<li><code>&lt;C-a&gt;l</code> - go to last window</li>
+<li><code>&lt;C-a&gt;p</code> - go to previous window</li>
+<li><code>&lt;C-a&gt;n</code> - go to next window</li>
+</ul>
+<h3 id="window-management">Window Management</h3>
+<ul>
+<li><code>&lt;C-a&gt;T</code> - rename window</li>
+<li><code>&lt;C-a&gt;,</code> - rename window</li>
+<li><code>&lt;C-a&gt;w</code> - list all windows</li>
+<li><code>&lt;C-a&gt;f</code> - find window by name</li>
+<li><code>&lt;C-a&gt;.</code> - move window to another session (promt)</li>
+<li><code>:movew</code> - move window to next unused number</li>
+</ul>
+<h3 id="close-window">Close Window</h3>
+<ul>
+<li><code>&lt;C-a&gt;&amp;</code> (<code>:kill-window</code>) - kill window</li>
+</ul>
+<h2 id="panes">Panes</h2>
+<h3 id="new-pane">New Pane</h3>
+<ul>
+<li>(%) <code>&lt;C-a&gt;|</code> (<code>:splitw [-v] [-p width] [-t focus] [cmd]</code>) - split current pane vertically</li>
+<li>(") <code>&lt;C-a&gt;s</code> (<code>:splitw -h [-p width] [-t focus] [cmd]</code>) - split current pane horizontally</li>
+</ul>
+<h3 id="cursor-movement-1">Cursor Movement</h3>
+<ul>
+<li>(o) <code>&lt;C-a&gt;&lt;Tab&gt;</code> (<code>:selectp -t :.+</code>) - move cursor to the next pane</li>
+<li><code>&lt;C-a&gt;&lt;Up&gt;</code> (<code>:selectp -U</code>) - move cursor to the pane above</li>
+<li><code>&lt;C-a&gt;&lt;Down&gt;</code> (<code>:selectp -D</code>) - move cursor to the pane below</li>
+<li><code>&lt;C-a&gt;&lt;Left&gt;</code> (<code>:selectp -L</code>) - move cursor to the pane to the left</li>
+<li><code>&lt;C-a&gt;&lt;Right&gt;</code> (<code>:selectp -R</code>) - move cursor to the pane to the right</li>
+<li><code>:selectp [i]</code> - move cursor to the pane <code>[i]</code></li>
+</ul>
+<h3 id="panes-management">Panes Management</h3>
+<ul>
+<li>(<code>:swap-pane -U</code>) - move current pane up</li>
+<li>(<code>:swap-pane -D</code>) - move current pane down</li>
+<li><code>&lt;C-a&gt;{</code> (<code>:swap-pane -L</code>) - move current pane to the left</li>
+<li><code>&lt;C-a&gt;}</code> (<code>:swap-pane -R</code>) - move current pane to the right</li>
+<li><code>&lt;C-a&gt;q</code> - show pane numbers (type number to move cursor)</li>
+<li><code>&lt;C-a&gt;&lt;Space&gt;</code> - toggle pane arrangements</li>
+</ul>
+<h3 id="resize-pane">Resize Pane</h3>
+<ul>
+<li><code>:resize-pane -U [i]</code> - move horizontal divider up by <code>[i]</code> lines</li>
+<li><code>:resize-pane -D [i]</code> - move horizontal divider down by <code>[i]</code> lines</li>
+<li><code>:resize-pane -L [i]</code> - move vertical divider left by <code>[i]</code> columns</li>
+<li><code>:resize-pane -R [i]</code> - move vertical divider right by <code>[i]</code> columns</li>
+</ul>
+<p><code>resize-pane [-DLRUZ] [-x width] [-y height] [-t target-pane] [adjustment]</code></p>
+<h3 id="close-pane">Close Pane</h3>
+<ul>
+<li><code>&lt;C-a&gt;x</code> (<code>:kill-pane</code>) - kill current pane</li>
+</ul>
+<h2 id="misc">Misc</h2>
+<ul>
+<li><code>&lt;C-a&gt;t</code> - show time</li>
+<li><code>&lt;C-a&gt;r</code> - reload config</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="http://robots.thoughtbot.com/post/2641409235/a-tmux-crash-course">http://robots.thoughtbot.com/post/2641409235/a-tmux-crash-course</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Tmux">https://wiki.archlinux.org/index.php/Tmux</a></li>
+<li><a href="https://gist.github.com/henrik/1967800">https://gist.github.com/henrik/1967800</a></li>
+<li><a href="http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/">http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/</a></li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

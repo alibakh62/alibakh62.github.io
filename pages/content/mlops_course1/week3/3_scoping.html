@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_Scoping</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#scoping">Scoping</a>
+<ul>
+<li><a href="#scoping-process">Scoping process</a></li>
+</ul>
+</li>
+<li><a href="#diligence-on-feasibility-and-value">Diligence on feasibility and value</a>
+<ul>
+<li><a href="#feasibility-is-this-project-technically-feasible">Feasibility: Is this project technically feasible?</a></li>
+</ul>
+</li>
+<li><a href="#diligence-on-value">Diligence on value</a></li>
+<li><a href="#milestones-and-resourcing">Milestones and resourcing</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="scoping">Scoping</h1>
+<p>Scoping is the process of identifying, picking and planning the most valuable project.</p>
+<h2 id="scoping-process">Scoping process</h2>
+<ul>
+<li><mark><strong>Brainstorm business problems</strong> (not AI problems)</mark>. Usually, brainstorm with business people (not AI people).
+<ul>
+<li>For example, you’d ask “What are the top 3 things you wish were working better?”</li>
+<li>In this step, you’re <strong>NOT</strong> looking for AI problems. In fact, you’d want to hear about “business problems”. Then, it’s the AI person’s job to see if there’s an AI solution for it.</li>
+</ul>
+</li>
+<li><strong>Brainstorm AI solutions:</strong>
+<ul>
+<li><em><strong>We have to be clear about identifying problems and identifying solutions.</strong></em></li>
+</ul>
+</li>
+<li><strong>Assess the feasibility and value of potential solutions:</strong> Double checking if the AI solution is actually doable (diligence).</li>
+<li><strong>Determine milestones</strong></li>
+<li><strong>Budget for resources</strong></li>
+</ul>
+<hr>
+<p><strong>Separating problem identification from solution</strong></p>
+<p>It’s worthwhile to first engage in divergent thinking where you brainstorm a lot of possibilities, to be followed by conversion thinking where you then narrow it down to one or a small handful of the most promising projects to focus on.</p>
+
+<table>
+<thead>
+<tr>
+<th>Problem (What to achieve?)</th>
+<th>Solution (How to achieve it?)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Increase inventory</td>
+<td>Search, recommendations</td>
+</tr>
+<tr>
+<td>Reduce inventory</td>
+<td>Demand prediction, marketing</td>
+</tr>
+<tr>
+<td>Increase margin (profit per item)</td>
+<td>Optimizing what to sell (e.g. merchandising), recommend bundles</td>
+</tr>
+</tbody>
+</table><h1 id="diligence-on-feasibility-and-value">Diligence on feasibility and value</h1>
+<h2 id="feasibility-is-this-project-technically-feasible">Feasibility: Is this project technically feasible?</h2>
+<ul>
+<li>Use external benchmark (literature, other company, competitor)</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52045980978/in/dateposted-friend/" title="Screen Shot 2022-05-02 at 4.04.25 PM"><img src="https://live.staticflickr.com/65535/52045980978_b417c877ef_o.png" width="70%" height="auto" alt="Screen Shot 2022-05-02 at 4.04.25 PM"></a>
+</center><h3 id="why-use-hlp-to-benchmark">Why use HLP to benchmark?</h3>
+<ul>
+<li>We can use HLP to benchmark what might be doable for unstructured data, because people are very good on unstructured data tasks.</li>
+<li><mark><strong>The key criteria for assessing project feasibility is:</strong></mark> can a human, given the same data, perform the task?
+<ul>
+<li><mark><strong>Note:</strong></mark> You have to make sure that the human evaluator sees only the same data as a learning algorithm will see is really important.</li>
+</ul>
+</li>
+</ul>
+<h3 id="do-we-have-features-that-are-predictive">Do we have features that are predictive?</h3>
+<p>Looking at whether you have features that you believe are predictive is an important step of diligence for assessing technical feasibility of a project.</p>
+<ul>
+<li>Given past purchases, predict future purchases <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> seems feasible.</li>
+<li>Given weather, predict shopping mall foot traffic <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> seems feasible.</li>
+<li>Given DNA info, predict heart disease <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> not sure <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> there’s no exact mapping from genom to heart disease.</li>
+<li>Given social media chatter, predict demand for a clothing style <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> not sure.</li>
+<li>Given history of a stock’s price, predict future price of that stock <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> not sure (highly unlikely).</li>
+</ul>
+<h3 id="history-of-a-project">History of a project</h3>
+<p>It seems that the rates of previous improvements can be a surprisingly good predictor for the rate of future improvement.</p>
+<ul>
+<li>Therefore, you could estimate the rate of progress (e.g. some % relative to HLP) for every fixed period of time (e.g. every quarter). You can then project this rate of improvement to the future.</li>
+</ul>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52046244884/in/dateposted-friend/" title="Screen Shot 2022-05-02 at 4.27.18 PM"><img src="https://live.staticflickr.com/65535/52046244884_bbb215e7f4_o.png" width="80%" height="auto" alt="Screen Shot 2022-05-02 at 4.27.18 PM"></a>
+</center><h1 id="diligence-on-value">Diligence on value</h1>
+<p>How do you estimat the value of ML project? This is sometimes not easy to estimate. But, there are some best practices that can help.</p>
+<p>There are often two types of metrics being tracked:</p>
+<ul>
+<li>MLE metrics</li>
+<li>Business metrics</li>
+</ul>
+<p>There’s often a gap between these two. For example, the metrics for speech recognition can be,</p>
+<center><a href="https://www.flickr.com/photos/192167571@N04/52045993431/in/dateposted-friend/" title="Screen Shot 2022-05-02 at 4.31.53 PM"><img src="https://live.staticflickr.com/65535/52045993431_3809e39641_o.png" width="80%" height="auto" alt="Screen Shot 2022-05-02 at 4.31.53 PM"></a>
+</center><p>Some back of the envelope estimation (Fermi estimates) of conversion rates, can help a lot to pick a metric.</p>
+<p><em><strong><mark>It’s good practice to have technical and business teams try to agree on metrics that both are comfortable with. This often requires some compromise from both teams.</mark></strong></em> Some back of the envelope estimation (<strong>Fermi estimates</strong>) of conversion rates, can help a lot to pick a metric.</p>
+<h1 id="milestones-and-resourcing">Milestones and resourcing</h1>
+<p>Key specifications:</p>
+<ul>
+<li>ML metrics (accuracy, precision/recall, etc.)</li>
+<li>Software metrics (latency, throughput, etc. given computer resources)</li>
+<li>Business metrics (revenue, etc.)</li>
+<li>Resources needed (data, personnel, help from other teams)</li>
+<li>Timeline</li>
+</ul>
+<p>If unsure, consider benchmarking to other projects, or building a PoC.</p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

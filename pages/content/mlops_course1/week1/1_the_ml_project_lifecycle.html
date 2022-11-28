@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1_The ML Project Lifecycle</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#welcome">Welcome</a></li>
+<li><a href="#steps-of-an-ml-project">Steps of an ML Project</a></li>
+<li><a href="#case-study-speech-recognition">Case Study: Speech Recognition</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="welcome">Welcome</h1>
+<p>Machine learning models are great, but unless you know how to put them into production, it’s hard to get them to create the maximum amount of possible value.</p>
+<p>Some of challenges of taking a ML model to production:</p>
+<ul>
+<li><mark><strong>Concept Drift or Data drift:</strong></mark> sometimes the data you receive for prediction is different (drifting) from the data you trained the model on.</li>
+<li><strong>It takes a lot more than ML code:</strong> ML code only covers the <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x \rightarrow y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> mapping. But, the code for a ML production system is much larger.</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51604824595/in/dateposted-friend/" title="Screen Shot 2021-10-18 at 3.47.40 PM"><img src="https://live.staticflickr.com/65535/51604824595_0215a65e8c_z.jpg" width="609" height="273" alt="Screen Shot 2021-10-18 at 3.47.40 PM"></a></p>
+<ul>
+<li>Usually the ML code is only about 5-10% of an ML production system code. So, after developing the ML model, there’s still a lot of work to go from the initial PoC (proof of concept) to a production system. It’s referred to as <strong>PoC to Production Gap</strong>.</li>
+<li><strong>So, what’s all the other stuff?</strong> Based on the Sculley et. al.'s paper, it’s the following:</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51604186583/in/dateposted-friend/" title="Screen Shot 2021-10-18 at 3.55.37 PM"><img src="https://live.staticflickr.com/65535/51604186583_aa567f9f21_z.jpg" width="640" height="254" alt="Screen Shot 2021-10-18 at 3.55.37 PM"></a></p>
+<h1 id="steps-of-an-ml-project">Steps of an ML Project</h1>
+<p>When building a ML project, thinking through a ML project lifecycle is an effective way to plan out all the steps that need to work on.</p>
+<p>These are the major steps of a ML project:</p>
+<p><strong>1. Scoping<br>
+2. Data<br>
+3. Modeling<br>
+4. Deployment</strong></p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51603176467/in/dateposted-friend/" title="Screen Shot 2021-10-18 at 4.04.18 PM"><img src="https://live.staticflickr.com/65535/51603176467_3d3dbaa3f5_z.jpg" width="640" height="217" alt="Screen Shot 2021-10-18 at 4.04.18 PM"></a></p>
+<h1 id="case-study-speech-recognition">Case Study: Speech Recognition</h1>
+<p>What’s needed to build a valuable production deployment speech recognition system?</p>
+<ol>
+<li><strong>Scoping</strong>
+<ul>
+<li>Decide to work on speech recognition for voice search</li>
+<li>Decide on the key metrics:
+<ul>
+<li>Accuracy, latency, throughput</li>
+<li>Note that metrics are very problem-dependent.</li>
+</ul>
+</li>
+<li>Estimate resources and timeline</li>
+</ul>
+</li>
+<li><strong>Data</strong>
+<ul>
+<li>Is the data labeled consistently?
+<ul>
+<li>Example: you might have a simple audio transcribed in this three ways:
+<ul>
+<li>“Um, today’s weather”</li>
+<li>“Um… today’s weather”</li>
+<li>“Today’s weather”</li>
+</ul>
+</li>
+<li>Essentially, one can pick any of the above way of transcribing. The problem is that sometimes you have 1/3 of your data labeled the first way, 1/3 the second way, and 1/3 the third way.</li>
+<li>This makes your data inconsistent and confusing for the learning algorithm. How is the learning algorithm supposed to guess which one of these conventions specific transcription has happened to be used for an audio clip.</li>
+<li>In such cases, one possible solution is to standardize on one way of labeling.</li>
+</ul>
+</li>
+<li>How much silence before/after each clip?</li>
+<li>How to perform volume normalization?</li>
+<li>And other possible “data definition” cases.</li>
+<li>In production systems, the data definition is usually is not fixed.</li>
+</ul>
+</li>
+<li><strong>Modeling</strong>
+<ul>
+<li>Three main contributors of an ML model:
+<ul>
+<li>Code (algorithm/model)</li>
+<li>Hyperparameters</li>
+<li>Data</li>
+</ul>
+</li>
+<li>In <em><strong>research/academia</strong></em>, usually they keep the data fixed and vary model algorithm or hyperparameters in order to get good performance.</li>
+<li>In contrast, in <em><strong>product teams</strong></em> where your main goal is to just build and deploy a working valuable ML system, it’d be more valuable to hold the “code” fixed and instead focus on optimizing the data and maybe the hyperparameters.</li>
+<li><strong>ML system = Code + Data</strong></li>
+<li><strong>Error analysis</strong> can tell you where your model still falls short.</li>
+<li>You can use error analysis to tell you how to <em>systematically</em> improve your data (and maybe improve your code too).</li>
+<li>Error analysis can help you <em><strong>be more targeted in exactly what data to collect</strong></em>. You don’t want to always collect more data (it can be expensive too).</li>
+</ul>
+</li>
+<li><strong>Deployment</strong>
+<ul>
+<li>This is how you might deploy a speech recognition system:
+<ul>
+<li>You have mobile phone (<strong>edge device</strong>), with software running <em>locally</em> on your phone.</li>
+<li>The software taps into the microphone to record what someone’s saying.</li>
+<li>You’d use a <strong>VAD (Voice Activity Detection)</strong> module to select out just the audio of someone speaking.</li>
+<li>Then, you send that audio clip to a “<strong>prediction server</strong>” (which is usually in the cloud).</li>
+<li>The prediction server return both the transcript + search results.</li>
+<li>Then, the returns will show on the frontend on your phone.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51604380123/in/dateposted-friend/" title="Screen Shot 2021-10-18 at 4.54.41 PM"><img src="https://live.staticflickr.com/65535/51604380123_88c34d4338_z.jpg" width="640" height="314" alt="Screen Shot 2021-10-18 at 4.54.41 PM"></a></p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

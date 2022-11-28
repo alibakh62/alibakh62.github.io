@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4_Pipline_Monitoring</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#ml-pipeline">ML Pipeline</a></li>
+<li><a href="#metrics-to-monitor">Metrics to monitor</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="ml-pipeline">ML Pipeline</h2>
+<p>Many AI systems are not just a single ML model running a prediction service, but instead involves a pipeline of multiple steps.</p>
+<h3 id="what-are-ml-pipelines-how-do-build-monitoring-systems-for-that">What are ML pipelines? How do build monitoring systems for that?</h3>
+<p><strong>Speech recognition example</strong></p>
+<ul>
+<li>In this system, we put a VAD (Voice Activity Detection) module before the speech recognition engine in order to reduce the load of server from unnecessary voice. We only want the engine to receive input when the user actually speaks to the mic.</li>
+<li>In this example, the VAD itself might be a learning algorithm.</li>
+<li>When you have two learning modules working together, changes to the first module may affect the performance of the second module.
+<ul>
+<li>e.g. the new cellphones VAD modules clips the audio differently (from what you trained your speech recognition model on).</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51629673155/in/dateposted-friend/" title="Screen Shot 2021-10-25 at 3.05.53 PM"><img src="https://live.staticflickr.com/65535/51629673155_d76c5bcfaa_z.jpg" width="640" height="255" alt="Screen Shot 2021-10-25 at 3.05.53 PM"></a></p>
+<p><strong>User profile example</strong></p>
+<ul>
+<li>Assume you have user data (e.g. clickstream) and this can be used to build a user profile that tries to capture key characteristics of a user (e.g. whether user owns a car? YES/NO/UNKNOWN).</li>
+<li>Now, imagine this  “predicted” user profile now is being fed to a recommender system to generate product recommendations.</li>
+<li>If (for some reason) the user data distribution changes and as a result the user profile model (input to the recommender system) now outputs more "UNKNOWN"s, then this may affect the product recommendation results.</li>
+</ul>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51628816221/in/dateposted-friend/" title="Screen Shot 2021-10-25 at 3.04.38 PM"><img src="https://live.staticflickr.com/65535/51628816221_2a2dd3670a_z.jpg" width="640" height="222" alt="Screen Shot 2021-10-25 at 3.04.38 PM"></a></p>
+<p><strong>Sum up:</strong> In ML pipelines, the cascading effects of differet ML components can be complex to keep track on.</p>
+<p><em><strong>It’s useful to brainstorm metrics to monitor that can detect changes, including concept drift or data drift (or both) at multiple stages of the pipeline.</strong></em></p>
+<h2 id="metrics-to-monitor">Metrics to monitor</h2>
+<p><strong>Monitor</strong></p>
+<ul>
+<li>Software metrics</li>
+<li>Input metrics</li>
+<li>Output metrics</li>
+</ul>
+<p><strong>Note:</strong> the principle from last section to brainstorm whatever that could go wrong and use them as metrics still applies here but to multiple components of the pipeline.</p>
+<h3 id="how-quickly-does-data-change">How quickly does data change?</h3>
+<ul>
+<li>It’s very problem-dependent.
+<ul>
+<li>In face recognition system, the rate at which people’s appearances change is not that fast.</li>
+<li>On the contrary, in a cellphone factory, they receive all new materials to make new phones.</li>
+</ul>
+</li>
+<li>The range of change (depending on the application) is vast; goes from minutes to months/years.</li>
+<li>On average,
+<ul>
+<li>User data generally has slower drift.</li>
+<li>Enterprise data (B2B applications) can shift fast.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

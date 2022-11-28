@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_Data Iteration</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#data-centric-ai-development">Data-centric AI development</a>
+<ul>
+<li><a href="#model-centric">Model-centric</a></li>
+<li><a href="#data-centric">Data-centric</a></li>
+</ul>
+</li>
+<li><a href="#data-augmentation">Data Augmentation</a>
+<ul>
+<li><a href="#a-useful-picture-of-data-augmentation">A useful picture of data augmentation</a></li>
+<li><a href="#data-augmentation-1">Data Augmentation</a></li>
+<li><a href="#data-iteration-loop">Data iteration loop</a></li>
+</ul>
+</li>
+<li><a href="#can-adding-data-hurt">Can adding data hurt?</a></li>
+<li><a href="#adding-features">Adding features</a>
+<ul>
+<li><a href="#structured-data">Structured data</a></li>
+</ul>
+</li>
+<li><a href="#experiment-tracking">Experiment tracking</a></li>
+<li><a href="#from-big-data-to-good-data">From big data to good data</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="data-centric-ai-development">Data-centric AI development</h1>
+<h2 id="model-centric">Model-centric</h2>
+<p>With <strong>Model-centric view</strong>, you’d take the data you have and develop a model that does as well as possible on it. Because a lot of academic research in AI was driven by researchers downloading a benchmark dataset and trying to well on that benchmark, most academic research on AI is model-centric (because the benchmark dataset is fixed).</p>
+<p>In this view, <em><strong>you’d hold the data fixed and iteratively improve the code/model.</strong></em></p>
+<h2 id="data-centric">Data-centric</h2>
+<p>In this view, we think of the quality of the data is paramount. You can use tools such as error analysis or data augmentation to systematically improve the data quality. For many applications, if your data is good enough, there are multiple models that will do just fine.</p>
+<p>In this view, <em><strong>you can hold the code fixed and iteratively improve the data.</strong></em></p>
+<p><strong>Note:</strong> There’s a role for both of these views in improving the performance of an ML system.</p>
+<h1 id="data-augmentation">Data Augmentation</h1>
+<h2 id="a-useful-picture-of-data-augmentation">A useful picture of data augmentation</h2>
+<p>Let’s take speech recognition as an example. There are different types of speech input:</p>
+<ul>
+<li>Car noise</li>
+<li>Plane noise</li>
+<li>Train noise</li>
+<li>Machine noise</li>
+<li>Cafe noise</li>
+<li>Library noise</li>
+<li>Food court noise</li>
+</ul>
+<p>The first four items are similar as they all pertain to some mechanical noise. The last three are also similar as they pertain to environmental noise. The below diagram shows the performance of the ML model vs HLP (human-level performance). As shown, data augmentation in one type of input could actually lift up the performance of other types of input as well and lessen the gap across different types of input (not only itself).</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51734846060/in/dateposted-friend/" title="Screen Shot 2021-12-08 at 3.38.46 PM"><img src="https://live.staticflickr.com/65535/51734846060_c7cda60190_z.jpg" width="640" height="263" alt="Screen Shot 2021-12-08 at 3.38.46 PM"></a></p>
+<p>Once you get the new diagram, it’ll then show you where is the next biggest gap (with the highest potential of improvement) to augment the data. In a way, this diagram can help navigate where to put the data augmentation effort.</p>
+<h2 id="data-augmentation-1">Data Augmentation</h2>
+<p>Data augmentation can be a very efficient way to get more data, especially for unstructured data problems. When carrying out data augmentation, there are a lot of choices you have to make. For example:</p>
+<ul>
+<li>What are the parameters?</li>
+<li>How do you design the data augmentation setup&gt;</li>
+</ul>
+<h3 id="data-augmentation-example-speech-recognition">Data augmentation example: Speech recognition</h3>
+<p>In speech recognition, you can create new data by adding up voice signals with noise. For example, you can add cafe noise to someone’s speaking voice and synthesize a new training example.</p>
+<p>The <em><strong>goal</strong></em> of data augmentation is to create examples that your learning algorithm can learn from. As a framework for doing that, you can think about how you can create realistic examples that the algorithm does poorly on, but humans (or other baselines) do well on.</p>
+<p>Here’s a checklist for when you’re creating new data:</p>
+<ol>
+<li>Does it sound realistic?</li>
+<li>Is the x <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> y mapping clear? (e.g. can humans recognize speech?)</li>
+<li>Is the algorithm currently doing poorly on it?</li>
+</ol>
+<h3 id="data-augmentation-example-images">Data augmentation example: Images</h3>
+<p>Let’s say we have images of smartphones with scratches. Here you can augment the image with:</p>
+<ul>
+<li>Flipping (horizontally)</li>
+<li>Changing contrast (brightening images)
+<ul>
+<li><strong>Note:</strong> Darkening the image wouldn’t work because with darker images even humans cannot see the scratches.</li>
+</ul>
+</li>
+<li>Take a photo of a phone with no scratches and use Photoshop to artificially draw scratches.</li>
+<li>Use GANs to synthesize scratches automatically (although this can be overkill. Simpler techniques are much easier to implement).</li>
+</ul>
+<h2 id="data-iteration-loop">Data iteration loop</h2>
+<p>Here you repeatedly add or remove data (while holding the model fixed) and train and do error analysis to see which works.</p>
+<h1 id="can-adding-data-hurt">Can adding data hurt?</h1>
+<p>For a lot of ML problems distribution of train/dev/test datasets are reasonably similar. Then, if you’re using data augmentation, you’re adding lots of training set such as adding lots of data with cafe noise. So, now your training set may come from a very different distribution than the dev/test sets. <strong>Is this going to hurt your learning algorithm’s performance?</strong> Usually, the answer is <em><strong>no with some caveats</strong></em> for unstructured data problems.</p>
+<p>For unstructured data problems, if:</p>
+<ul>
+<li>The model is large (low bias).</li>
+<li>The mapping <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x \rightarrow y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> is clear (e.g. given only the input <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span>, humans can make accurate predictions).
+<ul>
+<li>Then, adding data rarely hurts accuracy.</li>
+</ul>
+</li>
+<li>The reverse (small model, not clear mapping) is true for when adding data could hurt.</li>
+</ul>
+<p>Bottom line, it’s quite unusual that data augmentation hurts your model, as long as your model is big enough.</p>
+<h1 id="adding-features">Adding features</h1>
+<p>Sometimes adding new data is difficult. Another useful thing to do in such cases is to take the existing examples and figure out if there are additional features you can add to them.</p>
+<h2 id="structured-data">Structured data</h2>
+<h3 id="restaurant-recommendation-example">Restaurant recommendation example</h3>
+<p>Let’s say we have a neural net model that takes customers’ and restaurants’ information and makes a recommendation. Let’s say you you find out, after running an error analysis, that:</p>
+<ul>
+<li>Vegetarians are frequently recommended restaurants with only meat options.</li>
+</ul>
+<p>Here, it’s hard to synthesize new examples of customers or restaurants. So, data augmentation is hard here.</p>
+<p>Possible features to add?</p>
+<ul>
+<li>Is a person vegetarian (based on past behaviors)?</li>
+<li>Does restaurants have vegetarian options (based on the menu)?</li>
+</ul>
+<h3 id="food-delivery-example">Food delivery example</h3>
+<p>There are some customers who only order tea/coffee or only order pizza.</p>
+<p>What are the added features that can help make a decision?</p>
+<p>Product recommendation:</p>
+<ul>
+<li>Collaborative filtering <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> content-based filtering.</li>
+</ul>
+<p>Unlike collaborative filtering, content-based filtering has a <strong>cold start problem</strong> (you don’t know how to recommend new products).</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51734026706/in/dateposted-friend/" title="Screen Shot 2021-12-08 at 4.19.52 PM"><img src="https://live.staticflickr.com/65535/51734026706_7d7cc31682_z.jpg" width="640" height="272" alt="Screen Shot 2021-12-08 at 4.19.52 PM"></a></p>
+<p><strong>Note:</strong> Adding features is more appropriate for structured data problems. For unstructured data problems, we use deep learning models which by themselves find very good features.</p>
+<h1 id="experiment-tracking">Experiment tracking</h1>
+<p>When you’re improving your model iteratively, it’s very important to make sure that you have a robust experiment tracking system.</p>
+<p><strong>What to track?</strong></p>
+<ul>
+<li>Algorithm and code versioning</li>
+<li>Dataset used</li>
+<li>Hyperparameters</li>
+<li>Save the results somewhere (metrics and trained models)</li>
+</ul>
+<p><strong>Tracking tools</strong></p>
+<ul>
+<li>Text files</li>
+<li>Spreadsheets</li>
+<li>Experiment tracking systems, e.g. Weights &amp; Biases, Comet, MLflow, SageMaker Studio.</li>
+</ul>
+<p><strong>Desirable features</strong></p>
+<ul>
+<li>Information needed to replicate results (if some part of data coming internet, it can damage replicability)</li>
+<li>Experiment results, ideally with summary metrics/analysis</li>
+<li>Perhaps also: resource monitoring, visualization, model error analysis</li>
+</ul>
+<h1 id="from-big-data-to-good-data">From big data to good data</h1>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51734688869/in/dateposted-friend/" title="Screen Shot 2021-12-08 at 4.30.17 PM"><img src="https://live.staticflickr.com/65535/51734688869_8fc7ce90fa_z.jpg" width="640" height="318" alt="Screen Shot 2021-12-08 at 4.30.17 PM"></a></p>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

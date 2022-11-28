@@ -1,0 +1,566 @@
+<!DOCTYPE html><html><head>
+      <title>2_FastSLAM</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>In SLAM, we&apos;ll map the environment given the noisy measurements and localize the robot relative to its own map giving the controls. This makes it a much more difficult problem than localization or mapping since both the map and the poses are now unknown to you.</p>
+<p>In real-world environments, we will primarily be faced with with SLAM problems and we will aim to estimate the map and localize the robot.</p>
+<p>An exmaple of a robot solving its SLAM problem is a robotic vacuum cleaner that uses the measurements provided by its laser finder sensors and data from the encoders to estimate the map and localize itself relative to it.</p>
+<h2 class="mume-header" id="online-slam">Online SLAM</h2>
+
+<p>Given the measurements <code>z</code> and the control <code>u</code>, you&apos;ll learn how to solve the posterior map <code>m</code> along with the poses <code>x</code>.</p>
+<p>The SLAM problem comes into two forms: <strong>1. online SLAM and 2. full SLAM</strong>. Both forms are important in robotics.</p>
+<p><strong>Online SLAM Problem</strong></p>
+<ul>
+<li>At time <code>t-1</code>, the robot will estimate its current pose <code>x_{t-1}</code> and the map <code>m</code> given its current measurements <code>z_{t-1}</code> and controls <code>u_{t-1}</code>.</li>
+<li>At time <code>t</code>, the robot will estimate its new pose <code>x_t</code> and the map <code>m</code> given only its current measurements <code>z_t</code> and controls <code>u_t</code>.</li>
+<li>At time <code>t+1</code>, the robot will estimate its current pose <code>x_{t+1}</code> and the map <code>m</code> given the measurements <code>z_{t+1}</code> and controls <code>u_{t+1}</code>.</li>
+</ul>
+<p>So, with <strong>online SLAM</strong> problems, we solve instantaneous poses independently from previous measurements and controls. This problem can be modeled with the probability equation <code>p(x_t , m | z_{1:t} , u_{1:t})</code> where we solve the posterior represented by the instantaneous pose <code>x_t</code> and the map <code>m</code> given the measurements <code>z_{1:t}</code> and controls <code>u_{1:t}</code>. Thus, with online SLAM we estimate variables that occur at time <code>t</code> only.</p>
+<p align="center">
+<img src="img/online-slam.png" alt="drawing" width="400">
+</p>
+<p>See the video <a href="https://youtu.be/bQ9aQj46cMI">here</a>.</p>
+<h2 class="mume-header" id="full-slam">Full SLAM</h2>
+
+<p>In full SLAM, also known as offline SLAM, you will estimate the entire path up to time <code>t</code>, instead of an instantaneous pose given all the measurements and controls.</p>
+<p><strong>Full SLAM Problem</strong></p>
+<ul>
+<li>At time <code>t-1</code>, the robot will estimate the robot pose <code>x_{t-1}</code> and map <code>m</code>, given the measurements <code>z_{t-1}</code> and controls <code>u_{t-1}</code>.</li>
+<li>At time <code>t</code>, the robot will estimate the entire path <code>x_{t-1:t}</code> and map <code>m</code>, given all the measurements <code>z_{t-1:t}</code> and controls <code>u_{t-1:t}</code>.</li>
+<li>At time <code>t+1</code>, the robot will estimate the entire path <code>x_{t-1:t+1}</code> and map <code>m</code>, given all the measurements <code>z_{t-1:t+1}</code> and controls <code>u_{t-1:t+1}</code>.</li>
+</ul>
+<p><strong>Comparing full vs online SLAM</strong></p>
+<p>Clearly, the difference between the two forms of SLAM is in their poses. One represents the posterior over the entire path, while the other represents a posterior over the current pose. Now, <em><strong>is there any relationship between these two forms of SLAM?</strong></em></p>
+<p>Yes, a relation between online and full SLAM exists by integrating the previous poses from the full SLAM problem once at a time, you obtain the online SLAM problem.</p>
+<p align="center">
+<img src="img/online-full-slam.png" alt="drawing" width="500">
+</p>
+<p>See the video <a href="https://youtu.be/L7aE6TFt2zw">here</a>.</p>
+<h2 class="mume-header" id="nature-of-slam">Nature of SLAM</h2>
+
+<p align="center">
+<img src="img/nature-slam.jpg" alt="drawing" width="500">
+</p>
+<p><strong>Forms</strong></p>
+<p>We&#x2019;ve just reviewed the first key feature of the SLAM problem which has to do with its two forms. The online SLAM problem computes a posterior over the current pose along with the map and the full SLAM problem computes a posterior over the entire path along with the map.</p>
+<p><strong>Nature</strong></p>
+<p>Now, the second key feature of the SLAM problem relates to its nature. SLAM problems generally have a continuous and a discrete element.</p>
+<p><strong>Nature - Continuous</strong></p>
+<p>Let&#x2019;s start with the continuous component of the SLAM problem. During SLAM, a robot continuously collects odometry information to estimate the robot poses and continuously senses the environment to estimate the location of the object or landmark. Thus, both robots poses and object location are continuous aspects of the SLAM problem.</p>
+<p><strong>Nature - Discrete</strong></p>
+<p>Now, moving to the second component of the SLAM problem. As I mentioned earlier, robots continuously sense the environment to estimate the location of the objects, when doing so SLAM algorithms have to <strong>identify if a relation exists between any newly detected objects and previously detected ones. This helps the robot understand if it has been in this same location before</strong>. At each moment, the robot has to answer the question, <strong>&#x201C;Have I been here before?&#x201D;</strong>. The answer to this question is binary - either yes or no - and that&#x2019;s what makes the relation between objects a discrete component of the SLAM problem.This discrete relation between objects is known by <em><strong>correspondence</strong></em>.</p>
+<h2 class="mume-header" id="correspondence">Correspondence</h2>
+
+<p>In previous section, we concluded that SLAM is a continuous discrete estimation problem. Discrete component of the SLAM problem has to do with <strong>correspondence</strong>. Since it&apos;s an important aspect of the problem, we could include it in our posterior estimation by adding the correspondence values in both of the online and full SLAM problems. The online and full SLAM problems will be:</p>
+<ul>
+<li><strong>Online SLAM:</strong> <code>p(x_t , m, c_t | z_{1:t} , u_{1:t})</code></li>
+<li><strong>Full SLAM:</strong> <code>p(x_{1:t} , m, c_{1:t} | z_{1:t} , u_{1:t})</code></li>
+</ul>
+<p>The <strong>advantage</strong> of adding correspondence values to the posterior is to have the robot better understand where it is located by establishing a relation between objects.</p>
+<p>The relation between online and full SLAMs are also as follows,</p>
+<p align="center">
+<img src="img/online-full-corres.png" alt="drawing" width="500">
+</p>
+<p>To recap, let&apos;s summarize the <strong>key features of SLAM</strong> one more time:</p>
+<p><strong>1-Forms</strong></p>
+<ul>
+<li><strong>Online SLAM:</strong> Robot estimates its current pose and the map using current measurements and controls.</li>
+<li><strong>Full SLAM:</strong> Robot estimates its entire trajectory and the map using all the measurements and controls.</li>
+</ul>
+<p><strong>2- Nature</strong></p>
+<ul>
+<li><strong>Continuous:</strong> Robot continuously senses its pose and the location of the objects.</li>
+<li><strong>Discrete:</strong> Robot has to identify if a relation exists between any newly detected and previously detected objects.</li>
+</ul>
+<p>See the video <a href="https://youtu.be/9fe6Tzx8H78">here</a>.</p>
+<h2 class="mume-header" id="slam-challenges">SLAM Challenges</h2>
+
+<p>Computing the full posterior composed of the robot pose, the map and the correspondence under SLAM poses a big challenge in robotics mainly due to the <strong>continuous</strong> and <strong>discrete</strong> portion.</p>
+<p align="center">
+<img src="img/slam-challenges.png" alt="drawing" width="500">
+</p>
+<p><strong>Continuous</strong></p>
+<p>The continuous parameter space composed of the robot poses and the location of the objects is highly dimensional. While mapping the environment and localizing itself, the robot will encounter many objects and have to keep track of each one of them. Thus, the number of variables will increase with time, and this makes the problem highly dimensional and challenging to compute the posterior.</p>
+<p><strong>Discrete</strong></p>
+<p>Next, the discrete parameter space is composed out of the correspondence values, and is also highly dimensional due to the large number of correspondence variables. Not only that, the correspondence values increase exponentially over time since the robot will keep sensing the environment and relating the newly detected objects to the previously detected ones. Even if you assume known correspondence values, the posterior over maps is still highly dimensional as we saw in the mapping.</p>
+<p>You can now see why it&#x2019;s infeasible to compute the posterior under unknown correspondence. Thus, SLAM algorithms will have to rely on approximation while estimating a posterior in order to conserve computational memory.</p>
+<h2 class="mume-header" id="particle-filter-approach-to-slam">Particle Filter Approach to SLAM</h2>
+
+<p>While solving the localization problem, we use different approaches (e.g. EKF, MCL) to estimate a robot&apos;s pose inside an environment. One of these approaches is the &quot;Particle Filter Approach&quot; which is implemented in the Monte Carlo localization algorithm. Each of the particles have the robot pose along with the importance weight of the particle. Using this approach, we are able to accurately estimate any robot&apos;s pose.</p>
+<p>Now, let&apos;s imagine that you modified the particle approach by adding another dimension to each particle. The new particle will now hold the robot&apos;s pose, as well as the map. <strong>Would that solve the SLAM problem? Not Really!</strong></p>
+<p>This approach will fade and that&apos;s because <em>the map is modeled with many variables resulting in high dimensionality</em>. Thus, the particle filter approach to SLAM in this current form will scale exponentially and doomed to fail.</p>
+<p>See the video <a href="https://youtu.be/0DiiZi5t75U">here</a>.</p>
+<h2 class="mume-header" id="introduction-to-fastslam">Introduction to FastSLAM</h2>
+
+<p>The FastSLAM algorithm uses a custom particle filter approach to solve the full SLAM problem with known correspondences. Using particles, FastSLAM estimates a posterior over the robot path along with the map. Each of these particles holds the robot trajectory which will give an advantage to SLAM to solve the problem of mapping with known poses. In addition to the robot trajectory, each particle holds a map and each feature of the map is represented by a local Gaussian.</p>
+<p>With the FastSLAM algorithm, the problem is now divided into separate independent problems, each of which aims to solve the problem of estimating features of the map. To solve these independent mini problems, FastSLAM will use the low dimensional extended Kalman filter.</p>
+<p>While math features are treated independently, dependency only exists between robot pose uncertainty. This custom approach of representing posterior with particle filter and Gaussian is known by the <strong>Rao-Blackwellized Particle Filter</strong> approach.</p>
+<p>To recap, the <strong>FastSLAM</strong> algorithm solves the Full SLAM problem with known correspondences.</p>
+<ul>
+<li><strong>Estimating the Trajectory:</strong> FastSLAM estimates a posterior over the trajectory using a particle filter approach. This will give an advantage to SLAM to solve the problem of mapping with known poses.</li>
+<li><strong>Estimating the Map:</strong> FastSLAM uses a low dimensional Extended Kalman Filter to solve independent features of the map which are modeled with local Gaussian.</li>
+<li></li>
+</ul>
+<p>The custom approach of representing the posterior with particle filter and Gaussian is known by the <strong>Rao-Blackwellized</strong> particle filter approach.</p>
+<p>See the video <a href="https://youtu.be/HIrt25hK-oI">here</a>.</p>
+<h2 class="mume-header" id="fastslam-instances">FastSLAM Instances</h2>
+
+<p align="center">
+<img src="img/fast-slam.png" alt="drawing" width="500">
+</p>
+<p>We&#x2019;ve seen that the FastSLAM algorithm can solve the full SLAM problem with known correspondences. Since FastSLAM uses a particle filter approach to solve SLAM problems, some roboticists consider it a powerful algorithm capable of solving both the <strong>Full SLAM</strong> and <strong>Online SLAM</strong> problems.</p>
+<ul>
+<li>FastSLAM estimates the full robot path, and hence it solves the <strong>Full SLAM</strong> problem.</li>
+<li>On the other hand, each particle in FastSLAM estimates instantaneous poses, and thus FastSLAM also solves the <strong>Online SLAM</strong> problem.</li>
+</ul>
+<p align="center">
+<img src="img/fast-slam-2.png" alt="drawing" width="500">
+</p>
+<p>Now, three different instances of the FastSLAM algorithm exist.</p>
+<p><strong>FastSLAM 1.0</strong></p>
+<p>The FastSLAM 1.0 algorithm is simple and easy to implement, but this algorithm is known to be inefficient since particle filters generate sample inefficiency.</p>
+<p><strong>FastSLAM 2.0</strong></p>
+<p>The FastSLAM 2.0 algorithm overcomes the inefficiency of FastSLAM 1.0 by imposing a different distribution, which results in a low number of particles. Keep in mind that both of the FastSLAM 1.0 and 2.0 algorithms use a low dimensional Extended Kalman filter to estimate the posterior over the map features.</p>
+<p><strong>Grid-based FastSLAM</strong></p>
+<p>The third instance of FastSLAM is really an extension to FastSLAM known as the grid-based FastSLAM algorithm, which adapts FastSLAM to grid maps. In this lesson, you will learn grid-based FastSLAM. For more information on the fastSLAM 1.0 and 2.0 algorithms refer to the probabilistic robotics book.</p>
+<h2 class="mume-header" id="adapting-fastslam-to-grid-maps">Adapting FastSLAM to Grid Maps</h2>
+
+<p align="center">
+<img src="img/grid-fast-slam.png" alt="drawing" width="500">
+</p>
+<p><strong>FastSLAM 1.0 &amp; 2.0</strong></p>
+<p>The main advantage of the FastSLAM algorithm is that it uses a particle filter approach to solve the SLAM problem. Each particle will hold a guess of the robot trajectory, and by doing so, the SLAM problem is reduced to mapping with known poses. But, in fact, this algorithm presents a big disadvantage since it must always assume that there are known landmark positions, and thus with FastSLAM we are not able to model an arbitrary environment. Now, what if landmark positions are unavailable to us? Are we still able to solve the SLAM problem?</p>
+<p><strong>Grid-based FastSLAM</strong></p>
+<p>Yes, with the grid mapping algorithm you can model the environment using grid maps without predefining any landmark position. So by extending the FastSLAM algorithm to occupancy grid maps, you can now solve the SLAM problem in an arbitrary environment. While mapping a real-world environment, you will mostly be using mobile robots equipped with range sensors. You&#x2019;ll then extend the FastSLAM algorithm and solve the SLAM problem in term of grid maps.</p>
+<p align="center">
+<img src="img/grid-fast-slam-2.jpg" alt="drawing" width="500">
+</p>
+<p><strong>Robot Trajectory</strong></p>
+<p>Just as in the FastSLAM algorithm, with the grid-based FastSLAM each particle holds a guess of the robot trajectory.</p>
+<p><strong>Map</strong></p>
+<p>In addition, each particle maintains its own map. The grid-based FastSLAM algorithm will update each particle by solving the mapping with known poses problem using the occupancy grid mapping algorithm.</p>
+<h2 class="mume-header" id="grid-based-fastslam-techniques">Grid-based FastSLAM Techniques</h2>
+
+<p>Adapting the FastSLAM algorithm to grid maps is altered in the grid-based FastSLAM algorithm. Since the grid-based FastSLAM algorithm uses a particle filter approach and represents the world in terms of grid maps, we will need to combine what we learned from MCL and the Occupancy Mapping algorithm.</p>
+<p>We will need three different techniques represented by three probability functions to adapt FastSLAM to grid mapping. These techniques are known as:</p>
+<ul>
+<li>Sampling Motion</li>
+<li>Map Estimation</li>
+<li>Importance Weight</li>
+</ul>
+<p><strong>Sampling Motion</strong></p>
+<p>This technique estimates the current pose given the K-th particle previous pose and the current controls.</p>
+<p><strong>Map Estimation</strong></p>
+<p>The map estimation&apos;s objective is to estimate the current map given the current measurements, the current K-th particle pose, and the previous K-th particle map. Looking closely at its probability function, we can relate it to the mapping problem in which we aim to estimate the map, given the robot&apos;s trajectory. So, to solve the map estimation problem, we can rely on the Occupancy Grid Mapping algorithm.</p>
+<p><strong>Importance Weight</strong></p>
+<p>It computes the importance weight of each individual particle. This method estimates the current likelihood of the measurement given the current K-th particle pose and the current K-th particle map.</p>
+<p>To recap, to adapt FastSLAM to grid mapping, we need three different techniques:</p>
+<ol>
+<li><strong>Sampling Motion:</strong> <code>p(x_t| x[k]_{t-1}, u_t)</code> Estimates the current pose given the k-th particle previous pose and the current controls u.</li>
+<li><strong>Map Estimation:</strong> <code>p(m_t|z_t, x[k]_{t}, m[k]_{t-1})</code> Estimates the current map given the current measurements, the current k-th particle pose, and the previous k-th particle map.</li>
+<li><strong>Importance Weight:</strong> <code>p(z_t|x[k]_{t}, m[k])</code> Estimates the current likelihood of the measurement given the current k-th particle pose and the current k-th particle map.</li>
+</ol>
+<p>See the video <a href="https://youtu.be/0VwPYaQk98U">here</a>.</p>
+<h2 class="mume-header" id="the-grid-based-fastslam-algorithm">The Grid-based FastSLAM Algorithm</h2>
+
+<p>The sampling motion, map estimation, and importance weight techniques are the essence of the Grid-based FastSLAM algorithm.</p>
+<p align="center">
+<img src="img/grid-based-fastslam.png" alt="drawing" width="500">
+</p>
+<p>Grid-based FastSLAM implements them to estimate both the map and the robot trajectory given the measurements and the controls.</p>
+<p>Here is the Grid-based FastSLAM algorithm which looks very similar to the MCL algorithm with some additional statements concerning the map estimation. In fact, this algorithm is the result of combining MCL algorithm and the Occupancy Grid Mapping one.</p>
+<p align="center">
+<img src="img/grid-based-fastslam-algo.png" alt="drawing" width="500">
+</p>
+<p>As in the MCL algorithm, the Grid-based FastSLAM algorithm is composed of two sections represented by two full loops. The first section (the green rectangle) includes the motion, sensor, and not update steps. The second one (the red rectangle), includes the re-sampling process. At each iteration, the algorithm takes the previous belief or pose, <code>x_{t-1}</code>, the activation command, <code>u_t</code>, and the sensor measurements, <code>z_t</code>, as input.</p>
+<p>Initially, the hypothetical belief is obtained by randomly generating M particles.</p>
+<p>Then, in the first section, each particle implements the three techniques covered earlier to estimate the kth particle&apos;s current pose, likelihood of the measurement, and the map. Each particle begins by implementing the sampling technique in the <strong>sample motion model</strong> to estimate the <strong>current pose</strong> of the k particle.</p>
+<p>Next, in the measurement update step, each particle implements the <em>important Suede technique</em> in the measurement model map function to estimate the current likelihood of the kth particle measurement.</p>
+<p>Moving on to the map update step, each particle will implement the map estimation technique into updated occupancy grid map function to estimate the current kth particle map. This map estimation problem will be solved under the occupancy grid mapping algorithm.</p>
+<p>Now, the newly estimated kth particle pose map and the likelihood of the measurements are all added to the hypothetical belief.</p>
+<p>Moving on to the second section of the algorithm (<strong>red rectangle</strong>), the re-sampling process happen through re-sampling wheel. Here, particles with measurement value close to the robot&apos;s measurement value survive and are redrawn in the next iteration, while the others die. The surviving particles poses end map are added to the system belief.</p>
+<p>Finally, the algorithm outputs the new belief and another cycle if iterations starts implementing the newly completed belief, the next motion, and the new sensor measurements.</p>
+<p><code>Previous Belief</code> --&gt; <code>Sampling Motion</code> --&gt; <code>Importance Weight</code> --&gt; <code>Map Estimation</code> --&gt; <code>Resampling</code> --&gt; <code>New Belief</code></p>
+<p>See the video <a href="https://youtu.be/yFKc-2j6BMs">here</a>.</p>
+<h2 class="mume-header" id="gmapping-ros-package"><code>gmapping</code> ROS Package</h2>
+
+<p>In this lab, we&#x2019;ll implement a <code>gmapping</code> ROS package which is based on the Grid-based FastSLAM algorithm to map an environment. For a brief description watch <a href="https://youtu.be/45kWFvCgTdA">this video</a>.</p>
+<p><code>gmapping</code> provides laser based SLAM. Meaning that you can feed its node with the robot laser measurements and odometry values and expect it to provide you with a 2D occupancy grid map of the environment. The map will be updated as the robot moves and collect sensory information using its laser range finder sensor.</p>
+<p align="center">
+<img src="img/gmapping.png" alt="drawing" width="500">
+</p>
+<p><strong><code>gmapping</code> package documentation</strong></p>
+<p>Access <a href="http://wiki.ros.org/gmapping">this link</a> and go over the documentation of the <code>gmapping</code> ROS package.</p>
+<p><strong>Deploying a Turltebot in a Willow Garage environment</strong></p>
+<p>We will be deploying a turtlebot in a willow garage environment. Thus, navigate to the next concept, enable GPU, and GO TO DESKTOP.</p>
+<p>Below instructions are specifically for Udacity Workspace, however, it can used (maybe with minor changes) in any other workspace:</p>
+<p><strong>Create a <code>catkin_ws</code> in <code>/home/workspace/</code></strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">mkdir</span> -p /home/workspace/catkin_ws/src
+$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ catkin_init_workspace
+$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+$ catkin_make
+</pre><p><strong>Perform a System Update/Upgrade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">apt-get</span> update
+$ <span class="token function">apt-get</span> upgrade -y
+</pre><p><strong>Clone <code>turtlebot_gazebo</code> and <code>turtlebot_teleop</code> in <code>src</code></strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> src/
+$ <span class="token function">git</span> clone https://github.com/turtlebot/turtlebot_simulator
+$ <span class="token function">git</span> clone https://github.com/turtlebot/turtlebot
+</pre><p><strong>Install packages dependencies</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosdep -i <span class="token function">install</span> turtlebot_gazebo
+$ rosdep -i <span class="token function">install</span> turtlebot_teleop
+</pre><p><strong>Build the packages</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+</pre><p><strong>Deploying a Turltebot in a Willow Garage environment</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch turtlebot_gazebo turtlebot_world.launch world_file:<span class="token operator">=</span>worlds/willowgarage.world
+</pre><p>Now, interface the <code>gmapping</code> package with your robot to perform SLAM!</p>
+<h2 class="mume-header" id="slam-with-ros">SLAM with ROS</h2>
+
+<p>Watch <a href="https://youtu.be/APwvoT_w9Cw">this video</a> for instructions.</p>
+<p><strong>SLAM with ROS</strong></p>
+<p>Here&apos;s the <a href="https://github.com/udacity/RoboND-SLAMLAb">LAB solution</a>! While scrolling through the instructions, you will notice that some statements are a bit different than the one presented in the videos. The reason behind that is the different environment used. In the videos, a <strong>Virtual Machine</strong> booted with LUbuntu is used. Here in the description, you are presented with instructions on how to replicate the steps in the <strong>Udacity Workspace</strong>. The only difference between what you see and what is listed is the directory of the <code>catkin_ws</code>. In VM, you can store it anywhere you want, preferably in the root <code>~</code> directory. Whereas, in the Udacity workspace, you will have to store it under <code>/home/workspace/</code> so it won&apos;t get deleted after a reboot.</p>
+<p>First, clone the gmapping package, install its system dependencies, and build your catkin workspace:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ <span class="token function">git</span> clone https://github.com/ros-perception/slam_gmapping
+$ rosdep <span class="token function">install</span> gmapping
+$ cd<span class="token punctuation">..</span>
+$ catkin_make
+</pre><p><strong>Terminal 1</strong></p>
+<p>Launch the turtlebot in a Willow Garage environment:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch turtlebot_gazebo turtlebot_world.launch world_file:<span class="token operator">=</span>worlds/willowgarage.world 
+</pre><p>Turtlebot should now appear in a Willow Garage environment.</p>
+<p><strong>Terminal 2</strong></p>
+<p>Launch the keyboard teleop node:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch turtlebot_teleop keyboard_teleop.launch
+</pre><p>Don&#x2019;t move your robot yet!</p>
+<p><strong>Terminal 3</strong></p>
+<p>Run the slam_gmapping node:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosrun gmapping slam_gmapping
+</pre><p>The node should start registering your first scan.</p>
+<p><strong>Terminal 4</strong></p>
+<p>Run rviz and subscribe to different published topics to visualize the map:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rviz rviz
+</pre><p>Edit the rviz configuration as follows:</p>
+<ul>
+<li>Change the <strong>Fixed Frame</strong> to <code>map</code></li>
+<li>Keep <strong>Reference Frame</strong> as default</li>
+<li>Add a <strong>RobotModel</strong></li>
+<li>Add a <strong>camera</strong> and select the <code>/camera/rgb/image_raw</code> topic</li>
+<li>Add a <strong>map</strong> and select the <code>/map</code> topic</li>
+</ul>
+<p>Now, map the environment by driving your robot using keyboard commands.</p>
+<p><strong>Terminal 5</strong></p>
+<p>Save a map of the environment and share it with your classmates</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/
+$ rosrun map_server map_saver -f myMap
+</pre><p>With the <a href="http://wiki.ros.org/map_server">map_server</a> you can load and save maps. Running map_server will generate the <strong>map.pgm</strong> and the <strong>map.yaml</strong> files:</p>
+<p align="center">
+<img src="img/willow-garage-map.jpg" alt="drawing" width="500">
+</p>
+<p>1- <strong>map.pgm</strong>: Picture of the map in occupancy grid representation</p>
+<ul>
+<li><em>White pixels</em>: Free cells</li>
+<li><em>Black pixels</em>: Occupied cells</li>
+<li><em>Gray pixels</em>: Unknown state</li>
+</ul>
+<p align="center">
+<img src="img/map-yaml.png" alt="drawing" width="500">
+</p>
+<p>2- <strong>map.yaml</strong>: The map metadata</p>
+<ul>
+<li><em>image</em>: Map name</li>
+<li><em>resolution</em>: Resolution of the map (meters/pixel)</li>
+<li><em>origin</em>: Pose of the lower-left pixel in the map (x, y, &#x398;)</li>
+<li><em>Occupied_thresh</em>: Cell is considered occupied if its probability is greater than this threshold.</li>
+<li><em>free_thresh</em>: Cell is considered unoccupied or free if its probability is less than this threshold.</li>
+<li><em>negate</em>: This value will check whether the notation of black colored cell=occupied and white colored cell = free should be preserved.</li>
+</ul>
+<p><strong>Wondering why you got a bad quality map?</strong></p>
+<p>That&#x2019;s because the gmapping parameters values used were the default values. In general, it&#x2019;s essential to tune them in order to get a 100% accurate map. These parameters are all listed under the gmapping documentation, where you can look at them yourself. If you experiment with some of these parameter values, you should be able to get better maps.</p>
+<p>For example, you might try, reducing the angularUpdate and linearUpdate values so the map gets updated for smaller ranges of movements, reducing the x and y limits, which represent the initial map size, increasing the number of particles. You can try tweaking these parameters and/or any other parameter you think should be changed.</p>
+<p><strong>Here is a good recap <a href="https://youtu.be/l7vdjOekQhE">video</a></strong>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

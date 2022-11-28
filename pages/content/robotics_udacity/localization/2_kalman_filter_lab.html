@@ -1,0 +1,526 @@
+<!DOCTYPE html><html><head>
+      <title>2_kalman_filter_lab</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>(Access this <a href="https://github.com/udacity/RoboND-EKFLab">link</a> and grab the lab from GitHub)</p>
+<p>Here, we want to use the power of ROS and implement an EKF package.</p>
+<p>In this lab, we&apos;ve controlled a robot inside a simulator and you collect sensitive information from the robots inertial measurement unit, rotary encoders and vision sensors.</p>
+<p>Then, you&apos;ll apply an EKF ROS package to this robot. The EKF ROS package will compare data generated from the robot&apos;s on-boars sensors and apply sensor fusion to estimate the robot&apos;s pose as it moves around.</p>
+<p>Within this lab, you&apos;ll be working with five different ROS packages, each with a different purpose.</p>
+<ul>
+<li><strong>turtlebot_gazebo:</strong> launches a mobile robot inside a gazebo environment.</li>
+<li><strong>robot_pose_ekf:</strong> estimates the position and orientation of the robot.</li>
+<li><strong>odom_to_trajectory:</strong> opens the odometry values generated over time into a trajectory path.</li>
+<li><strong>turtlebot_teleop:</strong> lets you drive the robot using keyboard commands.</li>
+<li><strong>rviz:</strong> lets you visualize the estimated position and orientation of the robot.</li>
+</ul>
+<p>While working through this lab, you&apos;ll learn how to go through the documentation of ROS packages, identify the subscriber and publisher topics, and then make the necessary changes to integrate the different packages. By the end of this lab, you&apos;ll know how to merge all the nodes of the five different packages into a single launch file. Then, you&apos;ll be able to launch your project with a single command.</p>
+<p>See the video <a href="https://youtu.be/AwjP4ABJjoo">here</a>.</p>
+<h1 class="mume-header" id="sensor-fusion">Sensor Fusion</h1>
+
+<p>Before we dive into the lab, let&apos;s see how the sensor fusion process works.</p>
+<p>Inside an environment, a robot will localize itself by collecting data from its different on-board sensors. Each of these sensors has limitations which manifest as noise and error. Nowadays, the <strong>three most common types of mobile robot sensors</strong> are <strong>inertial measurement units</strong>, <strong>rotary encoders</strong>, and <strong>vision sensors</strong>.</p>
+<p><strong>Inertial Measurement Unit (IMU)</strong> can measure both the linear acceleration and angular velocity. <em><strong>To estimate the robot&apos;s position, a double integral of the acceleration is calculated</strong></em>. However, the IMU is noisy and so a double integration accumulates even more error over time. So, when using IMU, we need to make sure to check the <em>drift for error parameters</em>.</p>
+<p align="center">
+<img src="img/imu.png" alt="drawing" width="500">
+</p>
+<p><strong>Rotary Encoder</strong> sensors are attached to the robot&apos;s actuated wheels and measures the velocity and position of the wheels. <em><strong>To estimate the robot&apos;s position, the integral of the velocity is calculated</strong></em>. But the robot wheel might be stuck between obstacles, or even worse, it might be driven on slippery floors which would lead to inaccurate and noisy measurements. So when using encoders, make sure to check its <em>resolution</em>. Encoders with low resolution are usually highly sensitive to slippage.</p>
+<p align="center">
+<img src="img/rotary-sensor.png" alt="drawing" width="300">
+</p>
+<p><strong>Vision Sensor</strong> is often an RGB-D camera. Using an RGB-D camera, the robot can capture images and sense the <em><strong>depth towards the obstacles which can be translated to a position</strong></em>. But the image quality is usually affected by the light and the camera is usually unable to measure the depths at small distances. So, when using RGB-D camera, make sure to check its <em>smallest range of operation</em>.</p>
+<p>So, as we can see, each of these sensors have their own limitations. The IMU and encoder tends to drift where the camera tends to not always work as expected. So, we cannot only rely on one sensor. A <strong>sensor fusion</strong> of at least two of them is usually required. EKF will take all the nosiy measurements, compare them, filter the noise, remove the uncertainties, and provide a good estimate of the robot&apos;s pose.</p>
+<p>See the video <a href="https://youtu.be/Uc_MUK_olJk">here</a>.</p>
+<h1 class="mume-header" id="catkin-workspace">Catkin Workspace</h1>
+
+<p>Before you start downloading the different ROS packages, you need to create a <code>catkin_ws</code> to hold them in. If you already have a workspace in your <code>/home/workspace</code> directory, it is recommended that you keep a copy of it by renaming it to <code>catkin_ws_saved</code>. By doing so, you&#x2019;ll avoid any possible conflict with pre-installed packages.</p>
+<h3 class="mume-header" id="udacity-workspace">Udacity Workspace</h3>
+
+<p>For this lab, you&apos;ll get a chance to work in the Udacity Workspace. Thus, move to the next concept, enable GPU, and GO TO DESKTOP.</p>
+<p>Now, follow these steps to create your <code>catkin_ws</code> and perform a system update:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">mkdir</span> -p /home/workspace/catkin_ws/src
+$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ catkin_init_workspace
+$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+$ catkin_make
+</pre><h3 class="mume-header" id="perform-system-updateupgrade">Perform System Update/Upgrade:</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">apt-get</span> update
+$ <span class="token function">apt-get</span> upgrade -y
+</pre><h1 class="mume-header" id="turtlebot_gazebo-package"><code>turtlebot_gazebo</code> Package</h1>
+
+<p>The <code>turtlebot</code> is one of the most robots used by roboticists around the world to perform localization, mapping, and path planning. At this point in time, the <code>turtlebot</code> comes in <strong>three different versions</strong>. The <strong>turtlebot One</strong> was introduced in 2010 with an <em>iRobot Create base</em>. The <strong>turtlebot Two</strong> was introduced in 2012 with the <em>Kabuki base</em>. And the latest, <strong>turtlebot Three</strong> family was introduced in 2017. In this lab, you will deploy a <em>turtlebot Two</em> in a Gazebo environment and then estimate its pose. The <em>turtlebot Two</em> has multiple on-board sensors ranging from rotary encoders to IMU to vision. So, you&apos;ll use and EKF package to fuse at least two of these sensors and estimate the robot&apos;s pose.</p>
+<p align="center">
+<img src="img/turtlebot_family.png" alt="drawing" width="500">
+</p>
+<p>Going through the documentation of the <strong>turtlebot Gazebo package</strong>, we see that not much information is provided. Usually, the lists of subscriber and publisher topics ot ROS package is provided. No worries! You can always clone the package and obtain the lists of subscriber and publisher topics.</p>
+<p>The <em>turtlebot</em> is publishing data from different on-board sensors and subscribing to control commands. The robot can accept control commands through the <code>cmd_vel_mux/input/teleop</code> topic. The depth images are being published to a camera depth <code>/camera/depth/image_raw</code> topic. Other than that, the encoders position and velocity are being published to the <code>/odom</code> topic. Finally, the robot is publishing IMU data to the <code>mobile_base/sensors/imu_data</code> topic. In the <code>turtlebot</code> package, nodes are subscribing and publishing to other topics but we are only interested in these for now.</p>
+<p>See the video <a href="https://youtu.be/huR9KRtmNAM">here</a>.</p>
+<h3 class="mume-header" id="turtlebot-package">Turtlebot package</h3>
+
+<p>Access this <a href="http://wiki.ros.org/turtlebot_gazebo">link</a> and go through the <code>turtlebot_gazebo</code> documentation. After that, follow the instructions listed below to clone the <code>turtlebot_gazebo</code> package in the <code>src</code> directory of your <code>catkin_ws</code> and build it.</p>
+<p>While scrolling through these instructions, you will notice that some statements are a bit different than the one presented in the videos. The reason behind that is the different environment used. In the videos, a <strong>Virtual Machine</strong> booted with LUbuntu is used. Here in the description, you are presented with instructions on how to replicate the steps in the <strong>Udacity Workspace</strong>. The only difference between what you see and what is listed is the directory of the <code>catkin_ws</code>. In VM, you can store it anywhere you want, preferably in the root <code>~</code> directory. Whereas, in the workspace, you will have to store it under <code>/home/workspace/</code> so it won&apos;t get deleted after a reboot.</p>
+<p><strong>Clone Package</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ <span class="token function">git</span> clone https://github.com/turtlebot/turtlebot_simulator
+</pre><p><strong>Install Dependencies</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosdep -i <span class="token function">install</span> turtlebot_gazebo
+</pre><p><strong>Build Package</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+</pre><p><strong>Launch Nodes</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch turtlebot_gazebo turtlebot_world.launch
+</pre><p><strong>Topics</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rostopic list
+Or
+$ rosrun rqt_graph rqt_graph
+</pre><h1 class="mume-header" id="robot-pose-ekf-package">Robot Pose EKF Package</h1>
+
+<p>Now that the robot is inside the Gazebo environment, you can apply an EKF and localize it. The <strong>Robot Pose EKF package</strong> applies sensor fusion to the robot&apos;s sensor measurement to estimate its pose. Going through the package, we see solid documentation with the launch file, different parameters, and the list of subscriber and publisher topics. Access this <a href="http://wiki.ros.org/robot_pose_ekf">link</a> and go through the <code>robot_pose_ekf</code> documentation.</p>
+<p>After reviewing the package, we can conclude that the <strong>Robot Pose EKF node</strong> is subscribing to three different sensor topics and publishing a filtered pose. The <strong>EKF node</strong> is <em>subscribing</em> to the <strong>encoder&apos;s data</strong> through the <strong><code>/odom</code> topic</strong>. It is also <em>subscribing</em> to <strong>IMU data</strong> through the <strong><code>/img_data</code> topic</strong>. Lastly, the node is <em>subscribing</em> to <strong>3D odometry data</strong> through the <strong><code>/vo</code> topic</strong>. Now, EKF is fusing all these three sensor values and and <em>publishing</em> the filtered results in the <strong><code>/robot_pos_ekf/odom_combined</code> topic</strong>.</p>
+<p align="center">
+<img src="img/ekf-package1.png" alt="drawing" width="600">
+</p>
+<p>To interface the <strong>Robot Pose EKF package</strong> with the <strong><code>turtlebot</code> Gazebo package</strong> and estimate the robot&apos;s pose, we&apos;ll need to rename some topics to match them with the others. At first glance, we see that depth imaging is unique to the <em><code>turtlebot</code> Gazebo package</em>, so the EKF node will not be able to subscribe to it. So, let&apos;s cross it out in our diagram, as we won&apos;t be using it. The same applies to the <em>3D odometry topic</em>, which is unique to the <em>Robot Pose EKF package</em>. We need to modify the EKF launch file in order to turn off the <em>3D odometry</em>. Now, we can see that the <em>encoders</em> perfectly match, since they are not unique to any package and hold the same topic name. The same applies to the <em>IMU</em> data, but be careful here, since the <strong>topic names are not identical</strong>. You should <strong>rename the IMU topic</strong> either into <code>turtlebot</code> package topic or in the <em>EKF package</em>.</p>
+<p>Afte performing the corresponding changes, you can see how the <code>turtlebot</code> nodes are publishing sensor data directly to the <em>EKF node</em>. The <em>EKF node</em> will subscribe to the sensor data, remove the uncertainties, and ultimately estimate the robot&apos;s 3D pose.</p>
+<p align="center">
+<img src="img/ekf-package2.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/ekf-package3.png" alt="drawing" width="600">
+</p>
+<p>To <strong>rename a topic</strong> go to the launch file of the package and then write the statement. Here, this statement is remapping the <code>/odom</code> topic to a <code>pr2_base_odometry</code> topic: <code>&lt;remap from=&quot;odom&quot; to=&quot;pr2_base_odometry/odom&quot; /&gt;</code>. We&apos;ll need to delete this statement, since the <code>odom</code> topic of both packages are identical. Now, <strong>clone the EKF package</strong> inside the <code>src</code> folder of your Catkin workspace (<code>catkin_ws</code>), and <strong>edit the launch file</strong> with the following changes:</p>
+<ul>
+<li>First, <strong>delete the remap statement</strong>, since you want the <em>encoders</em> to publish on the <code>odom</code> topic.</li>
+<li>Then, <strong>turn off 3D odometry pose</strong>, since it&apos;s unique to this package.</li>
+<li>Inside the same launch file, <strong>remap the IMU topic</strong> to match with <code>turtlebot</code> one.</li>
+</ul>
+<p>After you complete these steps, build your package, and launch the node.</p>
+<p><strong>Here are the steps to recap:</strong></p>
+<ol>
+<li>Delete the remap odom statement</li>
+<li>Disable the 3D odometry from the launch file</li>
+<li>Remapp the <code>/imu_data</code> topic to <code>/mobile_base/sensors/imu_data</code></li>
+<li>Build the package and launch the node</li>
+</ol>
+<p>See the video <a href="https://youtu.be/1XW1VtpztGE">here</a>.</p>
+<p><strong>Install the package</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+$ <span class="token function">git</span> clone https://github.com/udacity/robot_pose_ekf 
+</pre><p><strong>Here are the steps to edit and launch the <code>ros_pose_ekf</code> launch file</strong></p>
+<ol>
+<li>edit <code>robot_pose_ekf.launch</code> file:</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token operator">&lt;</span>launch<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>node <span class="token assign-left variable">pkg</span><span class="token operator">=</span><span class="token string">&quot;robot_pose_ekf&quot;</span> <span class="token assign-left variable">type</span><span class="token operator">=</span><span class="token string">&quot;robot_pose_ekf&quot;</span> <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;robot_pose_ekf&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;output_frame&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;odom_combined&quot;</span>/<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;base_footprint_frame&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;base_footprint&quot;</span>/<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;freq&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;30.0&quot;</span>/<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;sensor_timeout&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;1.0&quot;</span>/<span class="token operator">&gt;</span>  
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;odom_used&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;true&quot;</span>/<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;imu_used&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;true&quot;</span>/<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>param <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;vo_used&quot;</span> <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token string">&quot;false&quot;</span>/<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span>remap <span class="token assign-left variable">from</span><span class="token operator">=</span><span class="token string">&quot;imu_data&quot;</span> <span class="token assign-left variable">to</span><span class="token operator">=</span><span class="token string">&quot;/mobile_base/sensors/imu_data&quot;</span> /<span class="token operator">&gt;</span>    
+
+<span class="token operator">&lt;</span>/node<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>/launch<span class="token operator">&gt;</span>
+</pre><ol start="2">
+<li>Build the package:</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+</pre><ol start="3">
+<li>Launch the node:</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch robot_pose_ekf robot_pose_ekf.launch
+</pre><p>Now, topics from the <code>robot</code> and <code>ekf</code> nodes should be communicating. To confirm that, run the <code>rqt graph</code>. In <code>rqt graph</code>, visualize how the topics and nodes are connected. In the <code>active nodes and topic</code>, you won&#x2019;t be able to see the <code>3D filtered pose</code> topic since we haven&#x2019;t yet subscribed to it.</p>
+<ol start="4">
+<li>Visualize the topics:</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rqt_graph rqt_graph
+</pre><p align="center">
+<img src="img/rqt-graph.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="turtlebot-teleop-package">Turtlebot Teleop Package</h1>
+
+<p>We&apos;re still unable to generate the filtered and unfiltered trajectories since the robot is static. Currently, the trajectories are appending zero values. The robot is performing only a sensor update without any motion update. Therefore, we&apos;ll have to drive the robot in the environment as it collects sensory information. With the <code>turtlebot</code> package we can publish driving commands to the robot. You&apos;ll be able to control the robot with either keyboard or joystick commands.</p>
+<p>Now, let&apos;s have a closer look at the properties of this package and its nodes. The <strong><code>turtlebot_teleop</code></strong> node has no subcribers and only publishes control commands. Now, we need to integrate this package with the turtlebot Gazebo package. As you can see in the picture below, the control topics of both nodes in the two packages perfectly match each other. Here, you can see the final result of integrating the four packages. You can drive the robot with the <code>turtlebot_teleop</code> package and generate filtered and unfiltered trajectories.</p>
+<p align="center">
+<img src="img/teleop1.png" alt="drawing" width="600">
+</p>
+<p>Now, we can launch the node and drive the robot in the Gazebo environment. To do so:</p>
+<p><strong>Clone the Package:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ <span class="token function">git</span> clone https://github.com/turtlebot/turtlebot
+</pre><p><strong>Install the Dependencies:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosdep -i <span class="token function">install</span> turtlebot_teleop
+</pre><p><strong>Build the Package:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+</pre><p><strong>Launch the Nodes:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roslaunch turtlebot_teleop keyboard_teleop.launch
+</pre><h4 class="mume-header" id="teleop-package">Teleop package</h4>
+
+<p>Access this <a href="http://wiki.ros.org/turtlebot_teleop">link</a> and go through the <code>turtlebot_teleop</code> documentation.</p>
+<p>See the video <a href="https://youtu.be/zoM5A9PN6VA">here</a>.</p>
+<h1 class="mume-header" id="rviz-package">Rviz Package</h1>
+
+<p>So far, we itengrated four packages, successfully drove the robot, and published filtered and unfiltered trajectories. Now, it&apos;s time to subscribe these topics into <code>Rviz</code> and visualize the robot&apos;s path as we control it. To do so, follow the steps below:</p>
+<p><strong>Launch <code>rviz</code>:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rviz rviz
+</pre><p><strong>Edit the rviz configuration:</strong></p>
+<ol>
+<li>Change the <strong>Fixed Frame</strong> to <code>base_footprint</code></li>
+<li>Change the <strong>Reference Frame</strong> to <code>odom</code></li>
+<li>Add a <code>RobotModel</code></li>
+<li>Add a <code>camera</code> and select the <code>/camera/rgb/image_raw</code> <strong>topic</strong></li>
+<li>Add a <code>/ekfpath</code> <strong>topic</strong> and change the <strong>display name</strong> to <code>EKFPath</code></li>
+<li>Add a <code>/odompath</code> <strong>topic</strong> and change the <strong>display name</strong> to <code>OdomPath</code></li>
+<li>Change the <code>OdomPath</code> <strong>color</strong> to <code>red:255;0;0</code></li>
+</ol>
+<p><strong>Save the <code>rviz</code> configuration:</strong></p>
+<p>Save the rviz configuration in <code>/home/workspace/catkin_ws/src</code> as <code>EKFLab.rviz</code></p>
+<p><strong>Now, kill the <code>rviz</code> terminal!</strong></p>
+<p><strong>Relaunch <code>rviz</code>:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rviz rviz -d /home/workspace/catkin_ws/src/EKFLab.rviz
+</pre><h3 class="mume-header" id="how-to-create-a-rviz-launch-file">How to create a <code>rviz</code> launch file?</h3>
+
+<p><strong>The <code>RvizLaunch.launch</code> file:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token operator">&lt;</span>launch<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">!</span>--RVIZ--<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>node <span class="token assign-left variable">pkg</span><span class="token operator">=</span><span class="token string">&quot;rviz&quot;</span> <span class="token assign-left variable">type</span><span class="token operator">=</span><span class="token string">&quot;rviz&quot;</span> <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">&quot;rviz&quot;</span> <span class="token assign-left variable">args</span><span class="token operator">=</span><span class="token string">&quot;-d /home/workspace/catkin_ws/src/EKFLab.rviz&quot;</span>/<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/launch<span class="token operator">&gt;</span>
+</pre><p><strong>Launch <code>Rvizlaunch.launch</code>:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ roslaunch RvizLaunch.launch
+</pre><p>See the video <a href="https://youtu.be/b3_kNyi7KLY">here</a>.</p>
+<h1 class="mume-header" id="main-launch">Main Launch</h1>
+
+<p>Up until now, we worked with five different packages, each with its unqiue launch file. We had to open five different terminals, source the ROS environment multiple times and lancu each file. This is tedious and error prone. It even gets worse in large projects with more than 20 launch files. So, here we want to create a <strong>main package</strong>. Inside the main package, create a launch directory and store a main launch file (<code>main.launch</code>). The main launch file will contain the nodes of all the packages we worked with so far. After writing the main launch file, open a terminal and launch it.</p>
+<p align="center">
+<img src="img/main-launch.png" alt="drawing" width="600">
+</p>
+<p><strong>Create a <code>main package</code>:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ catkin_create_pkg main
+</pre><p><strong>Build the package:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws
+$ catkin_make
+</pre><p><strong>Create and edit the <code>main.launch</code> file:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/main
+$ <span class="token function">mkdir</span> launch
+$ <span class="token builtin class-name">cd</span> launch 
+$ gedit main.launch
+</pre><p>Copy the <code>main.launch</code> file from <a href="https://github.com/udacity/RoboND-EKFLab/blob/master/main/launch/main.launch">GitHub</a></p>
+<p><strong>Launch the <code>main.launch</code> file:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch main main.launch
+</pre><p>See the video <a href="https://youtu.be/dh1PlulCxtA">here</a>.</p>
+<h1 class="mume-header" id="rqt-multiplot">Rqt Multiplot</h1>
+
+<p>So far, you&apos;ve controlled the robot and generated the filtered and unfiltered trajectories. Also, you saw how EKF can estimate the pose of the robot. But, we are still unable to quantitatively visualize how close th filter path is from the unfiltered one.</p>
+<p>To do this, you can use the <code>rqt_plot</code> which is a great ROS package to graph the values echoed by different topics. Using <code>rqt_plot</code>, you can graph the filtered and unfiltered robot poses. But, <code>rqt_plot</code> can only generate graphs with respect to time. So, it can be used to plot the <code>Y</code> position of our robot vs its <code>X</code> position. In this lab, you will use the <strong><code>rqt_multiplot</code></strong> since you can define both the <code>Y</code> and <code>X</code> axis when generating the graphs. <strong><code>rqt _multiplot</code></strong> is not installed by default on your system. See the instructions below to install and run the package.</p>
+<h4 class="mume-header" id="instructions-for-_installing_-and-_running_-the-rqt_multiplot-ros-plugin">Instructions for <em>Installing</em> and <em>Running</em> the <code>rqt_multiplot</code> ROS plugin</h4>
+
+<p><strong>Open a new terminal and install the <code>rqt_multiplot</code>:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-rqt -y
+$ <span class="token function">apt-get</span> <span class="token function">install</span> ros-kinetic-rqt-multiplot -y
+$ <span class="token function">apt-get</span> <span class="token function">install</span> libqwt-dev -y
+$ <span class="token function">rm</span> -rf ~/.config/ros.org/rqt_gui.ini
+</pre><p><strong>Run the rqt_plot package node:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rqt_multiplot rqt_multiplot
+</pre><p><strong>GitHub documentation:</strong></p>
+<p>Access this <a href="https://github.com/ethz-asl/rqt_multiplot_plugin">link</a> and go through the <code>rqt_multiplot</code> ROS plugin documentation.</p>
+<ul>
+<li>After installing the package, in <code>rqt_multiplot</code> select the <strong>Configure plot</strong> settings. Let&apos;s give a <strong>title</strong> to our plot as <code>RobotYPosvsXPos</code>.</li>
+<li>Now, define the unfiltered and filtered curve. Start with the <em>unfiltered curve</em>. Select <strong>Add a Curve</strong> and then give it a title as <code>UnfilteredYPosvsXPos</code>. In <strong>X-Aixs</strong>, select the <code>/odom</code> as topic. Since we&apos;re plotting Y vs X, select the Y <code>/odom</code> topic in the <strong>Y-Axis</strong>.</li>
+<li>Keep the <strong>color</strong> as red since we chose the red color for the unfiltered trajectory earlier.</li>
+<li>Now, follow the same steps and define the <em>filtered curve</em>. (change the <strong>color</strong> to green).</li>
+</ul>
+<p>After that, press <strong>Play</strong> and start driving the robot around. Now, you can quantitatively visualize how close the filtered path is from the unfiltered one and how your EKF is filtering the uncertainties and estimating the pose of the robot.</p>
+<p>Keep playing around with the <code>rqt_plot</code> and graph the orientation of the robot.</p>
+<p>See the video <a href="https://youtu.be/ZEpVMvXC6jQ">here</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

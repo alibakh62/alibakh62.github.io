@@ -1,0 +1,1355 @@
+<!DOCTYPE html><html><head>
+      <title>project_description</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction">Introduction</h1>
+
+<p>In this project, we&apos;ll build a ball chaser mobile robot with ROS. The project is divided into two major tasks.</p>
+<ul>
+<li>First, design the robot and house it inside your world.</li>
+<li>Second, program it to chase white colored balls through the world.</li>
+</ul>
+<p>In the first task, you&apos;ll learn how to model a mobile robot that can interface with ROS. You&apos;ll use what you learned in this module to design and customize the robot. Then, house it inside the environment you created in the &quot;build my world project&quot;.</p>
+<p>In the second task, you&apos;ll write two ROS nodes. The first node, drive bot, will provide a service to drive the robot. The second node, process image, will subscribe to the robot&apos;s camera images, search for a white ball and if it exists, identify its position and requests a service from your first node to drive the robot toward the white-colored ball.</p>
+<p><a href="https://youtu.be/pzZKvUSFkgs">video</a></p>
+<h2 class="mume-header" id="project-preview">Project Preview</h2>
+
+<p>Here&#x2019;s a preview of the final outcome of this project. Note that your world and the robot will look different than mine as you will be implementing you own world and robot.</p>
+<p>See the <a href="https://youtu.be/HxYGmwMp2uw">video</a>.</p>
+<h1 class="mume-header" id="setting-up-my_robot">Setting up my_robot</h1>
+
+<p>The first task in this project is to create the  <code>my_robot</code>  ROS package. Inside  <code>my_robot</code>, you will store and launch an empty Gazebo world file. As you proceed with the project, you will model and store a robot, as well as replace the empty world file with the world you created in the  <strong>Build My World</strong>  project. For now, follow these steps to set up  <code>my_robot</code>.</p>
+<p><em>Note: Do not have more than one my_robot instance in the Gazebo world otherwise it would not be able to launch.</em></p>
+<h2 class="mume-header" id="create-the-my_robot-package">Create the  <code>my_robot</code>  Package</h2>
+
+<p><strong>1- Create and initialize a  <code>catkin_ws</code></strong></p>
+<p>Feel free to skip if you already have a  <code>catkin_ws</code>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token function">mkdir</span> -p /home/workspace/catkin_ws/src
+$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src
+$ catkin_init_workspace
+</pre><p><strong>2- Navigate to the  <code>src</code>  directory of your  <code>catkin_ws</code>  and create the  <code>my_robot</code>  package</strong>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+$ catkin_create_pkg my_robot
+</pre><p><strong>3- Next, create a  <code>worlds</code>  directory and a  <code>launch</code>  directory, that will further define the structure of your package</strong>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/
+$ <span class="token function">mkdir</span> launch
+$ <span class="token function">mkdir</span> worlds
+</pre><h2 class="mume-header" id="create-and-store-an-empty-gazebo-world-file">Create and Store an Empty Gazebo World File</h2>
+
+<p>Inside the  <code>worlds</code>  directory, create and store an empty Gazebo world file. As a reminder, in Gazebo a  <strong>world</strong>  is a collection of models, such as your robot, together with a specific environment. You can also define several other physical properties specific to this world.</p>
+<p><strong>1- Create an empty Gazebo world</strong></p>
+<p>An empty world in Gazebo is a simple world, with no objects or models.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/worlds/
+$ <span class="token function">touch</span> empty.world
+</pre><p><strong>2- Add the following to  <code>empty.world</code></strong></p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sdf</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1.4<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>world</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>default<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uri</span><span class="token punctuation">&gt;</span></span>model://ground_plane<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>uri</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- Light source --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uri</span><span class="token punctuation">&gt;</span></span>model://sun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>uri</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- World camera --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>gui</span> <span class="token attr-name">fullscreen</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>camera</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>world_camera<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pose</span><span class="token punctuation">&gt;</span></span>4.927360 -4.376610 3.740080 0.000000 0.275643 2.356190<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pose</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view_controller</span><span class="token punctuation">&gt;</span></span>orbit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view_controller</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>camera</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>gui</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>world</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>sdf</span><span class="token punctuation">&gt;</span></span>
+</pre><p>The  <code>.world</code>  file uses the XML file format to describe all the elements with respect to the Gazebo environment. The simple world that you are creating here has the following elements:</p>
+<ul>
+<li><code>&lt;sdf&gt;</code>: The base element which encapsulates the entire file structure and content.</li>
+<li><code>&lt;world&gt;</code>: The world element defines the world description and several properties pertaining to that world. In this example, you are adding a ground plane, a light source, and a camera to your world. Each model or property can have further elements that add detail. For example, the  <code>camera</code>  has a  <code>pose</code>  element which defines its position and orientation.</li>
+<li><code>&lt;include&gt;</code>: The include element, along with the  <code>&lt;uri&gt;</code>  element, provide a path to a particular model. In Gazebo there are several models that are available by default.</li>
+</ul>
+<h2 class="mume-header" id="create-a-launch-file">Create a Launch File</h2>
+
+<p>Launch files in ROS allow us to execute more than one node simultaneously, which helps avoid the potentially tedious task of defining and launching several nodes in separate shells or terminals.</p>
+<p><strong>1- Create the  <code>world.launch</code>  file</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/launch/
+$ <span class="token function">touch</span> world.launch
+</pre><p><strong>2- Add the following to  <code>world.launch</code></strong></p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- World File --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>world_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find my_robot)/worlds/empty.world<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Launch Gazebo World --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find gazebo_ros)/launch/empty_world.launch<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>use_sim_time<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>true<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>debug<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>gui<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>true<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>world_name<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(arg world_file)<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>As in the case of the  <code>.world</code>  file, the  <code>.launch</code>  files are also based on XML. The structure for the launch files has two parts -</p>
+<ul>
+<li>First, define arguments using the  <code>&lt;arg&gt;</code>  element. Each such element will have a  <code>name</code>  attribute and a  <code>default</code>  value.</li>
+<li>Second, include the  <code>world.launch</code>  file from the  <code>gazebo_ros</code>  package. The  <a href="https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_ros/launch/empty_world.launch">empty_world</a>  file includes a set of important definitions that are inherited by the world that we create. Using the  <code>world_name</code>  argument and the path to your  <code>.world</code>  file passed as the  <code>value</code>  to that argument, you will be able to launch your world in Gazebo.</li>
+</ul>
+<h2 class="mume-header" id="launch-emptyworld">Launch  <code>empty.world</code></h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p align="center">
+<img src="img/gazebo-empty-world.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="understanding-unified-robot-description-format-urdf">Understanding Unified Robot Description Format (URDF)</h1>
+
+<p>In the Build My World project, you used the  <strong>Model Editor</strong>  tool in Gazebo to model a robot with the Simulation Description Format, or  <strong>SDF</strong>. Now that you are working with ROS, you have to model a robot with the Unified Robot Description Format, or  <strong>URDF</strong>. Both of these formats use  <a href="https://www.w3schools.com/xml/xml_whatis.asp"><strong>XML</strong></a>  markup language. We can use a URDF file to define a robot model, its kinodynamic properties, visual elements and even model sensors for the robot. URDF can only describe a robot with rigid links connected by joints in a chain or tree structure. It cannot describe a robot with flexible or parallel links.</p>
+<p>A simple robot with two links and a joint can be described using URDF as follows:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>robot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>two_link_robot<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!--Links--&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cylinder</span> <span class="token attr-name">length</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.5<span class="token punctuation">&quot;</span></span> <span class="token attr-name">radius</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.2<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>link</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_2<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>box</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.6 0.1 0.2<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>link</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!--Joints--&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>joint</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>joint_1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>continuous<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_1<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_2<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>joint</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>robot</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Since we use URDF files to describe several robot and environmental properties, the files tend to be long and tedious. This is why we use Xacro (XML Macros) to divide our single URDF file into multiple Xacro files. While the syntax remains the same, we can now divide our robot description into smaller subsystems.</p>
+<p>Since URDF (and Xacro) files are basically XML, they use tags to define robot geometry and properties. The most important and commonly used tags with their elements are described below:</p>
+<h2 class="mume-header" id="robot-robot"><code>&lt;robot&gt;</code>  <code>&lt;/robot&gt;</code></h2>
+
+<p>This is a top level tag that contains all the other tags related to a given robot.</p>
+<h2 class="mume-header" id="link-link"><code>&lt;link&gt;</code>  <code>&lt;/link&gt;</code></h2>
+
+<p>Each rigid link in a robot must have this tag associated with it.</p>
+<h3 class="mume-header" id="attributes">Attributes</h3>
+
+<p><strong>name</strong>: Requires a unique link name attribute.</p>
+<h3 class="mume-header" id="elements">Elements</h3>
+
+<h4 class="mume-header" id="visual-visual"><code>&lt;visual&gt;</code>  <code>&lt;/visual&gt;</code></h4>
+
+<p>This element specifies the appearance of the object for visualization purposes.</p>
+<ul>
+<li><code>&lt;origin&gt;</code>: The reference frame of the visual element with respect to the reference frame of the link.</li>
+<li><code>&lt;geometry&gt;</code>: The shape of the visual object.</li>
+<li><code>&lt;material&gt;</code>: The material of the visual element.</li>
+</ul>
+<h4 class="mume-header" id="collision-collision"><code>&lt;collision&gt;</code>  <code>&lt;/collision&gt;</code></h4>
+
+<p>The collision properties of a link. Note that this can be different from the visual properties of a link, for example, simpler collision models are often used to reduce computation time.</p>
+<ul>
+<li><code>&lt;origin&gt;</code>: The reference frame of the collision element, relative to the reference frame of the link.</li>
+<li><code>&lt;geometry&gt;</code>: See the geometry description in the above visual element.</li>
+</ul>
+<h4 class="mume-header" id="inertial-inertial"><code>&lt;inertial&gt;</code>  <code>&lt;/inertial&gt;</code></h4>
+
+<p>The inertial properties of the link are described within this tag.</p>
+<ul>
+<li>
+<p><code>&lt;origin&gt;</code>: This is the pose of the inertial reference frame, relative to the link reference frame. The origin of the inertial reference frame needs to be at the center of gravity.</p>
+</li>
+<li>
+<p><code>&lt;mass&gt;</code>: The mass of the link is represented by the value attribute of this element.</p>
+</li>
+<li>
+<p><code>&lt;inertia&gt;</code>: The 3x3 rotational inertia matrix, represented in the inertia frame. Because the rotational inertia matrix is symmetric, only 6 above-diagonal elements of this matrix are specified here, using the attributes ixx, ixy, ixz, iyy, iyz, izz.</p>
+</li>
+</ul>
+<p>Example snippet for  <code>&lt;link&gt;</code>  tag with important elements:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>inertial</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0.4<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mass</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>${mass1}<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>inertia</span> <span class="token attr-name">ixx</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>30<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ixy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ixz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">iyy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>50<span class="token punctuation">&quot;</span></span> <span class="token attr-name">iyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">izz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>50<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>inertial</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mesh</span> <span class="token attr-name">filename</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>package://kuka_arm/meshes/kr210l150/visual/link_1.dae<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>material</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>color</span> <span class="token attr-name">rgba</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.75294 0.75294 0.75294 1<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>material</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>collision</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mesh</span> <span class="token attr-name">filename</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>package://kuka_arm/meshes/kr210l150/collision/link_1.stl<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>collision</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>link</span><span class="token punctuation">&gt;</span></span>
+
+</pre><p>The  <code>&lt;link&gt;</code>  tag has many more optional elements that can be used to define other properties like color, material, texture, etc. Refer  <a href="http://wiki.ros.org/urdf/XML/link">this link</a>  for details on those tags.</p>
+<h2 class="mume-header" id="joint-joint"><code>&lt;joint&gt;</code>  <code>&lt;/joint&gt;</code></h2>
+
+<p>This tag typically defines a single joint between two links in a robot. The type of joints you can define using this tag include:</p>
+<ul>
+<li><strong>Fixed</strong>: Rigid joint with no degrees of freedom. Used to  <strong>weld</strong>  links together.</li>
+<li><strong>Revolute</strong>: A range-limited joint that rotates about an axis.</li>
+<li><strong>Prismatic</strong>: A range-limited joint that slides along an axis</li>
+<li><strong>Continuous</strong>: Similar to  <strong>Revolute</strong>  joint but has no limits. It can rotate continuously about an axis.</li>
+<li><strong>Planar</strong>: A 2D  <strong>Prismatic</strong>  joint that allows motion in a plane perpendicular to an axis.</li>
+<li><strong>Floating</strong>: A joint with 6 degrees of freedom, generally used for Quadrotors and UAVs.</li>
+</ul>
+<h3 class="mume-header" id="attributes-1">Attributes</h3>
+
+<p><strong>name</strong>  Unique joint name</p>
+<p><strong>type</strong>  Type of joint</p>
+<h3 class="mume-header" id="elements-1">Elements</h3>
+
+<p>To define a joint, we need to declare the axis of rotation/translation and the relationship between the two links that form the joint.</p>
+<ul>
+<li>
+<p><code>&lt;origin&gt;</code>: This is the transform from the parent link to the child link. The joint is located at the origin of the child link.</p>
+</li>
+<li>
+<p><code>&lt;parent&gt;</code>: Name of the Parent link for the respective joint.</p>
+</li>
+<li>
+<p><code>&lt;child&gt;</code>: Name of the child link for the respective joint.</p>
+</li>
+<li>
+<p><code>&lt;axis&gt;</code>: Defines the axis of rotation for revolute joints, the axis of translation for prismatic joints, and the surface normal for planar joints. Fixed and floating joints do not use the axis field.</p>
+</li>
+</ul>
+<p>Example snippet for  <code>&lt;joint&gt;</code>  tag with important elements:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>joint</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>joint_2<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>revolute<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.35 0 0.42<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_1<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>link_2<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>axis</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 1 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>joint</span><span class="token punctuation">&gt;</span></span>
+</pre><p>Other optional elements under the  <code>&lt;joint&gt;</code>  tag can be  <a href="http://wiki.ros.org/urdf/XML/joint">found here</a>.</p>
+<p>There are many more optional tags and attributes that help to define various dynamic and kinematic properties of a robot, along with sensors and actuators. For a full list, refer to the  <a href="http://wiki.ros.org/urdf">ROS documentation on URDF</a>.</p>
+<h1 class="mume-header" id="robot-basic-setup">Robot Basic Setup</h1>
+
+<p>Let&#x2019;s build a basic mobile robot model by creating a URDF file and launch it inside an empty Gazebo world.</p>
+<p>We can break the effort down into smaller components - a robot base, wheels, and sensors.</p>
+<p>For this model, we will create a cuboidal base with two caster wheels. The caster wheels will help stabilize this model. They aren&apos;t always required, but they can help with weight distribution, preventing the robot from tilting along the z-axis.</p>
+<p align="center">
+<img src="img/gazebo-robot-base-castors.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="create-the-urdf-file">Create the  <strong>URDF</strong>  File</h2>
+
+<p><strong>1- Create a  <code>urdf</code>  directory in the  <code>my_robot</code>  package</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/
+$ <span class="token function">mkdir</span> urdf
+</pre><p><strong>2- Create the robot&#x2019;s  <code>xacro</code>  file inside the  <code>urdf</code>  directory</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/urdf/
+$ <span class="token function">touch</span> my_robot.xacro
+</pre><p><strong>3- Copy the following code into  <code>my_robot.xacro</code>  file</strong></p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&apos;1.0&apos;?&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>robot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>my_robot<span class="token punctuation">&quot;</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xacro</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>http://www.ros.org/wiki/xacro<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_footprint<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>link</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>joint</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_footprint_joint<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>fixed<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_footprint<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>chassis<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>joint</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>chassis<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pose</span><span class="token punctuation">&gt;</span></span>0 0 0.1 0 0 0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pose</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>inertial</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mass</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>15.0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>inertia</span>
+          <span class="token attr-name">ixx</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ixy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ixz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span>
+          <span class="token attr-name">iyy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">iyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span>
+          <span class="token attr-name">izz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.1<span class="token punctuation">&quot;</span></span>
+      <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>inertial</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>collision</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>collision<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span> 
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>box</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>.4 .2 .1<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>collision</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>chassis_visual<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>box</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>.4 .2 .1<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>collision</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>back_caster_collision<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>-0.15 0 -0.05<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sphere</span> <span class="token attr-name">radius</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.0499<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>collision</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>back_caster_visual<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>-0.15 0 -0.05<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sphere</span> <span class="token attr-name">radius</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.05<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>collision</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>front_caster_collision<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.15 0 -0.05<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sphere</span> <span class="token attr-name">radius</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.0499<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>collision</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>visual</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>front_caster_visual<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.15 0 -0.05<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span> 0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>geometry</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sphere</span> <span class="token attr-name">radius</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0.05<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>geometry</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>visual</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>link</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>robot</span><span class="token punctuation">&gt;</span></span>
+</pre><p>We have a single link, with the  <code>name</code>  defined as &quot;chassis&quot;, encompassing the base as well as the caster wheels. Every link has specific elements, such as the  <code>inertial</code>  or the  <code>collision</code>  elements. You can quickly review the details of these elements covered in the previous section. The chassis is a cube, whereas the casters are spherical, as denoted by their  <code>&lt;geometry&gt;</code>  tags. Each link (or joint) has an origin (or pose), as well. Every element of that link or joint will have its own origin, which will be relative to the link&apos;s frame of reference.</p>
+<p>For this base, the casters are included as part of the link for stability. There is no need for any additional links to define the casters, and therefore no joints to connect them. The casters do, however, have  <code>friction</code>  coefficients defined for them. These friction coefficients are set to 0, to allow for free motion while moving.</p>
+<h2 class="mume-header" id="launch-the-robot">Launch the Robot</h2>
+
+<p>Now that you&#x2019;ve built the basic robot model, let&#x2019;s create a launch file to load it inside an empty Gazebo world.</p>
+<p><strong>1- Create a new launch file to load the  <code>URDF</code>  model file</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/launch/
+$ <span class="token function">touch</span> robot_description.launch
+</pre><p><strong>2- Copy the following code into  <code>robot_description.launch</code>  file</strong></p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token prolog">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- send urdf to param server --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_description<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find xacro)/xacro --inorder <span class="token punctuation">&apos;</span>$(find my_robot)/urdf/my_robot.xacro<span class="token punctuation">&apos;</span><span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>To generate the URDF file from the Xacro file, you must first define a parameter,  <code>robot_description</code>. This parameter will set a single command to use the  <a href="http://wiki.ros.org/urdf/Tutorials/Using%20Xacro%20to%20Clean%20Up%20a%20URDF%20File">xacro package</a>  to generate the URDF from the xacro file.</p>
+<h3 class="mume-header" id="3-update-the-worldlaunch-file-created-earlier-so-that-gazebo-can-load-the-robot-urdf-model">3- Update the  <code>world.launch</code>  file created earlier so that Gazebo can load the robot  <code>URDF</code>  model</h3>
+
+<p>Add the following to the launch file (after  <code>&lt;launch&gt;</code>):</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token comment">&lt;!-- Robot pose --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>x<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>y<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>z<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>roll<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>pitch<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>yaw<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Launch other relevant files--&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span> <span class="token attr-name">file</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find my_robot)/launch/robot_description.launch<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p><strong>Note: If you have copied your gazebo world from Project 1 then you could skip this step, since you already have  <code>my_robot</code>  in your Gazebo world.</strong></p>
+<p>Add the following to the launch file (before  <code>&lt;/launch&gt;</code>):</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token comment">&lt;!-- Find my robot Description--&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_description<span class="token punctuation">&quot;</span></span> <span class="token attr-name">command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find xacro)/xacro --inorder <span class="token punctuation">&apos;</span>$(find my_robot)/urdf/my_robot.xacro<span class="token punctuation">&apos;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Spawn My Robot --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>urdf_spawner<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>gazebo_ros<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>spawn_model<span class="token punctuation">&quot;</span></span> <span class="token attr-name">respawn</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span> 
+        <span class="token attr-name">args</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>-urdf -param robot_description -model my_robot 
+              -x $(arg x) -y $(arg y) -z $(arg z)
+              -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>The  <a href="http://wiki.ros.org/gazebo_ros">gazebo_ros package</a>  spawns the model from the URDF that  <code>robot_description</code>  helps generate.</p>
+<h2 class="mume-header" id="launch">Launch</h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+
+</pre><p><strong>Note</strong>: Launching Gazebo for the first time with a model can take time for everything to load up.</p>
+<h1 class="mume-header" id="robot-enhancement">Robot Enhancement</h1>
+
+<p>Now that you&#x2019;ve built a basic model of your robot, enhance it and add wheels. Each wheel is represented as a  <code>link</code>  and is connected to the base link (the chassis) with a  <code>joint</code>.</p>
+<p align="center">
+<img src="img/gazebo-robot.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="create-wheel-links">Create Wheel  <code>Links</code></h2>
+
+<p>You will first create the links for each wheel using the specifications given below and add that to your Xacro file. For each wheel, you will have a  <code>collision</code>,  <code>inertial</code>, and  <code>visual</code>  element, along with the following properties:</p>
+<ul>
+<li>
+<p><code>link name</code>  - &quot;SIDE_wheel&quot;, where the SIDE is either left or right.</p>
+</li>
+<li>
+<p><code>geometry</code>  - &quot;cylinder&quot; with radius 0.1 and length 0.05.</p>
+</li>
+<li>
+<p><code>origin</code>  for each element - [0, 0, 0, 0, 1.5707, 1.5707]</p>
+</li>
+<li>
+<p><code>mass</code>  of each wheel - &quot;5&quot;.</p>
+</li>
+<li>
+<p>You can use the same  <code>inertia</code>  values as the ones for the chassis for simplicity:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>    ixx=&quot;0.1&quot; ixy=&quot;0&quot; ixz=&quot;0&quot;
+    iyy=&quot;0.1&quot; iyz=&quot;0&quot;
+    izz=&quot;0.1&quot;
+</code></pre></li>
+</ul>
+<h2 class="mume-header" id="create-joints-for-the-two-wheels">Create  <code>Joints</code>  for the two wheels</h2>
+
+<p>Once define the links, you need to create the corresponding joints. The following elements will create a joint between your left wheel (the child link) and the robot chassis (the parent link):</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>joint</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>continuous<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>left_wheel_hinge<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>origin</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0.15 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>left_wheel<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span> <span class="token attr-name">link</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>chassis<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>axis</span> <span class="token attr-name">xyz</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 1 0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rpy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0 0 0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>limit</span> <span class="token attr-name">effort</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>10000<span class="token punctuation">&quot;</span></span> <span class="token attr-name">velocity</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1000<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dynamics</span> <span class="token attr-name">damping</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1.0<span class="token punctuation">&quot;</span></span> <span class="token attr-name">friction</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1.0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>joint</span><span class="token punctuation">&gt;</span></span>
+
+</pre><p>The  <code>joint type</code>  is set to &quot;continuous&quot; and is similar to a revolute joint but has no limits on its rotation. This means that the joint can rotate continuously. The joint will have its own  <code>axis</code>  of rotation. Also, the joint will have certain  <code>limits</code>  to enforce the maximum &quot;effort&quot; and &quot;velocity&quot; for that joint. The limits are useful constraints in for a real robot and can help in simulation as well. ROS has  <a href="http://wiki.ros.org/pr2_controller_manager/safety_limits">good documentation on safety limits</a>. In addition, the joint will have specific joint  <code>dynamics</code>  that correspond to the physical properties of the joint like &quot;damping&quot; and &#x201C;friction&#x201D;.</p>
+<p>Add the left wheel joint to your Xacro file. Then use it as a template to create the joint between the right wheel and the chassis.</p>
+<h1 class="mume-header" id="robot-sensors">Robot Sensors</h1>
+
+<p>Earlier, you built a very basic robot model by creating its own URDF file. Then, you enhanced the model and added a wheel and a joint on each side of the chassis. Now, it&#x2019;s time to add sensors to our robot so it can perceive its surroundings. You&#x2019;ll add two sensors - a  <strong>camera</strong>  and a  <strong>lidar</strong>.</p>
+<h2 class="mume-header" id="sensors">Sensors</h2>
+
+<p><strong>Camera:</strong>  Cameras are one of the most common sensors in Robotics. They capture information that is easily interpreted by humans at a high resolution compared to other sensors. Every image captures millions of pixels. To extract depth information from camera images, people have started using stereo cameras. These work like your eyes do and are able to estimate distances to objects.</p>
+<p><strong>Lidar:</strong>  Lidar stands for Light Detection and Ranging. It uses arrays of lasers to sense &#x201C;point cloud&#x201D; models of the environment. By measuring thousands of millions of times per second, lidar builds an accurate model of the world. However, the resolution is not nearly as high as that of a camera.</p>
+<p align="center">
+<img src="img/robot-enhanced-with-sensors.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="add-a-camera">Add a <strong>Camera</strong></h2>
+
+<p>First, add the camera link and a corresponding joint. Open the  <code>my_robot.xacro</code>  file and add a camera sensor based on the following specifications:</p>
+<ul>
+<li>
+<p><code>link name</code>  - &quot;camera&quot;</p>
+</li>
+<li>
+<p><code>link origin</code>  - &quot;[0, 0, 0, 0, 0, 0]&quot;</p>
+</li>
+<li>
+<p><code>geometry</code>  - box with size &quot;[0.05, 0.05, 0.05]&quot;</p>
+</li>
+<li>
+<p><code>mass</code>  - &quot;0.1&quot;</p>
+</li>
+<li>
+<p><code>box_inertia</code>  - m=&quot;0.1&quot; x=&quot;0.05&quot; y=&quot;0.05&quot; z=&quot;0.05&quot;</p>
+</li>
+<li>
+<p><code>inertia</code>  - ixx=&quot;1e-6&quot; ixy=&quot;0&quot; ixz=&quot;0&quot; iyy=&quot;1e-6&quot; iyz=&quot;0&quot; izz=&quot;1e-6&quot;</p>
+</li>
+<li>
+<p><code>joint name</code>  - &quot;camera_joint&quot;</p>
+</li>
+<li>
+<p><code>joint type</code>  - &quot;fixed&quot;</p>
+</li>
+<li>
+<p><code>joint axis</code>  - &quot;[0, 1, 0]&quot;</p>
+</li>
+<li>
+<p><code>joint origin</code>  - &quot;[0.2, 0, 0, 0, 0, 0]&quot;</p>
+</li>
+<li>
+<p><code>joint parent link</code>  - &quot;chassis&quot;</p>
+</li>
+<li>
+<p><code>joint child link</code>  - &quot;camera&quot;</p>
+</li>
+</ul>
+<p>As we covered in the previous section, each link should have its own  <code>visual</code>,  <code>collision</code>  and  <code>inertial</code>  elements.</p>
+<h2 class="mume-header" id="add-a-lidar">Add a  <strong>Lidar</strong></h2>
+
+<p>Now, let&apos;s add the lidar sensor. ROS supports many different types of  <a href="http://wiki.ros.org/Sensors#A2D_range_finders">sensors</a>. One of them, that you will use for this robot and for the project, is the Hokuyo rangefinder sensor.</p>
+<p align="center">
+<img src="img/hokuyo-lidar-sensor.jpg" alt="drawing" width="700">
+</p>
+<p>The Hokuyo sensor can be added to your robot model just like the camera sensor, except that you first need to add a mesh file to your robot model. Mesh files define the shape of the object or model you are working with. There are some basic shapes, like the box or cylinder, that do not require a mesh file. However, for more advanced designs, mesh files are necessary. The mesh file should be located in a directory called  <code>meshes</code>  that you can create in your package folder,  <code>my_robot</code>.</p>
+<p><strong>1- Create  <code>meshes</code>  directory</strong></p>
+<p>Let&#x2019;s create a  <code>meshes</code>  directory in  <code>my_robot</code>  to hold sensor mesh files:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/my_robot/
+$ <span class="token function">mkdir</span> meshes
+</pre><p><strong>2- Now, download this  <a href="https://s3-us-west-1.amazonaws.com/udacity-robotics/hokuyo.dae">hokuyo.dae</a>  file and place it under the  <code>meshes</code>  directory you just created.</strong></p>
+<p>Wondering where I got the mesh file for the Hokuyo sensor? Gazebo shares the mesh files for its  <a href="http://models.gazebosim.org/">entire library of models</a>.</p>
+<p><strong>3- Add the Hokuyo sensor to  <code>my_robot.xacro</code></strong></p>
+<p>Here are the Hokuyo lidar sensor specifications:</p>
+<ul>
+<li><code>link name</code>  - &quot;hokuyo&quot;</li>
+<li><code>link origin</code>  - &quot;[0, 0, 0, 0, 0, 0]&quot;</li>
+<li><code>geometry</code>  for  <code>&lt;collision&gt;</code>  - box with size &quot;[0.1, 0.1, 0.1]&quot;</li>
+<li><code>geometry</code>  for  <code>&lt;visual&gt;</code>  - filename = &#x201C;package://my_robot/meshes/hokuyo.dae&#x201D;</li>
+<li><code>mass</code>  - &quot;1e-5&quot;</li>
+<li><code>inertia</code>  - ixx=&quot;1e-6&quot; ixy=&quot;0&quot; ixz=&quot;0&quot; iyy=&quot;1e-6&quot; iyz=&quot;0&quot; izz=&quot;1e-6&quot;</li>
+<li><code>joint name</code>  - &quot;hokuyo_joint&quot;</li>
+<li><code>joint type</code>  - &quot;fixed&quot;</li>
+<li><code>joint axis</code>  - &quot;[0 1 0]&quot;</li>
+<li><code>joint origin</code>  - &quot;[0.15, 0, .1, 0, 0, 0]&quot;</li>
+<li><code>joint parent link</code>  - &quot;chassis&quot;</li>
+<li><code>joint child link</code>  - &quot;hokuyo&quot;</li>
+</ul>
+<p>As we covered in the previous section, each link should have its own  <code>visual</code>,  <code>collision</code>  and  <code>inertial</code>  elements.</p>
+<h2 class="mume-header" id="launch-1">Launch</h2>
+
+<p>Excellent work! You created a robot model and added sensors to it. Now you can test your updated model in Gazebo:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p>Now, let&apos;s see what your model looks like!</p>
+<p align="center">
+<img src="img/gazebo-robot-color.png" alt="drawing" width="700">
+</p>
+<p>Wait, something&apos;s definitely wrong here.</p>
+<h1 class="mume-header" id="gazebo-plugins">Gazebo Plugins</h1>
+
+<p>You added sensors to your robot, allowing it to visualize the world around it! But how exactly does the  <strong>camera</strong>  sensor takes those images in simulation? How does a  <strong>lidar</strong> sensor take laser measurements in simulation? How exactly does your robot  <strong>move</strong> in a simulated environment?</p>
+<p>URDF in itself can&apos;t help with that. However, Gazebo allows for plugins that implement specific use-cases.</p>
+<h2 class="mume-header" id="sensor-and-actuators-plugins">Sensor and Actuators Plugins</h2>
+
+<p>We will cover the use of three such plugins:</p>
+<ul>
+<li>A plugin for the  <strong>camera</strong>  sensor.</li>
+<li>A plugin for the  <strong>Hokuyo lidar</strong>  sensor.</li>
+<li>A plugin for the  <strong>wheel joints</strong>  actuator.</li>
+</ul>
+<h2 class="mume-header" id="add-plugins">Add Plugins</h2>
+
+<p>Download the <a href="https://s3-us-west-1.amazonaws.com/udacity-robotics/my_robot.gazebo">my_robot.gazebo</a>  file, which includes the 3 plugins mentioned above, and place it inside the  <code>urdf</code>  directory of  <code>my_robot</code>.</p>
+<h2 class="mume-header" id="gazebo-plugin-files">Gazebo Plugin Files</h2>
+
+<p>Since we have a two-wheeled mobile robot, we will use a plugin that implements a differential drive controller. Let&apos;s take a look at how the plugin is defined in the  <code>my_robot.gazebo</code>  file.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>gazebo</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>differential_drive_controller<span class="token punctuation">&quot;</span></span> <span class="token attr-name">filename</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>libgazebo_ros_diff_drive.so<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>legacyMode</span><span class="token punctuation">&gt;</span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>legacyMode</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>alwaysOn</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>alwaysOn</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updateRate</span><span class="token punctuation">&gt;</span></span>10<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updateRate</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>leftJoint</span><span class="token punctuation">&gt;</span></span>left_wheel_hinge<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>leftJoint</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rightJoint</span><span class="token punctuation">&gt;</span></span>right_wheel_hinge<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rightJoint</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>wheelSeparation</span><span class="token punctuation">&gt;</span></span>0.4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>wheelSeparation</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>wheelDiameter</span><span class="token punctuation">&gt;</span></span>0.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>wheelDiameter</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>torque</span><span class="token punctuation">&gt;</span></span>10<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>torque</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>commandTopic</span><span class="token punctuation">&gt;</span></span>cmd_vel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>commandTopic</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>odometryTopic</span><span class="token punctuation">&gt;</span></span>odom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>odometryTopic</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>odometryFrame</span><span class="token punctuation">&gt;</span></span>odom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>odometryFrame</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>robotBaseFrame</span><span class="token punctuation">&gt;</span></span>robot_footprint<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>robotBaseFrame</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>publishWheelTF</span><span class="token punctuation">&gt;</span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>publishWheelTF</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>publishWheelJointState</span><span class="token punctuation">&gt;</span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>publishWheelJointState</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rosDebugLevel</span><span class="token punctuation">&gt;</span></span>na<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rosDebugLevel</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>wheelAcceleration</span><span class="token punctuation">&gt;</span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>wheelAcceleration</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>wheelTorque</span><span class="token punctuation">&gt;</span></span>5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>wheelTorque</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>odometrySource</span><span class="token punctuation">&gt;</span></span>world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>odometrySource</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>publishTf</span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>publishTf</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>publishOdomTF</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>publishOdomTF</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>gazebo</span><span class="token punctuation">&gt;</span></span>
+
+</pre><p><code>libgazebo_ros_diff_drive.so</code>  is the shared object file created from compiling the C++ source code. The plugin accepts information specific to your robot&apos;s model, such as wheel separation, joint names, and more. Then it calculates and publishes the robot&apos;s odometry information to the topics that you specified, like  <code>odom</code>. In an upcoming section, you will send velocity commands to your robot to move it in a specific direction. This controller helps achieve that result.</p>
+<p>If you&apos;d like to understand how this plugin was created, you can refer to its C++  <a href="https://bitbucket.org/osrf/gazebo/src/afe08834571835008fa7419f1feba5b7f89b9d62/plugins/DiffDrivePlugin.cc?at=gazebo7&amp;fileviewer=file-view-default">source code</a>.</p>
+<p>Gazebo already has several such plugins publicly available. We will utilize the preexisting plugins for the  <a href="http://gazebosim.org/tutorials?tut=ros_gzplugins#Camera">camera sensor</a>  and the preexisting plugins for the Hokuyo lidar sensor. Both of these are already included in the  <code>my_robot.gazebo</code>  file linked previously.</p>
+<h2 class="mume-header" id="ros-communication">ROS Communication</h2>
+
+<p>You need to define the topics to which each sensor publishes.</p>
+<p>For the wheel joints, it&apos;s the  <code>cmd_vel</code>  topic.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>commandTopic</span><span class="token punctuation">&gt;</span></span>cmd_vel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>commandTopic</span><span class="token punctuation">&gt;</span></span>
+</pre><p>For the camera, it&apos;s the  <code>rgb/image_raw</code>  topic.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>imageTopicName</span><span class="token punctuation">&gt;</span></span>rgb/image_raw<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>imageTopicName</span><span class="token punctuation">&gt;</span></span>
+</pre><p>And for the lidar, it&apos;s the  <code>scan</code>  topic</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>topicName</span><span class="token punctuation">&gt;</span></span>/scan<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>topicName</span><span class="token punctuation">&gt;</span></span>
+</pre><h2 class="mume-header" id="import-plugins">Import Plugins</h2>
+
+<p>Before we proceed to test these sensors and actuators with ROS, you need to make sure that your plugins are imported by your URDF  <code>my_robot.xacro</code>  file as well. Import the sensors plugins by adding the following code to the top of the file (immediately before you define the  <code>robot_footprint</code>  link):</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xacro:</span>include</span> <span class="token attr-name">filename</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find my_robot)/urdf/my_robot.gazebo<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><h2 class="mume-header" id="next">Next</h2>
+
+<p>Now, you&#x2019;re ready to test these sensors with ROS!</p>
+<h1 class="mume-header" id="rviz-basics">RViz Basics</h1>
+
+<h2 class="mume-header" id="rviz">RViz</h2>
+
+<p>RViz stands for ROS Visualization. RViz is our one-stop tool to visualize all three core aspects of a robot: perception, decision-making, and actuation.</p>
+<p>While Gazebo is a physics simulator, RViz can visualize any type of sensor data being published over a ROS topic: camera images, point clouds, ultrasonic measurements, lidar data, inertial measurements, and more. This data can be a live stream directly from the sensor or pre-recorded data stored as a  <strong>bagfile</strong>.</p>
+<p>You can also visualize live joint angle values from a robot and hence construct a real-time 3D representation of any robot. Having said that, RViz is not a simulator and does not interface with a physics engine. So RViz models neither collisions nor dynamics. RViz is not an alternative to Gazebo, but rather a complementary tool to keep an eye on every single process under the hood of a robotic system.</p>
+<h2 class="mume-header" id="running-rviz">Running RViz</h2>
+
+<p>Since RViz is a ROS package, it requires roscore. In a terminal spin up roscore:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ roscore
+</pre><p>In another terminal, run rviz:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ rosrun rviz rviz
+</pre><p>&#x201C;rviz&#x201D; is a node located in an &#x201C;rviz&#x201D; package. Once launched, RViz should look something like this:</p>
+<p align="center">
+<img src="img/rviz-anonotated.png" alt="drawing" width="700">
+</p>
+<p>The empty window in the center is called  <strong>3D view</strong>. This is where you will spend most of your time observing the robot model, the sensors, and other meta-data.</p>
+<p>The panel on the left is a list of loaded  <strong>displays</strong>, while the one on the right shows different  <strong>views</strong>  available.</p>
+<p>At the top we have a number of useful  <strong>tools</strong>. The bottom bar displays information like time elapsed, frames per second, and some handy instructions for the selected tool.</p>
+<h2 class="mume-header" id="displays">Displays</h2>
+
+<p>For anything to appear in the  <strong>3D view</strong>, you first need to load a proper display. A display could be as simple as a basic 3D shape or a complex robot model.</p>
+<p>Displays can also be used to visualize sensor data streams like 3D point clouds, lidar scans, or depth images.</p>
+<p>RViz by default starts with two fixed property fields that cannot be removed:  <strong>Global Options</strong>  and  <strong>Global Status</strong>. One governs simple global settings, while the other detects and displays useful status notifications.</p>
+<p>For more information on RViz, check out their official guide  <a href="http://wiki.ros.org/rviz/UserGuide">here</a>.</p>
+<h1 class="mume-header" id="rviz-integration">RViz Integration</h1>
+
+<p>In this section, you will display your model into RViz and visualize data from the  <strong>camera</strong>  and  <strong>lidar</strong>  sensors. You will also  <strong>actuate</strong>  your robot and drive it around!</p>
+<h2 class="mume-header" id="modify-robot_description">Modify robot_description</h2>
+
+<p>Start by modifying the  <code>robot_description.launch</code>  file. Open it and add these lines after the first  <code>param</code>  definition.</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token comment">&lt;!-- Send fake joint values--&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>joint_state_publisher<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>joint_state_publisher<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>joint_state_publisher<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>use_gui<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Send robot states to tf --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_state_publisher<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_state_publisher<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>robot_state_publisher<span class="token punctuation">&quot;</span></span> <span class="token attr-name">respawn</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>Those elements add two nodes - the  <strong>joint_state_publisher</strong>  and the  <strong>robot_state_publisher</strong>.</p>
+<ul>
+<li><code>joint_state_publisher</code>: Publishes joint state messages for the robot, such as the angles for the non-fixed joints.</li>
+<li><code>robot_state_publisher</code>: Publishes the robot&apos;s state to tf (transform tree). Your robot model has several frames corresponding to each link/joint. The robot_state_publisher publishes the 3D poses of all of these links. This offers a convenient and efficient advantage, especially for more complicated robots.</li>
+</ul>
+<h2 class="mume-header" id="modify-worldlaunch">Modify  <code>world.launch</code></h2>
+
+<p>Next, you need to launch RViz along with Gazebo. Open the  <code>world.launch</code>  file and add these elements after the  <code>urdf_spawner</code>  node definition:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token comment">&lt;!--launch rviz--&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>rviz<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>rviz<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>rviz<span class="token punctuation">&quot;</span></span> <span class="token attr-name">respawn</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>This will create a node that launches the package  <code>rviz</code>. Let&apos;s launch it &#x1F680;</p>
+<h2 class="mume-header" id="launch-2">Launch!</h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p>This time both Gazebo and RViz should launch!</p>
+<h3 class="mume-header" id="rviz-setup">RViz Setup</h3>
+
+<p>Setup RViz to visualize the sensor readings. On the left side of RViz, under  <code>Displays</code>:</p>
+<ul>
+<li>Select  <code>odom</code>  for  <strong>fixed frame</strong></li>
+<li>Click the  <strong>Add</strong>  button and
+<ul>
+<li>add  <code>RobotModel</code>  and your robot model should load up in RViz.</li>
+<li>add  <code>Camera</code>  and select the  <strong>Image topic</strong>  that was defined in the camera Gazebo plugin</li>
+<li>add  <code>LaserScan</code>  and select the  <strong>topic</strong>  that was defined in the Hokuyo Gazebo plugin</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="add-objects">Add Objects</h3>
+
+<p>In Gazebo, add a box, sphere or cylinder object in front of your robot. Your robot&#x2019;s sensors should be able to visualize it. You can check the  <code>Camera</code>  viewer on the bottom left side of RViz to see a picture of the new object. Also, you can see a red  <code>Laser</code>  scan inside the scene, reflecting from your object.</p>
+<p align="center">
+<img src="img/robot-in-rviz.png" alt="drawing" width="700">
+</p>
+<h3 class="mume-header" id="drive-around">Drive Around</h3>
+
+<p>While everything above is still running, test the robot&#x2019;s actuators and drive it around. Open a new terminal window and publish velocity commands to the robot&#x2019;s wheel actuators:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rostopic pub /cmd_vel geometry_msgs/Twist  <span class="token string">&quot;linear:
+  x: 0.1
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.1&quot;</span> 
+</pre><p>This command publishes messages to  <code>cmd_vel</code>, a topic which was defined in the drive controller plugin. The values set for  <code>linear.x</code>  and  <code>angular.z</code>  will enable the robot to start moving in a circle!</p>
+<h1 class="mume-header" id="house-your-robot">House your Robot</h1>
+
+<p>So far, you created a robot model from scratch, added sensors to it to visualize its surroundings, and developed a package to launch the robot in a simulated environment. That&apos;s a real accomplishment!</p>
+<p>But you haven&#x2019;t yet placed the robot in an environment. Let&#x2019;s house it inside the world you built in  <strong>Build My World</strong>  project.</p>
+<p align="center">
+<img src="img/house-robot.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="adding-the-world-file">Adding the World File</h2>
+
+<p>Copy the  <code>&lt;yourname&gt;.world</code>  file from the  <code>world</code>  directory of the  <strong>Build My World</strong>  project and paste it in the  <code>worlds</code>  directory of  <code>my_robot.</code></p>
+<p>Inside your package&#x2019;s  <code>worlds</code>  directory you should now see two files - the  <code>empty.world</code>  that we created earlier and the  <code>&lt;yourname&gt;.world</code>  file that you just added.</p>
+<p>Feel free to delete the  <code>empty.world</code>  file. We won&#x2019;t need it anymore.</p>
+<h2 class="mume-header" id="launch-the-world">Launch the World</h2>
+
+<p>Edit the  <code>world.launch</code>  file and add a reference to the  <code>&lt;yourname&gt;.world</code>  file that you just added. To do so, open the  <code>world.launch</code>  file and edit this line:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>world_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find my_robot)/worlds/empty.world<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>Replace it with this:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>world_file<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$(find my_robot)/worlds/&lt;yourname&gt;.world<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><h2 class="mume-header" id="launch-3">Launch!</h2>
+
+<p>Now, that you&#x2019;ve added your world file to the  <code>my_robot</code>  package, let&#x2019;s launch and visualize our robot inside our home.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p align="center">
+<img src="img/house-robot2.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="initialize-the-robots-position-and-orientation">Initialize the Robot&#x2019;s Position and Orientation</h2>
+
+<p>As you can see, my robot&#x2019;s initial position is outside of my world! You might face the same problem. I have to change my robot&#x2019;s initial pose: its position and orientation. This can be done through editing the  <code>world.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml">  <span class="token comment">&lt;!-- Robot pose --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>x<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>y<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>z<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>roll<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>pitch<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>yaw<span class="token punctuation">&quot;</span></span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+</pre><p>The best way to figure out these numbers is to change the robot&#x2019;s position and orientation within Gazebo, record its pose, and then update the launch file.</p>
+<p align="center">
+<img src="img/house-robot3.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="setting-up-ball_chaser">Setting up ball_chaser</h1>
+
+<p>The second major task in this project is to create the  <code>ball_chaser</code>  ROS package. Within this package, you&apos;ll analyze the image captured by the camera to determine the position of a white ball. Then you&#x2019;ll drive the robot toward the ball. The nodes in  <code>ball_chaser</code>  will communicate with the  <code>my_robot</code>  package by subscribing to the robot camera sensor and publishing to the robot&#x2019;s wheel joints.</p>
+<h2 class="mume-header" id="package-nodes">Package Nodes</h2>
+
+<p>The  <code>ball_chaser</code>  package will have two C++ nodes: the  <code>drive_bot</code>  and  <code>process_image</code></p>
+<ul>
+<li><code>drive_bot</code>: This server node will provide a  <code>ball_chaser/command_robot</code>  <strong>service</strong>  to drive the robot around by controlling its linear x and angular z velocities. The service will  <strong>publish</strong>  a message containing the velocities to the wheel joints.</li>
+<li><code>process_image</code>: This client node will  <strong>subscribe</strong>  to the robot&#x2019;s camera images and analyze each image to determine the position of the white ball. Once ball position is determined, the client node will request a service to drive the robot either left, right or forward.</li>
+</ul>
+<p>Now, follow along with the steps to set up  <code>ball_chaser</code>.</p>
+<h2 class="mume-header" id="create-the-ball_chaser-package">Create the  <code>ball_chaser</code>  Package</h2>
+
+<p><strong>1- Navigate to the  <code>src</code>  directory of your  <code>catkin_ws</code>  and create the  <code>ball_chaser</code>  package:</strong></p>
+<p>We will be writing nodes in C++. Since we already know in advance that this package will contain C++ source code and messages, let&#x2019;s create the package with those dependencies:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/
+$ catkin_create_pkg ball_chaser roscpp std_msgs message_generation
+</pre><p><strong>2- Next, create an  <code>srv</code>  and a  <code>launch</code>  folder, which will further define the structure of your package:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/src/ball_chaser/
+$ <span class="token function">mkdir</span> srv
+$ <span class="token function">mkdir</span> launch
+</pre><p>Remember,  <code>srv</code>  is the directory where you store  <strong>service</strong>  files and  <strong>launch</strong>  is the directory where you store launch files. The  <code>src</code>  directory where you will store C++ programs is created by default.</p>
+<h2 class="mume-header" id="build-the-package">Build the Package</h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><p>Now you should be ready to write some code!</p>
+<h1 class="mume-header" id="ros-node-drive_bot">ROS Node: drive_bot</h1>
+
+<p>This server node provides a  <code>ball_chaser/command_robot</code>  <strong>service</strong>  to drive the robot around by setting its linear x and angular z velocities. The service server  <strong>publishes</strong>  messages containing the velocities for the wheel joints.</p>
+<p>After writing this node, you will be able to request the  <code>ball_chaser/command_robot</code>  service, either from the terminal or from a client node, to drive the robot by controlling its linear x and angular z velocities.</p>
+<h2 class="mume-header" id="reference">Reference</h2>
+
+<p>The  <code>drive_bot.cpp</code>  node is similar to the  <code>arm_mover.cpp</code>  node that you already wrote. Both nodes contain a ROS  <strong>publisher</strong>  and  <strong>service</strong>. But this time, instead of publishing messages to the arm joint angles, you have to publish messages to the wheels joint angles. Please refer to the  <code>arm_mover.cpp</code>  node before you begin coding the  <code>drive_bot.cpp</code>  node.</p>
+<h2 class="mume-header" id="ros-service-file">ROS Service File</h2>
+
+<p><strong>1- Write the  <code>DriveToTarget.srv</code>  file</strong></p>
+<p>Create a  <code>DriveToTarget.srv</code>  file under the  <code>srv</code>  directory of  <code>ball_chaser</code>. Then, define the  <code>DriveToTarget.srv</code>  file as follows:</p>
+<p><strong>Request</strong>:</p>
+<ul>
+<li><code>linear_x</code>  type  <strong>float64</strong></li>
+<li><code>angular_z</code>  type  <strong>float64</strong></li>
+</ul>
+<p><strong>Response</strong>:</p>
+<ul>
+<li><code>msg_feedback</code>  type  <strong>string</strong></li>
+</ul>
+<p><strong>2- Test  <code>DriveToTarget.srv</code></strong></p>
+<p>After writing the service file, test it with ROS. Open a new terminal and execute the following:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rossrv show DriveToTarget
+</pre><p>You should receive this response:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token punctuation">[</span>ball_chaser/DriveToTarget<span class="token punctuation">]</span>:
+float64 linear_x
+float64 angular_z
+---
+string msg_feedback
+</pre><h2 class="mume-header" id="drive_botcpp-node"><code>drive_bot.cpp</code>  Node</h2>
+
+<p>Now it&#x2019;s time to write the  <code>drive_bot.cpp</code>  server node that will provide the  <code>ball_chaser/command_robot</code>  service. Create the script under the  <code>src</code>  directory of your  <code>ball_chaser</code>  package. It might be a bit challenging to write this script from scratch, thus I am providing you with some hints.</p>
+<p>Attached below is a program that will continuously publish to the robot  <code>/cmd_vel</code>  topic. This code will drive your robot forward:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;geometry_msgs/Twist.h&quot;</span></span>
+<span class="token comment">//TODO: Include the ball_chaser &quot;DriveToTarget&quot; header file</span>
+
+<span class="token comment">// ROS::Publisher motor commands;</span>
+ros<span class="token double-colon punctuation">::</span>Publisher motor_command_publisher<span class="token punctuation">;</span>
+
+<span class="token comment">// TODO: Create a handle_drive_request callback function that executes whenever a drive_bot service is requested</span>
+<span class="token comment">// This function should publish the requested linear x and angular velocities to the robot wheel joints</span>
+<span class="token comment">// After publishing the requested velocities, a message feedback should be returned with the requested wheel velocities</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Initialize a ROS node</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;drive_bot&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Create a ROS NodeHandle object</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+
+    <span class="token comment">// Inform ROS master that we will be publishing a message of type geometry_msgs::Twist on the robot actuation topic with a publishing queue size of 10</span>
+    motor_command_publisher <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>geometry_msgs<span class="token double-colon punctuation">::</span>Twist<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/cmd_vel&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// TODO: Define a drive /ball_chaser/command_robot service with a handle_drive_request callback function</span>
+
+    <span class="token comment">// TODO: Delete the loop, move the code to the inside of the callback function and make the necessary changes to publish the requested velocities instead of constant values</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ros<span class="token double-colon punctuation">::</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Create a motor_command object of type geometry_msgs::Twist</span>
+        geometry_msgs<span class="token double-colon punctuation">::</span>Twist motor_command<span class="token punctuation">;</span>
+        <span class="token comment">// Set wheel velocities, forward [0.5, 0.0]</span>
+        motor_command<span class="token punctuation">.</span>linear<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+        motor_command<span class="token punctuation">.</span>angular<span class="token punctuation">.</span>z <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+        <span class="token comment">// Publish angles to drive the robot</span>
+        motor_command_publisher<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>motor_command<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// TODO: Handle ROS communication events</span>
+    <span class="token comment">//ros::spin();</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Take a look at this program and try to understand what is happening. Then, copy it to  <code>drive_bot.cpp</code>, and make the necessary changes to define a  <code>ball_chaser/command_robot</code>  service.</p>
+<h2 class="mume-header" id="edit-cmakeliststxt">Edit CMakeLists.txt</h2>
+
+<p>After you write the server node in C++, you&#x2019;ll have to add the following dependencies:</p>
+<ul>
+<li>Add the  <code>add_compile_options</code>  for C++ 11 dependency, this step is optional and depends on your code</li>
+<li>Add the  <code>add_service_files</code>  dependency which defines the DriveToTarget.srv file</li>
+<li>Add the  <code>generate_messages</code>  dependency</li>
+<li>Add  <code>include_directories</code>  dependency</li>
+<li>Add the  <code>add_executable</code>,  <code>target_link_libraries</code>, and  <code>add_dependencies</code>  dependency for your  <code>drive_bot.cpp</code>script</li>
+</ul>
+<h2 class="mume-header" id="build-package">Build Package</h2>
+
+<p>Now that you&#x2019;ve included specific instructions for your  <code>drive_bot.cpp</code>  code in  <code>CMakeLists.txt</code>  file, compile it with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><h2 class="mume-header" id="test-drive_botcpp">Test  <code>drive_bot.cpp</code></h2>
+
+<p>To test if the service you wrote is working, first launch the robot inside your world. Then call the  <code>/ball_chaser/command_robot</code>  service to drive the robot forward, left, and then right.</p>
+<p><strong>1- Launch the robot inside your world</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p><strong>2- Run the  <code>drive_bot</code>  node</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosrun ball_chaser drive_bot
+</pre><p><strong>3- Request a  <code>ball_chaser/command_robot</code>  service</strong></p>
+<p>Test the service by requesting different sets of velocities from the terminal.</p>
+<p>Open a new terminal while all the nodes are running and type:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+
+$ rosservice call /ball_chaser/command_robot <span class="token string">&quot;linear_x: 0.5
+angular_z: 0.0&quot;</span>  <span class="token comment"># This request should drive your robot forward</span>
+
+$ rosservice call /ball_chaser/command_robot <span class="token string">&quot;linear_x: 0.0
+angular_z: 0.5&quot;</span>  <span class="token comment"># This request should drive your robot left</span>
+
+$ rosservice call /ball_chaser/command_robot <span class="token string">&quot;linear_x: 0.0
+angular_z: -0.5&quot;</span>  <span class="token comment"># This request should drive your robot right</span>
+
+$ rosservice call /ball_chaser/command_robot <span class="token string">&quot;linear_x: 0.0
+angular_z: 0.0&quot;</span>  <span class="token comment"># This request should bring your robot to a complete stop</span>
+</pre><h2 class="mume-header" id="launch-files">Launch Files</h2>
+
+<p>Let&#x2019;s add the  <code>drive_bot</code>  node to a launch file. Create a  <code>ball_chaser.launch</code>  file under the  <code>launch</code>  directory of your  <code>ball_chaser</code>  package and then copy this code to it:</p>
+<pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
+
+ <span class="token comment">&lt;!-- The drive_bot node --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>drive_bot<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>drive_bot<span class="token punctuation">&quot;</span></span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ball_chaser<span class="token punctuation">&quot;</span></span> <span class="token attr-name">output</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>screen<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span>
+</pre><p>This code will launch your  <code>drive_bot</code>  node, which is contained in the  <code>ball_chaser</code>  package. The server node outputs all the logs to the terminal window.</p>
+<h1 class="mume-header" id="model-a-white-ball">Model a White Ball</h1>
+
+<p>Before you proceed to code the  <code>process_image</code>  client node, you have to model a white ball and place it in your Gazebo World scene.</p>
+<p>After modeling the white ball, you&apos;ll control its position in Gazebo by placing it at different positions in front of the robot&#x2019;s camera. The  <code>process_image</code>  client node will be responsible for analyzing the robot&#x2019;s image and requesting services from the server  <code>drive_bot</code>  node to drive the robot towards it.</p>
+<p>Now, let&#x2019;s go ahead and model the white ball using the Model Editor tool in Gazebo!</p>
+<h2 class="mume-header" id="model-editor">Model Editor</h2>
+
+<p>Here&#x2019;s a reminder of how to open the model editor:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ gazebo <span class="token comment"># then Edit-&gt; Model Editor</span>
+</pre><h2 class="mume-header" id="insert-sphere">Insert Sphere</h2>
+
+<p>Under the  <strong>simple shapes</strong>  menu of the Model Editor tool, click on a sphere and insert it anywhere in the scene.</p>
+<h2 class="mume-header" id="edit-size">Edit Size</h2>
+
+<p>Double click on the sphere, and change its radius to  <strong>0.1</strong>  both in  <code>Visual</code>  and  <code>Collision</code>.</p>
+<h2 class="mume-header" id="change-color">Change Color</h2>
+
+<p>To change the ball&#x2019;s color to white, set its  <strong>Visual</strong>  Ambient, Diffuse, Specular, and Emissive  <code>RGBA</code>  values to 1.</p>
+<p align="center">
+<img src="img/model-a-ball.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="save">Save</h2>
+
+<p>Save the white ball model as  <code>my_ball</code>  under the  <code>/home/workspace</code>  directory. Then exit the Model Editor tool and go back to the Gazebo main world.</p>
+<h2 class="mume-header" id="insert-ball">Insert Ball</h2>
+
+<p>Now that you are back in the Gazebo main world, you can click on &#x201C;Insert&#x201D; and drop the white ball anywhere in the scene.</p>
+<p align="center">
+<img src="img/white-ball-empty-scene.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="relaunch-nodes">Relaunch Nodes</h2>
+
+<p>Now that you modeled the white ball, relaunch the nodes inside  <code>world.launch</code>. Then verify that you can insert a  <code>my_ball</code>  anywhere inside your world.</p>
+<p align="center">
+<img src="img/white-ball1.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="save-1">Save</h2>
+
+<p>Place the white ball anywhere outside of your building structure, so that the robot would not see it. Then, save a copy of this new world under  <code>/home/workspace/catkin_ws/src/my_robot/worlds</code>  by replacing your old  <code>&lt;yourname&gt;.world</code>  file. Whenever you launch this newly saved world you should be able to see your building environment, in addition, the white ball.</p>
+<p align="center">
+<img src="img/white-ball2.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="ros-node-process_image">ROS Node: process_image</h1>
+
+<p>The second node that you&#x2019;ll write in this project is the  <code>process_image</code>  node. This client node will  <strong>subscribe</strong>  to the robot&#x2019;s camera images and analyze them to determine the position of the white ball. Once the ball position is determined, the client node will request a service from the  <code>drive_bot</code>  server node to drive the robot toward the ball. The robot can drive either left, right or forward, depending on the robot position inside the image.</p>
+<p>After you write this node, place the white ball in front of the robot&#x2019;s camera. If everything works, your node should analyze the image, detect the ball&#x2019;s position, and then request a  <code>ball_chaser/command_robot</code>  service to drive the robot towards the ball!</p>
+<h2 class="mume-header" id="reference-1">Reference</h2>
+
+<p>The  <code>process_image.cpp</code>  client node is similar to the  <code>look_away.cpp</code>  client node that you wrote in this lesson. Both nodes contain a ROS  <strong>subscriber</strong>  and  <strong>client</strong>. Please review the  <code>look_away.cpp</code>  node before you start coding the  <code>process_image.cpp</code>  node.</p>
+<h2 class="mume-header" id="analyzing-the-images">Analyzing the Images</h2>
+
+<p>To identify the ball&#x2019;s  <strong>presence</strong>  and  <strong>position</strong>  inside the image, you will use a simple approach. First, search for white pixels inside the array image. Since the ball is the only object in the world that is white, white pixels indicate the ball&#x2019;s presence. Then, once you find that the ball, identify its position with respect to the camera - either the left, middle, or right side of the image.</p>
+<p align="center">
+<img src="img/analyze-image.png" alt="drawing" width="700">
+</p>
+<p>You&#x2019;ll have to subscribe to the  <code>/camera/rgb/image_raw</code>  topic to get instantaneous images from the robot&#x2019;s camera. Inside the callback function, retrieve the image by reading the image data message. The image message contains many fields, such as the image height, data and more. Check out the complete  <a href="http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Image.html">ROS  <code>sensor_msgs/Image</code>  documentation</a>. Now that you have the image messages, you have to loop through the image data. For each pixel compare it to a value of 255 indicating a bright white pixel, if this pixel is found try to identify in which section of the image it fall either left, mid, or right. Then, request a service to drive toward that direction.</p>
+<h2 class="mume-header" id="write-process_imagecpp">Write  <code>process_image.cpp</code></h2>
+
+<p>Now it&#x2019;s time to write the  <code>process_image.cpp</code>  client node. This node will analyze the image and request services to drive the robot. Create the source code file within the  <code>src</code>  directory of your  <code>ball_chaser</code>  package. It might be a bit challenging to write this program from scratch, thus I am providing you with some hints. Attached below is a piece of the complete code with multiple hints to help you finish the implementation.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ros/ros.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;ball_chaser/DriveToTarget.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sensor_msgs/Image.h&gt;</span></span>
+
+<span class="token comment">// Define a global client that can request services</span>
+ros<span class="token double-colon punctuation">::</span>ServiceClient client<span class="token punctuation">;</span>
+
+<span class="token comment">// This function calls the command_robot service to drive the robot in the specified direction</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">drive_robot</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span> lin_x<span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> ang_z<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// TODO: Request a service and pass the velocities to it to drive the robot</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This callback function continuously executes and reads the image data</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">process_image_callback</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> sensor_msgs<span class="token double-colon punctuation">::</span><span class="token type-opencl-host-cpp keyword">Image</span> img<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token keyword keyword-int">int</span> white_pixel <span class="token operator">=</span> <span class="token number">255</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// TODO: Loop through each pixel in the image and check if there&apos;s a bright white one</span>
+    <span class="token comment">// Then, identify if this pixel falls in the left, mid, or right side of the image</span>
+    <span class="token comment">// Depending on the white ball position, call the drive_bot function and pass velocities to it</span>
+    <span class="token comment">// Request a stop when there&apos;s no white ball seen by the camera</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Initialize the process_image node and create a handle to it</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">&quot;process_image&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle n<span class="token punctuation">;</span>
+
+    <span class="token comment">// Define a client service capable of requesting services from command_robot</span>
+    client <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>ball_chaser<span class="token double-colon punctuation">::</span>DriveToTarget<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">&quot;/ball_chaser/command_robot&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function</span>
+    ros<span class="token double-colon punctuation">::</span>Subscriber sub1 <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">&quot;/camera/rgb/image_raw&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> process_image_callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Handle ROS communication events</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</pre><p>Copy this code to  <code>process_image.cpp</code>, and make the necessary changes.</p>
+<h2 class="mume-header" id="edit-cmakeliststxt-1">Edit CMakeLists.txt</h2>
+
+<p>In addition to all the dependencies you added earlier for  <code>drive_bot.cpp</code>, these are the dependencies that you should add for  <code>process_image.cpp</code>  :</p>
+<ul>
+<li>Add  <code>add_executable</code></li>
+<li>Add  <code>target_link_libraries</code></li>
+<li>Add  <code>add_dependencies</code></li>
+</ul>
+<h2 class="mume-header" id="build-package-1">Build Package</h2>
+
+<p>Now that you&#x2019;ve included specific instructions for your  <code>process_image.cpp</code>  code in  <code>CMakeLists.txt</code>, compile it with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ catkin_make
+</pre><h2 class="mume-header" id="launch-file">Launch File</h2>
+
+<p>Edit the  <code>ball_chaser.launch</code>  file saved under  <code>/home/workspace/catkin_ws/src/ball_chaser/launch</code>  and add the  <code>process_image</code>  node to it.</p>
+<p>Now, launching this file should run the  <code>drive_bot</code>  and  <code>process_image</code>!</p>
+<h2 class="mume-header" id="test-process_image">Test  <code>process_image</code></h2>
+
+<p>To test if the code you just wrote is working as expected, first launch the robot inside your world and then run both the  <code>drive_bot</code>  and  <code>process_image</code>  nodes.</p>
+<p><strong>1- Launch the robot inside your world</strong></p>
+<p>This can be done by launching the  <code>world.launch</code>  file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch my_robot world.launch
+</pre><p><strong>2- Run  <code>drive_bot</code>  and  <code>process_image</code></strong></p>
+<p>This can be done by executing  <code>ball_chaser.launch</code>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ roslaunch ball_chaser ball_chaser.launch
+</pre><h3 class="mume-header" id="3-visualize">3- Visualize</h3>
+
+<p>To visualize the robot&#x2019;s camera images, you can subscribe to camera RGB image topic from RViz. Or you can run the rqt_image_view node:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/catkin_ws/
+$ <span class="token builtin class-name">source</span> devel/setup.bash
+$ rosrun rqt_image_view rqt_image_view  
+</pre><p>Now place the white ball at different positions in front of the robot and see if the robot is capable of chasing the ball!</p>
+<p align="center">
+<img src="img/ros-node1.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="project-description">Project Description</h1>
+
+<h2 class="mume-header" id="summary-of-tasks">Summary of Tasks</h2>
+
+<p>In this project, you should create two ROS packages inside your  <code>catkin_ws/src</code>: the  <code>drive_bot</code>  and the  <code>ball_chaser</code>. Here are the steps to design the robot, house it inside your world, and program it to chase white-colored balls:</p>
+<ol>
+<li>
+<p><code>drive_bot</code>:</p>
+<ul>
+<li>Create a  <code>my_robot</code>  ROS package to hold your robot, the white ball, and the world.</li>
+<li>Design a differential drive robot with the Unified Robot Description Format. Add two sensors to your robot: a lidar and a camera. Add Gazebo plugins for your robot&#x2019;s differential drive, lidar, and camera. The robot you design should be significantly different from the one presented in the project lesson. Implement significant changes such as adjusting the color, wheel radius, and chassis dimensions. Or completely redesign the robot model! After all you want to impress your future employers &#x1F604;</li>
+<li>House your robot inside the world you built in the  <strong>Build My World</strong>  project.</li>
+<li>Add a white-colored ball to your Gazebo world and save a new copy of this world.</li>
+<li>The  <code>world.launch</code>  file should launch your world with the white-colored ball and your robot.</li>
+</ul>
+</li>
+<li>
+<p><code>ball_chaser</code>:</p>
+<ul>
+<li>Create a  <code>ball_chaser</code>  ROS package to hold your C++ nodes.</li>
+<li>Write a  <code>drive_bot</code>C++ node that will provide a  <code>ball_chaser/command_robot</code>  service to drive the robot by controlling its linear x and angular z velocities. The service should publish to the wheel joints and return back the requested velocities.</li>
+<li>Write a  <code>process_image</code>  C++ node that reads your robot&#x2019;s camera image, analyzes it to determine the presence and position of a white ball. If a white ball exists in the image, your node should request a service via a client to drive the robot towards it.</li>
+<li>The  <code>ball_chaser.launch</code>  should run both the  <code>drive_bot</code>  and the  <code>process_image</code>  nodes.</li>
+</ul>
+</li>
+</ol>
+<p>The robot you design in this project will be used as a base model for all your upcoming projects in this Robotics Software Engineer Nanodegree Program.</p>
+<h2 class="mume-header" id="evaluation">Evaluation</h2>
+
+<p>Once you finish designing your robot and building the nodes, check the  <a href="https://review.udacity.com/#!/rubrics/2397/view">Project Rubric</a>  to see if it meets the specifications. If you meet the specifications, then you are ready to submit!</p>
+<p>If you do not meet specifications, keep working and discussing with your fellow students and mentors.</p>
+<h2 class="mume-header" id="submission-folder">Submission Folder</h2>
+
+<p>Your submission should follow the directory structure and contain all the files listed here:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">    .Project2                          <span class="token comment"># Go Chase It Project</span>
+    &#x251C;&#x2500;&#x2500; my_robot                       <span class="token comment"># my_robot package                   </span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; launch                     <span class="token comment"># launch folder for launch files   </span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; robot_description.launch
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; world.launch
+    &#x2502;   &#x251C;&#x2500;&#x2500; meshes                     <span class="token comment"># meshes folder for sensors</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; hokuyo.dae
+    &#x2502;   &#x251C;&#x2500;&#x2500; urdf                       <span class="token comment"># urdf folder for xarco files</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; my_robot.gazebo
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; my_robot.xacro
+    &#x2502;   &#x251C;&#x2500;&#x2500; world                      <span class="token comment"># world folder for world files</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; <span class="token operator">&lt;</span>yourworld<span class="token operator">&gt;</span>.world
+    &#x2502;   &#x251C;&#x2500;&#x2500; CMakeLists.txt             <span class="token comment"># compiler instructions</span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; package.xml                <span class="token comment"># package info</span>
+    &#x251C;&#x2500;&#x2500; ball_chaser                    <span class="token comment"># ball_chaser package                   </span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; launch                     <span class="token comment"># launch folder for launch files   </span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; ball_chaser.launch
+    &#x2502;   &#x251C;&#x2500;&#x2500; src                        <span class="token comment"># source folder for C++ scripts</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; drive_bot.cpp
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; process_images.cpp
+    &#x2502;   &#x251C;&#x2500;&#x2500; srv                        <span class="token comment"># service folder for ROS services</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; DriveToTarget.srv
+    &#x2502;   &#x251C;&#x2500;&#x2500; CMakeLists.txt             <span class="token comment"># compiler instructions</span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; package.xml                <span class="token comment"># package info                  </span>
+    &#x2514;&#x2500;&#x2500;                              
+
+</pre><h2 class="mume-header" id="ready-to-submit-your-project">Ready to submit your project?</h2>
+
+<p>Click on the &quot;Submit Project&quot; button and follow the instructions to submit!</p>
+<h2 class="mume-header" id="project-submission-checklist">Project Submission Checklist</h2>
+
+<p><strong>Before submitting your project, please review and confirm the following items.</strong></p>
+<p>I am confident all rubric items have been met and my project will pass as submitted. (If not, I will discuss with my mentor prior to submitting.)</p>
+<p>Project builds correctly without errors and runs.</p>
+<p>All required functionality exists and my project behaves as expected per the project&apos;s specifications.</p>
+<p><strong>Once you have checked all these items, you are ready to submit!</strong></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_Monitoring</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#monitoring-dashboard">Monitoring dashboard</a></li>
+<li><a href="#just-as-ml-modeling-is-iterative-so-is-deployment.">Just as ML modeling is iterative, so is deployment.</a></li>
+<li><a href="#set-thresholds">Set thresholds</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="monitoring-dashboard">Monitoring dashboard</h2>
+<ul>
+<li>The most common way to monitor a ML system is to use a <strong>dashboard</strong> to track how it’s doing over time.</li>
+<li>Depending on your application, your dashboard may monitor different metrics.
+<ul>
+<li><strong>How to decide what to monitor?</strong>
+<ul>
+<li>Brainstorm the things that could go wrong.</li>
+<li>Brainstorm a few statistics/metrics that will detect the problem.</li>
+<li>It’s OK to use many metrics initially and gradually remove the ones you find not useful.</li>
+</ul>
+</li>
+<li><strong>Examples of metrics to track:</strong>
+<ul>
+<li><em><strong>Software metrics:</strong></em> Memory, compute, latency, throughput, server load</li>
+<li><em><strong>Input metrics:</strong></em> number of missing values, <em>speech recognition:</em> avg. input length, avg. input volume, <em>vision</em>: avg. image brightness <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> essentially check for data drift (change of data distribution)</li>
+<li><em><strong>Output metrics:</strong></em> <em>speech recognition:</em> # of times returning NULL, # of times user redoes search, # of time user switches to typing, or CTR, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span> essentially to figure out if your learning algorithm output <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span></span></span></span></span> has changed in some way (concept drift).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="just-as-ml-modeling-is-iterative-so-is-deployment.">Just as ML modeling is iterative, so is deployment.</h2>
+<p>It usually takes a few  tries to converge to the right set of metrics to monitor.</p>
+<p><a href="https://www.flickr.com/photos/192167571@N04/51627956400/in/dateposted-friend/" title="Screen Shot 2021-10-25 at 12.59.08 AM"><img src="https://live.staticflickr.com/65535/51627956400_13eab76eee_z.jpg" width="640" height="228" alt="Screen Shot 2021-10-25 at 12.59.08 AM"></a></p>
+<h2 id="set-thresholds">Set thresholds</h2>
+<p>Common practice after you choose your metrics to monitor is to set thresholds for <em>alarms</em>. You can adapt metrics and thresholds over time.</p>
+<p>If your model needs retraining, you can either do:</p>
+<ul>
+<li>Manual retraining (more common)</li>
+<li>Automatic retraining</li>
+</ul>
+
+    </div>
+  </div>
+  <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://gist.github.com/username/a39a422ebdff6e732753b90573100b16.js"></script>
+</body>
+
+</html>

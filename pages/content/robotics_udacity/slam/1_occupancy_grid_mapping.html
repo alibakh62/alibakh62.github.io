@@ -1,0 +1,568 @@
+<!DOCTYPE html><html><head>
+      <title>1_occupancy_grid_mapping</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="introduction-to-slam">Introduction to SLAM</h1>
+
+<p>This section is about how robots learn to map their envinronment and <strong>SLAM (Simultaneous Localization And Mapping)</strong>. In localization, we estimate the robot&apos;s pose given the map of the environment. So, given the map and robot&apos;s access to sensor and movement, it can pose. But, <em>what if the map of environment doesn&apos;t exist?</em> This can happen either to a changing environment or maybe just the fact that map doesn&apos;t exist. In such a case, the robot will have to construct a map. This leads us to <strong>robotic mapping</strong>.</p>
+<p><strong>Mapping:</strong> In mapping, the robot produces a map of the environment given the its pose(s). Therefore, given the pose and access to sensor and movement data, robot creates a map of the surrounding. <em><strong>However</strong></em>, in real world, even knowing the pose can be uncommon. This is where <strong>SLAM</strong> comes in.</p>
+<p><strong>SLAM:</strong> with access to only sensor and movement data, the bot must simultaneously estimate the pose and produce the map of the environment and localizing itself relative to the map.</p>
+<p>To recap, in localization, assuming the map, bot estimates its pose whereas in mapping, assuming the pose, the bot estimates the environment.</p>
+<p><strong>Challenge in mapping:</strong> Pose usually consists of few variables (depends on the robot) that describe the state. But, mapping happens in continuous space, so there is infinite possibilities. Combine this with the uncertainties present in perception and the mapping task becomes even more challenging. There are also some other challenges. For example, the geometry of some of the surrounding objects might look alike and repeated throughout the environment (e.g. car driving in a street where similar trees are planted).</p>
+<p>There are number of algorithms for mapping. Here, we focus on <strong>Occupancy Grid Mapping</strong> algorithm. It divides the environment into finite number of grid cells. By estimating the state of each individual cell, it&apos;ll come up with a map of environment.</p>
+<p>Next, we move to <strong>SLAM</strong>. In SLAM, the robot must create the map while simultaneously localizing itself relative to the map. This is more challenging than both localization and mapping since neither the map nor the pose are provided. The existing uncertainty in both map and pose, make the robot&apos;s estimate of both <em><strong>correlated</strong></em>. In another words, the accuracy of the map depends on the accuracy of localization and vice versa. SLAM is often called the &quot;chicken or egg&quot; problem. The map is needed for localization and the robot&apos;s pose needed for mapping. <em><strong>This challenge is fundamental to robotics</strong></em>. For robots to be useful, they must be able to move around the environment they&apos;ve never seen before (e.g. robot vacuum cleaner or self-driving cars).</p>
+<p><strong>SLAM Algorithms</strong>:</p>
+<ul>
+<li>Extended Kalman Filter SLAM (EKF)</li>
+<li>Sparse Extended Information Filter (SEIF)</li>
+<li>Extended Information Form (EIF)</li>
+<li>FastSLAM</li>
+<li>GraphSLAM</li>
+</ul>
+<p>We&apos;ll be covering &quot;FastSLAM&quot; and &quot;GraphSLAM&quot; here.</p>
+<h1 class="mume-header" id="occupancy-grid-mapping">Occupancy Grid Mapping</h1>
+
+<p><strong>Localization:</strong></p>
+<ul>
+<li>Assumption: Known Map</li>
+<li>Estimation: Robot&apos;s Trajectory</li>
+</ul>
+<p><strong>Mapping:</strong></p>
+<ul>
+<li>Assumption: Robot&apos;s Trajectory</li>
+<li>Estimation: Map</li>
+</ul>
+<p>Here, we&apos;ll learn how to map an environment with the Occupancy Grid Mapping algorithm!</p>
+<p><strong>The importance of mapping:</strong> Mapping is important because environment is dynamic. Even with a given map, there&apos;s always a chance that something changes. So, the robot needs capability to simulatneously update the map.</p>
+<h2 class="mume-header" id="mapping-challenges">Mapping challenges:</h2>
+
+<p>There are two main challenges with mapping:</p>
+<ul>
+<li><strong>Unknown Map and Poses:</strong> Both map and poses are unknown to us, so we either have to assume the map and estimate the pose or assume the pose and estimate the map and localize robot with respect to it. Estimating the map is a challenging problem because of the large number of variables. This can be solved using the <em><strong>occupancy grid</strong></em> algorithm. Estimating pose and map when both are unknown will be covered in SLAM.</li>
+<li><strong>Hypothesis space is huge:</strong> This is because the hypothesis is huge, so when robots are deployed into an open environment where the robot has to sense an infinite number of objects. The <em>occupancy grid mapping</em> provides a discrete representation of the map. But even with that approximation, the space of all possible maps will be large. So, the challenge is to estimate the full posterior maps for maps with high dimensional spaces. The Bayes posterior approach used in localization will diverge. An extension to it need to be used to accomodate the huge hypothesis space.</li>
+</ul>
+<p>To map an environment, we need information about walls and objects. For example, we can deploy a robot with a laser range finder sensor. The robot collects sensory information to detect obstacle around it. By using one of the mapping algorithms, we can group this data into a resulting map. However, there are difficulties in using this data as follows:</p>
+<ul>
+<li><strong>Size:</strong> mapping large spaces is difficult because there&apos;s large amonut of data needs to be processed. The robot has to collect the information from all the sensors, combine them all to form a map and localize the robot every moment. This becomes particularly challenging when the size of the map is larger than the robot&apos;s perceptual range.</li>
+<li><strong>Noise:</strong> There is always noise associated with sensory data, which needs to be filtered.</li>
+<li><strong>Perceptual ambiguity:</strong> The ambiguity occurs when two places look alike. So, the robot needs to know at which point it passed which one. This is particularly important when robot travels in cyclic manner. In cyclic travels, the odometry accumulate errors and at the end of the cycle the error is large.</li>
+</ul>
+<h2 class="mume-header" id="mapping-with-known-poses">Mapping with known poses</h2>
+
+<p>In mapping with known poses, poses (<code>X</code>) are known, we also have the measurements (<code>Z</code>). Then, using a mapping algorithm (say occupancy grid mapping), we can estimate the posterior map given the noisy measurements and known poses. <strong>However</strong>, in most robotic applications, the odometry dats is noisy, so the robot poses are unknown to us. <em>So, why mapping is necessary under such a situation?</em> <strong>Mapping usually happens after SLAM</strong>. So, the power of mapping is its post-processing. In SLAM, the problem changes from mapping with known poses to mapping with unknown poses. During SLAM, the robot will build a map of the environment, localize itself with respect to the map. After SLAM, the <strong>occupancy grid algorithm</strong> uses the exact poses filtered from SLAM. Then, with the known poses from SLAM and noisy measurements, generates a map for path planning and navigation.</p>
+<h3 class="mume-header" id="posterior-probability">Posterior Probability</h3>
+
+<p>Going back to the graphical model of mapping with known poses, our goal is to implement a mapping algorithm and estimate the map given noisy measurements and assuming known poses.</p>
+<p>The Mapping with Known Poses problem can be represented with <code>P(m|Z_{1:t}, X_{1:t})</code> function. With this function, we can compute the posterior over the map given all the measurements up to time <strong>t</strong> and all the poses up to time <strong>t</strong> represented by the robot trajectory.</p>
+<p>In estimating the map, we&#x2019;ll exclude the controls <strong>u</strong> since the robot path is provided to us from SLAM. However, keep in mind that the robot controls will be included later in SLAM to estimate the robot&#x2019;s trajectory.</p>
+<p align="center">
+<img src="img/post-prob.png" alt="drawing" width="500">
+</p>
+<p><strong>2D maps:</strong></p>
+<p>For now, we will only estimate the posterior for two-dimensional maps. In the real world, a mobile robot with a two-dimensional laser rangefinder sensor is generally deployed on a flat surface to capture a slice of the 3D world. Those two-dimensional slices will be merged at each instant and partitioned into grid cells to estimate the posterior through the occupancy grid mapping algorithm. Three-dimensional maps can also be estimated through the occupancy grid algorithm, but at much higher computational memory because of the large number of noisy three-dimensional measurements that need to be filtered out.</p>
+<p><strong>Probability equations:</strong></p>
+<ul>
+<li>Localization: <code>P(X_{1:t}|u_{1:t}, m, Z_{1:t})</code></li>
+<li>Mapping: <code>P(m|X_{1:t}, Z_{1:t})</code></li>
+<li>SLAM: <code>P(X_{1:t}, m|u_{1:t}, Z_{1:t})</code></li>
+</ul>
+<h2 class="mume-header" id="grid-cells">Grid Cells</h2>
+
+<p>To estimate the posterior map, the occupancy grid will uniformly partition the two-dimensional space in a finite number of grid cells. Each of the grid cells will hold the binary random value that corresponds to the location it covers. Based on the measurement data, the grid will be filled with zeros and ones. If the laser range finder detects an obstacle, the cell will be considered occupied and its value will be one. Therefore, in a 2D space, <code>number of maps = 2^cells</code>.</p>
+<p>See the video <a href="https://youtu.be/WxRLYM7qHbc">here</a>.</p>
+<h2 class="mume-header" id="computing-the-posterior">Computing the Posterior</h2>
+
+<h3 class="mume-header" id="first-approach-pmx_1t-z_1t">First Approach: <code>P(m|X_{1:t}, Z_{1:t})</code></h3>
+
+<p>We just saw that maps have high dimensionality so it will be too pricey in terms of computational memory to compute the posterior under this first approach.</p>
+<h3 class="mume-header" id="second-approach-pm_ix_1t-z_1t">Second Approach: <code>P(m_{i}|X_{1:t}, Z_{1:t})</code></h3>
+
+<p>A second or better approach to estimating the posterior map is to decompose this problem into many separate problems. In each of these problems, we will compute the posterior map <code>m_{i}</code> at each instant. However, this approach still presents some drawbacks because we are computing the probability of each cell independently. Thus, we still need to find a different approach that addresses the dependencies between neighboring cells.</p>
+<h3 class="mume-header" id="third-approach-%CF%80_i-pm_ix_1t-z_1t">Third Approach: <code>&#x3A0;_{i} (P(m_{i}|X_{1:t}, Z_{1:t}))</code></h3>
+
+<p>Now, the third approach is the best approach to computing the posterior map by relating cells and overcoming the huge computational memory, is to estimate the map with the product of marginals or factorization.</p>
+<p align="center">
+<img src="img/post-compute.png" alt="drawing" width="500">
+</p>
+<h2 class="mume-header" id="filtering">Filtering</h2>
+
+<p>So far, we managed to calculate the probability of grid cells using the factorization method. Due to factorization, we are now solving a binary estimation problem in which grid cells hold a static (state of system does not change during sensing) state that do not change over time. Locally, a filter to this problem exists, and is known as <strong>Binary Bayes Filter</strong>. It solves the static problem by taking log odds ratio of the belief.</p>
+<p>With static state, the belief is now a function of the measurements only. Depending on the measurement values reflected, the state of the grid cell is updated. This belief is known by <strong>inverse measurement model</strong>, which represents the binary state of grid cells with respect to measurements. The <strong>inverse measurement model</strong> is generally used when measurements are more complex than the binary static state. For example, assume a mobile robot equipped with an RGB-D camera wants to estimate if a door is open or closed. The field of measurements represented by the camera image is huge compared to a simple binary state of the door either open or close. In such situations, it&apos;s always easier to use an <strong>inverse sensor model</strong> than a <strong>forward sensor model</strong>. The <strong>Binary Bayes Filter</strong> will solve the <strong>inverse measurement model</strong> with the log odds ratio representation. The advantage of using a log odds ratio representation is to avoid probability instabilities near zero or one. Another advantage relates to system speed, accuracy, and simplicity. Check out these two sources for more information on log probability and numerical stability:</p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Log_probability">Log Probability</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Numerical_stability">Numerical Stability</a></li>
+</ol>
+<p align="center">
+<img src="img/log-odds.png" alt="drawing" width="300">
+</p>
+<p>See the video <a href="https://youtu.be/gvSuVqEI5OI">here</a>.</p>
+<p><strong>Forward vs. Inverse Measurement Model</strong></p>
+<p><em>Forward Measurement Model</em> - <code>P(z1:t| x)</code>: Estimating a posterior over the measurement given the system state.</p>
+<p><em>Inverse Measurement Model</em> - <code>P(x | z1:t)</code>: Estimating a posterior over the system state given the measurement.</p>
+<p>The inverse measurement model is generally used when measurements are more complex than the system&apos;s state.</p>
+<h2 class="mume-header" id="binary-bayes-filter-algorithm">Binary Bayes Filter Algorithm</h2>
+
+<p><strong>Input</strong></p>
+<p>The binary Bayes filter algorithm computes the log odds of the posterior belief denoted by <code>l_t</code>. Initially, the filter takes the previous log odds ratio of the belief <code>t-1</code> and the measurements <code>z_t</code> as parameters.</p>
+<p><strong>Computation</strong></p>
+<p>Then, the filter computes the new posterior belief of the system <code>l_t</code> by adding the previous belief <code>l_{t-1}</code> to the log odds ratio of the inverse measurement model and subtracting the prior probability state also known by initial belief. The initial belief represents the initial state of the system before taking any sensor measurements into consideration.</p>
+<p><strong>Output</strong></p>
+<p>Finally, the algorithm returns the posterior belief of the system <code>l_t</code>, and a new iteration cycle begins.</p>
+<h2 class="mume-header" id="occupancy-grid-mapping-algorithm">Occupancy Grid Mapping Algorithm</h2>
+
+<p>Now, let&apos;s code the algorithm in C++.</p>
+<p>Below, is the pseudo algorithm:</p>
+<p align="center">
+<img src="img/occ_grid_map_algo.png" alt="drawing" width="500">
+</p>
+<p align="center">
+<img src="img/occ_grid_map_algo2.png" alt="drawing" width="500">
+</p>
+<p>Also, what <a href="https://youtu.be/sDQ0KRYuPJM">this video</a> for a detailed explanation.</p>
+<p>Now, let&apos;s assume a robot equipped with <strong>eight sonar rangefinder sensors</strong> circulates in an environment to map it. This robot is provided with its exact poses at each timestamp. The code structure is as follows:</p>
+<p><strong>Data Files</strong></p>
+<ol>
+<li><code>measurement.txt</code>: The measurements from the sonar rangefinder sensors attached to the robot at each time stamp recorded over a period of 413 seconds. (timestamp, measurement 1:8).</li>
+<li><code>poses.txt</code>: The exact robot poses at each timestamp recorded over a period of 413 seconds. (timestamp, x, y, &#x3F4;).</li>
+</ol>
+<p><strong>Global Functions</strong></p>
+<ol>
+<li><code>inverseSensorModel()</code>: We&apos;ll code this function second after doing the inverse sensor model for sonar rangefinder sensors.</li>
+<li><code>occupancyGridMapping()</code>: We&apos;ll code this function here first.</li>
+</ol>
+<p><strong>Main Function</strong></p>
+<ol>
+<li><code>File Scan</code>: Scanning both the measurement and poses files to retrieve the values. At each time stamp, the values are passed to the occupancy grid mapping function.</li>
+<li><code>Display Map</code>: After processing all the measurements and poses, the map is displayed.</li>
+</ol>
+<p>Here are the steps to write the <code>occupancyGridMapping()</code> function:</p>
+<ul>
+<li>Generate a grid (size 300x150) and then loop through all the cells.</li>
+<li>Inside the loop, compute the center of mass of each cell <code>x_{i}</code> and <code>y_{i}</code>.</li>
+<li>Inside the loop, check if each cell falls under the perceptual field of the measurement.</li>
+</ul>
+<p><strong>NOTE:</strong> A cell would usually fall under the perceptual field of the measurements if the distance between the cell centroid and the robot pose is smaller or equal than the maximum measurements <code>Zmax</code>.</p>
+<p>Find the codes <a href="codes/occupancy_grid_mapping/main.cpp">here</a></p>
+<h2 class="mume-header" id="inverse-sensor-model">Inverse Sensor Model</h2>
+
+<p>Inverse sensor model helps to determine probability for the cells on the border. Because they&apos;re partially observed, it&apos;s hard to calculate their probabilities.</p>
+<p>Here is the pseudo algorithm for the inverse sensor model:</p>
+<p align="center">
+<img src="img/inverse-sensor-model.png" alt="drawing" width="500">
+</p>
+<p>See the video <a href="https://youtu.be/JqCjlJxmR6o">here</a>.</p>
+<p><strong>Summary of notations for the sonar rangefinder inverse sensor model:</strong></p>
+<ul>
+<li><code>m_i</code>: Map at instant i or current cell that is being processed</li>
+<li><code>x_i, y_i</code>: Center of mass of the current cell <code>m_i</code></li>
+<li><code>r</code>: Range of the center of mass computed with respect to robot pose and center of mass</li>
+<li><code>k</code>: The sonar rangefinder cone that best aligns with the cell being considered computed with respect to the robot pose <code>(x,y,&#x3B8;)</code>, center of mass <code>(x_i,y_i)</code>, and sensor angle.</li>
+<li><code>&#x3B2;</code>: Opening angle of the conical region formed out of the measurement beams.</li>
+<li><code>&#x3B1;</code>: Width of obstacles which is almost equal to the size of a cell. Please not that alpha is not the width of the conical region as the video mention but instead it&apos;s the width of a cell.</li>
+</ul>
+<p>The <code>inverseSensorModel()</code> has two separate tasks:</p>
+<ul>
+<li>compute <code>r</code> and <code>phi</code></li>
+<li>Evaluate three different cases of algorithm</li>
+</ul>
+<p>Find the codes <a href="codes/occupancy_grid_mapping/main.cpp">here</a></p>
+<h2 class="mume-header" id="generate-the-map">Generate the Map</h2>
+
+<p><strong>Mapping</strong></p>
+<p>So far, we&#x2019;ve coded the Occupancy Grid Mapping algorithm in C++ and generated an occupancy grid map 2D vector. Now, we&apos;ll code a visualization function that will loop through each cell. Then, we&apos;ll differentiate between occupied, free, and unknown cells depending on their log odds value. And, finally, we&apos;ll plot each cell on a graph to generate the map.</p>
+<p><strong>Mapping Lab</strong></p>
+<ul>
+<li>Clone the lab from Github:</li>
+</ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/
+$ <span class="token function">git</span> clone https://github.com/udacity/RoboND-OccupancyGridMappingAlgorithm
+</pre><ul>
+<li>Next, edit the <code>main.cpp</code>:</li>
+</ul>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">visualization</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//TODO: Initialize a plot named Map of size 300x150</span>
+
+    <span class="token comment">//TODO: Loop over the log odds values of the cells and plot each cell state. </span>
+    <span class="token comment">//Unkown state: green color, occupied state: black color, and free state: red color </span>
+
+    <span class="token comment">//TODO: Save the image and close the plot </span>
+<span class="token punctuation">}</span>
+</pre><p>Here are some helpful commands you can use to generate plots with the <code>matplotlib</code> library:</p>
+<ul>
+<li><em>Set Title</em>: <code>plt::title(&quot;Your Title&quot;);</code></li>
+<li><em>Set Limits</em>: <code>plt::xlim(x-axis lower limit, x-axis upper limit );</code></li>
+<li><em>Plot Data</em>: <code>plt::plot({ x-value }, { y-value }, &quot;Color and Shape&quot;);</code></li>
+<li><em>Save Plot</em>: <code>plt::save(&quot;File name and directory&quot;);</code></li>
+<li><em>Close Plot</em>: <code>plt::clf();</code></li>
+</ul>
+<p>Check out this <a href="https://github.com/lava/matplotlib-cpp">link</a> for more information on the <code>matplotlib</code> C++ library. For information regarding the plot color and shape refer to the LineSpec and LineColor section of the <a href="https://www.mathworks.com/help/matlab/ref/plot.html?requestedDomain=true">MATLAB documentation</a>.</p>
+<ul>
+<li>Then, compile the program:</li>
+</ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> RoboND-OccupancyGridMappingAlgorithm/
+$ <span class="token function">rm</span> -rf Images/* <span class="token comment">#Delete the folder content and not the folder itself!</span>
+$ g++ main.cpp -o app -std<span class="token operator">=</span>c++11 -I/usr/include/python2.7 -lpython2.7
+</pre><ul>
+<li>Finally run the program:</li>
+</ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./app
+</pre><p>If you get a warning regarding the <code>matplotlib</code> library, just ignore it.</p>
+<p>Now, wait for the program to generate the map and store it in the <code>/home/workspace/RoboND-OccupancyGridMappingAlgorithm/Images</code> directory!</p>
+<p><strong>Map Legend</strong></p>
+<ul>
+<li>Green: Unkown/Undiscovered zone</li>
+<li>Red: Free zone</li>
+<li>Black: Occupied zone</li>
+</ul>
+<p align="center">
+<img src="img/generate-map.png" alt="drawing" width="500">
+</p>
+<h2 class="mume-header" id="multi-sensor-fusion">Multi Sensor Fusion</h2>
+
+<p>So far, we&apos;ve covered mapping with robots with only one sensor. However, mapping with combination of multiple sensors (e.g. LIDAR and RGBD) leads to more percise maps. But <strong>how would combine the information from multiple sensors into a single map?</strong> The best approach is to build separate maps based on each sensor and integrate them. We can combine the maps using the <strong>De Morgan&apos;s Law</strong>. To obtain the most likely map, we need to compute the <strong>maximum value</strong> of each cell. Another approach would be to perform a <strong>null operation</strong> between values of each cell.</p>
+<p align="center">
+<img src="img/sensor-fusion.png" alt="drawing" width="500">
+</p>
+<p>Here is an implementation of sensor fusion in C++:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+<span class="token keyword keyword-using">using</span> <span class="token keyword keyword-namespace">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> mapWidth <span class="token operator">=</span>  <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> mapHeight <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">sensorFusion</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> m1<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>mapWidth<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> m2<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>mapWidth<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> x <span class="token operator">&lt;</span> mapHeight<span class="token punctuation">;</span> x<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> y <span class="token operator">&lt;</span> mapWidth<span class="token punctuation">;</span> y<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-double">double</span> p <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">-</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> m1<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> m2<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cout <span class="token operator">&lt;&lt;</span> p <span class="token operator">&lt;&lt;</span> <span class="token string">&quot; &quot;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+    <span class="token keyword keyword-double">double</span> m1<span class="token punctuation">[</span>mapHeight<span class="token punctuation">]</span><span class="token punctuation">[</span>mapWidth<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token number">0.6</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.5</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> m2<span class="token punctuation">[</span>mapHeight<span class="token punctuation">]</span><span class="token punctuation">[</span>mapWidth<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.4</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">0.4</span><span class="token punctuation">,</span> <span class="token number">0.3</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">sensorFusion</span><span class="token punctuation">(</span>m1<span class="token punctuation">,</span> m2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="introduction-to-3d-mapping">Introduction to 3D Mapping</h2>
+
+<p>So far, you&#x2019;ve heard about two dimensional maps, describing a slice of the 3D world. In resource constrained systems, it can be very computationally expensive to build and maintain these maps. 3D representations are even more costly. That being said, robots live in the 3D world, and we want to represent that world and the 3D structures within it as accurately and reliably as possible. 3D mapping would give us the most reliable collision avoidance, and motion and path planning, especially for flying robots or mobile robots with manipulators.</p>
+<p>First, let&#x2019;s talk briefly about how we collect this 3D data, then we will move on to how it is represented. To create 3D maps, robots sense the environment by taking 3D range measurements. This can be done using numerous technologies.</p>
+<p>3D lidar can be used, which is a single sensor with an array of laser beams stacked horizontally. Alternatively, a 2D lidar can be tilted (horizontally moving up and down) or rotated (360 degrees) to obtain 3D coverage.</p>
+<p>An RGBD camera is a single visual camera combined with a laser rangefinder or infrared depth sensor, and allows for the determination of the depth of the image, and ultimately the distance from an object. A stereo camera is a pair of offset cameras, and can be used to directly infer the distance of close objects, in the same way as humans do with their two eyes.</p>
+<p>A single camera system is cheaper and smaller, but the software algorithms needed for monocular SLAM are much more complex. Depth cannot be directly inferred from the sensor data of a single image from a single camera. Instead, it is calculated by analysing data from a sequence of frames in a video.</p>
+<h2 class="mume-header" id="3d-data-representation">3D Data Representation</h2>
+
+<p>Probabilistic data representation can be used to accomodate for sensor noise and dynamic environment. It is important to be able to distinguish data that represents an area that is free space vs an area that is unknown or not yet mapped. This will enable the robot to plan an unobstructed path and build a complete map.</p>
+<p>Memory on a mobile robot is typically a limited resource. So, memory efficiency is very important.</p>
+<p>The map should also be accessible in the robot&apos;s main memory, while mapping a large area over a long period of time. To accomplish this, we need a data representation that compact, and allows for efficient updates and queries.</p>
+<p>Some data representation of 3D environments that we&apos;ll learn about are <a href="https://en.wikipedia.org/wiki/Point_cloud">point clouds</a>, <a href="https://en.wikipedia.org/wiki/Voxel">voxels</a> and <a href="https://en.wikipedia.org/wiki/Octree">octrees</a>.</p>
+<p>The other two types are &quot;elevation maps&quot; and &quot;multi-level surface maps&quot;.</p>
+<h3 class="mume-header" id="point-clouds">Point Clouds</h3>
+
+<p>The disadvantage of point cloud is that information only exists about where things are in the world. <strong>The data is the same whether the space is unoccupied or unknown</strong>. Point clouds also store a large amount of of measurement points and with each scan you need to allocate more memory. So, <strong>they&apos;re not memory efficient</strong>.</p>
+<p align="center">
+<img src="img/Point_cloud.gif" alt="drawing" width="300">
+</p>
+<h3 class="mume-header" id="voxel">Voxel</h3>
+
+<p>A 3D voxel grid is a volumetric data representation using a grid of cubic volumes of equal sizes. This is a probabilistic representation so you can estimate whether the voxel grid is occupied, free, or unknown space. One <strong>drawback</strong> of a 3D voxel grid is that <strong>the size of area must be known or approximated before measurement, which may not always be possible</strong>. A <strong>second drawback</strong> is that the complete map must be allocated in memory, so <strong>the overall memory requirement is high</strong>.</p>
+<h3 class="mume-header" id="octree">Octree</h3>
+
+<p>Octrees are a memory efficient tree based data representation. The trees can be dynamically expanded to different resolutions and different areas, where every voxel can be subdivided into eight voxel recursively. The size of the map doesn&apos;t need to be known beforehand because map volumes aren&apos;t initialized until you need to add new measurements.</p>
+<p>Octrees have been used to adapt occupancy grid mapping from 2D to 3D, introducing probabilistic representation of occupied vs free space.</p>
+<p>See the <a href="https://youtu.be/hvkGrM-jZXA">video</a> first.</p>
+<p>Some of the desired characteristics of an optimal representation:</p>
+<ul>
+<li>Probabilistic data representations can be used to accommodate for sensor noise and dynamic environments.</li>
+<li>It is important to be able to distinguish data that represents an area that is free space versus an area that is unknown or not yet mapped. This will enable the robot to plan an unobstructed path and build a complete map.</li>
+<li>Memory on a mobile robot is typically a limited resource, so memory efficiency is very important. The map should also be accessible in the robot&#x2019;s main memory, while mapping a large area over a long period of time. To accomplish this, we need a data representation that is compact and allows for efficient updates and queries.</li>
+</ul>
+<p><strong>2.5D maps</strong>, also known as <strong>height maps</strong>, store the surface of the entire environment as the maximum height measured at every point. They are memory efficient, with constant access time. This type of mapping is not very useful if you have terrain with trees or overhang structures, where the robot could move underneath. Also, height maps are non-probabilistic. Similar to point clouds, there is also no distinction between free and unknown space.</p>
+<p><strong>Elevation maps</strong> are 2D grids that store an estimated height, or elevation, for each cell. A Kalman filter is used to estimate the height, and can also incorporate the uncertainty of the measurement process itself, which typically increases with the measured distance. One problem with elevation maps is the vertical wall - you can tell there is a vertical object but don&#x2019;t know exactly how tall it is.</p>
+<p><strong>Extended elevation maps</strong> store a set of estimated heights for every cell, and include cells that contain gaps. You can check whether the variance of the height of all data points within each cell is large. If so, you can investigate whether the corresponding set of points contains a gap exceeding the height of the robot (known as a &#x201C;gap cell&#x201D;), and ultimately use gap cells to determine traversability.</p>
+<p>In <strong>multi-level surface (MLS)</strong> map representations, each 2D cell stores &#x201C;patches&#x201D;, of which there can be multiple per cell. Each patch contains 3 key pieces of information - the height mean, the height variance, and the depth value. The height mean is the estimated height of the individual vertical area, also referred to as an interval. The uncertainty of the height is stored as the height variance, with the assumption that the error is represented by a Gaussian distribution. The depth value is defined by the difference between height of the surface patch and the height of the lowest measurement that is considered as belonging to that vertical object (ex the depth of the floor would be 0). Individual surfaces can be directly calculated, allowing the robot to deal with vertical and overhanging objects. This method also works very well with multi-level traversable surfaces, such as a bridge that you could travel over top of, or underneath, or a structure like a parking garage. An MLS map isn&#x2019;t a volumetric representation, but a discretization in the vertical dimension. Unknown areas are not represented, and localization for this method is not straightforward.</p>
+<p><strong>Octomap</strong></p>
+<p>The Octomap framework is an open-source C++ library and ROS package based on Octrees, and it can be used to generate volumetric 3D models. Octomap is not a 3D SLAM solution, it is a mapping framework and requires a pose estimate. It converts and integrates point clouds into 3D occupancy maps. Octomap uses a probabilistic occupancy estimation modeled as a recursive binary Bayes filter. It is a static state filter which assumes the environment doesn&apos;t change. Efficient updates are achieved using the log odds notation. Occupancy is represented volumetrically with modeling of free, occupied, and unmapped areas. Upper and lower bounds are placed on the log odds value of occupancy estimate. This policy limits the number of updates required to change the state of the voxel. Octomap supports multi-resolution map queries where the minimum voxel size determines the resolution. Tree pruning is also used to reduce redundant information between discrete occupancy states. Pruning is accomplished by defining a threshold probability that the voxel is occupied or free. Children that are identical to the parent in the tree can be pruned. Memory efficient representation is accomplished using a compression method that produces compact map files. Coherent map volumes are locally combined, including both mapped free areas and occupied space.</p>
+<p>See <a href="https://youtu.be/9s9ibmsQ4lQ">this video</a> for a brief explanation. Also check out their <a href="https://octomap.github.io/">Github page</a> as well as the documentation on <a href="http://wiki.ros.org/octomap">ROS Wiki</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
