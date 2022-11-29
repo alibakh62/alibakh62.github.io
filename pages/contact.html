@@ -30,6 +30,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- This script is for using Font Awesome icons -->
+    <script
+      src="https://kit.fontawesome.com/cf4eb2344e.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
       body {
         background-color: #f5f5f5;
@@ -57,7 +66,7 @@
       .main_container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: space-between;
         justify-content: right;
         text-align: left;
         margin: 0 auto;
@@ -69,12 +78,31 @@
       }
       .body_container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: space-between;
         justify-content: center;
-        text-align: center;
+        text-align: left;
         max-width: 80%;
         margin: auto;
+      }
+      .body_container a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        color: rgb(9, 55, 238);
+        text-decoration: none;
+        font-size: 1rem;
+        margin: 5px;
+      }
+      .body_container i {
+        font-size: 2rem;
+        color: #0b0b0b;
+        margin-bottom: 1rem;
+        align-items: left;
+        margin-left: 40px;
+        margin-top: 1rem;
+        margin-left: 20px;
       }
       .navbar {
         display: flex;
@@ -147,65 +175,56 @@
       }
 
       img {
-        border-radius: 10px;
+        border-radius: 50%;
         width: 20%;
         /* height: auto; */
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .link-address {
+        display: flex;
+        flex-direction: row;
+        align-items: space-between;
+        justify-content: left;
+      }
+      .link-address a:link {
+        text-decoration: none;
+        color: rgb(51, 9, 238);
+      }
+      .link-address a:visited {
+        text-decoration: none;
+        color: rgb(51, 9, 238);
+      }
+      .link-address a:hover {
+        text-decoration: underline;
+        color: rgb(51, 9, 238);
       }
     </style>
     <title>My Data Science Notes</title>
   </head>
   <body>
     <div class="navbar">
-      <a class="active" href="index.html"
+      <a class="active" href="../index.html"
         ><i class="fa fa-fw fa-home"></i> Home</a
       >
-      <a href="pages/notes.html"
+      <a href="../pages/notes.html"
         ><i class="bi bi-journals"></i> Data Science Notes</a
       >
-      <a href="pages/contact.html"
-        ><i class="fa fa-fw fa-envelope"></i> Contact</a
-      >
+      <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
       <!-- <a href="#"><i class="bi bi-0-square"></i> Login</a> -->
     </div>
     <div class="body_container">
-      <img src="assets/profile_pic_2.jpeg" />
-      <div class="main_container">
-        <h1>About Me</h1>
-        <p>
-          Hi, my name is <span style="font-weight: bold">Ali Bakhtiari</span>. I
-          am originally from Iran. I came to the U.S. in 2009, just a couple of
-          weeks before Obama's inauguration!
-        </p>
-        <br />
-        <p>
-          I have a B.S. in Mechanical Engineering from the University of Tehran
-          and a MBA from Sharif University of Technology. I came to the U.S. to Ph.D. in Management Science from the University of Texas at
-          Dallas. I have been working as a data scientist since 2014. I have
-          worked on various projects in data science and machine learning. My
-          current interest is MLOps and learning how to deploy an ML project to
-          production.
-        </p>
-        <br />
-        <p>
-          I am a tennis <span>🎾</span>fanatic and also a decent player myself.
-          Hit me up if you live in Dallas and looking for someone to hit with
-          <span>🙂</span>
-        </p>
-
-        <br />
-        <p>
-          Also, please check out my
-          <a href="pages/notes.html">data science notes</a>. I decided to
-          publish my data science/ML notes from all the courses and materials I
-          have studied over the years. I hope you find them helpful.
-        </p>
-        <br />
-        <p>
-          Check out my
-          <a href="assets/AliBakhtiari_Resume_AUG2022_Final.pdf">resume</a> for
-          more details on my background and work experiences.
-        </p>
+      <div class="link-address">
+        <i class="fa-solid fa-envelope"></i>
+        <a href="mailto: alibakh62@gmail.com">alibakh62@gmail.com</a>
+      </div>
+      <div class="link-address">
+        <i class="fa-brands fa-linkedin"></i>
+        <a href="https://linkedin.com/in/alibakhtiari"
+          >linkedin.com/in/alibakhtiari</a
+        >
+      </div>
+      <div class="link-address">
+        <i class="fa-brands fa-github"></i>
+        <a href="https://github.com/alibakh62">github.com/alibakh62</a>
       </div>
     </div>
     <script
