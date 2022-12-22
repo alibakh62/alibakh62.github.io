@@ -30,6 +30,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         background-color: #f5f5f5;
@@ -93,21 +99,22 @@
         align-items: center;
         text-align: left;
         padding: 20px;
-        color: rgb(38, 142, 211);
+        color: rgb(84, 84, 86);
         text-decoration: none;
-        font-size: 17px;
+        font-size: 17px !important;
+        font-family: "Space Grotesk", sans-serif;
       }
 
       /* Navbar links on mouse-over */
       .navbar a:hover {
         /* background-color: rgb(84, 84, 84); */
-        color: rgb(84, 84, 84);
+        color: rgb(254, 73, 73);
       }
 
       /* Current/active navbar link */
       .active {
         /* background-color: #a5a5a5;
-        border-radius: 40px; */
+              border-radius: 40px; */
         color: #333;
       }
 
@@ -165,9 +172,9 @@
       }
 
       /* img {
-        border-radius: 5px 5px 0 0;
-        width: 100%;
-      } */
+              border-radius: 5px 5px 0 0;
+              width: 100%;
+            } */
 
       .container {
         width: 100%;
@@ -180,6 +187,50 @@
 
       .container:hover {
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .card2 {
+        display: table;
+        background: linear-gradient(to bottom, #662d8c, #ed1e79);
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: all 0.3s ease;
+        background-size: 200% 200%;
+        animation: gradient 15s ease infinite;
+        /* display: block; */
+        width: calc(100% / 3 - 20px);
+        height: 200px;
+        margin: 10px;
+      }
+
+      .card2:hover {
+        transform: translateX(-5px) translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.7);
+      }
+
+      .card2 div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        margin: auto;
+      }
+
+      .card-title {
+        color: white;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        /* margin: auto; */
+        text-decoration: underline;
+        text-align: center !important;
       }
     </style>
     <title>My Data Science Notes</title>
@@ -208,10 +259,49 @@
     </template>
 
     <!-- ##### This is where all the cards are add #####	-->
+    <div class="card-grid">
+      <a href="./topics/django.html" class="card2">
+        <div class="card-title">Django</div>
+      </a>
+      <a href="./topics/ml.html" class="card2">
+        <div class="card-title">Machine Learning</div>
+      </a>
+      <a href="./topics/mle.html" class="card2">
+        <div class="card-title">ML Engineering</div>
+      </a>
+      <a href="./topics/cs.html" class="card2">
+        <div class="card-title">Computer Science</div>
+      </a>
+      <a href="./topics/dl.html" class="card2">
+        <div class="card-title">Deep Learning</div>
+      </a>
+      <a href="./topics/mlops.html" class="card2">
+        <div class="card-title">MLOps</div>
+      </a>
+      <a href="./topics/robotics.html" class="card2">
+        <div class="card-title">Robotics</div>
+      </a>
+      <a href="./topics/rl.html" class="card2">
+        <div class="card-title">Deep Reinforcement Learning</div>
+      </a>
+      <a href="./topics/ai.html" class="card2">
+        <div class="card-title">AI</div>
+      </a>
+      <a href="./topics/books.html" class="card2">
+        <div class="card-title">Book Summaries</div>
+      </a>
+      <a href="./topics/statistics.html" class="card2">
+        <div class="card-title">Statistics</div>
+      </a>
+      <a href="./topics/web.html" class="card2">
+        <div class="card-title">Web Development</div>
+      </a>
+      <!-- Add more cards as needed -->
+    </div>
 
-    <div class="main_container">
-      <!-- <h1>My Data Science Notes</h1> -->
-      <script
+    <!-- <div class="main_container"> -->
+    <!-- <h1>My Data Science Notes</h1> -->
+    <!-- <script
         src="../js/show_card.js"
         title="Django"
         description="Tutorial on Django"
@@ -294,8 +384,8 @@
         description="Web development notes and more"
         img_url="../assets/web-dev-logo.png"
         a_href="./topics/web.html"
-      ></script>
-    </div>
+      ></script> -->
+    <!-- </div> -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
