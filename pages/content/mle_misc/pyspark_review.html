@@ -13,10 +13,42 @@
     <div class="stackedit__toc">
       
 <ul>
-<li>
+<li><a href="#pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</a>
 <ul>
-<li><a href="#pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</a></li>
-<li><a href="#pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</a></li>
+<li><a href="#what-is-pyspark">1. What is PySpark?</a></li>
+<li><a href="#what-are-the-characteristics-of-pyspark">2. What are the characteristics of PySpark?</a></li>
+<li><a href="#what-are-the-advantages-and-disadvantages-of-pyspark">3. What are the advantages and disadvantages of PySpark?</a></li>
+<li><a href="#what-is-pyspark-sparkcontext">4. What is PySpark SparkContext?</a></li>
+<li><a href="#why-do-we-use-pyspark-sparkfiles">5. Why do we use PySpark SparkFiles?</a></li>
+<li><a href="#what-are-pyspark-serializers">6. What are PySpark serializers?</a></li>
+<li><a href="#what-are-rdds-in-pyspark">7. What are RDDs in PySpark?</a></li>
+<li><a href="#does-pyspark-provide-a-machine-learning-api">8. Does PySpark provide a machine learning API?</a></li>
+<li><a href="#what-are-the-different-cluster-manager-types-supported-by-pyspark">9. What are the different cluster manager types supported by PySpark?</a></li>
+<li><a href="#what-are-the-advantages-of-pyspark-rdd">10. What are the advantages of PySpark RDD?</a></li>
+<li><a href="#is-pyspark-faster-than-pandas">11. Is PySpark faster than pandas?</a></li>
+<li><a href="#what-do-you-understand-about-pyspark-dataframes">12. What do you understand about PySpark DataFrames?</a></li>
+<li><a href="#what-is-sparksession-in-pyspark">13. What is SparkSession in Pyspark?</a></li>
+<li><a href="#what-are-the-types-of-pyspark’s-shared-variables-and-why-are-they-useful">14. What are the types of PySpark’s shared variables and why are they useful?</a></li>
+<li><a href="#what-is-pyspark-udf">15. What is PySpark UDF?</a></li>
+<li><a href="#what-are-the-industrial-benefits-of-pyspark">16. What are the industrial benefits of PySpark?</a></li>
+</ul>
+</li>
+<li><a href="#pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</a>
+<ul>
+<li><a href="#what-is-pyspark-architecture">17. What is PySpark Architecture?</a></li>
+<li><a href="#what-pyspark-dagscheduler">18. What PySpark DAGScheduler?</a></li>
+<li><a href="#what-is-the-common-workflow-of-a-spark-program">19. What is the common workflow of a spark program?</a></li>
+<li><a href="#why-is-pyspark-sparkconf-used">20. Why is PySpark SparkConf used?</a></li>
+<li><a href="#how-will-you-create-pyspark-udf">21. How will you create PySpark UDF?</a></li>
+<li><a href="#what-are-the-profilers-in-pyspark">22. What are the profilers in PySpark?</a></li>
+<li><a href="#what-are-the-different-approaches-for-creating-rdd-in-pyspark">24. What are the different approaches for creating RDD in PySpark?</a></li>
+<li><a href="#how-can-we-create-dataframes-in-pyspark">25. How can we create DataFrames in PySpark?</a></li>
+<li><a href="#is-it-possible-to-create-pyspark-dataframe-from-external-data-sources">26. Is it possible to create PySpark DataFrame from external data sources?</a></li>
+<li><a href="#what-do-you-understand-by-pyspark’s-startswith-and-endswith-methods">27. What do you understand by Pyspark’s startsWith() and endsWith() methods?</a></li>
+<li><a href="#what-is-pyspark-sql">28. What is PySpark SQL?</a></li>
+<li><a href="#how-can-you-inner-join-two-dataframes">29. How can you inner join two DataFrames?</a></li>
+<li><a href="#what-do-you-understand-by-pyspark-streaming-how-do-you-stream-data-using-tcpip-protocol">30. What do you understand by Pyspark Streaming? How do you stream data using TCP/IP Protocol?</a></li>
+<li><a href="#what-would-happen-if-we-lose-rdd-partitions-due-to-the-failure-of-the-worker-node">31. What would happen if we lose RDD partitions due to the failure of the worker node?</a></li>
 </ul>
 </li>
 </ul>
@@ -25,13 +57,13 @@
   </div>
   <div class="stackedit__right">
     <div class="stackedit__html">
-      <h2 id="pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</h2>
-<h3 id="what-is-pyspark">1. What is PySpark?</h3>
+      <h1 id="pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</h1>
+<h2 id="what-is-pyspark">1. What is PySpark?</h2>
 <p>PySpark is an Apache Spark interface in Python. It is used for collaborating with Spark using APIs written in Python. It also supports Spark’s features like Spark DataFrame, Spark SQL, Spark Streaming, Spark MLlib and Spark Core. It provides an interactive PySpark shell to analyze structured and semi-structured data in a distributed environment. PySpark supports reading data from multiple sources and different formats. It also facilitates the use of RDDs (Resilient Distributed Datasets). PySpark features are implemented in the py4j library in python.</p>
 <p>PySpark can be installed using PyPi by using the command:</p>
 <pre class=" language-plaintext"><code class="prism  language-plaintext">pip install pyspark
 </code></pre>
-<h3 id="what-are-the-characteristics-of-pyspark">2. What are the characteristics of PySpark?</h3>
+<h2 id="what-are-the-characteristics-of-pyspark">2. What are the characteristics of PySpark?</h2>
 <p>There are 4 characteristics of PySpark:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/792/original/characteristics_of_PySpark.png?1637925597" alt=""></p>
 <ul>
@@ -40,7 +72,7 @@
 <li><strong>Map-Reduce Model:</strong>  PySpark is based on Hadoop’s Map-Reduce model this means that the programmer provides the map and the reduce functions.</li>
 <li><strong>Abstracted Network:</strong>  Networks are abstracted in PySpark which means that the only possible communication is implicit communication.</li>
 </ul>
-<h3 id="what-are-the-advantages-and-disadvantages-of-pyspark">3. What are the advantages and disadvantages of PySpark?</h3>
+<h2 id="what-are-the-advantages-and-disadvantages-of-pyspark">3. What are the advantages and disadvantages of PySpark?</h2>
 <p><strong>Advantages of PySpark:</strong></p>
 <ul>
 <li>Simple to use: Parallelized code can be written in a simpler manner.</li>
@@ -56,17 +88,15 @@
 <li>The Spark Streaming API in PySpark is not mature when compared to Scala. It still requires improvements.</li>
 <li>PySpark cannot be used for modifying the internal function of the Spark due to the abstractions provided. In such cases, Scala is preferred.</li>
 </ul>
-<p>You can download a PDF version of Pyspark Interview Questions.</p>
-<p><img src="https://assets.interviewbit.com/assets/svg/download_icon-cd2d5b54bc600ee83352693330804e7d9324dddf41fc105cd5e3176e92f3cd36.svg.gz" alt="">Download PDF</p>
 <hr>
-<h3 id="what-is-pyspark-sparkcontext">4. What is PySpark SparkContext?</h3>
+<h2 id="what-is-pyspark-sparkcontext">4. What is PySpark SparkContext?</h2>
 <p>PySpark SparkContext is an initial entry point of the spark functionality. It also represents Spark Cluster Connection and can be used for creating the Spark RDDs (Resilient Distributed Datasets) and broadcasting the variables on the cluster.</p>
 <p>The following diagram represents the architectural diagram of PySpark’s SparkContext:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/793/original/PySpark_SparkContext.png?1637925777" alt=""></p>
 <p>When we want to run the Spark application, a driver program that has the main function will be started. From this point, the SparkContext that we defined gets initiated. Later on, the driver program performs operations inside the executors of the worker nodes. Additionally, JVM will be launched using Py4J which in turn creates JavaSparkContext. Since PySpark has default SparkContext available as “sc”, there will not be a creation of a new SparkContext.</p>
-<h3 id="why-do-we-use-pyspark-sparkfiles">5. Why do we use PySpark SparkFiles?</h3>
+<h2 id="why-do-we-use-pyspark-sparkfiles">5. Why do we use PySpark SparkFiles?</h2>
 <p>PySpark’s SparkFiles are used for loading the files onto the Spark application. This functionality is present under SparkContext and can be called using the  <code>sc.addFile()</code>  method for loading files on Spark. SparkFiles can also be used for getting the path using the  <code>SparkFiles.get()</code>  method. It can also be used to resolve paths to files added using the  <code>sc.addFile()</code>  method.</p>
-<h3 id="what-are-pyspark-serializers">6. What are PySpark serializers?</h3>
+<h2 id="what-are-pyspark-serializers">6. What are PySpark serializers?</h2>
 <p>The serialization process is used to conduct performance tuning on Spark. The data sent or received over the network to the disk or memory should be persisted. PySpark supports serializers for this purpose. It supports two types of serializers, they are:</p>
 <ul>
 <li><strong>PickleSerializer:</strong>  This serializes objects using Python’s PickleSerializer (<code>class pyspark.PickleSerializer</code>). This supports almost every Python object.</li>
@@ -86,7 +116,7 @@ sc<span class="token punctuation">.</span>stop<span class="token punctuation">(<
 <p>The output of the code would be the list of size 5 of numbers multiplied by 3:</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span>
 </code></pre>
-<h3 id="what-are-rdds-in-pyspark">7. What are RDDs in PySpark?</h3>
+<h2 id="what-are-rdds-in-pyspark">7. What are RDDs in PySpark?</h2>
 <p>RDDs expand to Resilient Distributed Datasets. These are the elements that are used for running and operating on multiple nodes to perform parallel processing on a cluster. Since RDDs are suited for parallel processing, they are immutable elements. This means that once we create RDD, we cannot modify it. RDDs are also fault-tolerant which means that whenever failure happens, they can be recovered automatically. Multiple operations can be performed on RDDs to perform a certain task. The operations can be of 2 types:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/794/original/RDD.png?1637926435" alt=""></p>
 <ul>
@@ -131,7 +161,7 @@ counts <span class="token operator">=</span> words<span class="token punctuation
 <p>In this class, we count the number of elements in the spark RDDs. The output of this code is</p>
 <pre class=" language-python"><code class="prism  language-python">Count of elements <span class="token keyword">in</span> RDD <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token number">5</span>
 </code></pre>
-<h3 id="does-pyspark-provide-a-machine-learning-api">8. Does PySpark provide a machine learning API?</h3>
+<h2 id="does-pyspark-provide-a-machine-learning-api">8. Does PySpark provide a machine learning API?</h2>
 <p>Similar to Spark, PySpark provides a machine learning API which is known as MLlib that supports various ML algorithms like:</p>
 <ul>
 <li><code>mllib.classification</code>  − This supports different methods for binary or multiclass classification and regression analysis like Random Forest, Decision Tree, Naive Bayes etc.</li>
@@ -142,7 +172,7 @@ counts <span class="token operator">=</span> words<span class="token punctuation
 <li><code>spark.mllib</code>  − This is used for supporting model-based collaborative filtering where small latent factors are identified using the Alternating Least Squares (ALS) algorithm which is used for predicting missing entries.</li>
 <li><code>mllib.regression</code>  − This is used for solving problems using regression algorithms that find relationships and variable dependencies.</li>
 </ul>
-<h3 id="what-are-the-different-cluster-manager-types-supported-by-pyspark">9. What are the different cluster manager types supported by PySpark?</h3>
+<h2 id="what-are-the-different-cluster-manager-types-supported-by-pyspark">9. What are the different cluster manager types supported by PySpark?</h2>
 <p>A cluster manager is a cluster mode platform that helps to run Spark by providing all resources to worker nodes based on the requirements.</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/799/original/cluster_manager_types.png?1637927168" alt=""></p>
 <p>The above figure shows the position of cluster manager in the Spark ecosystem. Consider a master node and multiple worker nodes present in the cluster. The master nodes provide the worker nodes with the resources like memory, processor allocation etc depending on the nodes requirements with the help of the cluster manager.</p>
@@ -154,7 +184,7 @@ counts <span class="token operator">=</span> words<span class="token punctuation
 <li><strong>Kubernetes</strong>  – This is an open-source cluster manager that helps in automated deployment, scaling and automatic management of containerized apps.</li>
 <li><strong>local</strong>  – This is simply a mode for running Spark applications on laptops/desktops.</li>
 </ul>
-<h3 id="what-are-the-advantages-of-pyspark-rdd">10. What are the advantages of PySpark RDD?</h3>
+<h2 id="what-are-the-advantages-of-pyspark-rdd">10. What are the advantages of PySpark RDD?</h2>
 <p>PySpark RDDs have the following advantages:</p>
 <ul>
 <li><strong>In-Memory Processing:</strong> PySpark’s RDD helps in loading data from the disk to the memory. The RDDs can even be persisted in the memory for reusing the computations.</li>
@@ -163,17 +193,17 @@ counts <span class="token operator">=</span> words<span class="token punctuation
 <li><strong>Lazy Evolution:</strong> The PySpark transformation operations are not performed as soon as they are encountered. The operations would be stored in the DAG and are evaluated once it finds the first RDD action.</li>
 <li><strong>Partitioning:</strong> Whenever RDD is created from any data, the elements in the RDD are partitioned to the cores available by default.</li>
 </ul>
-<h3 id="is-pyspark-faster-than-pandas">11. Is PySpark faster than pandas?</h3>
+<h2 id="is-pyspark-faster-than-pandas">11. Is PySpark faster than pandas?</h2>
 <p>PySpark supports parallel execution of statements in a distributed environment, i.e on different cores and different machines which are not present in Pandas. This is why PySpark is faster than pandas.</p>
-<h3 id="what-do-you-understand-about-pyspark-dataframes">12. What do you understand about PySpark DataFrames?</h3>
+<h2 id="what-do-you-understand-about-pyspark-dataframes">12. What do you understand about PySpark DataFrames?</h2>
 <p>PySpark DataFrame is a distributed collection of well-organized data that is equivalent to tables of the relational databases and are placed into named columns. PySpark DataFrame has better optimisation when compared to R or python. These can be created from different sources like Hive Tables, Structured Data Files, existing RDDs, external databases etc as shown in the image below:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/797/original/PySpark_DataFrames.png?1637926884" alt=""></p>
 <p>The data in the PySpark DataFrame is distributed across different machines in the cluster and the operations performed on this would be run parallelly on all the machines. These can handle a large collection of structured or semi-structured data of a range of petabytes.</p>
-<h3 id="what-is-sparksession-in-pyspark">13. What is SparkSession in Pyspark?</h3>
+<h2 id="what-is-sparksession-in-pyspark">13. What is SparkSession in Pyspark?</h2>
 <p>SparkSession is the entry point to PySpark and is the replacement of SparkContext since PySpark version 2.0. This acts as a starting point to access all of the PySpark functionalities related to RDDs, DataFrame, Datasets etc. It is also a Unified API that is used in replacing the SQLContext, StreamingContext, HiveContext and all other contexts.</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/798/original/SparkSession_in_Pyspark.png?1637926953" alt=""></p>
 <p>The SparkSession internally creates SparkContext and SparkConfig based on the details provided in SparkSession. SparkSession can be created by making use of builder patterns.</p>
-<h3 id="what-are-the-types-of-pyspark’s-shared-variables-and-why-are-they-useful">14. What are the types of PySpark’s shared variables and why are they useful?</h3>
+<h2 id="what-are-the-types-of-pyspark’s-shared-variables-and-why-are-they-useful">14. What are the types of PySpark’s shared variables and why are they useful?</h2>
 <p>Whenever PySpark performs the transformation operation using filter(), map() or reduce(), they are run on a remote node that uses the variables shipped with tasks. These variables are not reusable and cannot be shared across different tasks because they are not returned to the Driver. To solve the issue of reusability and sharing, we have shared variables in PySpark. There are two types of shared variables, they are:</p>
 <p><strong>Broadcast variables:</strong>  These are also known as read-only shared variables and are used in cases of data lookup requirements. These variables are cached and are made available on all the cluster nodes so that the tasks can make use of them. The variables are not sent with every task. They are rather distributed to the nodes using efficient algorithms for reducing the cost of communication. When we run an RDD job operation that makes use of Broadcast variables, the following things are done by PySpark:</p>
 <ul>
@@ -200,9 +230,9 @@ broadcastVar.value    # access broadcast variable
 sc.parallelize([2, 23, 1]).foreach(lambda x: ac.add(x))
 </code></pre>
 <p>Depending on the type of accumulator variable data - double, long and collection, PySpark provide DoubleAccumulator, LongAccumulator and CollectionAccumulator respectively.</p>
-<h3 id="what-is-pyspark-udf">15. What is PySpark UDF?</h3>
+<h2 id="what-is-pyspark-udf">15. What is PySpark UDF?</h2>
 <p>UDF stands for User Defined Functions. In PySpark, UDF can be created by creating a python function and wrapping it with PySpark SQL’s udf() method and using it on the DataFrame or SQL. These are generally created when we do not have the functionalities supported in PySpark’s library and we have to use our own logic on the data. UDFs can be reused on any number of SQL expressions or DataFrames.</p>
-<h3 id="what-are-the-industrial-benefits-of-pyspark">16. What are the industrial benefits of PySpark?</h3>
+<h2 id="what-are-the-industrial-benefits-of-pyspark">16. What are the industrial benefits of PySpark?</h2>
 <p>These days, almost every industry makes use of big data to evaluate where they stand and grow. When you hear the term big data, Apache Spark comes to mind. Following are the industry benefits of using PySpark that supports Spark:</p>
 <ul>
 <li><strong>Media streaming:</strong>  Spark can be used to achieve real-time streaming to provide personalized recommendations to subscribers. Netflix is one such example that uses Apache Spark. It processes around 450 billion events every day to flow to its server-side apps.</li>
@@ -211,11 +241,11 @@ sc.parallelize([2, 23, 1]).foreach(lambda x: ac.add(x))
 <li><strong>Travel Industry:</strong>  Companies like TripAdvisor uses Spark to help users plan the perfect trip and provide personalized recommendations to the travel enthusiasts by comparing data and review from hundreds of websites regarding the place, hotels, etc.</li>
 <li><strong>Retail and e-commerce:</strong>  This is one important industry domain that requires big data analysis for targeted advertising. Companies like Alibaba run Spark jobs for analyzing petabytes of data for enhancing customer experience, providing targetted offers, sales and optimizing the overall performance.</li>
 </ul>
-<h2 id="pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</h2>
-<h3 id="what-is-pyspark-architecture">17. What is PySpark Architecture?</h3>
+<h1 id="pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</h1>
+<h2 id="what-is-pyspark-architecture">17. What is PySpark Architecture?</h2>
 <p>PySpark similar to Apache Spark works in master-slave architecture pattern. Here, the master node is called the Driver and the slave nodes are called the workers. When a Spark application is run, the Spark Driver creates SparkContext which acts as an entry point to the spark application. All the operations are executed on the worker nodes. The resources required for executing the operations on the worker nodes are managed by the Cluster Managers. The following diagram illustrates the architecture described:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/801/original/PySpark_Architecture.png?1637927958" alt=""></p>
-<h3 id="what-pyspark-dagscheduler">18. What PySpark DAGScheduler?</h3>
+<h2 id="what-pyspark-dagscheduler">18. What PySpark DAGScheduler?</h2>
 <p>DAG stands for Direct Acyclic Graph. DAGScheduler constitutes the scheduling layer of Spark which implements scheduling of tasks in a stage-oriented manner using jobs and stages. The logical execution plan (Dependencies lineage of transformation actions upon RDDs) is transformed into a physical execution plan consisting of stages. It computes a DAG of stages needed for each job and keeps track of what stages are RDDs are materialized and finds a minimal schedule for running the jobs. These stages are then submitted to TaskScheduler for running the stages. This is represented in the image flow below:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/802/original/PySpark_DAGScheduler.png?1637928014" alt=""></p>
 <p>DAGScheduler performs the following three things in Spark:</p>
@@ -225,7 +255,7 @@ sc.parallelize([2, 23, 1]).foreach(lambda x: ac.add(x))
 <li>Failure Handling due to output files lost during shuffling.</li>
 </ul>
 <p>PySpark’s DAGScheduler follows event-queue architecture. Here a thread posts events of type DAGSchedulerEvent such as new stage or job. The DAGScheduler then reads the stages and sequentially executes them in topological order.</p>
-<h3 id="what-is-the-common-workflow-of-a-spark-program">19. What is the common workflow of a spark program?</h3>
+<h2 id="what-is-the-common-workflow-of-a-spark-program">19. What is the common workflow of a spark program?</h2>
 <p>The most common workflow followed by the spark program is:</p>
 <ul>
 <li>The first step is to create input RDDs depending on the external data. Data can be obtained from different data sources.</li>
@@ -233,7 +263,7 @@ sc.parallelize([2, 23, 1]).foreach(lambda x: ac.add(x))
 <li>If any intermediate RDDs are required to be reused for later purposes, we can persist those RDDs.</li>
 <li>Lastly, if any action operations like first(), count() etc are present then spark launches it to initiate parallel computation.</li>
 </ul>
-<h3 id="why-is-pyspark-sparkconf-used">20. Why is PySpark SparkConf used?</h3>
+<h2 id="why-is-pyspark-sparkconf-used">20. Why is PySpark SparkConf used?</h2>
 <p>PySpark SparkConf is used for setting the configurations and parameters required to run applications on a cluster or local system. The following class can be executed to run the SparkConf:</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">class</span> <span class="token class-name">pyspark</span><span class="token punctuation">.</span>Sparkconf<span class="token punctuation">(</span>
 localdefaults <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
@@ -247,7 +277,7 @@ _jconf <span class="token operator">=</span> <span class="token boolean">None</s
 <li><code>_jvm</code>  - This belongs to the class  <code>py4j.java_gateway.JVMView</code>  and is an internal parameter that is used for passing the handle to JVM. This need not be set by the users.</li>
 <li><code>_jconf</code>  - This belongs to the class  <code>py4j.java_gateway.JavaObject</code>. This parameter is an option and can be used for passing existing SparkConf handles for using the parameters.</li>
 </ul>
-<h3 id="how-will-you-create-pyspark-udf">21. How will you create PySpark UDF?</h3>
+<h2 id="how-will-you-create-pyspark-udf">21. How will you create PySpark UDF?</h2>
 <p>Consider an example where we want to capitalize the first letter of every word in a string. This feature is not supported in PySpark. We can however achieve this by creating a UDF  <code>capitalizeWord(str)</code>  and using it on the DataFrames. The following steps demonstrate this:</p>
 <ul>
 <li>Create Python function  <code>capitalizeWord</code>  that takes a string as input and capitalizes the first character of every word.</li>
@@ -292,7 +322,7 @@ Consider we have a DataFrame of stored in variable df as below:</li>
 <span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
 </code></pre>
 <p>UDFs have to be designed in a way that the algorithms are efficient and take less time and space complexity. If care is not taken, the performance of the DataFrame operations would be impacted.</p>
-<h3 id="what-are-the-profilers-in-pyspark">22. What are the profilers in PySpark?</h3>
+<h2 id="what-are-the-profilers-in-pyspark">22. What are the profilers in PySpark?</h2>
 <p>Custom profilers are supported in PySpark. These are useful for building predictive models. Profilers are useful for data review to ensure that it is valid and can be used for consumption. When we require a custom profiler, it has to define some of the following methods:</p>
 <ul>
 <li><strong>profile:</strong>  This produces a system profile of some sort.</li>
@@ -320,7 +350,7 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
 <span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql <span class="token keyword">import</span> SparkSession
 spark_session <span class="token operator">=</span> SparkSession<span class="token punctuation">.</span>newSession
 </code></pre>
-<h3 id="what-are-the-different-approaches-for-creating-rdd-in-pyspark">24. What are the different approaches for creating RDD in PySpark?</h3>
+<h2 id="what-are-the-different-approaches-for-creating-rdd-in-pyspark">24. What are the different approaches for creating RDD in PySpark?</h2>
 <p>The following image represents how we can visualize RDD creation in PySpark:</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/804/original/creating_RDD_in_PySpark.png?1637928430" alt=""></p>
 <p>In the image, we see that the data we have is the list form and post converting to RDDs, we have it stored in different partitions.<br>
@@ -356,7 +386,7 @@ empty_rdd_string <span class="token operator">=</span> spark<span class="token p
 <pre class=" language-python"><code class="prism  language-python"><span class="token comment">#Create empty RDD with 20 partitions</span>
 empty_partitioned_rdd <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span> 
 </code></pre>
-<h3 id="how-can-we-create-dataframes-in-pyspark">25. How can we create DataFrames in PySpark?</h3>
+<h2 id="how-can-we-create-dataframes-in-pyspark">25. How can we create DataFrames in PySpark?</h2>
 <p>We can do it by making use of the  <code>createDataFrame()</code>  method of the SparkSession.</p>
 <pre class=" language-python"><code class="prism  language-python">data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Harry'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
        <span class="token punctuation">(</span><span class="token string">'Ron'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -379,12 +409,12 @@ root
 <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Name<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
 <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Age<span class="token punctuation">:</span> integer <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
 </code></pre>
-<h3 id="is-it-possible-to-create-pyspark-dataframe-from-external-data-sources">26. Is it possible to create PySpark DataFrame from external data sources?</h3>
+<h2 id="is-it-possible-to-create-pyspark-dataframe-from-external-data-sources">26. Is it possible to create PySpark DataFrame from external data sources?</h2>
 <p>Yes, it is! Realtime applications make use of external file systems like local, HDFS, HBase, MySQL table, S3 Azure etc. Following example shows how we can create DataFrame by reading data from a csv file present in the local system:</p>
 <pre class=" language-python"><code class="prism  language-python">df <span class="token operator">=</span> spark<span class="token punctuation">.</span>read<span class="token punctuation">.</span>csv<span class="token punctuation">(</span><span class="token string">"/path/to/file.csv"</span><span class="token punctuation">)</span>
 </code></pre>
 <p>PySpark supports csv, text, avro, parquet, tsv and many other file extensions.</p>
-<h3 id="what-do-you-understand-by-pyspark’s-startswith-and-endswith-methods">27. What do you understand by Pyspark’s startsWith() and endsWith() methods?</h3>
+<h2 id="what-do-you-understand-by-pyspark’s-startswith-and-endswith-methods">27. What do you understand by Pyspark’s startsWith() and endsWith() methods?</h2>
 <p>These methods belong to the Column class and are used for searching DataFrame rows by checking if the column value starts with some value or ends with some value. They are used for filtering data in applications.</p>
 <ul>
 <li><strong>startsWith()</strong>  – returns boolean Boolean value. It is true when the value of the column starts with the specified string and False when the match is not satisfied in that column value.</li>
@@ -411,7 +441,7 @@ df<span class="token punctuation">.</span><span class="token builtin">filter</sp
 <span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
 </code></pre>
 <p>Notice how the record with the Name “Ron” is filtered out because it does not start with “H”.</p>
-<h3 id="what-is-pyspark-sql">28. What is PySpark SQL?</h3>
+<h2 id="what-is-pyspark-sql">28. What is PySpark SQL?</h2>
 <p>PySpark SQL is the most popular PySpark module that is used to process structured columnar data. Once a DataFrame is created, we can interact with data using the SQL syntax. Spark SQL is used for bringing native raw SQL queries on Spark by using select, where, group by, join, union etc. For using PySpark SQL, the first step is to create a temporary table on DataFrame by using  <code>createOrReplaceTempView()</code>  function. Post creation, the table is accessible throughout SparkSession by using sql() method. When the SparkSession gets terminated, the temporary table will be dropped.<br>
 For example, consider we have the following DataFrame assigned to a variable  <code>df</code>:</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
@@ -446,7 +476,7 @@ groupByGender<span class="token punctuation">.</span>show<span class="token punc
 <span class="token operator">|</span>     M<span class="token operator">|</span>       <span class="token number">2</span>    <span class="token operator">|</span>
 <span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
 </code></pre>
-<h3 id="how-can-you-inner-join-two-dataframes">29. How can you inner join two DataFrames?</h3>
+<h2 id="how-can-you-inner-join-two-dataframes">29. How can you inner join two DataFrames?</h2>
 <p>We can make use of the join() method present in PySpark SQL. The syntax for the function is:</p>
 <pre class=" language-plaintext"><code class="prism  language-plaintext">join(self, other, on=None, how=None)
 </code></pre>
@@ -517,7 +547,7 @@ how - type of join, by default it is inner. The values can be inner, left, right
 |     4|  Malfoy|         20| Chennai      |   TN |    20 |   Marketting             |
 +------+--------+-----------+--------------+------+-------+--------------------------+
 </code></pre>
-<h3 id="what-do-you-understand-by-pyspark-streaming-how-do-you-stream-data-using-tcpip-protocol">30. What do you understand by Pyspark Streaming? How do you stream data using TCP/IP Protocol?</h3>
+<h2 id="what-do-you-understand-by-pyspark-streaming-how-do-you-stream-data-using-tcpip-protocol">30. What do you understand by Pyspark Streaming? How do you stream data using TCP/IP Protocol?</h2>
 <p>PySpark Streaming is scalable, fault-tolerant, high throughput based processing streaming system that supports streaming as well as batch loads for supporting real-time data from data sources like TCP Socket, S3, Kafka, Twitter, file system folders etc. The processed data can be sent to live dashboards, Kafka, databases, HDFS etc.</p>
 <p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/806/original/Pyspark_Streaming.png?1637930069" alt=""></p>
 <p>To perform Streaming from the TCP socket, we can use the readStream.format(“socket”) method of Spark session object for reading data from TCP socket and providing the streaming source host and port as options as shown in the code below:</p>
@@ -537,7 +567,7 @@ df<span class="token punctuation">.</span>printSchema<span class="token punctuat
 <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> value<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
 </code></pre>
 <p>Post data processing, the DataFrame can be streamed to the console or any other destinations based on the requirements like Kafka, dashboards, database etc.</p>
-<h3 id="what-would-happen-if-we-lose-rdd-partitions-due-to-the-failure-of-the-worker-node">31. What would happen if we lose RDD partitions due to the failure of the worker node?</h3>
+<h2 id="what-would-happen-if-we-lose-rdd-partitions-due-to-the-failure-of-the-worker-node">31. What would happen if we lose RDD partitions due to the failure of the worker node?</h2>
 <p>If any RDD partition is lost, then that partition can be recomputed using operations lineage from the original fault-tolerant dataset.</p>
 
     </div>
