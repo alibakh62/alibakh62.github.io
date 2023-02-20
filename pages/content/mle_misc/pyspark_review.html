@@ -1,0 +1,547 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tmp.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li><a href="#pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</a></li>
+<li><a href="#pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h2 id="pyspark-interview-questions-for-freshers">Pyspark Interview Questions for Freshers</h2>
+<h3 id="what-is-pyspark">1. What is PySpark?</h3>
+<p>PySpark is an Apache Spark interface in Python. It is used for collaborating with Spark using APIs written in Python. It also supports Spark’s features like Spark DataFrame, Spark SQL, Spark Streaming, Spark MLlib and Spark Core. It provides an interactive PySpark shell to analyze structured and semi-structured data in a distributed environment. PySpark supports reading data from multiple sources and different formats. It also facilitates the use of RDDs (Resilient Distributed Datasets). PySpark features are implemented in the py4j library in python.</p>
+<p>PySpark can be installed using PyPi by using the command:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">pip install pyspark
+</code></pre>
+<h3 id="what-are-the-characteristics-of-pyspark">2. What are the characteristics of PySpark?</h3>
+<p>There are 4 characteristics of PySpark:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/792/original/characteristics_of_PySpark.png?1637925597" alt=""></p>
+<ul>
+<li><strong>Abstracted Nodes:</strong>  This means that the individual worker nodes can not be addressed.</li>
+<li><strong>Spark API:</strong>  PySpark provides APIs for utilizing Spark features.</li>
+<li><strong>Map-Reduce Model:</strong>  PySpark is based on Hadoop’s Map-Reduce model this means that the programmer provides the map and the reduce functions.</li>
+<li><strong>Abstracted Network:</strong>  Networks are abstracted in PySpark which means that the only possible communication is implicit communication.</li>
+</ul>
+<h3 id="what-are-the-advantages-and-disadvantages-of-pyspark">3. What are the advantages and disadvantages of PySpark?</h3>
+<p><strong>Advantages of PySpark:</strong></p>
+<ul>
+<li>Simple to use: Parallelized code can be written in a simpler manner.</li>
+<li>Error Handling: PySpark framework easily handles errors.</li>
+<li>Inbuilt Algorithms: PySpark provides many of the useful algorithms in Machine Learning or Graphs.</li>
+<li>Library Support: Compared to Scala, Python has a huge library collection for working in the field of data science and data visualization.</li>
+<li>Easy to Learn: PySpark is an easy to learn language.</li>
+</ul>
+<p><strong>Disadvantages of PySpark:</strong></p>
+<ul>
+<li>Sometimes, it becomes difficult to express problems using the MapReduce model.</li>
+<li>Since Spark was originally developed in Scala, while using PySpark in Python programs they are relatively less efficient and approximately 10x times slower than the Scala programs. This would impact the performance of heavy data processing applications.</li>
+<li>The Spark Streaming API in PySpark is not mature when compared to Scala. It still requires improvements.</li>
+<li>PySpark cannot be used for modifying the internal function of the Spark due to the abstractions provided. In such cases, Scala is preferred.</li>
+</ul>
+<p>You can download a PDF version of Pyspark Interview Questions.</p>
+<p><img src="https://assets.interviewbit.com/assets/svg/download_icon-cd2d5b54bc600ee83352693330804e7d9324dddf41fc105cd5e3176e92f3cd36.svg.gz" alt="">Download PDF</p>
+<hr>
+<h3 id="what-is-pyspark-sparkcontext">4. What is PySpark SparkContext?</h3>
+<p>PySpark SparkContext is an initial entry point of the spark functionality. It also represents Spark Cluster Connection and can be used for creating the Spark RDDs (Resilient Distributed Datasets) and broadcasting the variables on the cluster.</p>
+<p>The following diagram represents the architectural diagram of PySpark’s SparkContext:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/793/original/PySpark_SparkContext.png?1637925777" alt=""></p>
+<p>When we want to run the Spark application, a driver program that has the main function will be started. From this point, the SparkContext that we defined gets initiated. Later on, the driver program performs operations inside the executors of the worker nodes. Additionally, JVM will be launched using Py4J which in turn creates JavaSparkContext. Since PySpark has default SparkContext available as “sc”, there will not be a creation of a new SparkContext.</p>
+<h3 id="why-do-we-use-pyspark-sparkfiles">5. Why do we use PySpark SparkFiles?</h3>
+<p>PySpark’s SparkFiles are used for loading the files onto the Spark application. This functionality is present under SparkContext and can be called using the  <code>sc.addFile()</code>  method for loading files on Spark. SparkFiles can also be used for getting the path using the  <code>SparkFiles.get()</code>  method. It can also be used to resolve paths to files added using the  <code>sc.addFile()</code>  method.</p>
+<h3 id="what-are-pyspark-serializers">6. What are PySpark serializers?</h3>
+<p>The serialization process is used to conduct performance tuning on Spark. The data sent or received over the network to the disk or memory should be persisted. PySpark supports serializers for this purpose. It supports two types of serializers, they are:</p>
+<ul>
+<li><strong>PickleSerializer:</strong>  This serializes objects using Python’s PickleSerializer (<code>class pyspark.PickleSerializer</code>). This supports almost every Python object.</li>
+<li><strong>MarshalSerializer:</strong>  This performs serialization of objects. We can use it by using  <code>class pyspark.MarshalSerializer</code>. This serializer is faster than the PickleSerializer but it supports only limited types.</li>
+</ul>
+<p>Consider an example of serialization which makes use of MarshalSerializer:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment"># --serializing.py----</span>
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>context <span class="token keyword">import</span> SparkContext
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>serializers <span class="token keyword">import</span> MarshalSerializer
+sc <span class="token operator">=</span> SparkContext<span class="token punctuation">(</span><span class="token string">"local"</span><span class="token punctuation">,</span> <span class="token string">"Marshal Serialization"</span><span class="token punctuation">,</span> serializer <span class="token operator">=</span> MarshalSerializer<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment">#Initialize spark context and serializer</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>sc<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token number">3</span> <span class="token operator">*</span> x<span class="token punctuation">)</span><span class="token punctuation">.</span>take<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+sc<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>When we run the file using the command:</p>
+<pre class=" language-python"><code class="prism  language-python">$SPARK_HOME<span class="token operator">/</span><span class="token builtin">bin</span><span class="token operator">/</span>spark<span class="token operator">-</span>submit serializing<span class="token punctuation">.</span>py
+</code></pre>
+<p>The output of the code would be the list of size 5 of numbers multiplied by 3:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span>
+</code></pre>
+<h3 id="what-are-rdds-in-pyspark">7. What are RDDs in PySpark?</h3>
+<p>RDDs expand to Resilient Distributed Datasets. These are the elements that are used for running and operating on multiple nodes to perform parallel processing on a cluster. Since RDDs are suited for parallel processing, they are immutable elements. This means that once we create RDD, we cannot modify it. RDDs are also fault-tolerant which means that whenever failure happens, they can be recovered automatically. Multiple operations can be performed on RDDs to perform a certain task. The operations can be of 2 types:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/794/original/RDD.png?1637926435" alt=""></p>
+<ul>
+<li><strong>Transformation:</strong>  These operations when applied on RDDs result in the creation of a new RDD. Some of the examples of transformation operations are filter, groupBy, map.<br>
+Let us take an example to demonstrate transformation operation by considering filter() operation:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> pyspark <span class="token keyword">import</span> SparkContext
+sc <span class="token operator">=</span> SparkContext<span class="token punctuation">(</span><span class="token string">"local"</span><span class="token punctuation">,</span> <span class="token string">"Transdormation Demo"</span><span class="token punctuation">)</span>
+words_list <span class="token operator">=</span> sc<span class="token punctuation">.</span>parallelize <span class="token punctuation">(</span>
+  <span class="token punctuation">[</span><span class="token string">"pyspark"</span><span class="token punctuation">,</span> 
+  <span class="token string">"interview"</span><span class="token punctuation">,</span> 
+  <span class="token string">"questions"</span><span class="token punctuation">,</span> 
+  <span class="token string">"at"</span><span class="token punctuation">,</span> 
+  <span class="token string">"interviewbit"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+filtered_words <span class="token operator">=</span> words_list<span class="token punctuation">.</span><span class="token builtin">filter</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token string">'interview'</span> <span class="token keyword">in</span> x<span class="token punctuation">)</span>
+filtered <span class="token operator">=</span> filtered_words<span class="token punctuation">.</span>collect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>filtered<span class="token punctuation">)</span>
+</code></pre>
+<p>The above code filters all the elements in the list that has ‘interview’ in the element. The output of the above code would be:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">[</span>
+  <span class="token string">"interview"</span><span class="token punctuation">,</span>
+  <span class="token string">"interviewbit"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<ul>
+<li><strong>Action:</strong>  These operations instruct Spark to perform some computations on the RDD and return the result to the driver. It sends data from the Executer to the driver. count(), collect(), take() are some of the examples.<br>
+Let us consider an example to demonstrate action operation by making use of the count() function.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> pyspark <span class="token keyword">import</span> SparkContext
+sc <span class="token operator">=</span> SparkContext<span class="token punctuation">(</span><span class="token string">"local"</span><span class="token punctuation">,</span> <span class="token string">"Action Demo"</span><span class="token punctuation">)</span>
+words <span class="token operator">=</span> sc<span class="token punctuation">.</span>parallelize <span class="token punctuation">(</span>
+  <span class="token punctuation">[</span><span class="token string">"pyspark"</span><span class="token punctuation">,</span> 
+  <span class="token string">"interview"</span><span class="token punctuation">,</span> 
+  <span class="token string">"questions"</span><span class="token punctuation">,</span> 
+  <span class="token string">"at"</span><span class="token punctuation">,</span> 
+  <span class="token string">"interviewbit"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+counts <span class="token operator">=</span> words<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Count of elements in RDD -&gt; "</span><span class="token punctuation">,</span>  counts<span class="token punctuation">)</span>
+</code></pre>
+<p>In this class, we count the number of elements in the spark RDDs. The output of this code is</p>
+<pre class=" language-python"><code class="prism  language-python">Count of elements <span class="token keyword">in</span> RDD <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token number">5</span>
+</code></pre>
+<h3 id="does-pyspark-provide-a-machine-learning-api">8. Does PySpark provide a machine learning API?</h3>
+<p>Similar to Spark, PySpark provides a machine learning API which is known as MLlib that supports various ML algorithms like:</p>
+<ul>
+<li><code>mllib.classification</code>  − This supports different methods for binary or multiclass classification and regression analysis like Random Forest, Decision Tree, Naive Bayes etc.</li>
+<li><code>mllib.clustering</code>  − This is used for solving clustering problems that aim in grouping entities subsets with one another depending on similarity.</li>
+<li><code>mllib.fpm</code>  − FPM stands for Frequent Pattern Matching. This library is used to mine frequent items, subsequences or other structures that are used for analyzing large datasets.</li>
+<li><code>mllib.linalg</code>  − This is used for solving problems on linear algebra.</li>
+<li><code>mllib.recommendation</code>  − This is used for collaborative filtering and in recommender systems.</li>
+<li><code>spark.mllib</code>  − This is used for supporting model-based collaborative filtering where small latent factors are identified using the Alternating Least Squares (ALS) algorithm which is used for predicting missing entries.</li>
+<li><code>mllib.regression</code>  − This is used for solving problems using regression algorithms that find relationships and variable dependencies.</li>
+</ul>
+<h3 id="what-are-the-different-cluster-manager-types-supported-by-pyspark">9. What are the different cluster manager types supported by PySpark?</h3>
+<p>A cluster manager is a cluster mode platform that helps to run Spark by providing all resources to worker nodes based on the requirements.</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/799/original/cluster_manager_types.png?1637927168" alt=""></p>
+<p>The above figure shows the position of cluster manager in the Spark ecosystem. Consider a master node and multiple worker nodes present in the cluster. The master nodes provide the worker nodes with the resources like memory, processor allocation etc depending on the nodes requirements with the help of the cluster manager.</p>
+<p>PySpark supports the following cluster manager types:</p>
+<ul>
+<li><strong>Standalone</strong>  – This is a simple cluster manager that is included with Spark.</li>
+<li><strong>Apache Mesos</strong>  – This manager can run Hadoop MapReduce and PySpark apps.</li>
+<li><strong>Hadoop YARN</strong>  – This manager is used in Hadoop2.</li>
+<li><strong>Kubernetes</strong>  – This is an open-source cluster manager that helps in automated deployment, scaling and automatic management of containerized apps.</li>
+<li><strong>local</strong>  – This is simply a mode for running Spark applications on laptops/desktops.</li>
+</ul>
+<h3 id="what-are-the-advantages-of-pyspark-rdd">10. What are the advantages of PySpark RDD?</h3>
+<p>PySpark RDDs have the following advantages:</p>
+<ul>
+<li><strong>In-Memory Processing:</strong> PySpark’s RDD helps in loading data from the disk to the memory. The RDDs can even be persisted in the memory for reusing the computations.</li>
+<li><strong>Immutability:</strong> The RDDs are immutable which means that once created, they cannot be modified. While applying any transformation operations on the RDDs, a new RDD would be created.</li>
+<li><strong>Fault Tolerance:</strong> The RDDs are fault-tolerant. This means that whenever an operation fails, the data gets automatically reloaded from other available partitions. This results in seamless execution of the PySpark applications.</li>
+<li><strong>Lazy Evolution:</strong> The PySpark transformation operations are not performed as soon as they are encountered. The operations would be stored in the DAG and are evaluated once it finds the first RDD action.</li>
+<li><strong>Partitioning:</strong> Whenever RDD is created from any data, the elements in the RDD are partitioned to the cores available by default.</li>
+</ul>
+<h3 id="is-pyspark-faster-than-pandas">11. Is PySpark faster than pandas?</h3>
+<p>PySpark supports parallel execution of statements in a distributed environment, i.e on different cores and different machines which are not present in Pandas. This is why PySpark is faster than pandas.</p>
+<h3 id="what-do-you-understand-about-pyspark-dataframes">12. What do you understand about PySpark DataFrames?</h3>
+<p>PySpark DataFrame is a distributed collection of well-organized data that is equivalent to tables of the relational databases and are placed into named columns. PySpark DataFrame has better optimisation when compared to R or python. These can be created from different sources like Hive Tables, Structured Data Files, existing RDDs, external databases etc as shown in the image below:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/797/original/PySpark_DataFrames.png?1637926884" alt=""></p>
+<p>The data in the PySpark DataFrame is distributed across different machines in the cluster and the operations performed on this would be run parallelly on all the machines. These can handle a large collection of structured or semi-structured data of a range of petabytes.</p>
+<h3 id="what-is-sparksession-in-pyspark">13. What is SparkSession in Pyspark?</h3>
+<p>SparkSession is the entry point to PySpark and is the replacement of SparkContext since PySpark version 2.0. This acts as a starting point to access all of the PySpark functionalities related to RDDs, DataFrame, Datasets etc. It is also a Unified API that is used in replacing the SQLContext, StreamingContext, HiveContext and all other contexts.</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/798/original/SparkSession_in_Pyspark.png?1637926953" alt=""></p>
+<p>The SparkSession internally creates SparkContext and SparkConfig based on the details provided in SparkSession. SparkSession can be created by making use of builder patterns.</p>
+<h3 id="what-are-the-types-of-pyspark’s-shared-variables-and-why-are-they-useful">14. What are the types of PySpark’s shared variables and why are they useful?</h3>
+<p>Whenever PySpark performs the transformation operation using filter(), map() or reduce(), they are run on a remote node that uses the variables shipped with tasks. These variables are not reusable and cannot be shared across different tasks because they are not returned to the Driver. To solve the issue of reusability and sharing, we have shared variables in PySpark. There are two types of shared variables, they are:</p>
+<p><strong>Broadcast variables:</strong>  These are also known as read-only shared variables and are used in cases of data lookup requirements. These variables are cached and are made available on all the cluster nodes so that the tasks can make use of them. The variables are not sent with every task. They are rather distributed to the nodes using efficient algorithms for reducing the cost of communication. When we run an RDD job operation that makes use of Broadcast variables, the following things are done by PySpark:</p>
+<ul>
+<li>The job is broken into different stages having distributed shuffling. The actions are executed in those stages.</li>
+<li>The stages are then broken into tasks.</li>
+<li>The broadcast variables are broadcasted to the tasks if the tasks need to use it.</li>
+</ul>
+<p>Broadcast variables are created in PySpark by making use of the broadcast(variable) method from the SparkContext class. The syntax for this goes as follows:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">broadcastVar = sc.broadcast([10, 11, 22, 31])
+broadcastVar.value    # access broadcast variable
+</code></pre>
+<p>An important point of using broadcast variables is that the variables are not sent to the tasks when the broadcast function is called. They will be sent when the variables are first required by the executors.</p>
+<p><strong>Accumulator variables:</strong>  These variables are called updatable shared variables. They are added through associative and commutative operations and are used for performing counter or sum operations. PySpark supports the creation of numeric type accumulators by default. It also has the ability to add custom accumulator types. The custom types can be of two types:</p>
+<ul>
+<li><strong>Named Accumulators</strong>: These accumulators are visible under the “Accumulator” tab in the PySpark web UI as shown in the image below:</li>
+</ul>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/800/original/Accumulator_variables.png?1637927306" alt=""></p>
+<p>Here, we will see the Accumulable section that has the sum of the Accumulator values of the variables modified by the tasks listed in the Accumulator column present in the Tasks table.</p>
+<ul>
+<li><strong>Unnamed Accumulators:</strong>  These accumulators are not shown on the PySpark Web UI page. It is always recommended to make use of named accumulators.</li>
+</ul>
+<p>Accumulator variables can be created by using SparkContext.longAccumulator(variable) as shown in the example below:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">ac = sc.longAccumulator("sumaccumulator")
+sc.parallelize([2, 23, 1]).foreach(lambda x: ac.add(x))
+</code></pre>
+<p>Depending on the type of accumulator variable data - double, long and collection, PySpark provide DoubleAccumulator, LongAccumulator and CollectionAccumulator respectively.</p>
+<h3 id="what-is-pyspark-udf">15. What is PySpark UDF?</h3>
+<p>UDF stands for User Defined Functions. In PySpark, UDF can be created by creating a python function and wrapping it with PySpark SQL’s udf() method and using it on the DataFrame or SQL. These are generally created when we do not have the functionalities supported in PySpark’s library and we have to use our own logic on the data. UDFs can be reused on any number of SQL expressions or DataFrames.</p>
+<h3 id="what-are-the-industrial-benefits-of-pyspark">16. What are the industrial benefits of PySpark?</h3>
+<p>These days, almost every industry makes use of big data to evaluate where they stand and grow. When you hear the term big data, Apache Spark comes to mind. Following are the industry benefits of using PySpark that supports Spark:</p>
+<ul>
+<li><strong>Media streaming:</strong>  Spark can be used to achieve real-time streaming to provide personalized recommendations to subscribers. Netflix is one such example that uses Apache Spark. It processes around 450 billion events every day to flow to its server-side apps.</li>
+<li><strong>Finance:</strong>  Banks use Spark for accessing and analyzing the social media profiles and in turn get insights on what strategies would help them to make the right decisions regarding customer segmentation, credit risk assessments, early fraud detection etc.</li>
+<li><strong>Healthcare:</strong>  Providers use Spark for analyzing the past records of the patients to identify what health issues the patients might face posting their discharge. Spark is also used to perform genome sequencing for reducing the time required for processing genome data.</li>
+<li><strong>Travel Industry:</strong>  Companies like TripAdvisor uses Spark to help users plan the perfect trip and provide personalized recommendations to the travel enthusiasts by comparing data and review from hundreds of websites regarding the place, hotels, etc.</li>
+<li><strong>Retail and e-commerce:</strong>  This is one important industry domain that requires big data analysis for targeted advertising. Companies like Alibaba run Spark jobs for analyzing petabytes of data for enhancing customer experience, providing targetted offers, sales and optimizing the overall performance.</li>
+</ul>
+<h2 id="pyspark-interview-questions-for-experienced">Pyspark Interview Questions for Experienced</h2>
+<h3 id="what-is-pyspark-architecture">17. What is PySpark Architecture?</h3>
+<p>PySpark similar to Apache Spark works in master-slave architecture pattern. Here, the master node is called the Driver and the slave nodes are called the workers. When a Spark application is run, the Spark Driver creates SparkContext which acts as an entry point to the spark application. All the operations are executed on the worker nodes. The resources required for executing the operations on the worker nodes are managed by the Cluster Managers. The following diagram illustrates the architecture described:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/801/original/PySpark_Architecture.png?1637927958" alt=""></p>
+<h3 id="what-pyspark-dagscheduler">18. What PySpark DAGScheduler?</h3>
+<p>DAG stands for Direct Acyclic Graph. DAGScheduler constitutes the scheduling layer of Spark which implements scheduling of tasks in a stage-oriented manner using jobs and stages. The logical execution plan (Dependencies lineage of transformation actions upon RDDs) is transformed into a physical execution plan consisting of stages. It computes a DAG of stages needed for each job and keeps track of what stages are RDDs are materialized and finds a minimal schedule for running the jobs. These stages are then submitted to TaskScheduler for running the stages. This is represented in the image flow below:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/802/original/PySpark_DAGScheduler.png?1637928014" alt=""></p>
+<p>DAGScheduler performs the following three things in Spark:</p>
+<ul>
+<li>Compute DAG execution for the job.</li>
+<li>Determine preferred locations for running each task</li>
+<li>Failure Handling due to output files lost during shuffling.</li>
+</ul>
+<p>PySpark’s DAGScheduler follows event-queue architecture. Here a thread posts events of type DAGSchedulerEvent such as new stage or job. The DAGScheduler then reads the stages and sequentially executes them in topological order.</p>
+<h3 id="what-is-the-common-workflow-of-a-spark-program">19. What is the common workflow of a spark program?</h3>
+<p>The most common workflow followed by the spark program is:</p>
+<ul>
+<li>The first step is to create input RDDs depending on the external data. Data can be obtained from different data sources.</li>
+<li>Post RDD creation, the RDD transformation operations like filter() or map() are run for creating new RDDs depending on the business logic.</li>
+<li>If any intermediate RDDs are required to be reused for later purposes, we can persist those RDDs.</li>
+<li>Lastly, if any action operations like first(), count() etc are present then spark launches it to initiate parallel computation.</li>
+</ul>
+<h3 id="why-is-pyspark-sparkconf-used">20. Why is PySpark SparkConf used?</h3>
+<p>PySpark SparkConf is used for setting the configurations and parameters required to run applications on a cluster or local system. The following class can be executed to run the SparkConf:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">class</span> <span class="token class-name">pyspark</span><span class="token punctuation">.</span>Sparkconf<span class="token punctuation">(</span>
+localdefaults <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+_jvm <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">,</span>
+_jconf <span class="token operator">=</span> <span class="token boolean">None</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>loadDefaults</code>  - is of type boolean and indicates whether we require loading values from Java System Properties. It is True by default.</li>
+<li><code>_jvm</code>  - This belongs to the class  <code>py4j.java_gateway.JVMView</code>  and is an internal parameter that is used for passing the handle to JVM. This need not be set by the users.</li>
+<li><code>_jconf</code>  - This belongs to the class  <code>py4j.java_gateway.JavaObject</code>. This parameter is an option and can be used for passing existing SparkConf handles for using the parameters.</li>
+</ul>
+<h3 id="how-will-you-create-pyspark-udf">21. How will you create PySpark UDF?</h3>
+<p>Consider an example where we want to capitalize the first letter of every word in a string. This feature is not supported in PySpark. We can however achieve this by creating a UDF  <code>capitalizeWord(str)</code>  and using it on the DataFrames. The following steps demonstrate this:</p>
+<ul>
+<li>Create Python function  <code>capitalizeWord</code>  that takes a string as input and capitalizes the first character of every word.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">def</span> <span class="token function">capitalizeWord</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+   result<span class="token operator">=</span><span class="token string">""</span>
+   words <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+   <span class="token keyword">for</span> word <span class="token keyword">in</span> words<span class="token punctuation">:</span>
+      result<span class="token operator">=</span> result <span class="token operator">+</span> word<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> word<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token builtin">len</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">" "</span>
+   <span class="token keyword">return</span> result
+</code></pre>
+<ul>
+<li>Register the function as a PySpark UDF by using the udf() method of  <code>org.apache.spark.sql.functions.udf</code>  package which needs to be imported. This method returns the object of class  <code>org.apache.spark.sql.expressions.UserDefinedFunction</code>.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token triple-quoted-string string">""" Converting function to UDF """</span>
+capitalizeWordUDF <span class="token operator">=</span> udf<span class="token punctuation">(</span><span class="token keyword">lambda</span> z<span class="token punctuation">:</span> capitalizeWord<span class="token punctuation">(</span>z<span class="token punctuation">)</span><span class="token punctuation">,</span>StringType<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>Use UDF with DataFrame: The UDF can be applied on a Python DataFrame as that acts as the built-in function of DataFrame.<br>
+Consider we have a DataFrame of stored in variable df as below:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span>ID_COLUMN <span class="token operator">|</span>NAME_COLUMN      <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span><span class="token number">1</span>         <span class="token operator">|</span>harry potter     <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token number">2</span>         <span class="token operator">|</span>ronald weasley   <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token number">3</span>         <span class="token operator">|</span>hermoine granger <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<p>To capitalize every first character of the word, we can use:</p>
+<pre class=" language-python"><code class="prism  language-python">df<span class="token punctuation">.</span>select<span class="token punctuation">(</span>col<span class="token punctuation">(</span><span class="token string">"ID_COLUMN"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> convertUDF<span class="token punctuation">(</span>col<span class="token punctuation">(</span><span class="token string">"NAME_COLUMN"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token punctuation">.</span>alias<span class="token punctuation">(</span><span class="token string">"NAME_COLUMN"</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+ <span class="token punctuation">.</span>show<span class="token punctuation">(</span>truncate<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The output of the above code would be:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span>ID_COLUMN <span class="token operator">|</span>NAME_COLUMN      <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span><span class="token number">1</span>         <span class="token operator">|</span>Harry Potter     <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token number">2</span>         <span class="token operator">|</span>Ronald Weasley   <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token number">3</span>         <span class="token operator">|</span>Hermoine Granger <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<p>UDFs have to be designed in a way that the algorithms are efficient and take less time and space complexity. If care is not taken, the performance of the DataFrame operations would be impacted.</p>
+<h3 id="what-are-the-profilers-in-pyspark">22. What are the profilers in PySpark?</h3>
+<p>Custom profilers are supported in PySpark. These are useful for building predictive models. Profilers are useful for data review to ensure that it is valid and can be used for consumption. When we require a custom profiler, it has to define some of the following methods:</p>
+<ul>
+<li><strong>profile:</strong>  This produces a system profile of some sort.</li>
+<li><strong>stats:</strong>  This returns collected stats of profiling.</li>
+<li><strong>dump:</strong>  This dumps the profiles to a specified path.</li>
+<li><strong>add:</strong>  This helps to add profile to existing accumulated profile. The profile class has to be selected at the time of SparkContext creation.</li>
+<li><strong>dump(id, path):</strong>  This dumps a specific RDD id to the path given.</li>
+</ul>
+<h3 id="how-to-create-sparksession">23. How to create SparkSession?</h3>
+<p>To create SparkSession, we use the builder pattern. The SparkSession class from the  <code>pyspark.sql</code>  library has the getOrCreate() method which creates a new SparkSession if there is none or else it returns the existing SparkSession object. The following code is an example for creating SparkSession:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> pyspark
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql <span class="token keyword">import</span> SparkSession
+spark <span class="token operator">=</span> SparkSession<span class="token punctuation">.</span>builder<span class="token punctuation">.</span>master<span class="token punctuation">(</span><span class="token string">"local[1]"</span><span class="token punctuation">)</span> 
+                   <span class="token punctuation">.</span>appName<span class="token punctuation">(</span><span class="token string">'InterviewBitSparkSession'</span><span class="token punctuation">)</span> 
+                   <span class="token punctuation">.</span>getOrCreate<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Here,</p>
+<ul>
+<li>master() – This is used for setting up the mode in which the application has to run - cluster mode (use the master name) or standalone mode. For Standalone mode, we use the  <code>local[x]</code>  value to the function, where x represents partition count to be created in RDD, DataFrame and DataSet. The value of x is ideally the number of CPU cores available.</li>
+<li>appName() - Used for setting the application name</li>
+<li>getOrCreate() – For returning SparkSession object. This creates a new object if it does not exist. If an object is there, it simply returns that.</li>
+</ul>
+<p>If we want to create a new SparkSession object every time, we can use the newSession method as shown below:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> pyspark
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql <span class="token keyword">import</span> SparkSession
+spark_session <span class="token operator">=</span> SparkSession<span class="token punctuation">.</span>newSession
+</code></pre>
+<h3 id="what-are-the-different-approaches-for-creating-rdd-in-pyspark">24. What are the different approaches for creating RDD in PySpark?</h3>
+<p>The following image represents how we can visualize RDD creation in PySpark:</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/804/original/creating_RDD_in_PySpark.png?1637928430" alt=""></p>
+<p>In the image, we see that the data we have is the list form and post converting to RDDs, we have it stored in different partitions.<br>
+We have the following approaches for creating PySpark RDD:</p>
+<ul>
+<li><strong>Using</strong>  <code>sparkContext.parallelize()</code>: The parallelize() method of the SparkContext can be used for creating RDDs. This method loads existing collection from the driver and parallelizes it. This is a basic approach to create RDD and is used when we have data already present in the memory. This also requires the presence of all data on the Driver before creating RDD. Code to create RDD using the parallelize method for the python list shown in the image above:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token builtin">list</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span>
+rdd<span class="token operator">=</span>spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><strong>Using</strong>  <code>sparkContext.textFile()</code>: Using this method, we can read .txt file and convert them into RDD. Syntax:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">rdd_txt <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>textFile<span class="token punctuation">(</span><span class="token string">"/path/to/textFile.txt"</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><strong>Using</strong>  <code>sparkContext.wholeTextFiles()</code>: This function returns PairRDD (RDD containing key-value pairs) with file path being the key and the file content is the value.</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment">#Reads entire file into a RDD as single record.</span>
+rdd_whole_text <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>wholeTextFiles<span class="token punctuation">(</span><span class="token string">"/path/to/textFile.txt"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We can also read csv, json, parquet and various other formats and create the RDDs.</p>
+<ul>
+<li><strong>Empty RDD with no partition using</strong>  <code>sparkContext.emptyRDD</code>: RDD with no data is called empty RDD. We can create such RDDs having no partitions by using emptyRDD() method as shown in the code piece below:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python">empty_rdd <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>emptyRDD 
+<span class="token comment"># to create empty rdd of string type</span>
+empty_rdd_string <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>emptyRDD<span class="token punctuation">[</span>String<span class="token punctuation">]</span>
+</code></pre>
+<ul>
+<li><strong>Empty RDD with partitions using</strong>  <code>sparkContext.parallelize</code>: When we do not require data but we require partition, then we create empty RDD by using the parallelize method as shown below:</li>
+</ul>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment">#Create empty RDD with 20 partitions</span>
+empty_partitioned_rdd <span class="token operator">=</span> spark<span class="token punctuation">.</span>sparkContext<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span> 
+</code></pre>
+<h3 id="how-can-we-create-dataframes-in-pyspark">25. How can we create DataFrames in PySpark?</h3>
+<p>We can do it by making use of the  <code>createDataFrame()</code>  method of the SparkSession.</p>
+<pre class=" language-python"><code class="prism  language-python">data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Harry'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token punctuation">(</span><span class="token string">'Ron'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token punctuation">(</span><span class="token string">'Hermoine'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Name"</span><span class="token punctuation">,</span><span class="token string">"Age"</span><span class="token punctuation">]</span>
+df <span class="token operator">=</span> spark<span class="token punctuation">.</span>createDataFrame<span class="token punctuation">(</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span> schema <span class="token operator">=</span> columns<span class="token punctuation">)</span>
+</code></pre>
+<p>This creates the dataframe as shown below:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Name      <span class="token operator">|</span> Age      <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Harry     <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>
+<span class="token operator">|</span> Ron       <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>
+<span class="token operator">|</span> Hermoine  <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<p>We can get the schema of the dataframe by using  <code>df.printSchema()</code></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span> df<span class="token punctuation">.</span>printSchema<span class="token punctuation">(</span><span class="token punctuation">)</span>
+root
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Name<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Age<span class="token punctuation">:</span> integer <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="is-it-possible-to-create-pyspark-dataframe-from-external-data-sources">26. Is it possible to create PySpark DataFrame from external data sources?</h3>
+<p>Yes, it is! Realtime applications make use of external file systems like local, HDFS, HBase, MySQL table, S3 Azure etc. Following example shows how we can create DataFrame by reading data from a csv file present in the local system:</p>
+<pre class=" language-python"><code class="prism  language-python">df <span class="token operator">=</span> spark<span class="token punctuation">.</span>read<span class="token punctuation">.</span>csv<span class="token punctuation">(</span><span class="token string">"/path/to/file.csv"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>PySpark supports csv, text, avro, parquet, tsv and many other file extensions.</p>
+<h3 id="what-do-you-understand-by-pyspark’s-startswith-and-endswith-methods">27. What do you understand by Pyspark’s startsWith() and endsWith() methods?</h3>
+<p>These methods belong to the Column class and are used for searching DataFrame rows by checking if the column value starts with some value or ends with some value. They are used for filtering data in applications.</p>
+<ul>
+<li><strong>startsWith()</strong>  – returns boolean Boolean value. It is true when the value of the column starts with the specified string and False when the match is not satisfied in that column value.</li>
+<li><strong>endsWith()</strong>  – returns boolean Boolean value. It is true when the value of the column ends with the specified string and False when the match is not satisfied in that column value.</li>
+</ul>
+<p>Both the methods are case-sensitive.</p>
+<p>Consider an example of the startsWith() method here. We have created a DataFrame with 3 rows:</p>
+<pre class=" language-python"><code class="prism  language-python">data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Harry'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token punctuation">(</span><span class="token string">'Ron'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token punctuation">(</span><span class="token string">'Hermoine'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Name"</span><span class="token punctuation">,</span><span class="token string">"Age"</span><span class="token punctuation">]</span>
+df <span class="token operator">=</span> spark<span class="token punctuation">.</span>createDataFrame<span class="token punctuation">(</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span> schema <span class="token operator">=</span> columns<span class="token punctuation">)</span>
+</code></pre>
+<p>If we have the below code that checks for returning the rows where all the names in the Name column start with “H”,</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>functions<span class="token punctuation">.</span>col
+df<span class="token punctuation">.</span><span class="token builtin">filter</span><span class="token punctuation">(</span>col<span class="token punctuation">(</span><span class="token string">"Name"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>startsWith<span class="token punctuation">(</span><span class="token string">"H"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The output of the code would be:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Name      <span class="token operator">|</span> Age      <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Harry     <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>
+<span class="token operator">|</span> Hermoine  <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<p>Notice how the record with the Name “Ron” is filtered out because it does not start with “H”.</p>
+<h3 id="what-is-pyspark-sql">28. What is PySpark SQL?</h3>
+<p>PySpark SQL is the most popular PySpark module that is used to process structured columnar data. Once a DataFrame is created, we can interact with data using the SQL syntax. Spark SQL is used for bringing native raw SQL queries on Spark by using select, where, group by, join, union etc. For using PySpark SQL, the first step is to create a temporary table on DataFrame by using  <code>createOrReplaceTempView()</code>  function. Post creation, the table is accessible throughout SparkSession by using sql() method. When the SparkSession gets terminated, the temporary table will be dropped.<br>
+For example, consider we have the following DataFrame assigned to a variable  <code>df</code>:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Name      <span class="token operator">|</span> Age      <span class="token operator">|</span> Gender   <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span> Harry     <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>    M     <span class="token operator">|</span>
+<span class="token operator">|</span> Ron       <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>    M     <span class="token operator">|</span>
+<span class="token operator">|</span> Hermoine  <span class="token operator">|</span> <span class="token number">20</span>       <span class="token operator">|</span>    F     <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<p>In the below piece of code, we will be creating a temporary table of the DataFrame that gets accessible in the SparkSession using the sql() method. The SQL queries can be run within the method.</p>
+<pre class=" language-python"><code class="prism  language-python">df<span class="token punctuation">.</span>createOrReplaceTempView<span class="token punctuation">(</span><span class="token string">"STUDENTS"</span><span class="token punctuation">)</span>
+df_new <span class="token operator">=</span> spark<span class="token punctuation">.</span>sql<span class="token punctuation">(</span><span class="token string">"SELECT * from STUDENTS"</span><span class="token punctuation">)</span>
+df_new<span class="token punctuation">.</span>printSchema<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The schema will be displayed as shown below:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span> df<span class="token punctuation">.</span>printSchema<span class="token punctuation">(</span><span class="token punctuation">)</span>
+root
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Name<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Age<span class="token punctuation">:</span> integer <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> Gender<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+</code></pre>
+<p>For the above example, let’s try running group by on the Gender column:</p>
+<pre class=" language-python"><code class="prism  language-python">groupByGender <span class="token operator">=</span> spark<span class="token punctuation">.</span>sql<span class="token punctuation">(</span><span class="token string">"SELECT Gender, count(*) as Gender_Count from STUDENTS group by Gender"</span><span class="token punctuation">)</span>
+groupByGender<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The above statements results in:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span>Gender<span class="token operator">|</span>Gender_Count<span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+<span class="token operator">|</span>     F<span class="token operator">|</span>       <span class="token number">1</span>    <span class="token operator">|</span>
+<span class="token operator">|</span>     M<span class="token operator">|</span>       <span class="token number">2</span>    <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">+</span>
+</code></pre>
+<h3 id="how-can-you-inner-join-two-dataframes">29. How can you inner join two DataFrames?</h3>
+<p>We can make use of the join() method present in PySpark SQL. The syntax for the function is:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">join(self, other, on=None, how=None)
+</code></pre>
+<p>where,<br>
+other - Right side of the join<br>
+on - column name string used for joining<br>
+how - type of join, by default it is inner. The values can be inner, left, right, cross, full, outer, left_outer, right_outer, left_anti, left_semi.</p>
+<p>The join expression can be appended with where() and filter() methods for filtering rows. We can have multiple join too by means of the chaining join() method.</p>
+<p>Consider we have two dataframes - employee and department as shown below:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">-- Employee DataFrame --
++------+--------+-----------+
+|emp_id|emp_name|empdept_id |
++------+--------+-----------+
+|     1|   Harry|          5|
+|     2|    Ron |          5|
+|     3| Neville|         10|
+|     4|  Malfoy|         20|
++------+--------+-----------+
+</code></pre>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">-- Department DataFrame --
++-------+--------------------------+
+|dept_id| dept_name                |
++-------+--------------------------+
+|     5 |   Information Technology | 
+|     10|   Engineering            |
+|     20|   Marketting             | 
++-------+--------------------------+
+</code></pre>
+<p>We can inner join the Employee DataFrame with Department DataFrame to get the department information along with employee information as:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">emp_dept_df = empDF.join(deptDF,empDF.empdept_id == deptDF.dept_id,"inner").show(truncate=False)
+</code></pre>
+<p>The result of this becomes:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">+------+--------+-----------+-------+--------------------------+
+|emp_id|emp_name|empdept_id |dept_id| dept_name                |
++------+--------+-----------+-------+--------------------------+
+|     1|   Harry|          5|     5 |   Information Technology |
+|     2|    Ron |          5|    5  |   Information Technology |
+|     3| Neville|         10|    10 |   Engineering            |
+|     4|  Malfoy|         20|    20 |   Marketting             | 
++------+--------+-----------+-------+--------------------------+
+</code></pre>
+<p>We can also perform joins by chaining join() method by following the syntax:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">df1.join(df2,["column_name"]).join(df3,df1["column_name"] == df3["column_name"]).show()
+</code></pre>
+<p>Consider we have a third dataframe called Address DataFrame having columns emp_id, city and state where emp_id acts as the foreign key equivalent of SQL to the Employee DataFrame as shown below:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">-- Address DataFrame --
++------+--------------+------+
+|emp_id| city         |state |
++------+--------------+------+
+|1     | Bangalore    |   KA |
+|2     | Pune         |   MH |
+|3     | Mumbai       |   MH |
+|4     | Chennai      |   TN |
++------+--------------+------+
+</code></pre>
+<p>If we want to get address details of the address along with the Employee and the Department Dataframe, then we can run,</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">resultDf = empDF.join(addressDF,["emp_id"]) 
+               .join(deptDF,empDF["empdept_id"] == deptDF["dept_id"]) 
+               .show()
+</code></pre>
+<p>The resultDf would be:</p>
+<pre class=" language-plaintext"><code class="prism  language-plaintext">+------+--------+-----------+--------------+------+-------+--------------------------+
+|emp_id|emp_name|empdept_id | city         |state |dept_id| dept_name                |
++------+--------+-----------+--------------+------+-------+--------------------------+
+|     1|   Harry|          5| Bangalore    |   KA |     5 |   Information Technology |
+|     2|    Ron |          5| Pune         |   MH |     5 |   Information Technology |
+|     3| Neville|         10| Mumbai       |   MH |    10 |   Engineering            |
+|     4|  Malfoy|         20| Chennai      |   TN |    20 |   Marketting             |
++------+--------+-----------+--------------+------+-------+--------------------------+
+</code></pre>
+<h3 id="what-do-you-understand-by-pyspark-streaming-how-do-you-stream-data-using-tcpip-protocol">30. What do you understand by Pyspark Streaming? How do you stream data using TCP/IP Protocol?</h3>
+<p>PySpark Streaming is scalable, fault-tolerant, high throughput based processing streaming system that supports streaming as well as batch loads for supporting real-time data from data sources like TCP Socket, S3, Kafka, Twitter, file system folders etc. The processed data can be sent to live dashboards, Kafka, databases, HDFS etc.</p>
+<p><img src="https://d3n0h9tb65y8q.cloudfront.net/public_assets/assets/000/001/806/original/Pyspark_Streaming.png?1637930069" alt=""></p>
+<p>To perform Streaming from the TCP socket, we can use the readStream.format(“socket”) method of Spark session object for reading data from TCP socket and providing the streaming source host and port as options as shown in the code below:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> pyspark <span class="token keyword">import</span> SparkContext
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>streaming <span class="token keyword">import</span> StreamingContext
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql <span class="token keyword">import</span> SQLContext
+<span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>functions <span class="token keyword">import</span> desc
+sc <span class="token operator">=</span> SparkContext<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ssc <span class="token operator">=</span> StreamingContext<span class="token punctuation">(</span>sc<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+sqlContext <span class="token operator">=</span> SQLContext<span class="token punctuation">(</span>sc<span class="token punctuation">)</span>
+socket_stream <span class="token operator">=</span> ssc<span class="token punctuation">.</span>socketTextStream<span class="token punctuation">(</span><span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span> <span class="token number">5555</span><span class="token punctuation">)</span>
+lines <span class="token operator">=</span> socket_stream<span class="token punctuation">.</span>window<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+df<span class="token punctuation">.</span>printSchema<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Spark loads the data from the socket and represents it in the value column of the DataFrame object. The  <code>df.printSchema()</code>  prints</p>
+<pre class=" language-python"><code class="prism  language-python">root
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> value<span class="token punctuation">:</span> string <span class="token punctuation">(</span>nullable <span class="token operator">=</span> true<span class="token punctuation">)</span>
+</code></pre>
+<p>Post data processing, the DataFrame can be streamed to the console or any other destinations based on the requirements like Kafka, dashboards, database etc.</p>
+<h3 id="what-would-happen-if-we-lose-rdd-partitions-due-to-the-failure-of-the-worker-node">31. What would happen if we lose RDD partitions due to the failure of the worker node?</h3>
+<p>If any RDD partition is lost, then that partition can be recomputed using operations lineage from the original fault-tolerant dataset.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>
