@@ -1,0 +1,1267 @@
+<!DOCTYPE html><html><head>
+      <title>lesson6</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-adversarial-search">Adversarial Search</h1>
+
+<p>This lesson is mainly about <strong>minimax</strong>, which extends search to multi-agent domains (i.e., problems where your agent isn&apos;t the only influence on the environment). Minimax agents have been very successful in some games (like Chess), but the <strong>central idea is even more important: your agent can make better decisions by considering the consequences of its actions</strong>.</p>
+<p>Main Topics of this lesson are:</p>
+<ul>
+<li>Adversarial Search</li>
+<li>Minimax Algorithm</li>
+<li>Alpha-Beta Pruning</li>
+<li>Evaluation Functions</li>
+<li>Isolation Game Player</li>
+<li>Multi-player Probabilistic Games</li>
+</ul>
+<h2 class="mume-header" id="-minimax-algorithm">Minimax Algorithm</h2>
+
+<p>Minimax (sometimes MinMax, MM[1] or saddle point[2]) is a decision rule used in artificial intelligence, decision theory, game theory, statistics and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. When dealing with gains, it is referred to as &quot;maximin&quot;&#x2014;to maximize the minimum gain. Originally formulated for two-player zero-sum game theory, covering both the cases where players take alternate moves and those where they make simultaneous moves, it has also been extended to more complex games and to general decision-making in the presence of uncertainty.</p>
+<p>A minimax algorithm[5] is a recursive algorithm for choosing the next move in an n-player game, usually a two-player game. A value is associated with each position or state of the game. This value is computed by means of a position evaluation function and it indicates how good it would be for a player to reach that position. The player then makes the move that maximizes the minimum value of the position resulting from the opponent&apos;s possible following moves. If it is A&apos;s turn to move, A gives a value to each of their legal moves.</p>
+<p>A possible allocation method consists in assigning a certain win for A as +1 and for B as &#x2212;1. This leads to combinatorial game theory as developed by John Horton Conway. An alternative is using a rule that if the result of a move is an immediate win for A it is assigned positive infinity and, if it is an immediate win for B, negative infinity. The value to A of any other move is the minimum of the values resulting from each of B&apos;s possible replies. For this reason, A is called the maximizing player and B is called the minimizing player, hence the name minimax algorithm. The above algorithm will assign a value of positive or negative infinity to any position since the value of every position will be the value of some final winning or losing position. Often this is generally only possible at the very end of complicated games such as chess or go, since it is not computationally feasible to look ahead as far as the completion of the game, except towards the end, and instead positions are given finite values as estimates of the degree of belief that they will lead to a win for one player or another.</p>
+<p>This can be extended if we can supply a heuristic evaluation function which gives values to non-final game states without considering all possible following complete sequences. We can then limit the minimax algorithm to look only at a certain number of moves ahead. This number is called the &quot;look-ahead&quot;, measured in &quot;plies&quot;. For example, the chess computer Deep Blue (the first one to beat a reigning world champion, Garry Kasparov at that time) looked ahead at least 12 plies, then applied a heuristic evaluation function.</p>
+<p>The algorithm can be thought of as exploring the nodes of a game tree. The effective branching factor of the tree is the average number of children of each node (i.e., the average number of legal moves in a position). The number of nodes to be explored usually increases exponentially with the number of plies (it is less than exponential if evaluating forced moves or repeated positions). The number of nodes to be explored for the analysis of a game is therefore approximately the branching factor raised to the power of the number of plies. It is therefore impractical to completely analyze games such as chess using the minimax algorithm.</p>
+<p>The performance of the na&#xEF;ve minimax algorithm may be improved dramatically, without affecting the result, by the use of alpha-beta pruning. Other heuristic pruning methods can also be used, but not all of them are guaranteed to give the same result as the un-pruned search.</p>
+<p>A naive minimax algorithm may be trivially modified to additionally return an entire Principal Variation along with a minimax score.</p>
+<p><strong>Example</strong></p>
+<p>Suppose the game being played only has a maximum of two possible moves per player each turn. The algorithm generates the tree on the right, where the circles represent the moves of the player running the algorithm (maximizing player), and squares represent the moves of the opponent (minimizing player). Because of the limitation of computation resources, as explained above, the tree is limited to a look-ahead of 4 moves.</p>
+<p>The algorithm evaluates each leaf node using a heuristic evaluation function, obtaining the values shown. The moves where the maximizing player wins are assigned with positive infinity, while the moves that lead to a win of the minimizing player are assigned with negative infinity. At level 3, the algorithm will choose, for each node, the smallest of the child node values, and assign it to that same node (e.g. the node on the left will choose the minimum between &quot;10&quot; and &quot;+&#x221E;&quot;, therefore assigning the value &quot;10&quot; to itself). The next step, in level 2, consists of choosing for each node the largest of the child node values. Once again, the values are assigned to each parent node. The algorithm continues evaluating the maximum and minimum values of the child nodes alternately until it reaches the root node, where it chooses the move with the largest value (represented in the figure with a blue arrow). This is the move that the player should make in order to minimize the maximum possible loss.</p>
+<p><img src="img/minimax_example.png" alt></p>
+<p><img src="img/minimax.png" alt></p>
+<h2 class="mume-header" id="-isolation-game">Isolation Game</h2>
+
+<p>We&apos;re going to be programing an agent to play the game of <a href="https://en.wikipedia.org/wiki/Isolation_(board_game)">Isolation</a></p>
+<h3 class="mume-header" id="-representing-the-game-state-in-code">Representing the Game State in Code</h3>
+
+<p>Before we can code the minimax algorithm, we need a way to keep track of the game state while the program runs. We&apos;ll start with a simple class for the mini-Isolation game from the lecture examples.</p>
+<h4 class="mume-header" id="-game-class-requirements">Game Class Requirements</h4>
+
+<p>The game state object needs to enforce all of the rules of the game, and represent all of the information describing a single configuration of the game at a specific point in time. There isn&apos;t only one &quot;Right Way&quot; to do this.</p>
+<p>The basic Board class is going to be very simple. At first, we&apos;re going to start by writing the constructor method <code>__init__()</code> and will add functionalities as we move forward. The Isolation <code>GameState</code> class needs properties that can:</p>
+<ul>
+<li>keep track of which cells are open and closed</li>
+<li>identify which player has initiative (whose turn it is to move)</li>
+<li>track the current position each player on the board</li>
+</ul>
+<p><strong>Note:</strong> the constructor should make sure that the bottom corner cell is blocked when a new instance is created!</p>
+<p>We will assume that board origin is in the top left corner and set the x axis to move from left to right and the y axis to move from top to bottom (the usual semantics for 2d array indexing). Each cell on the board can be described by an ordered pair <code>(x, y)</code>. Thus (0, 0) is the top-left corner cell; (2, 1) is the bottom right corner (the blocked cell).</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token comment"># This is just one possible solution, there are many</span>
+<span class="token comment"># other options that will work just as well or better</span>
+
+
+xlim<span class="token punctuation">,</span> ylim <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span>  <span class="token comment"># board dimension constants</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">GameState</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Attributes
+    ----------
+    _board: list(list)
+        Represent the board with a 2d array _board[x][y]
+        where open spaces are 0 and closed spaces are 1
+        and a coordinate system where [0][0] is the top-
+        left corner, and x increases to the right while
+        y increases going down (this is an arbitrary
+        convention choice -- there are many other options
+        that are just as good)
+
+    _parity: bool
+        Keep track of active player initiative (which
+        player has control to move) where 0 indicates that
+        player one has initiative and 1 indicates player two
+
+    _player_locations: list(tuple)
+        Keep track of the current location of each player
+        on the board where position is encoded by the
+        board indices of their last move, e.g., [(0, 0), (1, 0)]
+        means player one is at (0, 0) and player two is at (1, 0)
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># single-underscore prefix on attribute names means</span>
+        <span class="token comment"># that the attribute is &quot;private&quot; (Python doesn&apos;t truly</span>
+        <span class="token comment"># support public/private members, so this is only a</span>
+        <span class="token comment"># convention)</span>
+        self<span class="token punctuation">.</span>_board <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> ylim <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>  <span class="token comment"># block lower-right corner</span>
+        self<span class="token punctuation">.</span>_parity <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>_player_locations <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span>
+
+<span class="token keyword keyword-from">from</span> gamestate <span class="token keyword keyword-import">import</span> <span class="token operator">*</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Creating empty game board...&quot;</span><span class="token punctuation">)</span>
+emptyState <span class="token operator">=</span> GameState<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Everything looks good!&quot;</span><span class="token punctuation">)</span>
+</pre><h3 class="mume-header" id="-adding-functionality-to-the-game-class">Adding Functionality to the Game Class</h3>
+
+<p>We will use the interface for adversarial search problems defined in Chapter 5.1 of Artificial Intelligence: a Modern Approach, which includes the following five functions:</p>
+<ul>
+<li><code>player()</code>: return the active player in the current state</li>
+<li><code>actions()</code>: return a list of the legal actions in the current state</li>
+<li><code>result(action)</code>: return a new state that results from applying the given action in the current state</li>
+<li><code>terminal_test()</code>: return True if the current state is terminal, and False otherwise</li>
+<li><code>utility(player)</code>:return +inf if the game is terminal and the specified player wins, return -inf if the game is terminal and the specified player loses, and return 0 if the game is not terminal.</li>
+</ul>
+<p>We will extend that interface with one additional domain specific method, which will simplify implementing several techniques later</p>
+<ul>
+<li><code>liberties(loc)</code>: return a list of cells in the neighborhood of the specified location that are open</li>
+</ul>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-from">from</span> copy <span class="token keyword keyword-import">import</span> deepcopy
+
+xlim<span class="token punctuation">,</span> ylim <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span>  <span class="token comment"># board dimensions</span>
+
+<span class="token comment"># The eight movement directions possible for a chess queen</span>
+RAYS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">GameState</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Attributes
+    ----------
+    _board: list(list)
+        Represent the board with a 2d array _board[x][y]
+        where open spaces are 0 and closed spaces are 1
+
+    _parity: bool
+        Keep track of active player initiative (which
+        player has control to move) where 0 indicates that
+        player one has initiative and 1 indicates player 2
+
+    _player_locations: list(tuple)
+        Keep track of the current location of each player
+        on the board where position is encoded by the
+        board indices of their last move, e.g., [(0, 0), (1, 0)]
+        means player 1 is at (0, 0) and player 2 is at (1, 0)
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_board <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> ylim <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>  <span class="token comment"># block lower-right corner</span>
+        self<span class="token punctuation">.</span>_parity <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>_player_locations <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">actions</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of legal actions for the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">player</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the id of the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_parity
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">result</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a new state that results from applying the given
+        action in the current state
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-assert">assert</span> action <span class="token keyword keyword-in">in</span> self<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;Attempted forecast of illegal move&quot;</span>
+        newBoard <span class="token operator">=</span> deepcopy<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        newBoard<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        newBoard<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span> <span class="token operator">=</span> action
+        newBoard<span class="token punctuation">.</span>_parity <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword keyword-return">return</span> newBoard
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">terminal_test</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; return True if the current state is terminal,
+        and False otherwise
+
+        Hint: an Isolation state is terminal if _either_
+        player has no remaining liberties (even if the
+        player is not active in the current state)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span>
+            <span class="token keyword keyword-or">or</span> <span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> loc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of all open cells in the
+        neighborhood of the specified location.  The list
+        should include all open spaces in a straight line
+        along any row, column or diagonal from the current
+        position. (Tokens CANNOT move through obstacles
+        or blocked squares in queens Isolation.)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-if">if</span> loc <span class="token keyword keyword-is">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span> <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_get_blank_spaces<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        moves <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword keyword-for">for</span> dx<span class="token punctuation">,</span> dy <span class="token keyword keyword-in">in</span> RAYS<span class="token punctuation">:</span>  <span class="token comment"># check each movement direction</span>
+            _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> loc
+            <span class="token keyword keyword-while">while</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _x <span class="token operator">+</span> dx <span class="token operator">&lt;</span> xlim <span class="token keyword keyword-and">and</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _y <span class="token operator">+</span> dy <span class="token operator">&lt;</span> ylim<span class="token punctuation">:</span>
+                _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> _x <span class="token operator">+</span> dx<span class="token punctuation">,</span> _y <span class="token operator">+</span> dy
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>_x<span class="token punctuation">]</span><span class="token punctuation">[</span>_y<span class="token punctuation">]</span><span class="token punctuation">:</span>  <span class="token comment"># stop at any blocked cell</span>
+                    <span class="token keyword keyword-break">break</span>
+                moves<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>_x<span class="token punctuation">,</span> _y<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> moves
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_has_liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> player_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Check to see if the specified player has any liberties &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">any</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>player_id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_get_blank_spaces</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of blank spaces on the board.&quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> y <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>ylim<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> x <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span>
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token keyword keyword-from">from</span> gamestate <span class="token keyword keyword-import">import</span> <span class="token operator">*</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Creating empty game board...&quot;</span><span class="token punctuation">)</span>
+g <span class="token operator">=</span> GameState<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Checking active player on an empty board...&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-if">if</span> g<span class="token punctuation">.</span>player<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Failed\n Uh Oh! Your game did not return player &quot;</span> <span class="token operator">+</span>
+          <span class="token string">&quot;id 0 on an empty board.&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Passed.&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Checking terminal test on an empty board...&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-if">if</span> g<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token boolean">False</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Failed\n Uh Oh! Your game marked an empty game state as terminal.&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Passed.&quot;</span><span class="token punctuation">)</span>
+    
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Checking liberties on an empty board...&quot;</span><span class="token punctuation">)</span>
+p1_liberties <span class="token operator">=</span> g<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>p1_liberties<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">5</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Failed\n Uh oh! Your game did not return 5 empty &quot;</span> <span class="token operator">+</span>
+          <span class="token string">&quot;cell locations as liberties on an empty board.&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Passed.&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Getting legal moves for player 1...&quot;</span><span class="token punctuation">)</span>
+p1_empty_moves <span class="token operator">=</span> g<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Found {} legal moves.&quot;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>p1_empty_moves <span class="token keyword keyword-or">or</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Applying move {} for player 1...&quot;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>p1_empty_moves<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+g1 <span class="token operator">=</span> g<span class="token punctuation">.</span>result<span class="token punctuation">(</span>p1_empty_moves<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Getting legal moves for player 2...&quot;</span><span class="token punctuation">)</span>
+p2_empty_moves <span class="token operator">=</span> g1<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>p2_empty_moves<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">4</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Failed\n  Uh oh! Your game did not return the expected &quot;</span> <span class="token operator">+</span>
+          <span class="token string">&quot;number of actions for player 2!&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Passed.&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;\nPlaying a full game&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-if">if</span> g<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword keyword-break">break</span>
+    g <span class="token operator">=</span> g<span class="token punctuation">.</span>result<span class="token punctuation">(</span>g<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Checking terminal test on a terminal board...&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-if">if</span> g<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Failed\n  Uh oh! Your game did not correctly evalute &quot;</span> <span class="token operator">+</span>
+          <span class="token string">&quot;a terminal game state as terminal!&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Passed.&quot;</span><span class="token punctuation">)</span>
+</pre><p><strong>Note:</strong> The example solution above is intended to be simple to reason about; it is not designed for high performance. Returning copies of the game state when forecasting moves has significant overhead (especially in Python), and returning a complete list of all legal moves is inefficient (a generator would be better), but both conventions simplify the underlying implementation &amp; interface for the minimax algorithm. We will use a similar interface in the project.</p>
+<p>When performance matters, it is typical to use <a href="https://en.wikipedia.org/wiki/Bitboard">bitboards</a> (which are used in the project library).</p>
+<p><strong>Game Tree:</strong> When we lay out all the possible moves (plays) in a tree format, it&apos;s called a &quot;game tree&quot;. Doing so, we&apos;ll find the branches (sequence of moves) that lead us to winning and branches that lead us to losing. Moreover, having the map/tree of the entire possibilities of the game, we&apos;d like to form an idea around what are the best possible first moves (more likely end up winning). <em>Now, the question is how do we tell computers what move to pick?</em> The answer is through <strong>Minimax Algorithm</strong>. The idea behind minimax is that we&apos;d like to maximize our score while knowing that our opponent would want to minimize our score.</p>
+<h3 class="mume-header" id="-coding-minimax">Coding Minimax</h3>
+
+<p>We will start by coding helper functions: the min-value function, and the max-value function. Notice that the <code>min-value()</code> and <code>max-value()</code> functions only need to return a single number -- a &quot;utility value&quot; -- which is the score of the current branch.</p>
+<p><strong>EXTREMELY IMPORTANT NOTE:</strong> It isn&apos;t clear from the pseudocode below, but the UTILITY() value is ALWAYS relative to the active player at the root node of the search tree. The utility is NOT calculated for the &quot;active&quot; player. The search is performed from the perspective of the active player at the root node.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-from">from</span> copy <span class="token keyword keyword-import">import</span> deepcopy
+
+xlim<span class="token punctuation">,</span> ylim <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span>  <span class="token comment"># board dimensions</span>
+
+<span class="token comment"># The eight movement directions possible for a chess queen</span>
+RAYS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">GameState</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Attributes
+    ----------
+    _board: list(list)
+        Represent the board with a 2d array _board[x][y]
+        where open spaces are 0 and closed spaces are 1
+
+    _parity: bool
+        Keep track of active player initiative (which
+        player has control to move) where 0 indicates that
+        player one has initiative and 1 indicates player 2
+
+    _player_locations: list(tuple)
+        Keep track of the current location of each player
+        on the board where position is encoded by the
+        board indices of their last move, e.g., [(0, 0), (1, 0)]
+        means player 1 is at (0, 0) and player 2 is at (1, 0)
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_board <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> ylim <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>  <span class="token comment"># block lower-right corner</span>
+        self<span class="token punctuation">.</span>_parity <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>_player_locations <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">actions</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of legal actions for the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">player</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the id of the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_parity
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">result</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a new state that results from applying the given
+        action in the current state
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-assert">assert</span> action <span class="token keyword keyword-in">in</span> self<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;Attempted forecast of illegal move&quot;</span>
+        newBoard <span class="token operator">=</span> deepcopy<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        newBoard<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        newBoard<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span> <span class="token operator">=</span> action
+        newBoard<span class="token punctuation">.</span>_parity <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword keyword-return">return</span> newBoard
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">terminal_test</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; return True if the current state is terminal,
+        and False otherwise
+
+        Hint: an Isolation state is terminal if _either_
+        player has no remaining liberties (even if the
+        player is not active in the current state)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span>
+            <span class="token keyword keyword-or">or</span> <span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">utility</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> player_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; return +inf if the game is terminal and the
+        specified player wins, return -inf if the game
+        is terminal and the specified player loses, and
+        return 0 if the game is not terminal
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span>
+        player_id_is_active <span class="token operator">=</span> <span class="token punctuation">(</span>player_id <span class="token operator">==</span> self<span class="token punctuation">.</span>player<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        active_has_liberties <span class="token operator">=</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        active_player_wins <span class="token operator">=</span> <span class="token punctuation">(</span>active_has_liberties <span class="token operator">==</span> player_id_is_active<span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> active_player_wins <span class="token keyword keyword-else">else</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> loc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of all open cells in the
+        neighborhood of the specified location.  The list
+        should include all open spaces in a straight line
+        along any row, column or diagonal from the current
+        position. (Tokens CANNOT move through obstacles
+        or blocked squares in queens Isolation.)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-if">if</span> loc <span class="token keyword keyword-is">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span> <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_get_blank_spaces<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        moves <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword keyword-for">for</span> dx<span class="token punctuation">,</span> dy <span class="token keyword keyword-in">in</span> RAYS<span class="token punctuation">:</span>  <span class="token comment"># check each movement direction</span>
+            _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> loc
+            <span class="token keyword keyword-while">while</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _x <span class="token operator">+</span> dx <span class="token operator">&lt;</span> xlim <span class="token keyword keyword-and">and</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _y <span class="token operator">+</span> dy <span class="token operator">&lt;</span> ylim<span class="token punctuation">:</span>
+                _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> _x <span class="token operator">+</span> dx<span class="token punctuation">,</span> _y <span class="token operator">+</span> dy
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>_x<span class="token punctuation">]</span><span class="token punctuation">[</span>_y<span class="token punctuation">]</span><span class="token punctuation">:</span>  <span class="token comment"># stop at any blocked cell</span>
+                    <span class="token keyword keyword-break">break</span>
+                moves<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>_x<span class="token punctuation">,</span> _y<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> moves
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_has_liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> player_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Check to see if the specified player has any liberties &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">any</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>player_id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_get_blank_spaces</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of blank spaces on the board.&quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> y <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>ylim<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> x <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span>
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">min_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the game state utility if the game is over,
+    otherwise return the minimum value over all legal successors
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> max_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">max_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the game state utility if the game is over,
+    otherwise return the maximum value over all legal successors
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+<span class="token keyword keyword-import">import</span> minimax_helpers
+
+<span class="token keyword keyword-from">from</span> gamestate <span class="token keyword keyword-import">import</span> <span class="token operator">*</span>
+
+g <span class="token operator">=</span> GameState<span class="token punctuation">(</span><span class="token punctuation">)</span>
+inf <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+actions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> inf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">-</span>inf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> inf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> inf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">-</span>inf<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword keyword-if">if</span> <span class="token builtin">all</span><span class="token punctuation">(</span>minimax_helpers<span class="token punctuation">.</span>min_value<span class="token punctuation">(</span>g<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> ev <span class="token keyword keyword-for">for</span> a<span class="token punctuation">,</span> ev <span class="token keyword keyword-in">in</span> actions<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Looks like everything works!&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Uh oh! Not all the scores matched.&quot;</span><span class="token punctuation">)</span>
+
+</pre><p><strong>Note:</strong> Technically, any pair of values can be used to indicate wins and losses so long as they admit an ordering such that the score for winning is greater than the score for losing; e.g., instead of -inf &amp; +inf you could you use -&#x3C0; &amp; &#x3C0;/2, or 100.99 &amp; 101.0, or -1 &amp; +1 (which is what Thad uses in lecture). It is common to use -&#x221E; &amp; +&#x221E; when a heuristic function is used (which we&apos;ll do in another project for this module) because every possible heuristic estimate lies between those bounds, which avoids a possible bug where your agent prefers a non-terminal state scored by the heuristic to a terminal state with a &quot;true&quot; win or loss score.</p>
+<p><strong>Propagating min-max values along the tree:</strong> Check out the example below, which is a smaller section of a game tree:</p>
+<p><img src="img/minimax_gametree.png" alt></p>
+<ul>
+<li>To begin with, boxes E, F, G, H, I, and J have just one child. As such, they simply take the value of their child.</li>
+<li>Box C is a minimizer node, and hence chooses the minimum of boxes F, and G which is G&apos;s value of -1.</li>
+<li>Box A is a maximizing node, and chooses the maximum of boxes B, C, and D which is D&apos;s value of +1.</li>
+</ul>
+<h3 class="mume-header" id="-minimax-decision-choosing-the-best-branch">Minimax Decision: Choosing the Best Branch</h3>
+
+<p>The <code>minimax_decision()</code> function should loop over the legal moves from the current state and return the move that has the highest score. The scores are determined by mutually recursive calls between the min and max value helper functions until a terminal state is reached, and propagated back up the tree as the call stack unwinds.</p>
+<p>Like before, the root node of the tree is itself a &quot;max&quot; node, so we call <code>min_value()</code> first on each legal move.</p>
+<p><strong>Hints:</strong></p>
+<ul>
+<li>One way to implement this function has a body that looks very similar to the <code>max_value()</code> function, except that you must keep track of both the best score and best move (and return only the best move)</li>
+<li>There are also clever ways to do it using the built-in max function and the optional keyword argument <code>key</code>.</li>
+</ul>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-from">from</span> minimax_helpers <span class="token keyword keyword-import">import</span> <span class="token operator">*</span>
+
+<span class="token comment"># Solution using an explicit loop based on max_value()</span>
+<span class="token keyword keyword-def">def</span> <span class="token function">_minimax_decision</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the move along a branch of the game tree that
+    has the best possible value.  A move is a pair of coordinates
+    in (column, row) order corresponding to a legal move for
+    the searching player.
+
+    You can ignore the special case of calling this function
+    from a terminal state.
+    &quot;&quot;&quot;</span>
+    best_score <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    best_move <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword keyword-for">for</span> m <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&gt;</span> best_score<span class="token punctuation">:</span>
+            best_score <span class="token operator">=</span> v
+            best_move <span class="token operator">=</span> m
+    <span class="token keyword keyword-return">return</span> best_move
+
+
+<span class="token comment"># This solution does the same thing using the built-in `max` function</span>
+<span class="token comment"># Note that &quot;lambda&quot; expressions are Python&apos;s version of anonymous functions</span>
+<span class="token keyword keyword-def">def</span> <span class="token function">minimax_decision</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the move along a branch of the game tree that
+    has the best possible value.  A move is a pair of coordinates
+    in (column, row) order corresponding to a legal move for
+    the searching player.
+
+    You can ignore the special case of calling this function
+    from a terminal state.
+    &quot;&quot;&quot;</span>
+    <span class="token comment"># The built in `max()` function can be used as argmax!</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">max</span><span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+               key<span class="token operator">=</span><span class="token keyword keyword-lambda">lambda</span> m<span class="token punctuation">:</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">#### minimax_helpers.py</span>
+<span class="token keyword keyword-def">def</span> <span class="token function">min_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the game state utility if the game is over,
+    otherwise return the minimum value over all legal successors
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> max_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">max_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the game state utility if the game is over,
+    otherwise return the maximum value over all legal successors
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+</pre><p><strong>Conclusion:</strong></p>
+<p>We&apos;ve now completed the minimax algorithm. The code now correctly choose one of the winning branches of the game tree from an empty mini-isolation board. Moreover, if we implement the rules to another game (like tic-tac-toe) in the GameState class, the minimax code will work without any changes on that game, too!</p>
+<p>Next, we will cover additional optimizations like depth-limiting, alpha-beta pruning, and iterative deepening that will allow minimax to work on even larger games (e.g., checkers, chess, etc.), and the project for this module will involve modifying and extending your code from this project to implement some of those techniques.</p>
+<p>These additional optimizations are required since what we&apos;ve covered so far was through brute-force search. In larger scale games, it&apos;s virtually impossible to do so.</p>
+<h2 class="mume-header" id="-optimizing-minimax-search">Optimizing Minimax Search</h2>
+
+<p>Here, we will address several of the limitations of the basic minimax search algorithm, with an emphasis on techniques that are applicable to the project.</p>
+<p>Extra reading materials on this topic:</p>
+<ul>
+<li><a href="https://people.csail.mit.edu/rivest/pubs/Riv87c.pdf">Game Tree Searching by Min / Max Approximation by Ron Rivest, MIT</a></li>
+<li><a href="https://pdfs.semanticscholar.org/ad2c/1efffcd7c3b7106e507396bdaa5fe00fa597.pdf">Deep Blue by IBM</a></li>
+<li><a href="https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf">AlphaGo from DeepMind</a></li>
+</ul>
+<h3 class="mume-header" id="-depth-limited-search">Depth Limited Search</h3>
+
+<p>Minimax search is guaranteed to find an optimal move, but it is impractical for all but the most trivial games. Game trees grow exponentially with each additional level of search, so the algorithm runtime is also exponential. With only finite computational resources available, we need a way to bound the runtime of the search. Using a fixed depth limit is the simplest mechanism to limit the runtime (although it introduces new problems that we&apos;ll see later).</p>
+<p><strong>math to estimate a value to use for a fixed depth limit</strong></p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token comment">###### minimax.py ########</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">minimax_decision</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the move along a branch of the game tree that
+    has the best possible value.  A move is a pair of coordinates
+    in (column, row) order corresponding to a legal move for
+    the searching player.
+
+    You can ignore the special case of calling this function
+    from a terminal state.
+    &quot;&quot;&quot;</span>
+    best_score <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    best_move <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+        <span class="token comment"># call has been updated with a depth limit</span>
+        v <span class="token operator">=</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&gt;</span> best_score<span class="token punctuation">:</span>
+            best_score <span class="token operator">=</span> v
+            best_move <span class="token operator">=</span> a
+    <span class="token keyword keyword-return">return</span> best_move
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">min_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a win (+1) if the game is over,
+    otherwise return the minimum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># New conditional depth limit cutoff</span>
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># &quot;==&quot; could be used, but &quot;&lt;=&quot; is safer</span>
+        <span class="token keyword keyword-return">return</span> <span class="token number">0</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># the depth should be decremented by 1 on each call</span>
+        v <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> max_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">max_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a loss (-1) if the game is over,
+    otherwise return the maximum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># New conditional depth limit cutoff</span>
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># &quot;==&quot; could be used, but &quot;&lt;=&quot; is safer</span>
+        <span class="token keyword keyword-return">return</span> <span class="token number">0</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># the depth should be decremented by 1 on each call</span>
+        v <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+
+<span class="token comment">###### gamestate.py ######</span>
+
+
+<span class="token comment"># Please use this implementation for compatability with the test cases</span>
+
+<span class="token keyword keyword-from">from</span> copy <span class="token keyword keyword-import">import</span> deepcopy
+
+call_counter <span class="token operator">=</span> <span class="token number">0</span>
+xlim<span class="token punctuation">,</span> ylim <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span>  <span class="token comment"># board dimensions</span>
+
+<span class="token comment"># The eight movement directions possible for a chess queen</span>
+RAYS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">GameState</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Attributes
+    ----------
+    _board: list(list)
+        Represent the board with a 2d array _board[x][y]
+        where open spaces are 0 and closed spaces are 1
+
+    _parity: bool
+        Keep track of active player initiative (which
+        player has control to move) where 0 indicates that
+        player one has initiative and 1 indicates player 2
+
+    _player_locations: list(tuple)
+        Keep track of the current location of each player
+        on the board where position is encoded by the
+        board indices of their last move, e.g., [(0, 0), (1, 0)]
+        means player 1 is at (0, 0) and player 2 is at (1, 0)
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_board <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> ylim <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>  <span class="token comment"># block lower-right corner</span>
+        self<span class="token punctuation">.</span>_parity <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>_player_locations <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">actions</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of legal actions for the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">player</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the id of the active player &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_parity
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">result</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a new state that results from applying the given
+        action in the current state
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-assert">assert</span> action <span class="token keyword keyword-in">in</span> self<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;Attempted forecast of illegal move&quot;</span>
+        newBoard <span class="token operator">=</span> deepcopy<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        newBoard<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">[</span>action<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        newBoard<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">]</span> <span class="token operator">=</span> action
+        newBoard<span class="token punctuation">.</span>_parity <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword keyword-return">return</span> newBoard
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">terminal_test</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; return True if the current state is terminal,
+        and False otherwise
+
+        Hint: an Isolation state is terminal if _either_
+        player has no remaining liberties (even if the
+        player is not active in the current state)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-global">global</span> call_counter
+        call_counter <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span>
+            <span class="token keyword keyword-or">or</span> <span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>_parity<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">utility</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> player_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; return +inf if the game is terminal and the
+        specified player wins, return -inf if the game
+        is terminal and the specified player loses, and
+        return 0 if the game is not terminal
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token keyword keyword-not">not</span> self<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span>
+        player_id_is_active <span class="token operator">=</span> <span class="token punctuation">(</span>player_id <span class="token operator">==</span> self<span class="token punctuation">.</span>player<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        active_has_liberties <span class="token operator">=</span> self<span class="token punctuation">.</span>_has_liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        active_player_wins <span class="token operator">=</span> <span class="token punctuation">(</span>active_has_liberties <span class="token operator">==</span> player_id_is_active<span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> active_player_wins <span class="token keyword keyword-else">else</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> loc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of all open cells in the
+        neighborhood of the specified location.  The list
+        should include all open spaces in a straight line
+        along any row, column or diagonal from the current
+        position. (Tokens CANNOT move through obstacles
+        or blocked squares in queens Isolation.)
+        &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-if">if</span> loc <span class="token keyword keyword-is">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span> <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_get_blank_spaces<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        moves <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword keyword-for">for</span> dx<span class="token punctuation">,</span> dy <span class="token keyword keyword-in">in</span> RAYS<span class="token punctuation">:</span>  <span class="token comment"># check each movement direction</span>
+            _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> loc
+            <span class="token keyword keyword-while">while</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _x <span class="token operator">+</span> dx <span class="token operator">&lt;</span> xlim <span class="token keyword keyword-and">and</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> _y <span class="token operator">+</span> dy <span class="token operator">&lt;</span> ylim<span class="token punctuation">:</span>
+                _x<span class="token punctuation">,</span> _y <span class="token operator">=</span> _x <span class="token operator">+</span> dx<span class="token punctuation">,</span> _y <span class="token operator">+</span> dy
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>_x<span class="token punctuation">]</span><span class="token punctuation">[</span>_y<span class="token punctuation">]</span><span class="token punctuation">:</span>  <span class="token comment"># stop at any blocked cell</span>
+                    <span class="token keyword keyword-break">break</span>
+                moves<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>_x<span class="token punctuation">,</span> _y<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> moves
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_has_liberties</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> player_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Check to see if the specified player has any liberties &quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">any</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>player_id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_get_blank_spaces</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot; Return a list of blank spaces on the board.&quot;&quot;&quot;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> y <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>ylim<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> x <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>xlim<span class="token punctuation">)</span>
+                <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>_board<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token comment">###### testcode.py ######</span>
+
+<span class="token keyword keyword-import">import</span> minimax
+<span class="token keyword keyword-import">import</span> gamestate <span class="token keyword keyword-as">as</span> game
+
+
+<span class="token comment"># Test the depth limit by checking the number of nodes visited</span>
+<span class="token comment"># -- recall that minimax visits every node in the search tree,</span>
+<span class="token comment"># so if we search depth one on an empty board then minimax should</span>
+<span class="token comment"># visit each of the five open spaces</span>
+depth_limit <span class="token operator">=</span> <span class="token number">1</span>
+expected_node_count <span class="token operator">=</span> <span class="token number">5</span>
+rootNode <span class="token operator">=</span> game<span class="token punctuation">.</span>GameState<span class="token punctuation">(</span><span class="token punctuation">)</span>
+_ <span class="token operator">=</span> minimax<span class="token punctuation">.</span>minimax_decision<span class="token punctuation">(</span>rootNode<span class="token punctuation">,</span> depth_limit<span class="token punctuation">)</span>
+
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Expected node count: {}&quot;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>expected_node_count<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Your node count: {}&quot;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>game<span class="token punctuation">.</span>call_counter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-if">if</span> game<span class="token punctuation">.</span>call_counter <span class="token operator">==</span> expected_node_count<span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;That&apos;s right! Looks like your depth limit is working!&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&quot;Uh oh...looks like there may be a problem.&quot;</span><span class="token punctuation">)</span>
+</pre><h3 class="mume-header" id="-evaluation-function">Evaluation Function</h3>
+
+<p>The earlier implementation of depth limited search assumed that the value of any state where search cut off was zero&#x2014;but we don&apos;t know without finishing the search that those states have a value of zero (and, in fact, for the isolation game we know that they do not have a value of zero because there are no ties, so every state is either a win or a loss for the current player). Therefore, we can improve the performance of depth limited search using the concept of an &quot;evaluation function&quot; (also called a heuristic function), which is like &quot;intuition&quot; for the search procedure about which moves are likely to result in wins or losses.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token comment"># DO NOT MODIFY THE PLAYER ID</span>
+player_id <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">my_moves</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    loc <span class="token operator">=</span> gameState<span class="token punctuation">.</span>_player_locations<span class="token punctuation">[</span>player_id<span class="token punctuation">]</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>liberties<span class="token punctuation">(</span>loc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">minimax_decision</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the move along a branch of the game tree that
+    has the best possible value.  A move is a pair of coordinates
+    in (column, row) order corresponding to a legal move for
+    the searching player.
+
+    You can ignore the special case of calling this function
+    from a terminal state.
+    &quot;&quot;&quot;</span>
+    best_score <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    best_move <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># call has been updated with a depth limit</span>
+        v <span class="token operator">=</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&gt;</span> best_score<span class="token punctuation">:</span>
+            best_score <span class="token operator">=</span> v
+            best_move <span class="token operator">=</span> a
+    <span class="token keyword keyword-return">return</span> best_move
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">min_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a win (+1) if the game is over,
+    otherwise return the minimum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> my_moves<span class="token punctuation">(</span>gameState<span class="token punctuation">)</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># the depth should be decremented by 1 on each call</span>
+        v <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> max_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">max_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a loss (-1) if the game is over,
+    otherwise return the maximum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> my_moves<span class="token punctuation">(</span>gameState<span class="token punctuation">)</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># the depth should be decremented by 1 on each call</span>
+        v <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+</pre><h3 class="mume-header" id="-quiescent-search">Quiescent Search</h3>
+
+<p>Quiescence search is an algorithm typically used to evaluate minimax game trees in game-playing computer programs. It mitigates the effect of the horizon problem faced by AI engines for various games like chess and Go.</p>
+<p>Human players usually have enough intuition to decide whether to abandon a bad-looking move, or search a promising move to a great depth. A quiescence search attempts to emulate this behavior by instructing a computer to search &quot;interesting&quot; positions to a greater depth than &quot;quiet&quot; ones to make sure there are no hidden traps and to get a better estimate of its value.</p>
+<p>As the main motive of quiescence search is usually to get a good value out of an imperfect evaluation function, it may also make sense to detect wide fluctuations in values returned by a simple heuristic evaluator over several ply (In two-player sequential games, a ply is one turn taken by one of the players. The word is used to clarify what is meant when one might otherwise say &quot;turn&quot;).</p>
+<p><strong>The Horizon Effect:</strong> The horizon effect is a problem in artificial intelligence which can occur when a search of a game tree is limited. In many games, the number of possible states or positions is too great for an exhaustive search to be practical. Computer programs search a subset of the game tree and use heuristics to estimate the value of individual positions. Due to the limitation of this search, it&apos;s possible for the computer to identify a move that is optimal up to the given search depth, but that leads to a suboptimal position beyond that depth, of which the computer is unaware. Quiescence search attempts to mitigate this issue by extending the search depth in high activity positions where the heuristic value may have significant fluctuations between moves.</p>
+<h3 class="mume-header" id="-iterative-deepening">Iterative Deepening</h3>
+
+<p>Iterative deepening is a search technique that allows minimax-style search functions to return an approximate solution when computational resources are bounded. The basic idea is to start with a small depth-limited search, and grow the depth limit until the resource limit (usually search time) expires.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-from">from</span> minimax <span class="token keyword keyword-import">import</span> minimax_decision
+
+<span class="token keyword keyword-def">def</span> <span class="token function">get_action</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth_limit<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Turns out &quot;iterative deepening&quot; is just a for loop...</span>
+    best_move <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword keyword-for">for</span> depth <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> depth_limit<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        best_move <span class="token operator">=</span> minimax_decision<span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> depth<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> best_move
+</pre><p><strong>Which one is a good evaluation function for Isolation?</strong><br>
+number of my moves - number of opponent moves</p>
+<p>The idea is that sometimes evaluation functions can be costly, so the choice of the function depends on the case and should change accordingly.</p>
+<h3 class="mume-header" id="-alpha-beta-pruning">Alpha-Beta Pruning</h3>
+
+<p>Alpha&#x2013;beta pruning is a search algorithm that seeks to decrease the number of nodes that are evaluated by the minimax algorithm in its search tree. It is an adversarial search algorithm used commonly for machine playing of two-player games (Tic-tac-toe, Chess, Go, etc.). It stops evaluating a move when at least one possibility has been found that proves the move to be worse than a previously examined move. Such moves need not be evaluated further. When applied to a standard minimax tree, it returns the same move as minimax would, but prunes away branches that cannot possibly influence the final decision.</p>
+<p>It modifies the minimax algorithm by introducing two new variables: &#x3B1; -- the maximum lower bound of the minimax value -- and &#x3B2; -- the minimum upper bound of the minimax value. In other words: at every state in the game tree &#x3B1; represents the guaranteed worst-case score that the MAX player could achieve, and &#x3B2; represents the guaranteed worst-case score that the MIN player could achieve.</p>
+<p><strong>Core idea:</strong> The algorithm maintains two values, alpha and beta, which represent the minimum score that the maximizing player is assured of and the maximum score that the minimizing player is assured of respectively. Initially, alpha is negative infinity and beta is positive infinity, i.e. both players start with their worst possible score. Whenever the maximum score that the minimizing player (i.e. the &quot;beta&quot; player) is assured of becomes less than the minimum score that the maximizing player (i.e., the &quot;alpha&quot; player) is assured of (i.e. beta &#x2264; alpha), the maximizing player need not consider further descendants of this node, as they will never be reached in the actual play.</p>
+<p><img src="img/alpha-beta-search1.png" alt></p>
+<p><img src="img/alpha-beta-search.gif" alt></p>
+<p><img src="img/alpha-beta-search.png" alt></p>
+<p><strong>Pseudocode</strong></p>
+<pre data-role="codeBlock" data-info="python" class="language-python">function alphabeta<span class="token punctuation">(</span>node<span class="token punctuation">,</span> depth<span class="token punctuation">,</span> &#x3B1;<span class="token punctuation">,</span> &#x3B2;<span class="token punctuation">,</span> maximizingPlayer<span class="token punctuation">)</span> <span class="token keyword keyword-is">is</span>
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword keyword-or">or</span> node <span class="token keyword keyword-is">is</span> a terminal node then
+        <span class="token keyword keyword-return">return</span> the heuristic value of node
+    <span class="token keyword keyword-if">if</span> maximizingPlayer then
+        value <span class="token punctuation">:</span><span class="token operator">=</span> &#x2212;&#x221E;
+        <span class="token keyword keyword-for">for</span> each child of node do
+            value <span class="token punctuation">:</span><span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> alphabeta<span class="token punctuation">(</span>child<span class="token punctuation">,</span> depth &#x2212; <span class="token number">1</span><span class="token punctuation">,</span> &#x3B1;<span class="token punctuation">,</span> &#x3B2;<span class="token punctuation">,</span> FALSE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            &#x3B1; <span class="token punctuation">:</span><span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>&#x3B1;<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+            <span class="token keyword keyword-if">if</span> &#x3B1; &#x2265; &#x3B2; then
+                <span class="token keyword keyword-break">break</span> <span class="token punctuation">(</span><span class="token operator">*</span> &#x3B2; cut<span class="token operator">-</span>off <span class="token operator">*</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> value
+    <span class="token keyword keyword-else">else</span>
+        value <span class="token punctuation">:</span><span class="token operator">=</span> <span class="token operator">+</span>&#x221E;
+        <span class="token keyword keyword-for">for</span> each child of node do
+            value <span class="token punctuation">:</span><span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> alphabeta<span class="token punctuation">(</span>child<span class="token punctuation">,</span> depth &#x2212; <span class="token number">1</span><span class="token punctuation">,</span> &#x3B1;<span class="token punctuation">,</span> &#x3B2;<span class="token punctuation">,</span> TRUE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            &#x3B2; <span class="token punctuation">:</span><span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>&#x3B2;<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+            <span class="token keyword keyword-if">if</span> &#x3B1; &#x2265; &#x3B2; then
+                <span class="token keyword keyword-break">break</span> <span class="token punctuation">(</span><span class="token operator">*</span> &#x3B1; cut<span class="token operator">-</span>off <span class="token operator">*</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> value
+
+<span class="token punctuation">(</span><span class="token operator">*</span> Initial call <span class="token operator">*</span><span class="token punctuation">)</span>
+alphabeta<span class="token punctuation">(</span>origin<span class="token punctuation">,</span> depth<span class="token punctuation">,</span> &#x2212;&#x221E;<span class="token punctuation">,</span> <span class="token operator">+</span>&#x221E;<span class="token punctuation">,</span> TRUE<span class="token punctuation">)</span>
+</pre><p>The estimates of &#x3B1; are only updated in each MAX node, while &#x3B2; is only updated in each MIN node. If the estimate of the upper bound is ever lower than the estimate of the lower bound in any state, then the search can be cut off because there are no values between the upper and lower bounds. Practically this means that your agent could do better by making a different move earlier in the game tree to avoid the pruned state.</p>
+<p>Implementing alpha-beta pruning in minimax only adds the two new variables (alpha &amp; beta), and adds a conditional branch to the MIN and MAX nodes to break and return the appropriate bound when a state is pruned.</p>
+<p>There&apos;s one more difference you&apos;ll notice between minimax and alpha-beta: the alpha-beta search function seems to call the <code>max_value()</code> helper from the root node, while minimax calls the <code>min_value()</code> helper. But the pseudocode for alpha-beta search is just hiding some additional complexity: calling <code>max_value()</code> returns the score of the best branch -- but it doesn&apos;t tell you what the best branch is. You can implement the algorithm just like the minimax-decision function if you modify it to update alpha between branches.</p>
+<p>The last technique we&apos;ll cover is alpha-beta pruning, which allows the agent to avoid searching nodes that cannot lead to better outcomes than what they&apos;ve already searched by keeping track of the upper and lower bounds of the value for each branch. The lower bound is called alpha, and the upper bound is called beta.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">alpha_beta_search</span><span class="token punctuation">(</span>gameState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the move along a branch of the game tree that
+    has the best possible value.  A move is a pair of coordinates
+    in (column, row) order corresponding to a legal move for
+    the searching player.
+
+    You can ignore the special case of calling this function
+    from a terminal state.
+    &quot;&quot;&quot;</span>
+    alpha <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    beta <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    best_score <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    best_move <span class="token operator">=</span> <span class="token boolean">None</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> beta<span class="token punctuation">)</span>
+        alpha <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>alpha<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&gt;</span> best_score<span class="token punctuation">:</span>
+            best_score <span class="token operator">=</span> v
+            best_move <span class="token operator">=</span> a
+    <span class="token keyword keyword-return">return</span> best_move
+
+<span class="token comment"># TODO: modify the function signature to accept an alpha and beta parameter</span>
+<span class="token keyword keyword-def">def</span> <span class="token function">min_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> beta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a win (+1) if the game is over,
+    otherwise return the minimum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> max_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> beta<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&lt;=</span> alpha<span class="token punctuation">:</span>
+            <span class="token keyword keyword-return">return</span> v
+        beta <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>beta<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+
+<span class="token comment"># TODO: modify the function signature to accept an alpha and beta parameter</span>
+<span class="token keyword keyword-def">def</span> <span class="token function">max_value</span><span class="token punctuation">(</span>gameState<span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> beta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot; Return the value for a loss (-1) if the game is over,
+    otherwise return the maximum value over all legal child
+    nodes.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-if">if</span> gameState<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> gameState<span class="token punctuation">.</span>utility<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    v <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">&quot;-inf&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> a <span class="token keyword keyword-in">in</span> gameState<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> min_value<span class="token punctuation">(</span>gameState<span class="token punctuation">.</span>result<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> beta<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> v <span class="token operator">&gt;=</span> beta<span class="token punctuation">:</span>
+            <span class="token keyword keyword-return">return</span> v
+        alpha <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>alpha<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> v
+</pre><h3 class="mume-header" id="-heuristic-improvements">Heuristic Improvements</h3>
+
+<p>Further improvement can be achieved without sacrificing accuracy by using ordering heuristics to search earlier parts of the tree that are likely to force alpha&#x2013;beta cutoffs. For example, in chess, moves that capture pieces may be examined before moves that do not, and moves that have scored highly in earlier passes through the game-tree analysis may be evaluated before others. Another common, and very cheap, heuristic is the killer heuristic, where the last move that caused a beta-cutoff at the same tree level in the tree search is always examined first. This idea can also be generalized into a set of refutation tables.</p>
+<p>Alpha&#x2013;beta search can be made even faster by considering only a narrow search window (generally determined by guesswork based on experience). This is known as aspiration search. In the extreme case, the search is performed with alpha and beta equal; a technique known as zero-window search, null-window search, or scout search. This is particularly useful for win/loss searches near the end of a game where the extra depth gained from the narrow window and a simple win/loss evaluation function may lead to a conclusive result. If an aspiration search fails, it is straightforward to detect whether it failed high (high edge of window was too low) or low (lower edge of window was too high). This gives information about what window values might be useful in a re-search of the position.</p>
+<p>Over time, other improvements have been suggested, and indeed the Falphabeta (fail-soft alpha-beta) idea of John Fishburn is nearly universal and is already incorporated above in a slightly modified form. Fishburn also suggested a combination of the killer heuristic and zero-window search under the name Lalphabeta (&quot;last move with minimal window alpha-beta search&quot;).</p>
+<h3 class="mume-header" id="-further-on-alpha-beta-pruning">Further on Alpha-Beta pruning</h3>
+
+<p>Since the minimax algorithm and its variants are inherently depth-first, a strategy such as iterative deepening is usually used in conjunction with alpha&#x2013;beta so that a reasonably good move can be returned even if the algorithm is interrupted before it has finished execution. Another advantage of using iterative deepening is that searches at shallower depths give move-ordering hints, as well as shallow alpha and beta estimates, that both can help produce cutoffs for higher depth searches much earlier than would otherwise be possible.</p>
+<p>Algorithms like SSS*, on the other hand, use the best-first strategy. This can potentially make them more time-efficient, but typically at a heavy cost in space-efficiency.</p>
+<h2 class="mume-header" id="-opening-book">Opening Book</h2>
+
+<p>An opening book isn&apos;t specific to Minimax search. It&apos;s a general technique for game playing that builds on the intuitive idea that we can learn from experience which opening moves are most likely to result in a win. Opening books are usually built by analyzing a large corpus of games between expert players to find the most promising opening lines.</p>
+<p>If you don&apos;t have a large corpus of historical matches, then you can create a corpus by either using random rollouts (or by using your agent) to play many games while accumulating statistics on which opening moves are best. An opening book can be as simple as a dictionary <code>book = {hashable_game_state: action_to_take}</code> for as many pairs of game states and actions as you choose.</p>
+<p>Keep in mind that opening books are estimates of the best move. It&apos;s possible for the book to learn bad moves, especially if you don&apos;t have much data or if your data is noisy. The game tree grows exponentially, so it can take an enormous number of games to collect reliable statistics on the opening moves. You can improve the quality of the estimates by incorporating more domain knowledge in the process (like the symmetries discussed for 5x5 Isolation).</p>
+<p><strong>NOTE:</strong> Python3 uses a secure hashing scheme that makes object hashes (generally) non-portable between runs. The game state object in the project can safely be used as a key, but for this quiz you will need to use <code>state.hashable</code> as a key.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-import">import</span> random
+
+<span class="token keyword keyword-from">from</span> gamestate <span class="token keyword keyword-import">import</span> GameState
+
+NUM_ROUNDS <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">build_table</span><span class="token punctuation">(</span>num_rounds<span class="token operator">=</span>NUM_ROUNDS<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Builds a table that maps from game state -&gt; action</span>
+    <span class="token comment"># by choosing the action that accumulates the most</span>
+    <span class="token comment"># wins for the active player. (Note that this uses</span>
+    <span class="token comment"># raw win counts, which are a poor statistic to</span>
+    <span class="token comment"># estimate the value of an action; better statistics</span>
+    <span class="token comment"># exist.)</span>
+    <span class="token keyword keyword-from">from</span> collections <span class="token keyword keyword-import">import</span> defaultdict<span class="token punctuation">,</span> Counter
+    book <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>Counter<span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_rounds<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        state <span class="token operator">=</span> GameState<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        build_tree<span class="token punctuation">(</span>state<span class="token punctuation">,</span> book<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">{</span>k<span class="token punctuation">:</span> <span class="token builtin">max</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> key<span class="token operator">=</span>v<span class="token punctuation">.</span>get<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> k<span class="token punctuation">,</span> v <span class="token keyword keyword-in">in</span> book<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">build_tree</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> book<span class="token punctuation">,</span> depth<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-if">if</span> depth <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token keyword keyword-or">or</span> state<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token operator">-</span>simulate<span class="token punctuation">(</span>state<span class="token punctuation">)</span>
+    action <span class="token operator">=</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>state<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    reward <span class="token operator">=</span> build_tree<span class="token punctuation">(</span>state<span class="token punctuation">.</span>result<span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">,</span> book<span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    book<span class="token punctuation">[</span>state<span class="token punctuation">.</span>hashable<span class="token punctuation">]</span><span class="token punctuation">[</span>action<span class="token punctuation">]</span> <span class="token operator">+=</span> reward
+    <span class="token keyword keyword-return">return</span> <span class="token operator">-</span>reward
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">simulate</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    player_id <span class="token operator">=</span> state<span class="token punctuation">.</span>_parity
+    <span class="token keyword keyword-while">while</span> <span class="token keyword keyword-not">not</span> state<span class="token punctuation">.</span>terminal_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        state <span class="token operator">=</span> state<span class="token punctuation">.</span>result<span class="token punctuation">(</span>random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>state<span class="token punctuation">.</span>actions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword keyword-if">if</span> state<span class="token punctuation">.</span>utility<span class="token punctuation">(</span>player_id<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword keyword-else">else</span> <span class="token number">1</span>
+</pre><h2 class="mume-header" id="-extending-minimax-search">Extending Minimax Search</h2>
+
+<p>There are several limitations to minimax search (two-player, deterministic, finite games of perfect information), but there have been several minimax algorithms developed to overcome them. This section briefly introduces some of those techniques, and the next section includes links to references you can read for more information. Many of the extensions to minimax can also be applied to more flexible algorithms like Monte Carlo Tree Search, as well.</p>
+<ul>
+<li>Two-player games are limited to two adversarial agents. There are also single-player games like Solitaire and multi-player games.</li>
+<li>Finite games have a finite number actions and a finite number of choices to make on each turn. (Infinite games have continuous action spaces over an interval; for example, <a href="http://www.chessvariants.com/other.dir/continuouschess.html">continuous chess</a> eliminates the 8x8 grid and allows pieces to move any distance.)</li>
+<li>In deterministic games, taking action A from state S always results in the same successor state S&apos;. For example, chess players are in complete control of where to place pieces when they make a move. By comparison, games of chance allow actions that do not have deterministic outcomes. For example, moves in Backgammon depend on the outcome of a dice roll.</li>
+<li>Perfect information games mean that both players know all information about the current game state. Chess is a game of perfect information, while the Prisoner&apos;s Dilemma is a game of incomplete information.</li>
+</ul>
+<h3 class="mume-header" id="-3-player-isolation">3-player Isolation</h3>
+
+<p>text</p>
+<h3 class="mume-header" id="-multiplayer-alpha-beta-pruning">Multiplayer Alpha-Beta Pruning</h3>
+
+<p>Korf, 1991, <a href="http://www.cc.gatech.edu/~thad/6601-gradAI-fall2015/Korf_Multi-player-Alpha-beta-Pruning.pdf">Multi-player alpha-beta pruning</a></p>
+<p>In the above paper, you will get a chance to generalize minimax search techniques to games with more than three players. As you&apos;ll see, alpha-beta pruning doesn&apos;t work quite as effectively in this case as in the general case. Here are a few questions to keep in mind while reading through this paper:</p>
+<ul>
+<li>Why might alphabeta pruning only work well in the two player case?</li>
+<li>How does the size of the search tree change with more than two players?</li>
+</ul>
+<h3 class="mume-header" id="-probabilistic-games">Probabilistic Games</h3>
+
+<p>sloppy Isolation</p>
+<h2 class="mume-header" id="-moderan-variants-of-minimax">Moderan Variants of Minimax</h2>
+
+<p>Minimax with alpha beta pruning is useful - especially as a teaching tool - because it provides strong theoretical guarantees about selecting optimal moves, but in most real-world applications we&apos;re often willing to trade some of those guarantees for better empirical performance. There are several variants of Minimax that change or relax different assumptions in order to achieve stronger performance.</p>
+<p>We will not cover these algorithms in detail (they rely on the same principles you&apos;ve already seen). You are encouraged to experiment with these variants:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Negamax">Negamax</a> - the minimax algorithm can be simplified for <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum games</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Principal_variation_search">Principle Variation Search</a> (i.e., Negascout) - combining negamax with good move ordering determined by null window searches to outperform alpha-beta pruning (i.e., start with a wide cutoff window and shrink it).</li>
+<li><a href="https://arxiv.org/pdf/1404.1515.pdf">Memory-enhanced Test Driver family</a> (e.g., <a href="https://en.wikipedia.org/wiki/MTD-f">MTD-f</a>) - performs a series of searches starting with only null window searches while keeping a memory store of visited states (i.e., start with a zero-width window and grow it); empirically shown to be the most efficient minimax search.</li>
+<li><a href="https://en.wikipedia.org/wiki/Best_Node_Search">Best Node Search</a> - repeatedly guess and check values for the bounds on the minimax value of each branch; empirically shown to be the most efficient minimax algorithm on random trees.</li>
+</ul>
+<h2 class="mume-header" id="-going-beyond-minimax">Going Beyond Minimax</h2>
+
+<p>Adversarial Search has been a very active topic in the past several years. Adversarial</p>
+<ul>
+<li>Monte Carlo Tree Search</li>
+<li>Reinforcement Learning policy</li>
+</ul>
+<h2 class="mume-header" id="-monte-carlo-tree-search">Monte Carlo Tree Search</h2>
+
+<p>Monte Carlo Tree Search is an alternative to Minimax search that has been used successfully in many modern applications. MCTS is a general search technique that can be trivially extended to adversarial search. The main benefit of MCTS vs Minimax is that it is an aheuristic search&#x2014;you do not need a good search heuristic in the domain to get reasonable results, and it works better than minimax in extremely large domains (most Go agents&#x2014;including AlphaGo and AlphaZero&#x2014;use MCTS).</p>
+<p><img src="img/monte-carlo-tree-search.png" alt></p>
+<h3 class="mume-header" id="-how-it-works">How it Works</h3>
+
+<p>MCTS works by combining tree search with simulation; rather than using a heuristic to estimate the value of each leaf node of the search tree, it instead quickly simulates the remaining game according to some default policy, and uses many replications of those rollouts to estimate the value of each possible action. The MCTS algorithm includes four phases: Selection, Expansion, Simulation, and Backpropagation. Pseudocode for each phase is shown below, along with the backup step for 2-player games.</p>
+<p>It is possible to perform MCTS with uniform sampling of the action space, but that tends to be inefficient in terms of sampling. Upper Confidence Bound for Trees (UCT) is an alternative sampling strategy that tries to sample more promising actions more frequently than other actions. It has been shown that MCTS converges to the minimax value of a search tree as the number of simulations goes towards infinity.</p>
+<p><img src="img/monte-carlo-tree-search2.png" alt></p>
+<h3 class="mume-header" id="-the-mcts-reward-function">The MCTS Reward Function</h3>
+
+<p>The reward function in MCTS does not rely on a heuristic, but the semantics of the reward can be confusing. In the formulation presented in the pseudocode above, the default policy should return +1 if the agent holding initiative at the start of a simulation loses and -1 if the active agent when the simulation starts wins because nodes store the reward relative to their parent in the game tree.</p>
+<p><strong>But...why?</strong></p>
+<p>The BestChild() function chooses the action <em>a</em> that maximizes <em>Q</em> over the child nodes <em>v&apos;</em> of the input node <em>v</em>, so the value of Q should be higher if taking action <em>a</em> from state <em>v</em> will lead to the player with initiative in state <em>v</em> (the parent) winning from state <em>v&apos;</em> (the child), and lower if taking the action will lead to a loss.</p>
+<p><img src="img/mcts-rewards.png" alt></p>
+<p>The figure above illustrates the simplest representation of the four possible cases for new node expansion.</p>
+<ol>
+<li>Starting from v=v0, search may expand action a0,0 to reach v1, where the simulation results in a win for player 1. Notice that player 2 has initiative on the board when the simulation is performed, so the utility of the final state to the active player in state v1 (i.e., player 2) is -&#x221E;, however the MCTS reward should be +1 because player 1 benefits from choosing action a0,0.</li>
+<li>Starting from v=v0, search may expand action a0,1 to reach v2, where the simulation results in a win for player 2. The utility of the final simulation state to the active player in state v2 (i.e., player 2) is &#x221E;, however the MCTS reward should be -1 in order to discourage Player 1 from choosing action a0,1.</li>
+<li>Starting from v=v0, search may expand action a0,2 to reach v3, then expands action a3,0 to reach v4 where the simulation results in a win for player 1. The utility of the final simulation state to the active player in the initial simulation state v4 (i.e., player 1) is &#x221E;, however the MCTS reward should be -1 in order to discourage Player 2 (the parent of v4) from choosing action a3,0; the BackupNegamax() function inverts the reward before propagating back to v3 which makes Player 1 more likely to choose action a3,0&#x2014;which makes sense because the simulation on this branch led to a win for Player 1.</li>
+<li>Starting from v=v0, search may expand action a0,2 to reach v3, then expands action a3,1 to reach v5 where the simulation results in a win for player 2. The utility of the final simulation state to the active player in the initial simulation state v4 (i.e., player 1) is -&#x221E;, however the MCTS reward should be 1 in order to encourage Player 2 (the parent of v5) to choosing action a3,1; the BackupNegamax() function inverts the reward before propagating back to v3 which makes Player 1 less likely to choose action a3,0&#x2014;which makes sense because the simulation on this branch led to a loss for Player 1.</li>
+</ol>
+<h2 class="mume-header" id="-reading-list">Reading List</h2>
+
+<ul>
+<li>AlphaGo</li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://deepmind.com/research/publications/mastering-game-go-without-human-knowledge/">AlphaGo: Mastering Go without Human Knowledge</a></li>
+<li><a href="https://medium.com/applied-data-science/alphago-zero-explained-in-one-diagram-365f5abf67e0">Understanding AlphaGo &amp; Example Implementation</a></li>
+<li><a href="https://arxiv.org/pdf/1712.01815.pdf">AlphaZero: Mastering Chess &amp; Shogi</a></li>
+</ul>
+</blockquote>
+<ul>
+<li><a href="https://www.cs.mcgill.ca/~vkules/bandits.pdf">Monte Carlo Tree Search</a></li>
+<li><a href="http://mcts.ai/pubs/mcts-survey-master.pdf">A Survey of Monte Carlo Tree Search Methods</a></li>
+</ul>
+<h2 class="mume-header" id="-other-resources">Other resources</h2>
+
+<ul>
+<li><a href="https://youtu.be/l-hh51ncgDI">This</a> video has really good explanation of minimax and alpha beta pruning.</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html><html><head>
+      <title>README</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-build-an-adversarial-game-playing-agent">Build an Adversarial Game Playing Agent</h1>
+
+<p><img src="viz.gif" alt="Example game of isolation on a square board"></p>
+<h2 class="mume-header" id="-synopsis">Synopsis</h2>
+
+<p>In this project, you will experiment with adversarial search techniques by building an agent to play knights Isolation.  Unlike the examples in lecture where the players control tokens that move like chess queens, this version of Isolation gives each agent control over a single token that moves in L-shaped movements--like a knight in chess.</p>
+<h3 class="mume-header" id="-isolation">Isolation</h3>
+
+<p>In the game Isolation, two players each control their own single token and alternate taking turns moving the token from one cell to another on a rectangular grid.  Whenever a token occupies a cell, that cell becomes blocked for the remainder of the game.  An open cell available for a token to move into is called a &quot;liberty&quot;.  The first player with no remaining liberties for their token loses the game, and their opponent is declared the winner.</p>
+<p>In knights Isolation, tokens can move to any open cell that is 2-rows and 1-column or 2-columns and 1-row away from their current position on the board.  On a blank board, this means that tokens have at most eight liberties surrounding their current location.  Token movement is blocked at the edges of the board (the board does not wrap around the edges), however, tokens can &quot;jump&quot; blocked or occupied spaces (just like a knight in chess).</p>
+<p>Finally, agents have a fixed time limit (150 milliseconds by default) to search for the best move and respond.  The search will be automatically cut off after the time limit expires, and the active agent will forfeit the game if it has not chosen a move.</p>
+<p><strong>You can find more information (including implementation details) about the in the Isolation library readme <a href="../../isolation/README.md">here</a>.</strong></p>
+<h2 class="mume-header" id="-getting-started-workspaces">Getting Started (Workspaces)</h2>
+
+<p>The easiest way to complete the project is to use the Udacity Workspace in your classroom. The environment has already been configured with the required files and libraries to support the project. If you decide to use the Workspace, then you do NOT need to perform any of the setup steps for this project. Skip to the section with instructions for completing the project.</p>
+<h2 class="mume-header" id="-getting-started-local-environment">Getting Started (Local Environment)</h2>
+
+<p>If you would prefer to complete the exercise in your own local environment, then follow the steps below:</p>
+<ul>
+<li>Open your terminal and activate the aind conda environment (OS X or Unix/Linux users use the command shown; Windows users only run <code>activate aind</code>)</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>$ source activate aind
+</code></pre><ul>
+<li>Download a copy of the project files from GitHub and navigate to the project folder. (Note: if you&apos;ve previously downloaded the repository for another project then you can skip the clone command. However, you should run <code>git pull</code> to receive any project updates since you cloned the repository.)</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>(aind) $ git clone https://github.com/udacity/artificial-intelligence
+(aind) $ cd &quot;artificial-intelligence/Projects/3_Game Playing&quot;
+</code></pre><h2 class="mume-header" id="-instructions">Instructions</h2>
+
+<p>You must implement an agent in the <code>CustomPlayer</code> class defined in the <code>game_agent.py</code> file. The interface definition for game agents only requires you to implement the <code>.get_action()</code> method, but you can add any other methods to the class that you deem necessary.  You can build a basic agent by combining minimax search with alpha-beta pruning and iterative deepening from lecture.</p>
+<p><strong>NOTE:</strong> Your agent will <strong>not</strong> be evaluated in an environment suitable for running machine learning or deep learning agents (like AlphaGo); visit an office hours sessions <strong>after</strong> completing the project if you would like guidance on incorporating machine learning in your agent.</p>
+<h4 class="mume-header" id="-the-get_action-method">The get_action() Method</h4>
+
+<p>This function is called once per turn for each player. The calling function handles the time limit and</p>
+<pre data-role="codeBlock" data-info class="language-"><code>def get_action(self, state):
+    import random
+    self.queue.put(random.choice(state.actions()))
+</code></pre><ul>
+<li><strong>DO NOT</strong> use multithreading/multiprocessing (the isolation library already uses them, so using them in your agent may cause conflicts)</li>
+</ul>
+<h4 class="mume-header" id="-initialization-data">Initialization Data</h4>
+
+<p>Your agent will automatically read the contents of a file named <code>data.pickle</code> if it exists in the same folder as <code>my_custom_player.py</code>. The serialized object from the pickle file will be assigned to <code>self.data</code>. Your agent should not write to or modify the contents of the pickle file during search.</p>
+<p>The log file will record a warning message if there is no data file, however a data file is NOT required unless you need it for your opening book. (You are allowed to use the data file to provide <em>any</em> initialization information to your agent; it is not limited to an opening book.)</p>
+<h4 class="mume-header" id="-saving-information-between-turns">Saving Information Between Turns</h4>
+
+<p>The <code>CustomPlayer</code> class can pass internal state by assigning the data to the attribute <code>self.context</code>. An instance of your agent class will carry the context between each turn of a single game, but the contents will be reset at the start of any new game.</p>
+<pre data-role="codeBlock" data-info class="language-"><code>def get_action(...):
+    action = self.mcts()
+    self.queue.put(action)
+    self.context = object_you_want_to_save  # self.context will contain this object on the next turn
+</code></pre><h2 class="mume-header" id="-choose-an-experiment">Choose an Experiment</h2>
+
+<p>Select at least one of the following to implement and evaluate in your report. (There is no upper limit on the techniques you incorporate into your agent.)</p>
+<h3 class="mume-header" id="-option-1-develop-a-custom-heuristic-must-not-be-one-of-the-heuristics-from-lectures-and-cannot-only-be-a-combination-of-the-number-of-liberties-available-to-each-agent">Option 1: Develop a custom heuristic (must not be one of the heuristics from lectures, and cannot only be a combination of the number of liberties available to each agent)</h3>
+
+<ul>
+<li>Create a performance baseline using <code>run_search.py</code> (with the <code>fair_matches</code> flag enabled) to evaluate the effectiveness of your agent using the #my_moves - #opponent_moves heuristic from lecture</li>
+<li>Use the same process to evaluate the effectiveness of your agent using your own custom heuristic</li>
+</ul>
+<p><strong>Hints:</strong></p>
+<ul>
+<li>Research other games (chess, go, connect4, etc.) to get ideas for developing good heuristics</li>
+<li>If the results of your tests are very close, try increasing the number of matches (e.g., &gt;100) to increase your confidence in the results</li>
+<li>Experiment with adding more search time--does adding time confer any advantage to your agent over the baseline?</li>
+<li>Augment the code to count the nubmer of nodes your agent searches--is it better to search more or fewer nodes? How does your heuristic compare to the baseline heuristic you chose?</li>
+</ul>
+<h3 class="mume-header" id="-option-2-develop-an-opening-book-must-span-at-least-depth-4-of-the-search-tree">Option 2: Develop an opening book (must span at least depth 4 of the search tree)</h3>
+
+<ul>
+<li>Write your own code to develop an opening book of the best moves for every possible game state from an empty board to at least a depth of 4 plies</li>
+<li>Create a performance baseline using <code>run_search.py</code> (with the <code>fair_matches</code> flag <em>disabled</em>) to evaluate the effectiveness of your agent using randomly chosen opening moves.  (You can use any heuristic function, but you should use the same heuristic on your agent for all experiments.)</li>
+<li>Use the same procedure to evaluate the effectiveness of your agent when early moves are selected from your opening book</li>
+</ul>
+<p><strong>Hints:</strong></p>
+<ul>
+<li>Developing an opening book can require long run-times to simulate games and accumulate outcome statistics</li>
+<li>If the results are very close, try increasing the number of matches (e.g., &gt;100) to increase your confidence in the results</li>
+</ul>
+<p><strong>Adding a basic opening book</strong></p>
+<ul>
+<li>You will need to write your own code to develop a good opening book, but you can pass data into your agent by saving the file as &quot;data.pickle&quot; in the same folder as <code>game_agent.py</code>. Use the <a href="https://docs.python.org/3/library/pickle.html">pickle</a> module to serialize the object you want to save. The pickled object will be accessible to your agent through the <code>self.data</code> attribute.</li>
+</ul>
+<p>For example, the contents of dictionary <code>my_data</code> can be saved to disk:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>import pickle
+from isolation import Isolation
+state = Isolation()
+my_data = {state: 57}  # opening book always chooses the middle square on an open board
+with open(&quot;data.pickle&quot;, &apos;wb&apos;) as f:
+    pickle.dump(my_data, f)
+</code></pre><h3 class="mume-header" id="-option-3-build-an-agent-using-advanced-search-techniques-for-example-killer-heuristic-principle-variation-search-not-in-lecture-or-monte-carlo-tree-search-not-in-lecture">Option 3: Build an agent using advanced search techniques (for example: killer heuristic, principle variation search (not in lecture), or monte carlo tree search (not in lecture))</h3>
+
+<ul>
+<li>Create a performance baseline using <code>run_search.py</code> to evaluate the effectiveness of a baseline agent (e.g., an agent using your minimax or alpha-beta search code from the classroom)</li>
+<li>Use <code>run_search.py</code> to evaluate the effectiveness of your agent using your own custom search techniques</li>
+<li>You must decide whether to test with or without &quot;fair&quot; matches enabled--justify your choice in your report</li>
+</ul>
+<p><strong>Hints:</strong></p>
+<ul>
+<li>If the results are very close, try increasing the number of matches (e.g., &gt;100) to increase your confidence in the results</li>
+<li>Experiment with adding more search time--does adding time confer any advantage to your agent?</li>
+<li>Augment the code to count the number of nodes your agent searches--does your agent have an advantage compared to the baseline search algorithm you chose?</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>You MAY implement advanced techniques from the reading list at the end of the lesson (like Monte Carlo Tree Search, principle variation search, etc.), but your agent is being evaluated for <em>performance</em> rather than <em>correctness</em>. It&apos;s possible to pass the project requirements <strong>without</strong> using these advanced techniques, so project reviewers may encourage you to implement a simpler solution if you are struggling with correct implementation. (That&apos;s good general advice: do the simplest thing first, and only add complexity when you must.)</li>
+</ul>
+<h2 class="mume-header" id="-report-requirements">Report Requirements</h2>
+
+<p>Your report must include a table or chart with data from an experiment to evaluate the performance of your agent as described above.  Use the data from your experiment to answer the relevant questions below. (You may choose one set of questions if your agent incorporates multiple techniques.)</p>
+<p><strong>Advanced Heuristic</strong></p>
+<ul>
+<li>What features of the game does your heuristic incorporate, and why do you think those features matter in evaluating states during search?</li>
+<li>Analyze the search depth your agent achieves using your custom heuristic. Does search speed matter more or less than accuracy to the performance of your heuristic?</li>
+</ul>
+<p><strong>Opening book</strong></p>
+<ul>
+<li>Describe your process for collecting statistics to build your opening book. How did you choose states to sample? And how did you perform rollouts to determine a winner?</li>
+<li>What opening moves does your book suggest are most effective on an empty board for player 1 and what is player 2&apos;s best reply?</li>
+</ul>
+<p><strong>Advanced Search Techniques</strong></p>
+<ul>
+<li>Choose a baseline search algorithm for comparison (for example, alpha-beta search with iterative deepening, etc.). How much performance difference does your agent show compared to the baseline?</li>
+<li>Why do you think the technique you chose was more (or less) effective than the baseline?</li>
+</ul>
+<h2 class="mume-header" id="-evaluation">Evaluation</h2>
+
+<p>Your project will be reviewed by a Udacity reviewer against the project rubric <a href="https://review.udacity.com/#!/rubrics/1801/view">here</a>. Review this rubric thoroughly, and self-evaluate your project before submission. All criteria found in the rubric must meet specifications for you to pass.</p>
+<h2 class="mume-header" id="-submission">Submission</h2>
+
+<p>Before you can submit your project for review in the classroom, you must run the remote test suite &amp; generate a zip archive of the required project files. Submit the archive in your classroom for review. (See notes on submissions below for more details.) From your terminal, run the command: (make sure to activate the aind conda environment if you&apos;re running the project in your local environment; workspace users do <strong>not</strong> need to activate an environment.)</p>
+<pre data-role="codeBlock" data-info class="language-"><code>$ udacity submit
+</code></pre><p>The script will automatically create a zip archive of the required files (<code>my_custom_player.py</code> and <code>report.pdf</code> are required; <code>data.pickle</code> will be included if it exists) and submit your code to a remote server for testing. You can only submit a zip archive created by the PA script (even if you&apos;re only submitting a partial solution), and you <strong>must submit the exact zip file created by the Project Assistant</strong> in your classroom for review. The classroom verifies the zip file submitted against records on the Project Assistant system; any changes in the file will cause your submission to be rejected.</p>
+<p><strong>NOTE:</strong> Students who authenticate with Facebook or Google accounts <em>must</em> follow the instructions on the FAQ page <a href="https://project-assistant.udacity.com/faq">here</a> to obtain an authentication token. (The Workspace already includes instructions for obtaining and configuring your token.)</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

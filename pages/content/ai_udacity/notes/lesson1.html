@@ -1,0 +1,634 @@
+<!DOCTYPE html><html><head>
+      <title>lesson1</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h2 class="mume-header" id="-minimax-algorithm-">Minimax algorithm</h2>
+
+<p>It&apos;s when you are trying to <em>maximize</em> your chances of winning on your turn, and your opponent is trying to <em>minimize</em> your chances of winning on their turn.</p>
+<h2 class="mume-header" id="-monty-hall">Monty Hall</h2>
+
+<p>It&apos;s from TV show, where there are three doors, behind one of which there is a car and two others are empty. You get to choose one of the doors, and then the host will reveal one of the empty doors. Now, you have to decide which is a better option: 1) stay with the door you&apos;ve chosen first time, or 2) switch to the other one.</p>
+<p><em>Answer:</em> At first, since the car is randomly assigned, all the doors have equal chances of 33.33%, so it doesn&apos;t matter which you choose. Once the host (Monty Hall), opens, say, door B as empty, we make an observation which helps us update our prior probability for each door and calculate the posterior probabilities for door A (which let&apos;s say we chose at first) and door C. (Note that Monty cannot open the door we chose at first). Posterior probability of door B is,</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Car_B%7COpen_B%29%3D0" alt></p>
+<p>Now, we might mistakenly think that since there are only two doors left, each will have equal probbaility of 0.5, which is <strong>wrong</strong>, since this ignores the fact that Monty knowingly reveals an empty door (and will never reveal the door which has the car behind it).</p>
+<p>In order to make stay/switch decision, we&apos;d like to know</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Car_C%7COpen_B%29%25" alt></p>
+<p>Using Bayes&apos; theorem, we can calculate this probability as follows,</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Car_C%7COpen_B%29%3D%5Cfrac%7BP%28Open_B%7CCar_C%29+%5Ctimes+P%28Car_C%29%7D%7BP%28Open_B%29%7D" alt></p>
+<p>Here the term</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Open_B%7CCar_C%29%3D1" alt></p>
+<p>known as likelihood must be 1, since if Monty knows that car is in door C, he has to open door B. The other non-conditional probabilities can be calculated using marginal probability as follows:</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Open_B%29%3DP%28Car_A%29P%28Open_B%7CCar_A%29%2BP%28Car_B%29P%28Open_B%7CCar_B%29%2BP%28Car_C%29P%28Open_B%7CCar_C%29%3D%5Cfrac%7B1%7D%7B3%7D.%5Cfrac%7B1%7D%7B2%7D%2B%5Cfrac%7B1%7D%7B3%7D.0%2B%5Cfrac%7B1%7D%7B3%7D.1%3D%5Cfrac%7B1%7D%7B2%7D" alt></p>
+<p>Plugging these values back into our Bayes formulation, we&apos;ll get</p>
+<p><img src="http://latex.codecogs.com/svg.latex?P%28Car_C%7COpen_B%29%3D%281.%5Cfrac%7B1%7D%7B3%7D%29%2F%5Cfrac%7B1%7D%7B2%7D%3D%5Cfrac%7B2%7D%7B3%7D" alt></p>
+<p>Therefore, switching is an overall better strategy as if you consistently stay you&apos;ll have 33.33% chance of winning where if you consistently switch, you&apos;d have 66.67% chance of winning.</p>
+<h2 class="mume-header" id="-defining-intelligence">Defining Intelligence</h2>
+
+<p>Here, we&apos;re not dealing with the philosophical definition of intelligence, rather we focus on a more practical definition which can be described as a property of a system. One thing to note is that intelligence is context-based. Humans are intelligence in some tasks and rather dumb in some others. Similarly, an algorithm might be considered intelligent in some tasks but completely dumb in some others. Therefore, <strong>task</strong> or <strong>problem domain</strong> is key in designing intelligent systems. We refer to it as <strong>environment</strong> and the intelligent system as <strong>agent</strong>. In order to make decision, agent needs to know the <strong>state</strong>, which is all the information available to it. Once, the agent knows the state, it&apos;ll make an action (decision), which may impact the environment.</p>
+<h3 class="mume-header" id="-classifying-intelligence">Classifying Intelligence</h3>
+
+<p>One way to classify AI problems is by using environment state. For example, it can be <strong>fully-observable</strong> or <strong>partially-observable</strong> (tic tac toe vs poker game) OR it can be <strong>deterministic</strong> or <strong>stochastic</strong> OR it can <strong>discrete</strong> and <strong>continuous</strong> states. Also, an environment can be <strong>benign</strong> where there is only one agent or <strong>adversarial</strong> where there are multiple agents making actions to defeat agent in reaching its goals.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">problem</th>
+<th style="text-align:center">partially observable</th>
+<th style="text-align:center">stochastic</th>
+<th style="text-align:center">continuous</th>
+<th style="text-align:center">adversarial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">playing poker</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
+</tr>
+<tr>
+<td style="text-align:center">recognizing handwritten text</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:center">driving on the road</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:center">playing chess</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="-rational-behavior-and-bounded-rationality">Rational Behavior and Bounded Rationality</h3>
+
+<p>One other definition based on rational behavior is that <em>an intelligent agent is one that takes action to maximize its utility given the desired goal</em>. This defines intelligence regardless of the cognition mechanism agent uses to guide its behavior. There is a problem with this definition as it requires agent to behave optimally at all times. Given the constraints and restraints exist in many real-world problems, agents can act optimally. However, we can define the desired goal (bound optimality) for an agent (which takes into account the constraints of the problem). For example, we can design an algorithm to play chess which wins 60% of times.</p>
+<h2 class="mume-header" id="-solving-sudoku-puzzle">Solving Sudoku puzzle</h2>
+
+<p>Here, we are going to program an AI agent that solves any sudoku puzzle. We&apos;ll use <strong>constraint propagation</strong> and <strong>search</strong> techniquesin our solution. <strong>Constraint propagation</strong> is when the constraints in the problem limits the search space.</p>
+<h3 class="mume-header" id="-setting-up-the-board">Setting up the board</h3>
+
+<p>Below are the naming conventions we use:</p>
+<ul>
+<li>We label rows by letters: A,B,C,D,E,F,G,H,I</li>
+<li>And columns by numbers 1 to 9</li>
+<li>Each individual cell is referred to as <code>box</code></li>
+<li>The complete row, column, or 3x3 square is called <code>unit</code></li>
+<li>For a partical box, say A1, <code>peers</code> are all other boxes that belong to a common unit (namely, those that belong to the same row, column, or 3x3 square).</li>
+</ul>
+<p>To code an agent, we need to first be able to represent the state of the game. We can do it either as <code>string</code> or as <code>dictionary</code>.</p>
+<p>The string will consist of a concatenation of all the readings of the digits in the rows, taking the rows from top to bottom. If the puzzle is not solved, we can use a <code>.</code> as a placeholder for an empty box.</p>
+<p>The dictionary representation would be keys showing the boxes and the values the digit in each box.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">rows <span class="token operator">=</span> <span class="token string">&apos;ABCDEFGHI&apos;</span>
+cols <span class="token operator">=</span> <span class="token string">&apos;123456789&apos;</span>
+</pre><p>Now, we write a helper function that takes the <code>rows</code> and <code>cols</code> values and returns the key values for all the boxes.</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">cross</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>s<span class="token operator">+</span>t <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> a <span class="token keyword keyword-for">for</span> t <span class="token keyword keyword-in">in</span> b<span class="token punctuation">]</span>
+</pre><p>Running the above function:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">boxes <span class="token operator">=</span> cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> cols<span class="token punctuation">)</span>
+boxes <span class="token operator">=</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;A1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;A9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;B1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;B9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;C1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;C9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;D1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;D9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;E1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;E9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;F1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;F9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;G1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;G9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;H1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;H9&apos;</span><span class="token punctuation">,</span>
+     <span class="token string">&apos;I1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I3&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I4&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I5&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I6&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I7&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;I9&apos;</span><span class="token punctuation">]</span>
+</pre><p>And for the units:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">row_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>r<span class="token punctuation">,</span> cols<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> r <span class="token keyword keyword-in">in</span> rows<span class="token punctuation">]</span>
+<span class="token comment">#  Element example:</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-element-example&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  row_units[0] = [&apos;A1&apos;, &apos;A2&apos;, &apos;A3&apos;, &apos;A4&apos;, &apos;A5&apos;, &apos;A6&apos;, &apos;A7&apos;, &apos;A8&apos;, &apos;A9&apos;]</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-row_units0--a1-a2-a3-a4-a5-a6-a7-a8-a9&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  This is the top most row.</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-this-is-the-top-most-row&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+
+column_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> c<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> c <span class="token keyword keyword-in">in</span> cols<span class="token punctuation">]</span>
+<span class="token comment">#  Element example:</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-element-example-1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  column_units[0] = [&apos;A1&apos;, &apos;B1&apos;, &apos;C1&apos;, &apos;D1&apos;, &apos;E1&apos;, &apos;F1&apos;, &apos;G1&apos;, &apos;H1&apos;, &apos;I1&apos;]</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-column_units0--a1-b1-c1-d1-e1-f1-g1-h1-i1&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  This is the left most column.</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-this-is-the-left-most-column&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+
+square_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rs<span class="token punctuation">,</span> cs<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> rs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;ABC&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;DEF&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;GHI&apos;</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> cs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;456&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;789&apos;</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token comment">#  Element example:</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-element-example-2&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  square_units[0] = [&apos;A1&apos;, &apos;A2&apos;, &apos;A3&apos;, &apos;B1&apos;, &apos;B2&apos;, &apos;B3&apos;, &apos;C1&apos;, &apos;C2&apos;, &apos;C3&apos;]</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-square_units0--a1-a2-a3-b1-b2-b3-c1-c2-c3&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+<span class="token comment">#  This is the top left square.</span>
+<span class="token operator">&lt;</span>p <span class="token keyword keyword-class">class</span><span class="token operator">=</span><span class="token string">&quot;mume-header &quot;</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token string">&quot;-this-is-the-top-left-square&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+
+
+unitlist <span class="token operator">=</span> row_units <span class="token operator">+</span> column_units <span class="token operator">+</span> square_units
+</pre><p>Now, we can turn the string representations into dicitonary respresentation. It goes like this:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">grid_values</span><span class="token punctuation">(</span>grid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Convert grid string into {&lt;box&gt;: &lt;value&gt;} dict with &apos;.&apos; value for empties.
+
+    Args:
+        grid: Sudoku grid in string form, 81 characters long
+    Returns:
+        Sudoku grid in dictionary form:
+        - keys: Box labels, e.g. &apos;A1&apos;
+        - values: Value in corresponding box, e.g. &apos;8&apos;, or &apos;.&apos; if it is empty.
+    &quot;&quot;&quot;</span>
+    rows <span class="token operator">=</span> <span class="token string">&apos;ABCDEFGHI&apos;</span>
+    cols <span class="token operator">=</span> <span class="token string">&apos;123456789&apos;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">cross</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>s<span class="token operator">+</span>t <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> a <span class="token keyword keyword-for">for</span> t <span class="token keyword keyword-in">in</span> b<span class="token punctuation">]</span>
+    boxes <span class="token operator">=</span> cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> cols<span class="token punctuation">)</span>
+    grid_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword keyword-for">for</span> i<span class="token punctuation">,</span> value <span class="token keyword keyword-in">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>grid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        grid_dict<span class="token punctuation">[</span>boxes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> value
+    <span class="token keyword keyword-return">return</span> grid_dict
+</pre><p>For the complete code refer to <strong>scripts</strong> folder.</p>
+<h3>Strategy 1: Elimination</h3>
+<p>The first strategy would be to go over all the empty boxes and eliminate the values that can&apos;t appear (OR keep all possible values) in that box based on its peers.</p>
+<p>Now that we know how to eliminate values, we can take one pass, go over every box that has a value, and eliminate the values that can&apos;t appear on the box, based on its peers.</p>
+<p>Here is my code for elimination</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">eliminate</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Eliminate values from peers of each box with a single value.
+
+    Go through all the boxes, and whenever there is a box with a single value,
+    eliminate this value from the set of values of all its peers.
+
+    Args:
+        values: Sudoku in dictionary form.
+    Returns:
+        Resulting Sudoku in dictionary form after eliminating values.
+    &quot;&quot;&quot;</span>
+    rows <span class="token operator">=</span> <span class="token string">&apos;ABCDEFGHI&apos;</span>
+    cols <span class="token operator">=</span> <span class="token string">&apos;123456789&apos;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">cross</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>s<span class="token operator">+</span>t <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> a <span class="token keyword keyword-for">for</span> t <span class="token keyword keyword-in">in</span> b<span class="token punctuation">]</span>
+    row_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>r<span class="token punctuation">,</span> cols<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> r <span class="token keyword keyword-in">in</span> rows<span class="token punctuation">]</span>
+    column_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> c<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> c <span class="token keyword keyword-in">in</span> cols<span class="token punctuation">]</span>
+    square_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rs<span class="token punctuation">,</span> cs<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> rs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;ABC&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;DEF&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;GHI&apos;</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> cs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;456&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;789&apos;</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword keyword-for">for</span> k<span class="token punctuation">,</span> v <span class="token keyword keyword-in">in</span> values<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            row_peers <span class="token operator">=</span> row_units<span class="token punctuation">[</span>rows<span class="token punctuation">.</span>find<span class="token punctuation">(</span>k<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            col_peers <span class="token operator">=</span> column_units<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>k<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+            square_peers <span class="token operator">=</span> square_units<span class="token punctuation">[</span>square_units<span class="token punctuation">.</span>index<span class="token punctuation">(</span><span class="token punctuation">[</span>lst <span class="token keyword keyword-for">for</span> lst <span class="token keyword keyword-in">in</span> square_units <span class="token keyword keyword-if">if</span> k <span class="token keyword keyword-in">in</span> lst<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            <span class="token keyword keyword-for">for</span> key <span class="token keyword keyword-in">in</span> row_peers<span class="token punctuation">:</span>
+                <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                    values<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-for">for</span> key <span class="token keyword keyword-in">in</span> col_peers<span class="token punctuation">:</span>
+                <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                    values<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-for">for</span> key <span class="token keyword keyword-in">in</span> square_peers<span class="token punctuation">:</span>
+                <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                    values<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> values
+</pre><h3>Strategy 2: Only Choice</h3>
+<p>If there is only one box in a unit which would allow a certain digit, then that box must be assigned that digit.</p>
+<p>Here is the code snippet for <code>only_choice</code>:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">only_choice</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Finalize all values that are the only choice for a unit.
+
+    Go through all the units, and whenever there is a unit with a value
+    that only fits in one box, assign the value to this box.
+
+    Input: Sudoku in dictionary form.
+    Output: Resulting Sudoku in dictionary form after filling in only choices.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-for">for</span> unit <span class="token keyword keyword-in">in</span> unitlist<span class="token punctuation">:</span>
+        <span class="token keyword keyword-for">for</span> digit <span class="token keyword keyword-in">in</span> <span class="token string">&apos;123456789&apos;</span><span class="token punctuation">:</span>
+            dplaces <span class="token operator">=</span> <span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> unit <span class="token keyword keyword-if">if</span> digit <span class="token keyword keyword-in">in</span> values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>dplaces<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                values<span class="token punctuation">[</span>dplaces<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> digit
+    <span class="token keyword keyword-return">return</span> values
+</pre><h3>Constraint Propagation</h3>
+<p>Constraint Propagation is all about using local constraints in a space (in the case of Sudoku, the constraints of each square) to dramatically reduce the search space. As we enforce each constraint, we see how it introduces new constraints for other parts of the board that can help us further reduce the number of possibilities.</p>
+<p><strong>Some other famous AI problems Constraint Propagation  helps to solve:</strong></p>
+<ul>
+<li>Map coloring: In the map coloring problem, we must find a way to color the map such that no two adjacent items share the same color.</li>
+<li>Crypto-Arithmetic Puzzles: In &quot;TWO + TWO = FOUR&quot;, what digits T,W,O,F,U,R represent? In Crypto-Arithmetic puzzles, each letter represents a digit, and no two letters represent the same digit. None of the numbers start with a leading zero. Our goal is to find a mapping from letters to digits that satisfies the equations. Here again, we&apos;ll find that the constraints imposed by the equation allow us to create an intelligent algorithm to solve the problem via Constraint Propagation.</li>
+</ul>
+<h3>Applying Constraint Propagation to Sudoku</h3>
+<p>We combine the functions <code>eliminate</code> and <code>only_choice</code> to write the function <code>reduce_puzzle</code>, which receives as input an unsolved puzzle and applies our two constraints repeatedly in an attempt to solve it.</p>
+<p>Some things to watch out for:</p>
+<ul>
+<li>The function needs to stop if the puzzle gets solved.</li>
+<li>What if the function doesn&apos;t solve the sudoku? Can we make sure the function quits when applying the two strategies stops making progress?</li>
+</ul>
+<p>Here is the code snippet:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-from">from</span> utils <span class="token keyword keyword-import">import</span> <span class="token operator">*</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">reduce_puzzle</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Iterate eliminate() and only_choice(). If at some point, there is a box with no available values, return False.
+    If the sudoku is solved, return the sudoku.
+    If after an iteration of both functions, the sudoku remains the same, return the sudoku.
+    Input: A sudoku in dictionary form.
+    Output: The resulting sudoku in dictionary form.
+    &quot;&quot;&quot;</span>
+    stalled <span class="token operator">=</span> <span class="token boolean">False</span>
+    <span class="token keyword keyword-while">while</span> <span class="token keyword keyword-not">not</span> stalled<span class="token punctuation">:</span>
+        <span class="token comment"># Check how many boxes have a determined value</span>
+        solved_values_before <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> values<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token comment"># Use the Eliminate Strategy</span>
+        values <span class="token operator">=</span> eliminate<span class="token punctuation">(</span>values<span class="token punctuation">)</span>
+        <span class="token comment"># Use the Only Choice Strategy</span>
+        values <span class="token operator">=</span> only_choice<span class="token punctuation">(</span>values<span class="token punctuation">)</span>
+        <span class="token comment"># Check how many boxes have a determined value, to compare</span>
+        solved_values_after <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> values<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token comment"># If no new values were added, stop the loop.</span>
+        stalled <span class="token operator">=</span> solved_values_before <span class="token operator">==</span> solved_values_after
+        <span class="token comment"># Sanity check, return False if there is a box with zero available values:</span>
+        <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> values<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword keyword-return">return</span> <span class="token boolean">False</span>
+    <span class="token keyword keyword-return">return</span> values
+</pre><p>The <code>utils</code> module is as follows:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">rows <span class="token operator">=</span> <span class="token string">&apos;ABCDEFGHI&apos;</span>
+cols <span class="token operator">=</span> <span class="token string">&apos;123456789&apos;</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">cross</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>s<span class="token operator">+</span>t <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> a <span class="token keyword keyword-for">for</span> t <span class="token keyword keyword-in">in</span> b<span class="token punctuation">]</span>
+
+boxes <span class="token operator">=</span> cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> cols<span class="token punctuation">)</span>
+
+row_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>r<span class="token punctuation">,</span> cols<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> r <span class="token keyword keyword-in">in</span> rows<span class="token punctuation">]</span>
+column_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rows<span class="token punctuation">,</span> c<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> c <span class="token keyword keyword-in">in</span> cols<span class="token punctuation">]</span>
+square_units <span class="token operator">=</span> <span class="token punctuation">[</span>cross<span class="token punctuation">(</span>rs<span class="token punctuation">,</span> cs<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> rs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;ABC&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;DEF&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;GHI&apos;</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> cs <span class="token keyword keyword-in">in</span> <span class="token punctuation">(</span><span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;456&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;789&apos;</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+unitlist <span class="token operator">=</span> row_units <span class="token operator">+</span> column_units <span class="token operator">+</span> square_units
+units <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token punctuation">[</span>u <span class="token keyword keyword-for">for</span> u <span class="token keyword keyword-in">in</span> unitlist <span class="token keyword keyword-if">if</span> s <span class="token keyword keyword-in">in</span> u<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> boxes<span class="token punctuation">)</span>
+peers <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">(</span>units<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> boxes<span class="token punctuation">)</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">display</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Display the values as a 2-D grid.
+    Input: The sudoku in dictionary form
+    Output: None
+    &quot;&quot;&quot;</span>
+    width <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">+</span><span class="token builtin">max</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> boxes<span class="token punctuation">)</span>
+    line <span class="token operator">=</span> <span class="token string">&apos;+&apos;</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;-&apos;</span><span class="token operator">*</span><span class="token punctuation">(</span>width<span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> r <span class="token keyword keyword-in">in</span> rows<span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">&apos;&apos;</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>values<span class="token punctuation">[</span>r<span class="token operator">+</span>c<span class="token punctuation">]</span><span class="token punctuation">.</span>center<span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token string">&apos;|&apos;</span> <span class="token keyword keyword-if">if</span> c <span class="token keyword keyword-in">in</span> <span class="token string">&apos;36&apos;</span> <span class="token keyword keyword-else">else</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+                      <span class="token keyword keyword-for">for</span> c <span class="token keyword keyword-in">in</span> cols<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> r <span class="token keyword keyword-in">in</span> <span class="token string">&apos;CF&apos;</span><span class="token punctuation">:</span> <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span>
+
+<span class="token keyword keyword-def">def</span> <span class="token function">grid_values</span><span class="token punctuation">(</span>grid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Convert grid into a dict of {square: char} with &apos;123456789&apos; for empties.
+    Input: A grid in string form.
+    Output: A grid in dictionary form
+            Keys: The boxes, e.g., &apos;A1&apos;
+            Values: The value in each box, e.g., &apos;8&apos;. If the box has no value, then the value will be &apos;123456789&apos;.
+    &quot;&quot;&quot;</span>
+    chars <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    digits <span class="token operator">=</span> <span class="token string">&apos;123456789&apos;</span>
+    <span class="token keyword keyword-for">for</span> c <span class="token keyword keyword-in">in</span> grid<span class="token punctuation">:</span>
+        <span class="token keyword keyword-if">if</span> c <span class="token keyword keyword-in">in</span> digits<span class="token punctuation">:</span>
+            chars<span class="token punctuation">.</span>append<span class="token punctuation">(</span>c<span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> c <span class="token operator">==</span> <span class="token string">&apos;.&apos;</span><span class="token punctuation">:</span>
+            chars<span class="token punctuation">.</span>append<span class="token punctuation">(</span>digits<span class="token punctuation">)</span>
+    <span class="token keyword keyword-assert">assert</span> <span class="token builtin">len</span><span class="token punctuation">(</span>chars<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">81</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token builtin">zip</span><span class="token punctuation">(</span>boxes<span class="token punctuation">,</span> chars<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+<span class="token keyword keyword-def">def</span> <span class="token function">eliminate</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Go through all the boxes, and whenever there is a box with a value, eliminate this value from the values of all its peers.
+    Input: A sudoku in dictionary form.
+    Output: The resulting sudoku in dictionary form.
+    &quot;&quot;&quot;</span>
+    solved_values <span class="token operator">=</span> <span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> values<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> solved_values<span class="token punctuation">:</span>
+        digit <span class="token operator">=</span> values<span class="token punctuation">[</span>box<span class="token punctuation">]</span>
+        <span class="token keyword keyword-for">for</span> peer <span class="token keyword keyword-in">in</span> peers<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">:</span>
+            values<span class="token punctuation">[</span>peer<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>peer<span class="token punctuation">]</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>digit<span class="token punctuation">,</span><span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> values
+
+<span class="token keyword keyword-def">def</span> <span class="token function">only_choice</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    Go through all the units, and whenever there is a unit with a value that only fits in one box, assign the value to this box.
+    Input: A sudoku in dictionary form.
+    Output: The resulting sudoku in dictionary form.
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-for">for</span> unit <span class="token keyword keyword-in">in</span> unitlist<span class="token punctuation">:</span>
+        <span class="token keyword keyword-for">for</span> digit <span class="token keyword keyword-in">in</span> <span class="token string">&apos;123456789&apos;</span><span class="token punctuation">:</span>
+            dplaces <span class="token operator">=</span> <span class="token punctuation">[</span>box <span class="token keyword keyword-for">for</span> box <span class="token keyword keyword-in">in</span> unit <span class="token keyword keyword-if">if</span> digit <span class="token keyword keyword-in">in</span> values<span class="token punctuation">[</span>box<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>dplaces<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                values<span class="token punctuation">[</span>dplaces<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> digit
+    <span class="token keyword keyword-return">return</span> values
+</pre><h3>Harder Sudoku</h3>
+<p>Let&apos;s say our sudoku puzzle is like this:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">grid2 <span class="token operator">=</span> <span class="token string">&apos;4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......&apos;</span>
+values <span class="token operator">=</span> grid_values<span class="token punctuation">(</span>grid2<span class="token punctuation">)</span>
+</pre><p>We find that our algorithm can&apos;t solve the puzzle.</p>
+<h3>Strategy 3: Search</h3>
+<p>Search is used throughout AI from Game-Playing to Route Planning to efficiently find solutions.</p>
+<p><img src="img/search.png" alt="search"></p>
+<p>Simply speaking, here the search strategy means to pick a box with a minimal number of possible values and try to solve each of the puzzles obtained by choosing each of these values, recursively.</p>
+<h3>Depth-First Search</h3>
+<p>It is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. The output should be the string obtained by the labels in the order you&apos;ve traversed the tree.</p>
+<p>Below is the code snippet for <code>search</code> function,</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-def">def</span> <span class="token function">search</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">&quot;Using depth-first search and propagation, try all possible values.&quot;</span>
+    <span class="token comment"># First, reduce the puzzle using the previous function</span>
+    values <span class="token operator">=</span> reduce_puzzle<span class="token punctuation">(</span>values<span class="token punctuation">)</span>
+    <span class="token keyword keyword-if">if</span> values <span class="token keyword keyword-is">is</span> <span class="token boolean">False</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token boolean">False</span> <span class="token comment">## Failed earlier</span>
+    <span class="token keyword keyword-if">if</span> <span class="token builtin">all</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> boxes<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> values <span class="token comment">## Solved!</span>
+    <span class="token comment"># Choose one of the unfilled squares with the fewest possibilities</span>
+    n<span class="token punctuation">,</span>s <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> s <span class="token keyword keyword-in">in</span> boxes <span class="token keyword keyword-if">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token comment"># Now use recurrence to solve each one of the resulting sudokus, and</span>
+    <span class="token keyword keyword-for">for</span> value <span class="token keyword keyword-in">in</span> values<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        new_sudoku <span class="token operator">=</span> values<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        new_sudoku<span class="token punctuation">[</span>s<span class="token punctuation">]</span> <span class="token operator">=</span> value
+        attempt <span class="token operator">=</span> search<span class="token punctuation">(</span>new_sudoku<span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> attempt<span class="token punctuation">:</span>
+            <span class="token keyword keyword-return">return</span> attempt
+</pre>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
