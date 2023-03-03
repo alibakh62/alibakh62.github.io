@@ -1,0 +1,581 @@
+<!DOCTYPE html><html><head>
+      <title>1_intro</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-preface">Preface</h1>
+
+<h4 class="mume-header" id="-lesson-introduction-to-policy-based-methods">Lesson: Introduction to Policy-Based Methods</h4>
+
+<p>In this lesson, you will learn about methods such as hill climbing, simulated annealing, and adaptive noise scaling. You&apos;ll also learn about cross-entropy methods and evolution strategies.</p>
+<h4 class="mume-header" id="-lesson-policy-gradient-methods">Lesson: Policy Gradient Methods</h4>
+
+<p>In this lesson, you&apos;ll study REINFORCE, along with improvements we can make to lower the variance of policy gradient algorithms.</p>
+<h4 class="mume-header" id="-lesson-proximal-policy-optimization">Lesson: Proximal Policy Optimization</h4>
+
+<p>In this lesson, you&apos;ll learn about Proximal Policy Optimization (PPO), a cutting-edge policy gradient method.</p>
+<h4 class="mume-header" id="-lesson-actor-critic-methods">Lesson: Actor-Critic Methods</h4>
+
+<p>In this lesson, you&apos;ll learn how to combine value-based and policy-based methods, bringing together the best of both worlds, to solve challenging reinforcement learning problems.</p>
+<h4 class="mume-header" id="-lesson-deep-rl-for-finance-_optional_">Lesson: Deep RL for Finance (<em>Optional</em>)</h4>
+
+<p>In this  <strong><em>optional</em></strong>  lesson, you&apos;ll learn how to apply deep reinforcement learning techniques for optimal execution of portfolio transactions.</p>
+<h4 class="mume-header" id="-resources-_optional_">Resources (<em>Optional</em>)</h4>
+
+<ul>
+<li>Read the most famous  <a href="http://karpathy.github.io/2016/05/31/rl/">blog post</a>  on policy gradient methods.</li>
+<li>Implement a policy gradient method to win at Pong in this  <a href="https://medium.com/@dhruvp/how-to-write-a-neural-network-to-play-pong-from-scratch-956b57d4f6e0">Medium post</a>.</li>
+<li>Learn more about  <a href="https://blog.openai.com/evolution-strategies/">evolution strategies</a>  from OpenAI.</li>
+</ul>
+<h1 class="mume-header" id="-introduction">Introduction</h1>
+
+<p>In this lesson, you&apos;ll learn all about <strong>policy-based methods</strong>. Watch the video below to learn what policy-based methods are, and how they differ from value-based methods!</p>
+<p>RL is uttimately about learning an optimal policy from interaction with the environment. So far, we&apos;ve been looking at <strong>value-based methods</strong>, where we first tried to find an estimate of the optimal action value function.</p>
+<p>For small state spaces, this optimal value function was represented in a table with one row for each state and one column for each action. Then, we use the table to build the optimal policy one state at a time. For each state, we just pull its corresponding row from the table and the optimal action is just the action with the largest entry.</p>
+<p>But, <strong>what about environments with much larger state spaces?</strong> For instance, consider the cartpole environment, where the goal is to teach an agent to balance a pole that&apos;s attached to a moving cart.</p>
+<p>At each time step, the agent pushes the cart either to the left or to the right to try to keep the pole from failing down. The stated ending timestamp is a vector with four numbers containing the cart&apos;s position and velocity, along with the pole&apos;s angle and velocity.</p>
+<p align="center">
+<img src="img/cartpole1.png" alt="drawing" width="600">
+</p>
+<p>There&apos;s a huge number of possible states corresponding to every possible value that these board numbers (picture above) can have. So, without some sort of discretization technique, <strong>it&apos;s impossible to represent the optimal action value function in a table</strong>. This is <strong>because</strong> we would need a row for each possible state, and that would make the table way too big to be useful in practice.</p>
+<p>So, we investigated how to represent the optimal action value function with a nerual network which formed the basis for the <strong>deep Q learning</strong> algorithm. In this case, neural network took the <em><strong>environment state as input</strong></em>. As <em><strong>output</strong></em>, it returned the value of each possible action.</p>
+<p>In the case of cartpole, for instance, the possible actions are to move the cart left or right. Then, identical to the previous setting where we used the table, we can easily obtain the best action for any state by just looking at the values of the input state produces in the network. It&apos;s just the action that maximizes these values.</p>
+<p>But the <strong>important message</strong> here is that in both cases, whether we used a table for small state spaces or a neural network for much larger state spaces, we had to first estimate the optimal action value function before we could tackle the optimal policy.</p>
+<p>But now the question is: <strong>can we directly find the optimal policy without worrying about a value function at all?</strong> The answer is yes, and we accomplish this through a class of algorithms known as <strong>policy-based methods</strong>.</p>
+<p>See the video <a href="https://youtu.be/mMnhi8yzwKk">here</a>.</p>
+<h1 class="mume-header" id="-policy-function-approximation">Policy Function Approximation</h1>
+
+<p><strong>How might we approach this idea of estimating an optimal policy?</strong></p>
+<p>Let&apos;s consider the cartpole example. In this case, the agent has two possible actions, he can push the cart either left or right. So, at each time step, the agent picks one of these two options. We can construct a neural network that approximates the policy, that accepts the state as input. As output, it can return the probability that the agent selects each possible action. So, if there are two possible actions, the output layer will have two nodes.</p>
+<p>The agent uses the policy to interact with the environment by just passing the most recent state to the network. It outputs action probabilities and then the agent samples from those probabilities to select an action in response.</p>
+<p>Our objective then is to determine appropriate values for the network weights so that for each state that we pass into the network it returns action probabilities where the optimal action is most likely to be selected.</p>
+<p>This will help the agent with its goal to maximize expected return. This is an iterative process where the weights are initially set to random values. Then, as the agent interacts with the environment and learns more about what strategies are best for maximizing reward, it amends those weights. As a direct result, the agent starts to choose the appropriate action for each date and it gradually masters the task.</p>
+<p>See the video <a href="https://youtu.be/v8tGjlc2aG4">here</a>.</p>
+<h1 class="mume-header" id="-more-on-the-policy">More on the Policy</h1>
+
+<p>In the previous video, you learned how the agent could use a simple neural network architecture to approximate a  <strong>stochastic policy</strong>. The agent passes the current environment state as input to the network, which returns action probabilities. Then, the agent samples from those probabilities to select an action.</p>
+<p align="center">
+<img src="img/nn_encode_action_prob.png" alt="drawing" width="600">
+</p>
+<p>The same neural network architecture can be used to approximate a <strong>deterministic policy</strong>. Instead of sampling from the action probabilities, the agent need only choose the greedy action.</p>
+<h2 class="mume-header" id="-what-about-continuous-action-spaces">What about continuous action spaces?</h2>
+
+<p>The CartPole environment has a discrete action space. So, how do we use a neural network to approximate a policy, if the environment has a continuous action space?</p>
+<p>As you learned above, in the case of  <strong><em>discrete</em></strong>  action spaces, the neural network has one node for each possible action.</p>
+<p>For  <strong><em>continuous</em></strong>  action spaces, the neural network has one node for each action entry (or index). For example, consider the action space of the  <a href="https://github.com/openai/gym/wiki/BipedalWalker-v2">bipedal walker</a>  environment, shown in the figure below.</p>
+<p><a href="https://classroom.udacity.com/nanodegrees/nd893/parts/286e7d2c-e00c-4146-a5f2-a490e0f23eda/modules/089d6d51-cae8-4d4b-84c6-9bbe58b8b869/lessons/81693145-da28-44cb-aba5-c52b42bc209d/concepts/22823289-533f-4313-ac8d-65ce86d9d090#"></a></p>
+<p><img src="https://video.udacity-data.com/topher/2018/July/5b3901fa_screen-shot-2018-07-01-at-11.28.57-am/screen-shot-2018-07-01-at-11.28.57-am.png" alt="Action space of "></p>
+<p>Action space of  <code>BipedalWalker-v2</code>  (<a href="https://github.com/openai/gym/wiki/BipedalWalker-v2">Source</a>)</p>
+<p>In this case, any action is a vector of four numbers, so the output layer of the policy network will have four nodes.</p>
+<p>Since every entry in the action must be a number between -1 and 1, we will add a  <a href="https://pytorch.org/docs/stable/nn.html#torch.nn.Tanh">tanh activation function</a>  to the output layer.</p>
+<p>As another example, consider the  <a href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">continuous mountain car</a>  benchmark. The action space is shown in the figure below. Note that for this environment, the action must be a value between -1 and 1.</p>
+<p><a href="https://classroom.udacity.com/nanodegrees/nd893/parts/286e7d2c-e00c-4146-a5f2-a490e0f23eda/modules/089d6d51-cae8-4d4b-84c6-9bbe58b8b869/lessons/81693145-da28-44cb-aba5-c52b42bc209d/concepts/22823289-533f-4313-ac8d-65ce86d9d090#"></a></p>
+<p><img src="https://video.udacity-data.com/topher/2018/July/5b38ff31_screen-shot-2018-07-01-at-11.19.22-am/screen-shot-2018-07-01-at-11.19.22-am.png" alt="Action space of "></p>
+<p>Action space of  <code>MountainCarContinuous-v0</code>  (<a href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">Source</a>)</p>
+<h1 class="mume-header" id="-hill-climbing">Hill Climbing</h1>
+
+<p>So far, you&apos;ve learned how to represent a policy as neural network. This network takes the current environment state as input, then if the environment has a discrete action space it outputs the action probabilities that the agent uses to select its next action.</p>
+<p>Here, we&apos;ll describe an algorithm that the agent can use to gradually improve the network weights. So, remember that the agent&apos;s goal is always to maximize expected return. Let&apos;s denote the expected return by <img src="https://latex.codecogs.com/png.latex?J" alt>.</p>
+<p>We&apos;ll refer to the set of weights in the neural network as <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>, there is some mathematical relationship between <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> and the expected return <img src="https://latex.codecogs.com/png.latex?J" alt>. This is because <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> encodes the policy which makes some actions more likely than others, and then depending on the action the influences the reward and then we sum up the rewards to get the return.</p>
+<p>Actually, it sounds potentially quite complicated. But <strong>the main idea</strong> is that it&apos;s possible to write the expected return <img src="https://latex.codecogs.com/png.latex?J" alt> as a function of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> and that function looks like this:</p>
+<p align="center">
+<img src="img/hill1.png" alt="drawing" width="600">
+</p>
+<p>Now, this equation shouldn&apos;t make any sense to you yet, but we&apos;ll come back to it later on. For now, just know that it exists, and our goal is to find the values for <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>, or the values for the weights that maximizes <img src="https://latex.codecogs.com/png.latex?J" alt>.</p>
+<p>To understand this better, let&apos;s draw a picture. Consider a case that the neural network has only two weights: <img src="https://latex.codecogs.com/png.latex?%28%5Ctheta_0%2C%20%5Ctheta_1%29" alt>. Then, we can plot the expected return <img src="https://latex.codecogs.com/png.latex?J" alt> as a function of the values of both of the weights, for each weight gets a different axis, and once we have that function we can use it to find the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> or the values of both of the weights that maximizes expected return.</p>
+<p>Maybe, you&apos;re familiar with one algorithm that could be useful for this called <strong>gradient ascent</strong>.</p>
+<p align="center">
+<img src="img/hill2.png" alt="drawing" width="600">
+</p>
+<p><strong>Gradient ascent</strong> begins with an initial guess for the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes the function, then we evaluate the gradient at that point (gredient points to the steepest direction in a function), and so we can make a small step in that direction, in the hope that we end up at a new value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> or the value of the function is a little bit larger. Then, we repeat with evaluating the gradient and taking a step until we eventually reach the maximum of the function.</p>
+<p>Now, in order to do this, we have to take the gradient of the function. We&apos;ll discuss this later. For now, we&apos;ll discuss a different algorithm called <strong>Hill Climbing</strong>, that&apos;s a little bit simpler.</p>
+<p>As with gradient ascent, we begin with an initially random set of weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>. We collect a single episode with the policy that corresponds to those weights and then record the return. This return is an estimation of what the surface looks like at that value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>.</p>
+<p>Now, it&apos;s not going to be perfect estimate because the return we just collected is unlikely to be equal to the expected return, but in practice the estimates often turns out to be good enough. Then, we&apos;ll add a little bit of random noise to those weights to give us another set of candidate weights we can try.</p>
+<p>To see how good those new weights are, we&apos;ll use the policy that they give us to again interact with the environment for an episode and add up the return. If the new weights give us more return than our current best estimate, we focus our attention  on that new value, and then we just repeat by iteratively proposing new policies in the hope that they outperform the existing policy.</p>
+<p>In the event that they don&apos;t, we just go back to our last best guess for the optimal policy and iterate until we end up with the optimal policy.</p>
+<p>See the video <a href="https://youtu.be/5E86a0OyVyI">here</a>.</p>
+<h2 class="mume-header" id="-gradient-ascent">Gradient Ascent</h2>
+
+<p><strong>Gradient ascent</strong>  is similar to gradient descent.</p>
+<ul>
+<li>Gradient descent steps in the  <strong><em>direction opposite the gradient</em></strong>, since it wants to minimize a function.</li>
+<li>Gradient ascent is otherwise identical, except we step in the  <strong><em>direction of the gradient</em></strong>, to reach the maximum.</li>
+</ul>
+<p>While we won&apos;t cover gradient-based methods in this lesson, you&apos;ll explore them later in the course!</p>
+<h2 class="mume-header" id="-local-minima">Local Minima</h2>
+
+<p>In the video above, you learned that  <strong>hill climbing</strong>  is a relatively simple algorithm that the agent can use to gradually improve the weights  \theta&#x3B8;  in its policy network while interacting with the environment.</p>
+<p>Note, however, that it&apos;s  <strong><em>not</em></strong>  guaranteed to always yield the weights of the optimal policy. This is because we can easily get stuck in a local maximum. In this lesson, you&apos;ll learn about some policy-based methods that are less prone to this.</p>
+<h2 class="mume-header" id="-additional-note">Additional Note</h2>
+
+<p>Note that  <a href="https://en.wikipedia.org/wiki/Hill_climbing">hill climbing</a>  is not just for reinforcement learning! It is a general optimization method that is used to find the maximum of a function.</p>
+<h1 class="mume-header" id="-hill-climbing-pseudocode">Hill Climbing Pseudocode</h1>
+
+<p>Now that we have a mental picture of how the hill climbing algorithm should work, we&apos;re ready to dig into the pseudocode.</p>
+<ul>
+<li>We begin with an initially random set of weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>.</li>
+<li>We&apos;ll collect an episode with the policy that correspond to those weights, and then record the return <img src="https://latex.codecogs.com/png.latex?G" alt>.</li>
+<li>At the start, this value <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> is our first best guess for the weights, which we&apos;ll record as <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bbest%7D" alt>. We&apos;ll also record the return as the highest return we&apos;ve gotten so far, <img src="https://latex.codecogs.com/png.latex?G_%7Bbest%7D" alt>.</li>
+<li>Then, we add a little bit of random noise to these weights to give us another set of candidate weights we can try out. Let&apos;s call them <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bnew%7D" alt>.</li>
+<li>To see how good those new weights are, we&apos;ll use the policy that they give us to interact with the environment, then we calculate the return we got which we refer to as<img src="https://latex.codecogs.com/png.latex?G_%7Bnew%7D" alt>.</li>
+<li>If the new weights give us more return than our current best estimate ,<img src="https://latex.codecogs.com/png.latex?G_%7Bnew%7D%20%3E%20G_%7Bbest%7D" alt>, we update the best weights to that new value, <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bbest%7D%20%5Cleftarrow%20%5Ctheta_%7Bnew%7D" alt>.</li>
+<li>Then, we just repeat these steps until we solve the environment. That&apos;s it!</li>
+</ul>
+<p>See the video <a href="https://youtu.be/0XzzqIXyax0">here</a>.</p>
+<p align="center">
+<img src="img/hill3.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="-whats-the-difference-between-_g_-and-_j_">What&apos;s the difference between <em>G</em> and <em>J</em>?</h2>
+
+<p>You might be wondering: what&apos;s the difference between the return that the agent collects in a single episode (<img src="https://latex.codecogs.com/png.latex?G" alt>,  <em>from the pseudocode above</em>) and the expected return <img src="https://latex.codecogs.com/png.latex?J" alt>?</p>
+<p>Well ... in reinforcement learning, the goal of the agent is to find the value of the policy network weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes <strong><em>expected</em></strong> return, which we have denoted by <img src="https://latex.codecogs.com/png.latex?J" alt>.</p>
+<p>In the hill climbing algorithm, the values of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> are evaluated according to how much return <img src="https://latex.codecogs.com/png.latex?G" alt> they collected in a <strong><em>single episode</em></strong>. To see that this might be a little bit strange, note that due to randomness in the environment (and the policy, if it is stochastic), it is highly likely that if we collect a second episode with the same values for <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>, we&apos;ll likely get a different value for the return <img src="https://latex.codecogs.com/png.latex?G" alt>. Because of this, the (sampled) return <img src="https://latex.codecogs.com/png.latex?G" alt> is not a perfect estimate for the expected return <img src="https://latex.codecogs.com/png.latex?J" alt>, but it often turns out to be <strong><em>good enough</em></strong> in practice.</p>
+<h1 class="mume-header" id="-beyond-hill-climbing">Beyond Hill Climbing</h1>
+
+<p>In the previous section, you learned about the hill climbing algorithm.</p>
+<p>We denoted the expected return by <img src="https://latex.codecogs.com/png.latex?J" alt>. Likewise, we used <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> to refer to the weights in the policy network. Then, since <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> encodes the policy, which influences how much reward the agent will likely receive, we know that <img src="https://latex.codecogs.com/png.latex?J" alt> is a function of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>.</p>
+<p>Despite the fact that we have no idea what that function <img src="https://latex.codecogs.com/png.latex?J%20%3D%20J%28%5Ctheta%29" alt> looks like, the <em>hill climbing</em> algorithm helps us determine the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes it. Watch the video below to learn about some improvements you can make to the hill climbing algorithm!</p>
+<p><strong>Note:</strong> We refer to the general class of approaches that find <img src="https://latex.codecogs.com/png.latex?%5Ctextup%7Bargmax%7D_%7B%5Ctheta%7D%20J%28%5Ctheta%29" alt> through randomly perturbing the most recent best estimate as <strong>stochastic policy search</strong>. Likewise, we can refer to <img src="https://latex.codecogs.com/png.latex?J" alt> as an  <strong>objective function</strong>, which just refers to the fact that we&apos;d like to <em>maximize</em> it!</p>
+<p>With an objective function in hand, we can now think about finding a policy that maximizes it. An objective function can be quite complex. Think of it as a surface with many peaks and valleys.</p>
+<p>Here, it&apos;s a function of two parameters with the height indicating the policy&apos;s objective value <img src="https://latex.codecogs.com/png.latex?J%28%5Ctheta%29" alt>. But the same idea extends to more than two parameters.</p>
+<p>Now, we don&apos;t know anything about this surface. So, <strong>how do we find the spot where the objective value is at its maximum?</strong></p>
+<p>Our first approach is to search for the best policy by repeatedly nudging it around. Let&apos;s start with some arbitrary policy <img src="https://latex.codecogs.com/png.latex?%5Cpi" alt>, defined by its parameters <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>, and evaluate it by applying that policy in the environment. This gives us an objective value. So you can imagine the policy lying somewhere on the objective function surface.</p>
+<p>Now, we can change the policy parameters slightly so that the objective value also changes. This can be achieved by adding some small <strong>Guassian noise</strong> to the parameters.</p>
+<p>If the new policies value is better than our best value so far, we can set this policy to be our bew best policy and iterate.</p>
+<p>This general approach is known as <strong>hill climbing</strong>. You literally walk the objective function surface till you reach the top of a hill.</p>
+<p><em><strong>The best part is that you can use any policy function. It does not need to be differentiable or even continuous, but because you&apos;re taking random steps, this may not result in the most eficient path up the hill.</strong></em></p>
+<p>One small improvement to this approach is to choose a small number of neighboring policies at each iteration and pick the best among them.</p>
+<p>It&apos;s easier to understand this by looking at a contour plot. Again, starting with an arbitrary policy, evaluate it to find out where it lies. Generate a few candidate policies by perturbing the parameters randomly and evaluate each policy by interacting with the environment. This gives us an idea of the neighborhood of the current policy.</p>
+<p>Now, pick the candidate policy that looks most promising and iterate. This variation is known as <strong>steepest ascent hill climbing</strong> and it helps reduce the risk of selecting a next policy that may lead to a suboptimal solution.</p>
+<p align="center">
+<img src="img/hill4.png" alt="drawing" width="600">
+</p>
+<p>You could still get stuck in local optima. But there are some modifications that can help mitigate that, for example, by using random restarts or <strong>simulated annealing</strong>.</p>
+<p><strong>Simulated annealing</strong> uses a predefined schedule to control how the policy space is explored. Starting with a large noise parameter, that is a broad neighborhood to explore, we gradually reduce the noise or radius as we get closer to the optimal solution. This is somewhat like annealing an iron by heating it up and then letting it cool down gradually. It allows iron molecules to settle into an optimal arrangement resulting in a hardened metal, hence the name.</p>
+<p>We can also make our approach more adaptive to the changes in policy values being observed. Here&apos;s the intuition.</p>
+<p><strong>Adaptive Noise Scaling:</strong></p>
+<p>Whenever we find a better policy than before, we&apos;re likely getting closer to the optimal policy. So, it makes sense to reduce our search radius for generating the next policy. This translates to reducing or decaying the variance of the Gaussian noise we add. So far, it&apos;s just like simulated annealing. But, if we don&apos;t find a better policy it&apos;s probably a good idea to increase our search radius and continue exploring from the current best policy. This small tweak to stochastic policy search makes it much less likely to get stuck, especially in domains with a complicated objective function.</p>
+<p>See the video <a href="https://youtu.be/QicxmyE5vTo">here</a>.</p>
+<h1 class="mume-header" id="-more-black-box-optimization">More Black-Box Optimization</h1>
+
+<p>All of the algorithms that you&#x2019;ve learned about in this lesson can be classified as  <strong>black-box optimization</strong>  techniques.</p>
+<p><strong>Black-box</strong>  refers to the fact that in order to find the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes the function <img src="https://latex.codecogs.com/png.latex?J%20%3D%20J%28%5Ctheta%29" alt>, we need only be able to estimate the value of <img src="https://latex.codecogs.com/png.latex?J" alt> at any potential value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>.</p>
+<p>That is, both hill climbing and steepest ascent hill climbing don&apos;t know that we&apos;re solving a reinforcement learning problem, and they do not care that the function we&apos;re trying to maximize corresponds to the expected return.</p>
+<p>These algorithms only know that for each value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>, there&apos;s a corresponding <strong><em>number</em></strong>. We know that this <strong><em>number</em></strong> corresponds to the return obtained by using the policy corresponding to <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> to collect an episode, but the algorithms are not aware of this. To the algorithms, the way we evaluate <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> is considered a black box, and they don&apos;t worry about the details. The algorithms only care about finding the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that will maximize the number that comes out of the black box.</p>
+<p>In the video below, you&apos;ll learn about a couple more black-box optimization techniques, to include the  <strong>cross-entropy method</strong>  and  <strong><a href="https://blog.openai.com/evolution-strategies/">evolution strategies</a></strong>.</p>
+<p>So far, you&apos;ve learned about a couple of different algorithms that we can use to optimize the weights of the policy networks.</p>
+<p>Hill climbing begins with a best guess for the weights, then it adds a little bit of noise to propose one new policy that might perform better. Steepst ascent hill climbing does a little bit more work by generating several neighboring policies at eac iteration. But, in both cases, only the best policy prevails. For steepest ascent hill climbing there&apos;s a lot of useful information that we&apos;re throwing out.</p>
+<p>Here, we&apos;re going to learn about some methods that leverage useful information from the weights that aren&apos;t selected as best. So what if instead of selecting only the best policy, we select the top 10 or 20 percent of them, and took the average? This is what the <strong>Cross Entropy Method</strong> does.</p>
+<p>Another approach is to look at the return that was collected by each candidate policy. The best policy will be a weighted sum of all of these, where policies that got higher return are given more say or get a higher weight. This technique is called <strong>Evolution Strategies</strong>. The name originally comes from the idea of biological evolution, where the idea is that the most successful individuals in the policy population, who have the most influence on the next generation or iteration.</p>
+<p>That said, it&apos;s best to think of evolution strategies as just another black-box optimization technique.</p>
+<p>See the video <a href="https://youtu.be/2poDljPvY58">here</a>.</p>
+<h1 class="mume-header" id="-coding-exercise">Coding Exercise</h1>
+
+<p>In the following, you will explore implementations of two different policy-based methods.</p>
+<ul>
+<li><a href="codes/hill-climbing/Hill_Climbing.ipynb">Hill Climbing</a></li>
+<li><a href="codes/cross-entropy/CEM.ipynb">Cross Entropy</a></li>
+</ul>
+<h1 class="mume-header" id="-openai-request-for-research">OpenAI Request for Research</h1>
+
+<p>So far in this lesson, you have learned about many black-box optimization techniques for finding the optimal policy. Run each algorithm for many random seeds, to test stability.</p>
+<p>Take the time now to implement some of them, and compare performance on OpenAI Gym&apos;s  <code>CartPole-v0</code>  environment.</p>
+<blockquote>
+<p><strong>Note</strong>: This suggested exercise is completely optional.</p>
+</blockquote>
+<p>Once you have completed your analysis, you&apos;re encouraged to write up your own blog post that responds to  <a href="https://openai.com/requests-for-research/#cartpole">OpenAI&apos;s Request for Research</a>! (<em>This request references policy gradient methods. You&apos;ll learn about policy gradient methods in the next lesson.</em>)</p>
+<p align="center">
+<img src="img/cartpole.gif" alt="drawing" width="400">
+</p>
+<p>Implement (vanilla) hill climbing and steepest ascent hill climbing, both with simulated annealing and adaptive noise scaling.</p>
+<p>If you also want to compare the performance to evolution strategies, you can find a well-written implementation  <a href="https://github.com/alirezamika/evostra">here</a>. To see how to apply it to an OpenAI Gym task, check out  <a href="https://github.com/alirezamika/bipedal-es">this repository</a>.</p>
+<p>To see one way to structure your analysis, check out  <a href="http://kvfrans.com/simple-algoritms-for-solving-cartpole/">this blog post</a>, along with the  <a href="https://github.com/kvfrans/openai-cartpole">accompanying code</a>.</p>
+<p>For instance, you will likely find that hill climbing is very unstable, where the number of episodes that it takes to solve  <code>CartPole-v0</code>  varies greatly with the random seed. (<em>Check out the figure below!</em>)</p>
+<p align="center">
+<img src="img/cartpole2.png" alt="drawing" width="500">
+</p>
+<h1 class="mume-header" id="-why-policy-based-methods">Why Policy-Based Methods?</h1>
+
+<p>In this lesson, you&apos;ve learned about several policy-based methods. But why do we need policy-based methods at all, when value-based methods work so well?</p>
+<p>You may be wondering why do we need to find optimal policies directly when value-based methods seem to work so well.</p>
+<p>There are three arguments we&apos;ll consider:</p>
+<ul>
+<li>Simplicity</li>
+<li>Stochastic Policies</li>
+<li>Continuous Action Spaces</li>
+</ul>
+<h3 class="mume-header" id="-simplicity">Simplicity</h3>
+
+<p>Remember that in value-based methods like Q-learning, we invented this idea of a value function as an intermediate step towards finding the optimal policy. It helps us rephrase the problem in terms of something that is easier to understand and learn.</p>
+<p align="center">
+<img src="img/why1.png" alt="drawing" width="500">
+</p>
+<h3 class="mume-header" id="-stochastic-policies">Stochastic Policies</h3>
+
+<p><strong>But if our ultimate goal is to find that optimal policy, do we really need this value function? Can we directly estimate the optimal policy? What would such a policy look like?</strong></p>
+<p>If we go with a deterministic approach, then the policy simply needs to be a mapping or function from states to actions. And in the stochastic case, this would be the conditional probability of each action given a certain state.</p>
+<p align="center">
+<img src="img/why2.png" alt="drawing" width="300">
+</p>
+<p>We would then choose an action based on this probability distribution. This is simpler in the sense that we are directly getting to the problem at hand, but it also avoids having to store a bunch of additional data that may or may not always be useful.</p>
+<p>For example, large portions of the state space may have the same value. Formulating the policy in this manner allows us to make such generalizations where possible and focus more the complicated regions of the state space.</p>
+<p><strong>One of the main advantages of policy-based methods over value-based methods is</strong> that they can learn true stochastic policies. This is like picking a random number from a special kind of machine. One where the chances of each number being selected depends on some state variables that can be changed.</p>
+<p>In contrast, when we apply <em><strong>epsilon-greedy action selection</strong></em> to a value function, that does add some randomness, but it&apos;s a hack. Flip a coin, if it&apos;s heads follow a deterministic policy, hence pick an action at random. The underlying value function can still drive us towards certain actions more than others. Let&apos;s see how this can be problematic.</p>
+<p>Say you&apos;re learning to play rock paper scissors. Your opponent reveals their move at the same time as you. So you can&apos;t really use that to decide what to pick. In fact, it turns out that the optimal policy here is to choose an action uniformly at random. Anything else, like a deterministic policy or even a stochastic policy with some non-uniformity can be exploited by the opponent.</p>
+<p><strong>Aliased States:</strong></p>
+<p>Another situation where the stochastic policy helps is when we have <strong>aliased states</strong>, that is, two or more states that we perceive to be identical but are actually different. In this sense, their environment is partially observable, but such situations can arise more often than you think. Consider this grid world for instance, which consists of smooth white and rough gray cells, and there is banana in the bottom middle cell and a chili each in the bottom left and right corners. Obviously, agent George needs to find a reliable policy to get to the banana and avoid landing on the chilies no matter what cell he starts in.</p>
+<p align="center">
+<img src="img/why3.png" alt="drawing" width="400">
+</p>
+<p>But here&apos;s is the catch, all he can sense is whether the current cell is smooth or rough and whether it has a wall on each side. Think of these as the only observations or features that are available from the environment. He can&apos;t sense anything about neighboring cells either.</p>
+<p>When George is in the top middle cell, he can sense it&apos;s smooth and only has a single wall to the north. So, he can relialbly take a step downwards and reach the banana. When he is in either of the top left or right cells, he can sense the side walls, so, he can recognize which of the two extreme cells he is in and can learn to reliably step away from the chilies and toward the center.</p>
+<p>The trouble is, when he&apos;s in one the rough gray cells, he can&apos;t tell which one he&apos;s in. All the features are identical. If he&apos;s using a <em>value function representation</em>, then the value of these cells is equal, since they both map to the same state and the corresponding best action must also be identical. So, depending on his experiences, George might learn to either go right or left from both these cells, resulting in an overall policy like the picture below, whic is fine, expect for that orange region. George will keep oscillating between these two cells and never get out.</p>
+<p align="center">
+<img src="img/why4.png" alt="drawing" width="400">
+</p>
+<p>With a small epsilon-greedy policy, George might be able to come out by chance, but that&apos;s very inefficient and could take indefinitely long. And if he kept a high epsilon, that might result in bad actions in other states.</p>
+<p>We can clearly see that the other value-based policy would not be ideal either.</p>
+<p>The best he can do is to assign equal probability to moving left or right from these aliased states. He&apos;s much more likely to get out of the traps soon.</p>
+<p><strong>A value-based approach tends to learn a deterministic or near deterministic policy, whereas a policy-based approach in this situation can learn the desired stochastic policy.</strong></p>
+<h3 class="mume-header" id="-continuous-action-spaces">Continuous Action Spaces</h3>
+
+<p>Our final reason for exploring policy-based methods, is that <strong>they are well-suited for continuous action spaces</strong>.</p>
+<p>When we use a value-based method even with a function approximator, our output consists of a value for each action. Now, if the action space is discrete, and there are a finite number of actions, we can easily pick the action with the maximum value.</p>
+<p>But, if the action space is continuous, then this max operation turns into an optimization problem itself.</p>
+<p>It&apos;s like trying to find a global maximum of a continuous function which is non-trivial, especially if the function is not convex.</p>
+<p><strong>A similar issue exists in higher dimensional action spaces, lots of possible actions to evaluate. It would be nice if we could map a given state to an action directly. Even if the resulting policy is a bit more complex, it would significantly reduce the computation time needed to act, and that&apos;s something a policy-based method can enable</strong>.</p>
+<p>See the video <a href="https://youtu.be/ToS8vXGdODE">here</a>.</p>
+<h1 class="mume-header" id="-summary">Summary</h1>
+
+<p align="center">
+<img src="img/why5.png" alt="drawing" width="400">
+</p>
+<h3 class="mume-header" id="-policy-based-methods">Policy-Based Methods</h3>
+
+<ul>
+<li>With  <strong>value-based methods</strong>, the agent uses its experience with the environment to maintain an estimate of the optimal action-value function. The optimal policy is then obtained from the optimal action-value function estimate.</li>
+<li><strong>Policy-based methods</strong>  directly learn the optimal policy, without having to maintain a separate value function estimate.</li>
+</ul>
+<h3 class="mume-header" id="-policy-function-approximation-1">Policy Function Approximation</h3>
+
+<ul>
+<li>In deep reinforcement learning, it is common to represent the policy with a neural network.
+<ul>
+<li>This network takes the environment state as  <strong><em>input</em></strong>.</li>
+<li>If the environment has discrete actions, the  <strong><em>output</em></strong>  layer has a node for each possible action and contains the probability that the agent should select each possible action.</li>
+</ul>
+</li>
+<li>The weights in this neural network are initially set to random values. Then, the agent updates the weights as it interacts with (<em>and learns more about</em>) the environment.</li>
+</ul>
+<h3 class="mume-header" id="-more-on-the-policy-1">More on the Policy</h3>
+
+<ul>
+<li>Policy-based methods can learn either stochastic or deterministic policies, and they can be used to solve environments with either finite or continuous action spaces.</li>
+</ul>
+<h3 class="mume-header" id="-hill-climbing-1">Hill Climbing</h3>
+
+<ul>
+<li><strong>Hill climbing</strong>  is an iterative algorithm that can be used to find the weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> -   for an optimal policy.</li>
+<li>At each iteration,
+<ul>
+<li>We slightly perturb the values of the current best estimate for the weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bbest%7D" alt>, -   to yield a new set of weights.</li>
+</ul>
+</li>
+<li>These new weights are then used to collect an episode. If the new weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bnew%7D" alt> resulted in higher return than the old weights, then we set <img src="https://latex.codecogs.com/png.latex?%5Ctheta_%7Bbest%7D%20%5Cleftarrow%20%5Ctheta_%7Bnew%7D" alt>.</li>
+</ul>
+<h3 class="mume-header" id="-beyond-hill-climbing-1">Beyond Hill Climbing</h3>
+
+<ul>
+<li><strong>Steepest ascent hill climbing</strong>  is a variation of hill climbing that chooses a small number of neighboring policies at each iteration and chooses the best among them.</li>
+<li><strong>Simulated annealing</strong>  uses a pre-defined schedule to control how the policy space is explored, and gradually reduces the search radius as we get closer to the optimal solution.</li>
+<li><strong>Adaptive noise scaling</strong>  decreases the search radius with each iteration when a new best policy is found, and otherwise increases the search radius.</li>
+</ul>
+<h3 class="mume-header" id="-more-black-box-optimization-1">More Black-Box Optimization</h3>
+
+<ul>
+<li>The  <strong>cross-entropy method</strong>  iteratively suggests a small number of neighboring policies, and uses a small percentage of the best performing policies to calculate a new estimate.</li>
+<li>The  <strong>evolution strategies</strong>  technique considers the return corresponding to each candidate policy. The policy estimate at the next iteration is a weighted sum of all of the candidate policies, where policies that got higher return are given higher weight.</li>
+</ul>
+<h3 class="mume-header" id="-why-policy-based-methods-1">Why Policy-Based Methods?</h3>
+
+<ul>
+<li>There are three reasons why we consider policy-based methods:
+<ol>
+<li><strong>Simplicity</strong>: Policy-based methods directly get to the problem at hand (estimating the optimal policy), without having to store a bunch of additional data (i.e., the action values) that may not be useful.</li>
+<li><strong>Stochastic policies</strong>: Unlike value-based methods, policy-based methods can learn true stochastic policies.</li>
+<li><strong>Continuous action spaces</strong>: Policy-based methods are well-suited for continuous action spaces.</li>
+</ol>
+</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

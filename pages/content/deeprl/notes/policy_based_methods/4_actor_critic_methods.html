@@ -1,0 +1,491 @@
+<!DOCTYPE html><html><head>
+      <title>4_actor_critic_methods</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-motivation">Motivation</h1>
+
+<p><strong>Actor-Critic methods</strong> are at the intersection of value-based methods such as DQN and policy-based methods such as REINFORCE.</p>
+<p>If a deep RL agent uses a deep neural network to approximate a value function, the agent is said to be <strong>value-based</strong>. If an agent uses a deep neural network to approximate a policy, the agent is said to be <strong>policy-based</strong>.</p>
+<p>The DQN agent you learned about, is a value-based agent because it learns about the optimal action value function. This is just one of the many functions you can approximate. You can learn about the state value function <code>V_{\pi}</code>, the action value function <code>Q_{\pi}</code>, the advantage function <code>A_{\pi}</code>, and the optimal versions of these. If your agent learns a value function well, deriving a good policy from it is straight forward.</p>
+<p>The REINFORCE agent previously learned about is a policy-based agent. These agents parametrizes the policy and learns to optimize it directly. The policy is usually stoachastic in this setting. But you can also learn about deterministic policies.</p>
+<p>Remember that stochastic policies, taking a state and returned a probability distribution over the actions. Though what you often see is slightly different notation, in which you taking a state and an action and return the probability of taking that action in that state. But, they&apos;re pretty much the same though. Given the same state, the policy could prescribe a different action. This policy is stochastic.</p>
+<p>Deterministic policies on the other hand, prescribe a single action for any given state. So, they take in a state and return an action. There&apos;s no stochasticity. The policy is deterministic.</p>
+<p>Finally, you also learned about using baselines to reduce the variance of policy-based agents. <strong>Did you notice that you can use a value function as a baseline?</strong></p>
+<p>So, think about it. If we train a neural network to approximate a value function and then use it as a baseline, would this make for a better baseline? And if so, would a better baseline further reduce the variance of policy-based methods?</p>
+<p>Indeed. **In fact, that&apos;s basically all actor-critic methods are trying to do, to use value-based techniques to further reduce the variance of policy-based methods.</p>
+<p>See the video <a href="https://youtu.be/dpFPlDtdxyQ">here</a>.</p>
+<h1 class="mume-header" id="-bias-vs-variance">Bias vs. Variance</h1>
+
+<p>In machine learning, we&apos;re often presented there with a tradeoof between bias and variance. Let&apos;s talk about some intuition first.</p>
+<p>Let&apos;s say you&apos;re practicing your soccer shooting skills. The thing you want to do is to put the ball in the top right corner of the goal. You want to be able to repeatedly kicked the ball there. If after a day of training, you place the ball most of the time in the middle right, this means that you have a bias to shoot the ball lower. If also means that you have low variance because the shots where clumped together. Now, say the average of your shots were center on the top right corner, but most of your shots were spread around that spot. Then, you have low bias because you were mostly center where you were aiming in high variance because of the spread.</p>
+<p>Obviously, you want to avoid both high bias and high variance, and you want to have both low bias and low variance. The thing is, this is very hard to achieve, but we&apos;ll look at several techniques that are designed to accomplish this.</p>
+<p>We have to consider the bias-variance tradeoff in RL, when an agent tries to estimate value functions or policies from returns.</p>
+<p>A return is calculated using a single trajectory. However, value functions which is what we&apos;re trying to estimate are calculated using the expectation of returns.</p>
+<p>A big part of the effort in RL and research is an attempt to reduce the variance of algorithms while keeping bias to a minimum.</p>
+<p>You know by now that a RL agent tries to find policies to maximize the total expected reward. But since we&apos;re limited to sampling the environment, we can only estimate these expectation. <strong>The question is, what&apos;s the best way to estimate value functions for our actor-critic methods.</strong></p>
+<p>See the video <a href="https://youtu.be/_vnkkwm46uU">here</a>.</p>
+<h1 class="mume-header" id="-two-ways-for-estimating-expected-returns">Two Ways For Estimating Expected Returns</h1>
+
+<p>Let&apos;s explore two very distinct and complimentary ways for estimating expected returns. On the one hand, you&apos;d have the <strong>Monte-Carlo estimate.</strong></p>
+<p>The <strong>Monte-Carlo estimate</strong> consists of rolling out an episode in calculating the discounted total reward from the rewards sequence. For example, in an episode A, you state in state <code>S_t</code>, take action <code>A_t</code>. The environment then transitions and gives you a reward <code>R_{t+1}</code> and sends you to a new state <code>S_{t+1}</code>. Then, you continue with a new action <code>A_{t+1}</code> and so on until you reach the end of the episode.</p>
+<p>The <strong>Monte-Carlo estimate</strong> just adds all the rewards up, whether discounted or not. When you then have a collection of episodes A, B, C, and D, some of those episodes will have trajectories that go through the same states. Each of these states episodes can give you a different Monte-Carlo estimate for the same value function.</p>
+<p>To calculate the value function, all you need to do is average the estimates.</p>
+<p align="center">
+<img src="img/actor-critic0.png" alt="drawing" width="750">
+</p>
+<p>Obviously, the more estimates you have when taking the average, the better your value function will be.</p>
+<p>On the other hand, you have the <strong>temporal difference</strong> or <strong>TD estimate</strong>. Say, we&apos;re estimating a state value function <code>V</code>. For estimating the value of the current state, it uses a single reward sample. In an estimate of the discounted total return, the agent will obtain from the next state onwards. So, you&apos;re estimating with an estimate.</p>
+<p align="center">
+<img src="img/actor-critic1.png" alt="drawing" width="750">
+</p>
+<p>For example, in episode A, you start in state <code>S_t</code>, take action <code>A_t</code>, the environment then transitions and gives you a reward <code>R_{t+1}</code>, and sends you to a new state <code>S_{t+1}</code>. But, then you can actually stop there. By the magic of <strong>dynamic programming</strong>, you&apos;re allowed to do what is called <strong>bootstrapping</strong>, which basically means that you can leverage the esimtate you&apos;re currently have for for the next state in order to calculate a new estimate for the value function of the current state.</p>
+<p>Now, the estimates of the next state will probably be off, particularly early on, but that value will become better and better as your agenct sees more data, making it turn other values better, clever right?</p>
+<p>After doing this many many times, you will have estimated desired value function well. As you can imagine, Monte-Carlo estimates will have high variance because estimates for a state can vary greatly across episodes. <code>G_{t,A}</code> here could be -100, while <code>G_{t,B}</code> could be +100, and <code>G_{t,C}</code> could be +1000.</p>
+<p>The <strong>reason</strong> these high variance is likely, is because you are compounding lots of random events that happened during the course of a single episode. But Monte-Carlo methods are unbiased. You are not estimating using estimates. You&apos;re only using the true rewards you obtained. So, given lots and lots of data, your estimates will be accurate.</p>
+<p align="center">
+<img src="img/actor-critic2.png" alt="drawing" width="750">
+</p>
+<p><strong>TD estimates</strong> are low variance because you&apos;re only compounding a single time step of randomness instead of a full rollout. Though because you&apos;re bootstrapping on the next state estimates and those are not true values, you&apos;re adding bias into your calculations. Your agent will learn faster, but we&apos;ll have more problem converging.</p>
+<p>See the video <a href="https://youtu.be/2W6yIBDvfsQ">here</a>.</p>
+<h1 class="mume-header" id="-baselines-and-critics">Baselines and Critics</h1>
+
+<p><strong>You now know that the Monte-Carlo estimate is unbiased but has high variance, and that the TD estimate has low variance but it is biased.</strong></p>
+<p>What are these facts good for?</p>
+<p>We you studies REINFORCE, you learned that the return <code>G</code> was calculated as the total discounted return. This way of calculating <code>G</code>, which is simply a Monte-Carlo estimate, has high variance. You then use a baseline to reduce the variance of the REINFORCE algorithm. However, this baseline was also calculated using a Monte-Carlo approach.</p>
+<p>Let&apos;s now assume you use deep learning to learn this baseline. Even if you still use the Monte-Carlo approach which has high variance, using function approximation still gives you an advantage. Namely, you now gain the power of generalization. That means when you encounter a new state <code>S&apos;</code>, whether you had visitor or not, your deep neural network will potentially come up with better estimates, since it&apos;s been trained to generalize from similar data.</p>
+<p>Note that at this point, we&apos;re still not using a critic even though we are using function approximation. This might be confusing as the literature is often not consistent. They recall a Monte-Carlo estimate has high variance and no bias, and that the TD esimtate has low variance but is biased.</p>
+<p>Now, the word <strong>critic</strong> implies that bias has been introduced and the Monte-Carlo estimate is unbiased. If instead of using Monte-Carlo estimates to train baselines, we used TD estimates, then we can say we have a critic.</p>
+<p>Sure, we will be introducing bias but we will be reducing variance thus improving our convergence properties and speeding up learning.</p>
+<p>In <strong>actor-critic methods</strong>, all we are trying to do is to continue to reduce the high-variance commonly associated with policy-based agents. By using a TD critic instead of a Monte-Carlo baseline, we further reduce the variance of policy-based methods. This leads to faster learning than policy-based agents alone and we also see better and more consistent convergence than value-based agents alone.</p>
+<p>See the video <a href="https://youtu.be/wqmqoiUuQHI">here</a>.</p>
+<p>The argument you often hear as to why to call a neural network trained with Monte-Carlo estimates a &quot;Critic&quot; is because function approximators, such as a neural network, are biased as a byproduct that they are not perfect. That&apos;s a fair point, though, I prefer the distinction based on whether we pick a Monte-Carlo or a TD estimate to train our function approximator. Now, definitely we should not be calling Actor-Critic methods every method that uses 2 neural networks. You&apos;ll be surprised!</p>
+<p>The important takeaway for you, though, is that there are inconsistencies out there. You often see methods named &quot;Actor-Critic&quot; when they are not. I just want to bring the issue to your attention.</p>
+<h1 class="mume-header" id="-policy-based-value-based-and-actor-critic">Policy-based, Value-based and Actor-Critic</h1>
+
+<p>Now that you have some foundational concepts down, let&apos;s talk about some intuition.</p>
+<p>Let&apos;s say you want to get better at tennis. The <strong>actor or policy-based</strong> approach you roughly learns this way. You play a bunch of matches. You then go home, lay on the couch, and commit to yourself to do more of what you did in matches you won, and less of what you did in matches you lost. After many many times repeating this process, you will have increased the probability of actions that led to a win, and decreased the probability of actions that led to losses.</p>
+<p>But you can see how these approaches are rather <strong>inefficient</strong> as it needs lots of data to learn a useful policy. Many of the actions that occur within the game that ended up in a loss could have been really good actions. So, decreasing the probability of good actions taking in a match only because you lost is not the best idea.</p>
+<p>Sure, if you repeat this process infinitely, you&apos;re likely to end up with a good policy, but at the cost of slow learning.</p>
+<p>It is clear that <strong>policy-based agents have high variance.</strong> The <strong>critic or value-based</strong> approach learns differently.</p>
+<p>You start playing a match, and even before you get started, you start guessing what the final score is going to be like. You continue to make guesses throughout the match. At first, your guesses will be off. But as you get more and more experience, you will be able to make pretty solid guesses. The better your guesses, the better you&apos;ll tell good from bad actions. The better you can make these distinctions, the better you&apos;ll perform. Of course, given that you select good actions.</p>
+<p>Though this is not a perfect approach either, <strong>guesses introduce a bias</strong> because they&apos;ll sometimes be wrong, particularly because of a lack of experience. <strong>Guesses are prone to under or overestimation.</strong> Though, guesses are more consistent through time. If you think you&apos;ll win a match five minutes into it, chances are you&apos;ll still think so 10 minutes into it. This is what makes the <strong>TD estimate</strong> have lower variance.</p>
+<p><em><strong>As you can see, in a policy-based approach, the agent is learning to act, and it is good at that. Whereas in a value-based approach, the agent is learning to estimate situations and actions, and it&apos;s pretty good at that. Combining these two approaches sounds like a great idea, and it often yields better results.</strong></em></p>
+<p><strong>Actor-critic agents</strong> learn by playing games and adjusting the probabilities of good and bad actions just as with the actor alone. But this time, you&apos;ll also use a critic to be able to tell good from bad actions more quickly, and speed up learning.</p>
+<p>In the end, <strong>actor-critic agents</strong> are moer stable than value-based agents, and need fewer samples than policy-based agents.</p>
+<p>See the video <a href="https://youtu.be/iyin896PNEc">here</a>.</p>
+<h1 class="mume-header" id="-a-basic-actor-critic-agent">A Basic Actor-Critic Agent</h1>
+
+<p><strong>You know now that an actor-critic agent is an agent that uses function approximation to learn a policy any value function. So, we will then use two neural networks; One for the actor and one for the critic.</strong></p>
+<p>The <strong>critic</strong> will learn to evaluate the state value function <code>V_{\pi}</code> using TD estimate. Using the critic, we will calculate the advantage function and train the actor using this value. A very basic online actor-critic agent is as follows:</p>
+<p><em>You have two networks. One network, the <strong>actor</strong>, takes in a state and outputs the distribution over actions. The other network, the <strong>critic</strong> takes in a state and outputs a state value function of policy <code>\pi</code>, <code>V({\pi})</code>.</em></p>
+<p align="center">
+<img src="img/actor-critic3.png" alt="drawing" width="750">
+</p>
+<p>The <strong>algorithm</strong> goes like this.</p>
+<p>Input the current state into the actor and get the action to take in that state. Onserve next state and reward to get your experience tuple <code>(s,a,r,s&apos;)</code>.</p>
+<p>Then, using the TD estimate which is the reward <code>r</code> plus the critic&apos;s estimate for <code>s&apos;</code>. So, <code>r + \gamma V(s&apos;;\theta_v)</code>. You train the critic.</p>
+<p>Next, to calculate the advantage <code>A_{\pi}(s,a)</code> (equation in the picture above). We also use the critic.</p>
+<p>Finally, we train the actor using the calculated advantage as a baseline. We&apos;ll focus on few of the most popular actor-critic agents in the next sections.</p>
+<p>See the video <a href="https://youtu.be/KdHQ24hBKho">here</a>.</p>
+<p align="center">
+<img src="img/actor-critic4.png" alt="drawing" width="750">
+</p>
+<h1 class="mume-header" id="-a3c-asynchronous-advantage-actor-critic-n-step-bootstrapping">A3C: Asynchronous Advantage Actor-Critic, N-step Bootstrapping</h1>
+
+<p><strong>A3C</strong> stands for <strong>Asynchronous Advantage Actor-Critic</strong>. As you can probably infer from the name, we&apos;ll be calculating the advantage function, <code>A_{\pi}(s,a)</code>, and the critic will be learning to estimate <code>V_{\pi}</code> to help with that just as before.</p>
+<p>If you&apos;re using images as inputs to your agent, <strong>A3C</strong> can use a single convolutional neural network with the actor and critic sharing weights, in two separate heads, one for the actor, and one for the critic.</p>
+<p>Note that A3C does not have to be used exclusively with CNN&apos;s and images. But if you were to use it, sharing weights to some more efficient, more complex approach, and can be harder to train.</p>
+<p>It&apos;s a good idea to start with two separate networks, and change it only to improve performance.</p>
+<p>Now, one interesting aspect of A3C, is that instead of using a TD estimate, it will use another estimate commonly referred to as <strong>N-step bootstrapping.</strong></p>
+<p><strong>N-step bootstrapping</strong> is simply an abstraction and a generalization of a TD and Monte-Carlo estimates.</p>
+<p>TD is a one-step bootstrapping. Your agent goes out and experiences one-time-step of real rewards, and then bootstraps right there.</p>
+<p>Monte-Carlo goes out all the way, and it does not bootstrap because it doesn&apos;t need to. Monte-Carlo estimate is an infinite step bootstrapping.</p>
+<p><strong>But, how about going more than one step, but not all the way out?</strong></p>
+<p>This is called _<strong>n-step bootstrapping</strong>, and A3C uses this kind of return to train the critic.</p>
+<p>For example, in our tennis example, n-step bootstrapping means that you will wait a little bit before guessing what the final score will look like. Waiting to experience the environment for a little longer before you calcualte the expected return of the original state, allows you to have less bias in your prediction, keeping variance under control.</p>
+<p><strong>In practice</strong>, only a few steps out, say 4- or 5-step bootstrapping, are often the best.</p>
+<p>By using n-step bootstrapping, A3C propagates values to the last end states visited, which allows for faster convergence with less experience required while still keeping variance under control.</p>
+<p>See the video <a href="https://youtu.be/twNXFplIAP8">here</a>.</p>
+<h1 class="mume-header" id="-a3c-asynchronous-advantage-actor-critic-parallel-training">A3C: Asynchronous Advantage Actor-Critic, Parallel Training</h1>
+
+<p>Unlike in DQN, A3C does not use a replay buffer. The main reason we needed a replay buffer was so that we could de-correlate experience tuple.</p>
+<p>In RL, an agent collects experience in a squential manner. The experience collected at time step <code>t+1</code> will be correlated to the experience collected at time step <code>t</code> because it is the action taken at time step <code>t</code> that is partially responsible for the reward and the state observed at time step <code>t+1</code>, and that state will influence all our future decisions. There&apos;s no way out of that.</p>
+<p align="center">
+<img src="img/actor-critic7.png" alt="drawing" width="750">
+</p>
+<p>The replay buffer allows us to collect these experiences sequentially by adding them one at a time to the replay buffer for later processing.</p>
+<p align="center">
+<img src="img/actor-critic6.png" alt="drawing" width="750">
+</p>
+<p>So, independent from the data collection process, we can randomly select experiences from the replay buffer into mini batches.</p>
+<p>The experiences in the mini batches will not show the same correlation. This allows us to train our network successfully.</p>
+<p>Interestingly, A3C replaces the replay buffer with <strong>parallel training</strong>. By creating multiple instances of the environment and agent and running them all at the same time, your agent will receive mini batches of the correlated experiences just as we need.</p>
+<p align="center">
+<img src="img/actor-critic5.png" alt="drawing" width="750">
+</p>
+<p>Samples will be de-correlated because agents will likely be experiencing different states at any given time.</p>
+<p>On top of that, this way of training allows us to use <strong>on-policy learning</strong> in our learning algorithm, which is often associated with more stable learning.</p>
+<p>See the video <a href="https://youtu.be/kKRbAKhjACo">here</a>.</p>
+<h1 class="mume-header" id="-a3c-asynchronous-advantage-actor-critic-off-policy-vs-on-policy">A3C: Asynchronous Advantage Actor-Critic, Off-policy vs. On-policy</h1>
+
+<p>In case you&apos;re not clear on what <strong>on-policy vs. off-policy learning</strong> is, let&apos;s review it here.</p>
+<p><strong>On-policy learning</strong> is when the policy used for interacting with the environment is also the policy being learned.</p>
+<p><strong>Off-policy learning</strong> is when the policy used for interacting with the environment is different than the policy being learned.</p>
+<p><strong>Sarsa</strong> is a good example of an <strong>on-policy</strong> learning agent. A Sarsa agent uses the same policy to interact with the environment as the policy it is learning. On the other hand, <strong>Q-learning</strong> is a good example of a <strong>off-policy</strong> learning agent. A Q-learning agent learns about the optimal policy, though the policy that generates behavior is an exploratory policy, often <strong>epsilon-greedy.</strong></p>
+<p>Looking at the update equations for these two methods, helps us understand them better.</p>
+<p>As you can see below, in Sarsa the action used for calculating the TD target and the TD error is the action the agent will take in the following time step, <code>A&apos;</code>. In Q-learning, however, the action used for calculating the target is the action with the highest value. But this action is not guaranteed to be used by the agent for interaction with the environment in the following time step. In other words, this is not necessarily <code>A&apos;</code>. The Q-learning agent choose an exploratory action the next step. In Sarsa that action, exploratory or not, is already been chosen.</p>
+<p align="center">
+<img src="img/actor-critic8.png" alt="drawing" width="750">
+</p>
+<p>Q-learning learns a deterministic optimal policy even if its behavior policy is totally random. Sarsa learns the best exploratory policy, that is the best policy that still explores.</p>
+<p><strong>DQN</strong> is also an <strong>off-policy</strong> learning method. Your agent behaves with some exploratory policy, say epsilon-greedy, where it learns about the optimal policy.</p>
+<p>When using off-policy learning, agents are able to learn from many different sources including experiences generated by all versions of the agent itself, thus the replay buffer. However, <strong>off-policy learning is known to be unstable and often diverge with deep neural networks.</strong></p>
+<p><strong>A3C</strong> on the other hand is an <strong>on-policy</strong> learning method. With on-policy learning, you only use the data generated by the policy currently being learned about, and anytime you imrpove the policy, you toss out old data and go out collect some more.</p>
+<p><strong>On-policy learning</strong> is a bit <strong>inefficient</strong> in the use of experiences, but it often has more stable and consistent convergence properties.</p>
+<p>A simple analogy of on- and off-policy goes this way. <strong>On-policy</strong> is learning from your own hands-on experience. For example, the projects in this Nano-degree. As you can imagine that is a pretty good way of learning, but it is somewhat data inefficient, you can only do so many projects before you run out of time.</p>
+<p><strong>Off-policy</strong> on the other hand, is learning from someone else&apos;s experience and as such it is more sample efficient because you can learn from many different sources. However, this way of learning is more prone to misunderstandings. I might not be able to explain things in a way that you understand well. The Nano-degree analogy in the off-policy case is learning from watching the lessons for example. You learn much faster this way but again, perhaps not as good as you would from your own hands-on experience.</p>
+<p>Usually a good balance between these two ways of learning allows for the best performing deep RL agents and perhaps the best performing humans too, maybe?!</p>
+<p>Now, if you want to learn more about agents who combine on- and off-policy learning, you can read the paper titled &quot;<strong>Q-Prop: Sample-Efficient Policy Gradient with An Off-Policy Critic</strong>&quot; linked <a href="../../docs/Q-prop-paper.pdf">here</a>.</p>
+<p>See the video <a href="https://youtu.be/AZiy5R0DESU">here</a>.</p>
+<h1 class="mume-header" id="-a2c-advantage-actor-critic">A2C: Advantage Actor-Critic</h1>
+
+<p><strong>You may be wondering what the asynchronous part in A3C is about?</strong></p>
+<p>A3C accumulates gradient updates and applies those updates asynchronously to a global neural network. Each agent in simulation does this at its own time. So, the agents use a local copy of the network to collect experience, calculate, and accumulate gradient updates across multiple time steps, and then they apply these gradients to a global network asynchronously.</p>
+<p><strong>Asynchronous</strong> here means that each agent will update the network on its own. There is no synchronization between the agents. This also means that the weights an agent is using might be different from the weights in use by another agent at any given time.</p>
+<p>There is a synchronous implementation of A3C called <strong>Advantage Actor-Critic or A2C</strong>. A2C has some extra bit of code that synchronizes all agents. It waits for all agents to finish a segment of interaction with its copy of the environment, and then updates the network at once, before sending the updated weights back to all agents.</p>
+<p>A2C is arguably simpler to implement, yet it gives pretty much the same result, and allegedly in some cases performs even better.</p>
+<p>A3C is most easily train on a CPU, while A2C is more straightforward to extend to a GPU implementation.</p>
+<p>See the video <a href="https://youtu.be/fIWe3xA97DA">here</a>.</p>
+<h1 class="mume-header" id="-a2c-code-walk-through">A2C Code Walk-through</h1>
+
+<p>Check out the codes from Shangtong Zhang for an implementation in <a href="https://github.com/ShangtongZhang/DeepRL">his GitHub page</a>.</p>
+<p>For a walk-through of the A2C code, watch <a href="https://youtu.be/LiUBJje2N0c">this video</a>.</p>
+<p><strong>NOTE:</strong> Zhang has also implemented all the Sutton&apos;s book codes in Python (I believe the original codes are in LISP). Check out his <a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Github repo</a> for those codes.</p>
+<h1 class="mume-header" id="-gae-generalized-advantage-estimation">GAE: Generalized Advantage Estimation</h1>
+
+<p>There is another way for estimating expected returns called the <strong>lambda return.</strong> The intuition goes this way.</p>
+<p>Say after you try n-step bootstrapping you realize that numbers of n larger than 1 often perform better. But it&apos;s still hard to tell what that number should be. To make the decision even more difficult, in some problems small numbers of n are better while in others large number of n are better. <strong>How do you get this right?</strong></p>
+<p>The <strong>idea of lambda return</strong> is to create a mixture of all n-step bootstrapping estimates at once. <strong>Lambda is hyperparameter</strong> used for weighting the combination of each n-step estimate to the lambda return. The weights depends on the value you set for lambda and it decays exponentially at the rate of that value.</p>
+<p align="center">
+<img src="img/actor-critic9.png" alt="drawing" width="750">
+</p>
+<p>So, for calculating the lambda return for state <code>S</code> at time step <code>t</code>, we would use all n-step returns and multiply each of the n-step return by the corresponding weight. Then add them all up. Remember, that sum will be the lambda return for state <code>S</code> at time step <code>t</code>.</p>
+<p align="center">
+<img src="img/actor-critic10.png" alt="drawing" width="750">
+</p>
+<p>Interestingly, when lambda is set to 0, the 2-step, 3-step, and all n-step return other than the 1-step return, will be equal to zero. <strong>So, the lambda return when the lambda is set to zero will be equivalent to the TD estimate.</strong> <strong>If your lambda is set to one, all n-step return other than the infinite step return will be equal to zero.</strong> <strong>So, the lambda return when lambda is set to one, will be equivalent to the Monte-Carlo estimate.</strong></p>
+<p>Again, a number between 0 and 1 gives a mixture of all n-step bootstrapping estimate. But, isn&apos;t this amazing that a single algorithm can do that?</p>
+<p><strong>GAE</strong> is a way to train the critic with this lambda return. You can fit the advantage function just like in A3C and A2C or using a mixture of n-step bootstrapping estimates.</p>
+<p><strong>It&apos;s important to highlight that this type of return can be combined with virtually any policy-based method.</strong> In fact, in the paper that introduced GAE, TRPO was the policy-based method used. By using this type of estimation, this algorithm, TRPO + GAE trains very quickly because multiple value functions are spread on every time step due to the lambda return start estimate. Here is the <a href="https://arxiv.org/abs/1506.02438">link to the paper</a></p>
+<p>See the video <a href="https://youtu.be/oLFocWp0dt0">here</a>.</p>
+<h1 class="mume-header" id="-ddpg-deep-deterministic-policy-gradient-continuous-action-space">DDPG: Deep Deterministic Policy Gradient, Continuous Action-space</h1>
+
+<p><strong>DDPG</strong> is a different kind of actor-critic method. In fact, it could be seen as kind of approximate DQN, instead of an actual actor critic. The reason for this is that the critic in DDPG is used to approximate the maximizer over the Q values of the next state, and not as a learned baseline. Though, this is still a very important algorithm and it is good to discuss it in more detail.</p>
+<p>One of the <strong>limitations</strong> of the DQN agent is that it is not straightforward to use in continuous action spaces.</p>
+<p>Imagine a DQN network that takes in a state and outputs the action value function. For example, for two actions, say &quot;Up&quot; and &quot;Down&quot;, <code>Q(s, &quot;Up&quot;)</code> gives you the estimated expected value for selecting the &quot;Up&quot; action in state <code>s</code>, similarly for the &quot;Down&quot; action. To find the max action value function for this state, you just calculate the max of these values (pretty easy!). <strong>It&apos;s very easy to do a max operation in this example because this is a discrete action space.</strong> Even if you had more actions, or if it was high dimensional with many, many more actions, it would still be doable. <strong>But, what if you need an action with continuous range? How do you get the value of a continuous action with this architecture?</strong> Say, you want the &quot;Jump&quot; action to be continuous, a variable between 1 and 100 centimeters. How do you find the value of jump? <strong>This is one of the problems DDPG solves.</strong></p>
+<p>In <strong>DDPG</strong>, we use two deep neural networks. We can call one the <em>actor</em> and the other the <em>critic</em>. Now, the actor here is used to approximate the optimal policy deterministically. That means we want to always output the best believed action for any given state. This is unlike a stochastic policies in which we want the policy to learn a probability distribution over the actions.</p>
+<p align="center">
+<img src="img/actor-critic11.png" alt="drawing" width="750">
+</p>
+<p>In <strong>DDPG</strong>, we want the believed best action every single time we query the actor network. <strong>That is a deterministic policy.</strong></p>
+<p>The <em>actor</em> is basically learning the <code>argmax_{a}Q(s,a)</code>, which is the best action. The <em>critic</em> learns to evaluate the optimal action value function by using the actor&apos;s best believed action.</p>
+<p>Agina, we use this actor, which is an approximate maximizer, to calculate a new target value for training the action value function, much in the way DQN does.</p>
+<p>See the video <a href="https://youtu.be/0NVOPIyrr98">here</a>.</p>
+<p>In the <a href="https://arxiv.org/abs/1509.02971">DDPG paper</a>, they introduced this algorithm as an &quot;Actor-Critic&quot; method. Though, some researchers think DDPG is best classified as a DQN method for continuous action spaces (along with <a href="https://arxiv.org/abs/1603.00748">NAF</a>). Regardless, DDPG is a very successful method and it&apos;s good for you to gain some intuition.</p>
+<h1 class="mume-header" id="-ddpg-deep-deterministic-policy-gradient-soft-updates">DDPG: Deep Deterministic Policy Gradient, Soft Updates</h1>
+
+<p>Two other interesting aspects of DDPG are:</p>
+<ol>
+<li>The use of a <strong>replay buffer</strong>,</li>
+<li>The <strong>soft updates</strong> to the target networks.</li>
+</ol>
+<p>You already know how the replay buffer part works. But the soft updates are a bit different.</p>
+<p>In DQN, you have two copies of your network weights, the regular and the target network. In the Atari paper in which DQN was introduced, the target network is updated every 10,000 time steps. You simply copy the weights of your regular network into your target network. That is the target network is fixed for 10,000 time steps and then it gets a big update.</p>
+<p align="center">
+<img src="img/actor-critic12.png" alt="drawing" width="750">
+</p>
+<p>In <strong>DDPG</strong>, you have two copies of your network weights for each network, a regular for the actor, a regular of the critic, a target for the actor, and a target for the critic. But in DDPG, the target networks are updated using a <strong>soft update strategy</strong>.</p>
+<p>A <strong>soft update strategy</strong> consists of slowly blending your regular network weights with your target network weights. So, every time step you make your target network be 99.99% of your target network weights and only a 0.01% of your regular network weights. You slowly mix in your regular network weights into your target network weights.</p>
+<p align="center">
+<img src="img/actor-critic13.png" alt="drawing" width="750">
+</p>
+<p>Recall that the <em>regualr network is the most up to date network</em> because it&apos;s the one we&apos;re training, while the <em>target network is the one we use for prediction to stabilize training.</em></p>
+<p><strong>In practice</strong>, you&apos;ll get faster convergence by using this update strategy, and in fact, this way for updating the target network weights can be used with other algorithms that use target networks including DQN.</p>
+<p>See the video <a href="https://youtu.be/RT-HDnAVe9o">here</a>.</p>
+<h1 class="mume-header" id="-ddpg-code-walkthrough">DDPG Code Walkthrough</h1>
+
+<p>For the codes, again, refer to the Shangtong Zhang&apos;s <a href="https://github.com/ShangtongZhang/DeepRL">GitHub repo</a>.</p>
+<p>See the walkthtough video <a href="https://youtu.be/08V9r3NgFSE">here</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html><html><head>
+      <title>2_alphazero</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-alphazero-review">AlphaZero Review</h1>
+
+<p>In 2016, researchers at DeepMind announced a new breakthrough -- the development of a new AI engine, alphago for the game of go.The AI was able to beat a professional player LeeSedol. The breakthrough was significant, because go was far more complex than chess: the number of possible games is so high, that a professional go engine was believed to be way out of reach at that point, and human intuition was believed to be a key component in professional play. Still, performance in alphago depends on expert input during the training step, and so the algorithm cannot be easily be transferred to other domains</p>
+<p>This changed in 2017, when the team at DeepMind updated their algorithm, and developed a new engine called alphago zero. This time, instead of depending on expert gameplay for the training, alphago zero learned from playing against itself, only knowing the rules of the game. More impressively, the algorithm was generic enough to be adapted to chess and shogi (also known as japanese chess). This leads to an entirely new framework for developing AI engine, and the researchers called their algorithm, simply as the alphazero.</p>
+<p>The best part of the alphazero algorithm is simplicity: it consists of a Monte Carlo tree search, guided by a deep neural network. This is analogous to the way humans think about board games -- where professional players employ hard calculations guides with intuitions.</p>
+<p>In the following lesson, we will cover how the alphazero algorithm works, and implement it to play an advanced version of tic-tac-toe. So let&#x2019;s get started!</p>
+<p>(Much of the lesson material is derived from the original paper, for  <a href="https://deepmind.com/documents/119/agz_unformatted_nature.pdf">alphago zero</a>, and  <a href="https://arxiv.org/abs/1712.01815">alphazero</a>  by the researchers at DeepMind. I encourage you to visit links -- click on the words-- to check out those papers)</p>
+<h1 class="mume-header" id="-zero-sum-game">Zero-Sum Game</h1>
+
+<p>In order to talk aobut AlphaZero, we first need to formalize the concepts of games that AlphaZero specializes in, <strong>zero-sum games.</strong></p>
+<p>We start with a board game environment, a grid for example, then two competing agents takes turns to perform actions to try to win the game. In the end, one agent&apos;s win is another agent&apos;s loss. Usually, we also assumed that the game contains no hidden information, so there&apos;s no element of luck, and winning or losing is entirely determined by skill. This concept is applicable to games as simple as tic-tac-toe to more complicated games such as chess and Go.</p>
+<p>Let&apos;s go back to our ic-tac-toe example. The goal is to get three in a row, so the first player might make a move, say at the center, then the second player makes a move. Now, there are usually multiple possibilities at each step. In this case, there are eight. Focusing on one of these possibilities, we might have a game sequence like below.</p>
+<p align="center">
+<img src="img/marl4.png" alt="drawing" width="550">
+</p>
+<p>Now, in this case, the first player wins. We can represent all this information mathematically. The board can be represented by a matrix where 0 indicates empty space and +/-1 indicates the pieces of player one and two. Given that there are only circles and crosses in tic-tac-toe, each entry can then only be 0, +1, or -1.</p>
+<p>We can also encode the final outcome by a score, where +1 indicates a win by the first player, and -1 indicates a win by the second player, and 0 indicates a draw. This way of representing the board is convenient because the board can easily be fed into a neural network.</p>
+<p>Also, if you want to switch other players&apos; pieces, we can just multiply the matrix by -1. We can also flip the score by multiplying it by -1. This property will come in handy when we build an agent to play the game.</p>
+<p align="center">
+<img src="img/marl6.png" alt="drawing" width="550">
+</p>
+<p>Now that we&apos;ve encoded the game mathematically, we can rephrase everything in the language of RL. We have a sequence of states for the board game denoted by <code>s_t</code>, and we have two players denoted by +/-1. Here, we&apos;ve simplified the <code>(-1)^t</code>, assuming we start with <code>t=0</code>.</p>
+<p>Player +1 performs actions at all the even timesteps and tried to maximize the final score <code>+z</code>. While player -1 performs actions at all the odd timesteps and tries to maximize -1 time the final score, <code>-z</code>.</p>
+<p>Now, imagine we&apos;ve constructed an intelligent agent who is able to play a perfect game as player +1, then is should be able to play a perfect game as player -1 as well. As long as we flipped the state, <code>s_t</code>, at all the odd timestep. Then we can have the agent play against itself with a common policy. Now, besides having a common policy, we can also have a common critic that can evaluate the expected outcome from the perspective of the current player.</p>
+<p align="center">
+<img src="img/marl5.png" alt="drawing" width="550">
+</p>
+<p>This essentially estimates the expected value of <code>{(1)^t} \times z</code>. We will see later that <strong>this is basic idea behind AlphaZero,</strong> where we have one agent playing against itself along with one critic that self-improves as more and more games are played.</p>
+<p>See the video <a href="https://youtu.be/uPw1dHVqdXQ">here</a>.</p>
+<h1 class="mume-header" id="-monte-carlo-tree-search-1---random-sampling">Monte Carlo Tree Search 1 - Random Sampling</h1>
+
+<p>Given a state in a zero-sum game, <strong>how do we find an optimal policy?</strong></p>
+<p>In theory, this is simple, because we could just perform a brute force search, and going through all the possible moves and all the possible games that can be played, and then we can choose the ones with the best possible outcomes. <strong>The possibilities are numerous.</strong></p>
+<p align="center">
+<img src="img/marl7.png" alt="drawing" width="650">
+</p>
+<p>We already see that in practice, this brute force method can become infeasible. Even for tic-tac-toe, things are complicated, as there are nine possible first moves, eigt possible second moves, and so forth. <strong>Can we do better?</strong></p>
+<p>One possibility is that we can randomly sample a subset of all the possible games. Then for each action, we can compute the expected outcome by taking the average of all the subsequent play outs like below.</p>
+<p align="center">
+<img src="img/marl8.png" alt="drawing" width="650">
+</p>
+<p>For convenience we also add an extra negative sign, so that the expected outcome is from the perspective of the current player. Then we would choose the action with the largest expected score, in this case who plays across at the bottom corner. This procedure sounds a little bit familiar. Trying to compute the expected outcome is analogous to estimating Q function, and we know that a completely random search isn&apos;t ideal. It would be better to have some guidance. So, we can better balance random explorations with exploitations.</p>
+<p>Let&apos;s get systemic then, and look at all the possible moves player two can take given the current state. There are six possibilities. We can think of all the possibilities as part of a tree structure. The goal is we want to look at each branch of this tree and focus most of the random play outs on the actions that are more promising as opposed to just sample completely randomly.</p>
+<p>To do this we define three numbers for each branch of this tree: <code>U</code>, <code>N</code>, and <code>V</code>. All the values are initialized to zero. <code>N</code> is the number of times I&apos;ve played a random game starting from that branch, and <code>V</code> is an estimate of the expected outcome starting from that branch and from the perspective of the current player. The variable <code>U</code> is computed from <code>V</code> and <code>N</code> given by the formula on the right.</p>
+<p align="center">
+<img src="img/marl9.png" alt="drawing" width="650">
+</p>
+<p>In each iteration I need to choose to play a random game starting from a selective branch. This is where the variable <code>U</code> comes in. The branch with the highest value of <code>U</code> will be chosen. This <code>U</code> function contains two pieces. The first one is <code>V</code>. So when the current expected outcome is large, <code>U</code> will be large, and this helps exploitation.</p>
+<p>Meanwhile the second piece is inversely proportional to <code>1+N</code>. So, it encourages visits to branches with low visit counts, and this helps with exploration. Now that we have defined all the variables, let&apos;s see how a search may play out in action. Initially, all the <code>U</code>&apos;s are zero, so we just randomly choose one of the six possible actions.</p>
+<p>Now, we play a random game, and this time player two lost. So, <code>V</code> is updated to be -1, and the number of visit increased to 1. Before we start the next gameplay, notice that the total number of gameplay is now 1. So, the exploration part of the <code>U</code> function needs to be updated for all the other branches, like below.</p>
+<p align="center">
+<img src="img/marl10.png" alt="drawing" width="650">
+</p>
+<p>The largest <code>U</code> is now one, so going to the next iteration of gameplay, we need to choose one of the other five actions. We can then repeat this procedure until a fixed number of total gameplays, say 100 games is reached, and we might end up with something like this. <strong>How do we decide what the next move is that?</strong></p>
+<p>We could choose the action with the highest <code>U</code> or <code>V</code>, but sometimes they might not be that reliable, especially if the visit counts are low. So instead, we choose an action with the highest visits counts, which is usually associated with good expected outcome anyway, and it&apos;s a little bit more reliable. In this case the highest visit count is 21, and this is the move that we will choose according to the tree search.</p>
+<p align="center">
+<img src="img/marl11.png" alt="drawing" width="650">
+</p>
+<p>See the video <a href="https://youtu.be/wn2B3j_Qz6E">here</a>.</p>
+<h1 class="mume-header" id="-monte-carlo-tree-search-2---expansion-and-backpropagation">Monte Carlo Tree Search 2 - Expansion and Backpropagation</h1>
+
+<p>Starting with state, we learned previously how to search systematically through one layer of a game tree using the variables <code>U</code>, <code>N</code>, and <code>V</code>. <strong>Can we generalize this to go deeper into the tree so that we can better anticipate a long sequence of moves?</strong></p>
+<p>This is possible through what&apos;s called <strong>expansion and backpropagation.</strong> Let&apos;s see how it works in action.</p>
+<p>See <a href="https://youtu.be/H34Wtk1iNDY">the video</a> for explanation.</p>
+<h1 class="mume-header" id="-alphazero-1-guided-tree-search">AlphaZero 1: Guided Tree Search</h1>
+
+<p>Watch the video <a href="https://youtu.be/LinuRy47xbw">here</a>.</p>
+<h1 class="mume-header" id="-alpha-zero-2-self-play-training">Alpha Zero 2: Self-Play Training</h1>
+
+<p>Watch the video <a href="https://youtu.be/wl1qfPXqRuQ">here</a>.</p>
+<h1 class="mume-header" id="-tictactoe-using-alphazero---notebook-walkthrough">TicTacToe using AlphaZero - notebook walkthrough</h1>
+
+<p>Watch the following videos:</p>
+<ul>
+<li><a href="https://youtu.be/uUFuBscf98I">video1</a></li>
+<li><a href="https://youtu.be/hKnBQvtJ_zQ">video2</a></li>
+</ul>
+<h1 class="mume-header" id="-advanced-tictactoe-with-alphazero---walkthrough">Advanced TicTacToe with AlphaZero - Walkthrough</h1>
+
+<p>Watch the video <a href="https://youtu.be/MOIk_BbCjRw">here</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html><html><head>
+      <title>3_rl_for_robotics</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-introduction">Introduction</h1>
+
+<p>Our approach is to begin by training agents from virtual robotic simulation, and then transfer the agent to a real-world robot. To accomplish this you&apos;ll learn how to use C++ API, to run a DQN agent which will let us use robotic platforms that run much faster than if you had implemented the agent in say Python.</p>
+<p>Using this API, you&apos;ll train your own virtual robotic agents to perform complex tasks. Once your agents are trained, you can transfer them to a real-world robot by using a computing device like the Jetson Tx2 that&apos;s developed at Nvidia.</p>
+<p>See the video <a href="https://youtu.be/dfeawuScC7k">here</a>.</p>
+<h1 class="mume-header" id="-c-for-robotics">C++ for Robotics</h1>
+
+<p>Watch the video below to learn why C++ is useful for robotics from  <strong>Karim Chamaa</strong>, a Content Developer for the  <a href="https://www.udacity.com/course/robotics-software-engineer--nd209">Robotics Software Engineer Nanodegree Program</a>.</p>
+<p><em>Karim started his early career as a Mechanical Engineer. He earned his M.S. in Mechatronics and Robotics Engineering from NYU. His specialties include Kinematics, Control, and Electronics.</em></p>
+<p><em>from the video</em></p>
+<p>There are three mains reasons why C++ might be a better choice than Python and C for programming robots:</p>
+<ul>
+<li>In robotics, you need a fast runtime for your code. This is because your robotics projects will often be dependent on real-time performance. Also, C++ runs faster than Python because it&apos;s compiled rather than interpreted on the fly.</li>
+<li>The second advantage of C++ is when it comes to using ROS packages. Typically, you&apos;ll download ROS packages containing nodes written in C++, so you often want to read through them and tweak them to fit your need.</li>
+<li>Finally, there is an advantage of using C++ when it comes to hardware. Today&apos;s robotic system interface with and control all kinds of physical hardware, like sensors and actuators, through low-level programs called <strong>device drivers</strong>. To achieve fast and precise control, device drivers are often written in a compiled language like C or C++. Therefore, understanding C++ will help you tap into this low layer of control when tweaking and building your robots.</li>
+</ul>
+<p>See the video <a href="https://youtu.be/1oElWzRt-lU">here</a>.</p>
+<p>In the video, Karim refers to the  <a href="http://www.ros.org/">Robotics Operating System (ROS)</a>, which is widely used across industry and in academia for building robotics applications.</p>
+<p>As Karim discussed in the video, robots require real-time responses to changes in their environments, so computation performance matters. By using a compiled language (C/C++) instead of an interpreted language (Python), performance is improved.</p>
+<h2 class="mume-header" id="-transitioning-to-c">Transitioning to C++</h2>
+
+<p>If you are not familiar with C++, you can review the free  <a href="https://classroom.udacity.com/courses/ud210">Udacity C++ course</a>  or the excellent  <a href="https://www.sololearn.com/Course/CPlusPlus/">Sololearn tutorial</a>  for in-depth learning.</p>
+<p>Watch the <a href="https://youtu.be/BvDvxw8e0CY">video below</a> to learn more about how C++ differs from Python.</p>
+<p><em>from the video</em></p>
+<p>Since many of you are transitioning from Python to C++, let&apos;s explore some of the key differences between them.</p>
+<ul>
+<li>C++ is a <strong>statistically-typed language</strong>, while Python is <strong>dynamic</strong>. This means that when declaring a variable in C++, you have to assign it a data type. With Pytho, variables don&apos;t need to be assigned to a type and can be used anywhere in the code without any kind of declaration beforehand.</li>
+<li>Also, in Python, functions can accept arguments of any type and return values of any type without prior initialization. In C++, <strong>main functions is the entry point</strong> of the program, while in Python the entry point is the start of the source code.</li>
+<li>Further, C++ is a <strong>compiled</strong> language, while Python is <strong>interpreted</strong>. This means that programs in C++ have to be compiled before you run them, while Python programs run through an interpreter.</li>
+<li>In C++, <strong>identation is optional</strong>, while in Python it&apos;s <strong>mandatory</strong>. In other words, with C++ indentation is purely for human readability, whereas in Python, it&apos;s necessary to indicate a block of code.</li>
+</ul>
+<h1 class="mume-header" id="-cc-api">C/C++ API</h1>
+
+<p>To successfully leverage deep learning technology in robots, we need to move to a library format that can integrate with robots and simulators.</p>
+<p>In this section, we introduce an API (application programming interface) in C/C++. The API provides an interface to the Python code written with PyTorch, but the wrappers use Python&#x2019;s low-level C to pass memory objects between the user&#x2019;s application and Torch without extra copies.</p>
+<p><em>from the video</em></p>
+<p>In this lesson, we will work with an API developed in Nvidia. It includes a couple of 3D robotics simulators such as a Rover that learns to follow objects while avoiding the walls of its environment. Along with the robot arm that you can train to touch objects. The repository also includes some simple 2D environments that are designed to help you with debugging your code.</p>
+<p>Check out the instructions below to learn how to setup the environment.</p>
+<p>See the video <a href="https://youtu.be/a9-HdpCaYW4">here</a>.</p>
+<h2 class="mume-header" id="-api-repository">API Repository</h2>
+
+<p>You can find the API repository  <a href="https://github.com/dusty-nv/jetson-reinforcement">here</a>.</p>
+<p align="center">
+<img src="img/nv-rl-stack-diagram.jpg" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="-installing-the-repository">Installing the Repository</h2>
+
+<hr>
+<p>We will provide the coding environment for you in a Udacity Workspace, so you do not need to install the API. However, if you&apos;d like to install it on a GPU x86_64 system, you need only follow the build instructions in the  <a href="https://github.com/udacity/RoboND-DeepRL-Project">repository</a>.</p>
+<h2 class="mume-header" id="-api-repository-sample-environments">API Repository Sample Environments</h2>
+
+<hr>
+<p>In addition to OpenAI Gym samples, the repository contains the following demos:</p>
+<ul>
+<li>C/C++ 2D Samples
+<ul>
+<li>Catch (DQN text)</li>
+<li>Fruit (2D DQN)</li>
+</ul>
+</li>
+<li>C/C++ 3D Simulation
+<ul>
+<li>(Robotic) Arm (3D DQN in Gazebo)</li>
+<li>Rover (3D DQN in Gazebo)</li>
+</ul>
+</li>
+</ul>
+<p>The purpose of building the simple 2D samples is to test and understand the C/C++ API as we move toward the goal of using the API for robotic applications. Each of these samples will use a Deep Q-Network (DQN) agent to solve problems.</p>
+<h2 class="mume-header" id="-the-dqn-agent">The DQN agent</h2>
+
+<hr>
+<p>The repo provides a base  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/c/rlAgent.cpp"><code>rlAgent</code></a>  base class that can be extended through inheritance to implement agents using various reinforcement learning algorithms. We will focus on the  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/c/dqnAgent.cpp"><code>dqnAgent</code></a>  class and applying it to solve DQN reinforcement learning problems.</p>
+<p>The following pseudocode illustrates the signature of the  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/c/dqnAgent.cpp"><code>dqnAgent</code></a>  class:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">dqnAgent</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword keyword-public">public</span> <span class="token class-name">rlAgent</span></span>
+<span class="token punctuation">{</span>
+<span class="token keyword keyword-public">public</span><span class="token operator">:</span>
+
+    <span class="token comment">/**
+     * Create a new DQN agent training instance,
+     * the dimensions of a 2D image are expected.
+     */</span>
+    <span class="token keyword keyword-static">static</span> dqnAgent<span class="token operator">*</span> <span class="token function">Create</span><span class="token punctuation">(</span> <span class="token keyword keyword-uint32_t">uint32_t</span> width<span class="token punctuation">,</span> <span class="token keyword keyword-uint32_t">uint32_t</span> height<span class="token punctuation">,</span> <span class="token keyword keyword-uint32_t">uint32_t</span> channels<span class="token punctuation">,</span> 
+        <span class="token keyword keyword-uint32_t">uint32_t</span> numActions<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span> optimizer <span class="token operator">=</span> <span class="token string">&quot;RMSprop&quot;</span><span class="token punctuation">,</span> 
+        <span class="token keyword keyword-float">float</span> learning_rate <span class="token operator">=</span> <span class="token number">0.001</span><span class="token punctuation">,</span> <span class="token keyword keyword-uint32_t">uint32_t</span> replay_mem <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">,</span> 
+        <span class="token keyword keyword-uint32_t">uint32_t</span> batch_size <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> gamma <span class="token operator">=</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> epsilon_start <span class="token operator">=</span> <span class="token number">0.9</span><span class="token punctuation">,</span>  
+        <span class="token keyword keyword-float">float</span> epsilon_end <span class="token operator">=</span> <span class="token number">0.05</span><span class="token punctuation">,</span>  <span class="token keyword keyword-float">float</span> epsilon_decay <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span>
+        <span class="token keyword keyword-bool">bool</span> allow_random <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token keyword keyword-bool">bool</span> debug_mode <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Destructor
+     */</span>
+    <span class="token keyword keyword-virtual">virtual</span> <span class="token operator">~</span><span class="token function">dqnAgent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * From the input state, predict the next action (inference)
+     * This function isn&apos;t used during training, for that see NextReward()
+     */</span>
+    <span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-bool">bool</span> <span class="token function">NextAction</span><span class="token punctuation">(</span> Tensor<span class="token operator">*</span> state<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span><span class="token operator">*</span> action <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Next action with reward (training)
+     */</span>
+    <span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-bool">bool</span> <span class="token function">NextReward</span><span class="token punctuation">(</span> <span class="token keyword keyword-float">float</span> reward<span class="token punctuation">,</span> <span class="token keyword keyword-bool">bool</span> end_episode <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+</pre><p>In the pseudocode above, the agent is instantiated by the  <code>Create()</code>  function with the appropriate initial parameters. For each iteration of the algorithm, the environment provides sensor data, or environmental state, to the  <code>NextAction()</code>  call, which returns the agent&apos;s action to be applied to the robot or simulation. The environment&apos;s reward is issued to the  <code>NextReward()</code>  function, which kicks off the next training iteration that ensures the agent learns over time.</p>
+<p>Let&apos;s take a detailed look at some of the parameters that can be set up in the  <code>Create()</code>  function.</p>
+<h2 class="mume-header" id="-setting-the-parameters">Setting the Parameters</h2>
+
+<hr>
+<p>The parameter options are specified separately for each sample. For instance, you can see how the parameters are set for the  <code>catch</code>  agent by perusing the top of the  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/samples/catch/catch.cpp"><code>catch.cpp</code></a>  file.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Define DQN API settings</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GAME_WIDTH</span>   <span class="token expression"><span class="token number">64</span>             </span><span class="token comment">// Set an environment width </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GAME_HEIGHT</span>  <span class="token expression"><span class="token number">64</span>             </span><span class="token comment">// Set an environment height </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NUM_CHANNELS</span> <span class="token expression"><span class="token number">1</span>              </span><span class="token comment">// Set the image channels </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">OPTIMIZER</span> <span class="token string">&quot;RMSprop&quot;</span>         <span class="token comment">// Set a optimizer </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LEARNING_RATE</span> <span class="token expression"><span class="token number">0.01f</span>         </span><span class="token comment">// Set an optimizer learning rate</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">REPLAY_MEMORY</span> <span class="token expression"><span class="token number">10000</span>         </span><span class="token comment">// Set a replay memory</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BATCH_SIZE</span> <span class="token expression"><span class="token number">32</span>               </span><span class="token comment">// Set a batch size</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GAMMA</span> <span class="token expression"><span class="token number">0.9f</span>                  </span><span class="token comment">// Set a discount factor</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_START</span> <span class="token expression"><span class="token number">0.9f</span>              </span><span class="token comment">// Set a starting greedy value</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_END</span> <span class="token expression"><span class="token number">0.05f</span>               </span><span class="token comment">// Set a ending greedy value</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_DECAY</span> <span class="token expression"><span class="token number">200</span>               </span><span class="token comment">// Set a greedy decay rate</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">USE_LSTM</span> <span class="token expression"><span class="token boolean">true</span>               </span><span class="token comment">// Add memory (LSTM) to network</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LSTM_SIZE</span> <span class="token expression"><span class="token number">256</span>               </span><span class="token comment">// Define LSTM size</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ALLOW_RANDOM</span> <span class="token expression"><span class="token boolean">true</span>           </span><span class="token comment">// Allow RL agent to make random choices</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DEBUG_DQN</span> <span class="token expression"><span class="token boolean">false</span>             </span><span class="token comment">// Turn on or off DQN debug mode</span></span>
+</pre><h1 class="mume-header" id="-ple">ple</h1>
+
+<p>SEND FEEDBACK</p>
+<h1 class="mume-header" id="-catch-sample">Catch Sample</h1>
+
+<p>The  <a href="https://github.com/udacity/RoboND-DeepRL-Project/blob/master/samples/catch/catch.cpp"><code>catch</code></a>  sample is a simple C/C++ program which links to the reinforcement learning library provided in the repository.</p>
+<p>The environment is a 2-dimensional screen. A ball drops from the top of the screen and the agent is supposed to &#x201C;catch&#x201D; the ball before it hits the bottom of the screen. Its only allowed actions are left, right or none.</p>
+<h3 class="mume-header" id="-catch--implementation"><code>catch</code>  Implementation</h3>
+
+<hr>
+<p>The  <a href="https://github.com/udacity/RoboND-DeepRL-Project/blob/master/samples/catch/catch.cpp"><code>catch.cpp</code>  code</a>  <code>main</code>  procedure consists of the following sections:</p>
+<ul>
+<li>Initialize and instantiate a  <code>dqnAgent</code></li>
+<li>Allocate memory for the game</li>
+<li>Set up the game state (ball location)</li>
+<li>Game loop
+<ul>
+<li>Update the game state</li>
+<li>Get the agent&#x2019;s next action with  <code>NextAction()</code></li>
+<li>Apply the action to the game</li>
+<li>Compute the reward</li>
+<li>Exit if game over</li>
+</ul>
+</li>
+</ul>
+<p>The  <code>dqnAgent</code>  is initialized with parameters defined at the start of the module:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Create reinforcement learner agent in pyTorch using API</span>
+dqnAgent<span class="token operator">*</span> agent <span class="token operator">=</span> dqnAgent<span class="token double-colon punctuation">::</span><span class="token function">Create</span><span class="token punctuation">(</span>gameWidth<span class="token punctuation">,</span> gameHeight<span class="token punctuation">,</span> 
+                    NUM_CHANNELS<span class="token punctuation">,</span> NUM_ACTIONS<span class="token punctuation">,</span> OPTIMIZER<span class="token punctuation">,</span> 
+                    LEARNING_RATE<span class="token punctuation">,</span> REPLAY_MEMORY<span class="token punctuation">,</span> BATCH_SIZE<span class="token punctuation">,</span> 
+                    GAMMA<span class="token punctuation">,</span> EPS_START<span class="token punctuation">,</span> EPS_END<span class="token punctuation">,</span> EPS_DECAY<span class="token punctuation">,</span>
+                    USE_LSTM<span class="token punctuation">,</span> LSTM_SIZE<span class="token punctuation">,</span> ALLOW_RANDOM<span class="token punctuation">,</span> DEBUG_DQN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</pre><h2 class="mume-header" id="-quiz---catch-rewards">Quiz - Catch Rewards</h2>
+
+<p>As with the OpenAI Gym environments, the  <code>catch</code>  game environment must provide rewards to the agent based on the action the agent chooses. The reward function snippet from  <a href="https://github.com/udacity/RoboND-DeepRL-Project/blob/master/samples/catch/catch.cpp"><code>catch.cpp</code></a>  can be found in the main game loop, and is pasted below.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Compute reward</span>
+    <span class="token keyword keyword-float">float</span> reward <span class="token operator">=</span> <span class="token number">0.0f</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> currDist <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">)</span>
+        reward <span class="token operator">=</span> <span class="token number">1.0f</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> currDist <span class="token operator">&gt;</span> prevDist <span class="token punctuation">)</span>
+        reward <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1.0f</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> currDist <span class="token operator">&lt;</span> prevDist <span class="token punctuation">)</span>
+        reward <span class="token operator">=</span> <span class="token number">1.0f</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> currDist <span class="token operator">==</span> prevDist <span class="token punctuation">)</span>
+        reward <span class="token operator">=</span> <span class="token number">0.0f</span><span class="token punctuation">;</span>
+
+</pre><p>The variable  <code>currDist</code>  is the current distance to the ball and the variable  <code>prevDist</code>  is the distance to the ball found in the previous frame.</p>
+<h2 class="mume-header" id="-running--catch">Running  <code>catch</code></h2>
+
+<p>To test the textual catch sample, begin by opening the Udacity Workspace in a new window by clicking on  <a href="https://classroom.udacity.com/nanodegrees/nd893/parts/314f8ff8-9c7f-4dd8-a806-5c81c2b07994/modules/85e060a7-7cd2-4378-a90c-efd94f79451c/lessons/473f623a-a7f0-4cd8-b0fb-3fe0152c9248/concepts/a0f2580c-9d5f-4ba9-84ac-8439cfa7ebfe">this link</a>.</p>
+<p>Then, follow these steps:</p>
+<ul>
+<li>When asked if you&apos;d like to  <strong>Enable GPU Mode</strong>, select  <strong>[YES]</strong>.</li>
+<li>Click on the  <strong>[Go to Desktop]</strong>  button in the bottom right corner of the Workspace; this will open a new window.</li>
+<li>If you get an error message that says something like  <strong><em>No session for pid 55</em></strong>, click  <strong>[OK]</strong>  to close the window.</li>
+</ul>
+<p>Next, open a terminal by clicking the  <strong>Terminator</strong>  icon on the desktop. Navigate to the folder containing the samples by typing the following in a terminal window:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">cd</span> /home/workspace/jetson-reinforcement/build/x86_64/bin
+</pre><p>Then, run the  <code>catch</code>  executable from the terminal:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./catch 
+</pre><p>The terminal will list the initialization values, then print out results for each iteration. After around 100 episodes or so, the agent should start winning the episodes nearly 100% of the time. The following is an example output:</p>
+<pre data-role="codeBlock" data-info="txt" class="language-txt">[deepRL]  input_width:    64
+[deepRL]  input_height:   64
+[deepRL]  input_channels: 1
+...
+WON! episode 1
+001 for 001  (1.0000)  
+WON! episode 5
+004 for 005  (0.8000)  
+...
+WON! episode 110
+078 for 110  (0.7091)  19 of last 20  (0.95)  (max=0.95)
+WON! episode 111
+079 for 111  (0.7117)  19 of last 20  (0.95)  (max=0.95)
+WON! episode 112
+080 for 112  (0.7143)  20 of last 20  (1.00)  (max=1.00)
+
+</pre><p>Internally,  <code>catch</code>  is using the  <code>dqnAgent</code>  API from our C++ library to implement the learning.</p>
+<h2 class="mume-header" id="-alternate-arguments">Alternate Arguments</h2>
+
+<p>There are some optional command line parameters to catch that you can play around with, to change the dimensions of the environment and pixel array input size, increasing the complexity to see how it impacts convergence and training times:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./catch --width<span class="token operator">=</span><span class="token number">96</span> --height<span class="token operator">=</span><span class="token number">96</span>
+$ ./catch --render  <span class="token comment"># enable text output of the environment</span>
+</pre><p>With 96x96 environment size, the catch agent achieves &gt;75% accuracy after around 150-200 episodes. With 128x128 environment size, the catch agent achieves &gt;75% accuracy after around 325 episodes.</p>
+<h1 class="mume-header" id="-fruit-sample">Fruit Sample</h1>
+
+<p>The  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/samples/fruit/fruit.cpp"><code>fruit</code></a>  sample is a simple C/C++ program which links to the reinforcement learning library provided in the repository.</p>
+<p>The environment is a 2-dimensional screen. The agent is learning &quot;from vision&quot; to translate the raw pixel array into actions using the DQN algorithm. The agent appears at random locations and must find the &quot;fruit&quot; object to gain the reward and win episodes before running out of bounds or the timeout period expires. The agent has 5 possible actions to choose from: up, down, left, right, or none on the screen in order to navigate to the object.</p>
+<p align="center">
+<img src="img/fruit.gif" alt="drawing" width="300">
+</p>
+<h2 class="mume-header" id="-fruit--implementation"><code>fruit</code>  Implementation</h2>
+
+<p>The  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/samples/fruit/fruit.cpp"><code>fruit</code></a>  code looks very similar to the  <code>catch</code>  code. It&#x2019;s important to note that the  <em>same agent class</em>  is used in both environments!</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Create reinforcement learner agent in pyTorch</span>
+dqnAgent<span class="token operator">*</span> agent <span class="token operator">=</span> dqnAgent<span class="token double-colon punctuation">::</span><span class="token function">Create</span><span class="token punctuation">(</span>gameWidth<span class="token punctuation">,</span> gameHeight<span class="token punctuation">,</span> 
+                    NUM_CHANNELS<span class="token punctuation">,</span> NUM_ACTIONS<span class="token punctuation">,</span> OPTIMIZER<span class="token punctuation">,</span> 
+                    LEARNING_RATE<span class="token punctuation">,</span> REPLAY_MEMORY<span class="token punctuation">,</span> BATCH_SIZE<span class="token punctuation">,</span> 
+                    GAMMA<span class="token punctuation">,</span> EPS_START<span class="token punctuation">,</span> EPS_END<span class="token punctuation">,</span> EPS_DECAY<span class="token punctuation">,</span>
+                    USE_LSTM<span class="token punctuation">,</span> LSTM_SIZE<span class="token punctuation">,</span> ALLOW_RANDOM<span class="token punctuation">,</span> DEBUG_DQN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>The parameter values are slightly different (the frame size and number of channels have changed), but the algorithm for training the network to produce actions from inputs remains the same.</p>
+<p>The environment is more complicated for  <code>fruit</code>  than it is for  <code>catch</code>, so it has been extracted to the  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/samples/fruit/fruitEnv.cpp"><code>fruitEnv.cpp</code></a>  module and it&#x2019;s own class,  <code>FruitEnv</code>. The environment object named  <code>fruit</code>  is instantiated in the  <code>fruit.cpp</code>  module.</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Create Fruit environment</span>
+FruitEnv<span class="token operator">*</span> fruit <span class="token operator">=</span> <span class="token class-name">FruitEnv</span><span class="token double-colon punctuation">::</span><span class="token function">Create</span><span class="token punctuation">(</span>gameWidth<span class="token punctuation">,</span> gameHeight<span class="token punctuation">,</span> epMaxFrames<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>We can trace the handoff between the agent and environment through the following code snippet located in the main game loop in the  <code>fruit.cpp</code>  module:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Ask the agent for their action</span>
+<span class="token keyword keyword-int">int</span> action <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> <span class="token operator">!</span>agent<span class="token operator">-&gt;</span><span class="token function">NextAction</span><span class="token punctuation">(</span>input_tensor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>action<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;[deepRL]  agent-&gt;NextAction() failed.\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-if">if</span><span class="token punctuation">(</span> action <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> action <span class="token operator">&gt;=</span> NUM_ACTIONS <span class="token punctuation">)</span>
+    action <span class="token operator">=</span> ACTION_NONE<span class="token punctuation">;</span>
+
+<span class="token comment">// Provide the agent&apos;s action to the environment</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-bool">bool</span> end_episode <span class="token operator">=</span> fruit<span class="token operator">-&gt;</span><span class="token function">Action</span><span class="token punctuation">(</span><span class="token punctuation">(</span>AgentAction<span class="token punctuation">)</span>action<span class="token punctuation">,</span> <span class="token operator">&amp;</span>reward<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>In this snippet,  <code>action</code>  is the variable that contains the  <code>agent</code>  object&#x2019;s next action, based on the previous environment state represented by the  <code>input_tensor</code>  variable. The  <code>reward</code>  is determined in the last line when the  <code>action</code>  is submitted to the environment object named  <code>fruit</code>.</p>
+<h2 class="mume-header" id="-quiz---fruit-rewards">Quiz - Fruit Rewards</h2>
+
+<p>The  <code>fruit</code>  rewards function can be implemented a number of different ways. Below are several possible reward functions for the game that compare previous and current distances between the agent and its goal. Match each to descriptions in the quiz below.</p>
+<h3 class="mume-header" id="-a">A</h3>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token operator">*</span>reward <span class="token operator">=</span> <span class="token punctuation">(</span>lastDistanceSq <span class="token operator">&gt;</span> fruitDistSq<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1.0f</span> <span class="token operator">:</span> <span class="token number">0.0f</span><span class="token punctuation">;</span>
+
+</pre><h3 class="mume-header" id="-b">B</h3>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token operator">*</span>reward <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">sqrtf</span><span class="token punctuation">(</span>lastDistanceSq<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">sqrtf</span><span class="token punctuation">(</span>fruitDistSq<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.5f</span><span class="token punctuation">;</span>
+
+</pre><h3 class="mume-header" id="-c">C</h3>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token operator">*</span>reward <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">sqrtf</span><span class="token punctuation">(</span>lastDistanceSq<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">sqrtf</span><span class="token punctuation">(</span>fruitDistSq<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.33f</span><span class="token punctuation">;</span>
+
+</pre><h3 class="mume-header" id="-d">D</h3>
+
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token operator">*</span>reward <span class="token operator">=</span> <span class="token function">exp</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token punctuation">(</span>fruitDistSq<span class="token operator">/</span>worldWidth<span class="token operator">/</span><span class="token number">1.5f</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h2 class="mume-header" id="-running--fruit">Running  <code>fruit</code></h2>
+
+<p>To test the fruit sample, open the desktop in the  <strong>Udacity Workspace</strong>, open a terminal, and once again navigate to the folder containing the samples with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/jetson-reinforcement/build/x86_64/bin
+</pre><p>Launch the executable from the terminal:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./fruit
+</pre><p>It should achieve 85% accuracy after around ~100 episodes within the default 48x48 environment.</p>
+<h2 class="mume-header" id="-alternate-arguments-1">Alternate Arguments</h2>
+
+<p>Optional command line parameter examples for  <code>fruit</code>  can be used to change the size of the pixel array and limit the number of frames:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./fruit --width<span class="token operator">=</span><span class="token number">64</span> --height<span class="token operator">=</span><span class="token number">64</span> --episode_max_frames<span class="token operator">=</span><span class="token number">100</span>
+</pre><h1 class="mume-header" id="-rover-sample">Rover Sample</h1>
+
+<p>The next environment that you will get to explore and work with uses the C++ API and Gazebo.</p>
+<p>The repository contains a  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/gazebo/gazebo-rover.world"><code>gazebo-rover.world</code></a>  file that defines the environment with four main components:</p>
+<ul>
+<li>The rover.</li>
+<li>A camera sensor, to capture images to feed into the DQN.</li>
+<li>A maze.</li>
+<li>Obstacles that block the rover&apos;s path.</li>
+</ul>
+<p align="center">
+<img src="img/rover.gif" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="-running-the-rover">Running the Rover</h2>
+
+<p>To test the rover sample, open the desktop in the  <strong>Udacity Workspace</strong>, open a terminal, and once again navigate to the folder containing the samples with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/jetson-reinforcement/build/x86_64/bin
+</pre><p>Launch the executable from the terminal:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./gazebo-rover.sh
+</pre><h2 class="mume-header" id="-more-about-the-rover">More about the Rover</h2>
+
+<p>The robotic rover model, found in the  <code>gazebo-rover.world</code>  file, calls upon a gazebo plugin called  <code>RoverPlugin</code>. This plugin is responsible for creating the DQN agent and training it to learn. The gazebo plugin shared object file,  <code>libgazeboRoverPlugin.so</code>, attached to the robot model in  <code>gazebo-rover.world</code>, is responsible for integrating the simulation environment with the RL agent. The plugin is defined in the  <code>RoverPlugin.cpp</code>  file, also located in the  <a href="https://github.com/dusty-nv/jetson-reinforcement/tree/master/gazebo"><code>gazebo/</code></a>  folder.</p>
+<p>The  <code>RoverPlugin.cpp</code>  file takes advantage of the C++ API covered earlier. This plugin creates specific constructor and member functions for the  <code>RoverPlugin</code>  class defined in  <code>RoverPlugin.h</code>. Some of the important methods are discussed below:</p>
+<h3 class="mume-header" id="-roverpluginload">RoverPlugin::Load()</h3>
+
+<p>This function is responsible for creating and initializing nodes that subscribe to two specific topics - one for the camera, and one for the collision sensor. For each of the two subscribers, there is a callback function defined in the file:</p>
+<ul>
+<li><code>RoverPlugin::onCameraMsg()</code>  - This is the callback function for the camera subscriber. It takes the message from the camera topic, extracts the image, and saves it. This is then passed to the DQN.</li>
+<li><code>RoverPlugin::onCollisionMsg()</code>  - This is the callback function for the collision sensor. This function is used to test whether the collision sensor, defined in  <code>gazebo-rover.world</code>, observes a collision with another element/model or not. Furthermore, this callback function can also be used to define a reward function based on whether there has been a collision or not.</li>
+</ul>
+<p>In gazebo, subscribing to a topic has the following structure:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>gazebo::transport::SubscriberPtr sub = node-&gt;Subscribe(&quot;topic_name&quot;, callback_function, class_instance);
+
+</code></pre><p>Where,</p>
+<ul>
+<li><code>callback_function</code>  is the method that&#x2019;s called when a new message is received, and</li>
+<li><code>class_instance</code>  is the instance used when a new message is received.</li>
+</ul>
+<p>You can refer to the documentation for more details on the above:</p>
+<ul>
+<li><a href="http://gazebosim.org/tutorials?tut=topics_subscribed">Subscribers in Gazebo</a></li>
+<li><a href="http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1transport_1_1Node.html#a13a67ebd4537a0057ae92f837bb3042f">Gazebo API</a></li>
+</ul>
+<h3 class="mume-header" id="-roverplugincreateagent">RoverPlugin::createAgent()</h3>
+
+<p>Previously, for the  <code>fruit</code>  and  <code>catch</code>  samples, you created a DQN agent. The  <code>createAgent()</code>  class function serves the same purpose wherein you can create and initialize the agent. In  <code>RoverPlugin.cpp</code>, the various parameters that are passed to the  <code>Create()</code>  function for the agent are defined at the top of the file. Some of them are:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp"><span class="token comment">// Define DQN API Settings</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INPUT_WIDTH</span>   <span class="token expression"><span class="token number">64</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INPUT_HEIGHT</span>  <span class="token expression"><span class="token number">64</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INPUT_CHANNELS</span> <span class="token expression"><span class="token number">3</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">OPTIMIZER</span> <span class="token string">&quot;RMSprop&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LEARNING_RATE</span> <span class="token expression"><span class="token number">0.1f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">REPLAY_MEMORY</span> <span class="token expression"><span class="token number">10000</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BATCH_SIZE</span> <span class="token expression"><span class="token number">32</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GAMMA</span> <span class="token expression"><span class="token number">0.9f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_START</span> <span class="token expression"><span class="token number">0.9f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_END</span> <span class="token expression"><span class="token number">0.05f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">EPS_DECAY</span> <span class="token expression"><span class="token number">200</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">USE_LSTM</span> <span class="token expression"><span class="token boolean">true</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LSTM_SIZE</span> <span class="token expression"><span class="token number">256</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ALLOW_RANDOM</span> <span class="token expression"><span class="token boolean">true</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DEBUG_DQN</span> <span class="token expression"><span class="token boolean">false</span></span></span>
+</pre><h3 class="mume-header" id="-roverpluginupdateagent">RoverPlugin::updateAgent()</h3>
+
+<p>For every frame that the camera receives, the agent needs to take an appropriate action.</p>
+<p>The network selects one output for every frame. This output (action value) can then be mapped to a specific action. The  <code>updateAgent()</code>  method receives the action value from the DQN, and decides to take that action.</p>
+<p>There are four possible ways to control the rover:</p>
+<ul>
+<li>drive in reverse</li>
+<li>drive forward</li>
+<li>turn left</li>
+<li>turn right</li>
+</ul>
+<h3 class="mume-header" id="-roverpluginonupdate">RoverPlugin::OnUpdate()</h3>
+
+<p>This method is primarily utilized to issue rewards and train the DQN. It is called upon at every simulation iteration and can be used to update the robot positions, issue end of episode (EOE) rewards, or issue interim rewards based on the desired goal.</p>
+<p>At EOE, various parameters for the API and the plugin are reset, and the current accuracy of the agent performing the appropriate task is displayed on the terminal.</p>
+<h1 class="mume-header" id="-arm-sample">Arm Sample</h1>
+
+<p>As one of the projects in the  <a href="https://www.udacity.com/course/robotics-software-engineer--nd209">Robotics Software Engineer Nanodegree program</a>, you will explore how to train a robotic arm to touch objects without needing explicit  <a href="https://appliedgo.net/roboticarm/">inverse kinematics</a>.</p>
+<p>The repository contains a  <a href="https://github.com/dusty-nv/jetson-reinforcement/blob/master/gazebo/gazebo-arm.world"><code>gazebo-arm.world</code></a>  file that defines the environment with three main components:</p>
+<ul>
+<li>The robotic arm with a gripper attached to it.</li>
+<li>A camera sensor, to capture images to feed into the DQN.</li>
+<li>A cylindrical object or prop.</li>
+</ul>
+<p align="center">
+<img src="img/armenv.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="-running-the-rover-1">Running the Rover</h2>
+
+<p>To get started with the arm sample, open the desktop in the  <strong>Udacity Workspace</strong>, open a terminal, and once again navigate to the folder containing the samples with:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ <span class="token builtin class-name">cd</span> /home/workspace/jetson-reinforcement/build/x86_64/bin
+</pre><p>Launch the executable from the terminal:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">$ ./gazebo-arm.sh
+</pre><p>Once the gazebo environment loads up, you will observe the robotic arm, a camera sensor, and an object in the environment. The gazebo arm will fall to the ground after a short while, and the terminal will continuously display the following message:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>ArmPlugin - failed to create DQN agent
+</code></pre><p align="center">
+<img src="img/rl-gazebo-fall.png" alt="drawing" width="600">
+</p>
+<p>Since no DQN agent is currently defined, the arm isn&apos;t learning anything and has no input to control it. <strong>For this sample, it&apos;s up to you to implement your own DQN agent!</strong></p>
+<h1 class="mume-header" id="-jetson-tx2">Jetson TX2</h1>
+
+<p>The repository that we&apos;ve explored in this lesson is specially designed to be run on the Jetson TX2, an ideal platform for building robots that leverage neural networks. For an example of a robot in action, check out  <a href="https://news.developer.nvidia.com/coming-right-up-high-schoolers-build-indoor-delivery-robot-with-nvidia-jetson-tx2/">this article</a>!</p>
+<p>In the video below, Kelvin will describe what the Jetson TX2 is, and why it&apos;s a great development platform for AI applications and robotics.</p>
+<p><em>from the video</em></p>
+<p><strong>What&apos;s Jetson TX2 and why it&apos;s a great development platform for AI applications in robotics?</strong></p>
+<p>The Jetson TX2 features a 256 core Pascal GPU, a hex-core ARM CPU complex, 8 Gb of RAM, and 32 Gb of flash storage, all on a credit card sized board and less than 15 watt of power.</p>
+<p>What that means is that it&apos;s capable of processing complex sensory input data in real-time on the board itself or at the edge as we like to say.</p>
+<p>It doesn&apos;t have to rely on uploading information to a remote system to process a deep learning inference model.</p>
+<p>That board is what ultimately gets put inside a mobile robot, or a drone, or a manipulator, etc.</p>
+<p>The developemtn kit that comes with it like a motherboard for your Jeston TX2. It exposes all the input and output so that you can hook up all kinds of sensors and actuators during development including a traditional computer setup with a display, keyboard, and wifi.</p>
+<p>See the video <a href="https://youtu.be/M26z7vTti_g">here</a>.</p>
+<h2 class="mume-header" id="-jetson-tx2-development-kit">Jetson TX2 Development Kit</h2>
+
+<p>You can explore the Jetson TX2 development kit on  <a href="https://developer.nvidia.com/embedded/buy/jetson-tx2-devkit">NVIDIA&apos;s website</a>. Watch the video below to learn more about the tech specs.</p>
+<p>Find out more about TX2 development kit in <a href="https://youtu.be/i56qM6NNW9A">this video</a>.</p>
+<p>Register for the NVIDIA Developer Program to access the latest NVIDIA SDK tools and be the first to hear about NVIDIA product announcements. Learn more at  <a href="https://developer.nvidia.com/developer-program">developer.nvidia.com/developer-program</a>. Membership provides access to data and tools for working with the Jetson TX2.</p>
+<p>Details about the Developer Kit Board can be found in the  <a href="https://developer.nvidia.com/embedded/downloads#?tx=$product,jetson_tx2$hardware,design,reference,physical,interface,thermal,testing,schematics">Jetson Download Center</a>. Look for the  <a href="http://developer.nvidia.com/embedded/dlc/jetson-tx1-tx2-developer-kit-carrier-board-spec-20170615">Jetson TX1-TX2 Developer Kit Carrier Board Specification</a>.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

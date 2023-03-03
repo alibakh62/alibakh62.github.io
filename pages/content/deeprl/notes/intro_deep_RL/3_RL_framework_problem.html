@@ -1,0 +1,650 @@
+<!DOCTYPE html><html><head>
+      <title>3_RL_framework_problem</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-introduction">Introduction</h1>
+
+<p>This lesson covers material in <strong>Chapter 3</strong> (especially 3.1-3.3) of the <a href="http://go.udacity.com/rl-textbook">textbook</a>.</p>
+<h1 class="mume-header" id="-the-setting-revisited">The Setting, Revisited</h1>
+
+<p>Remember the agent example (puppy example) from previous lesson? He set the stage as an agent who learns from trial and error and how to behave in an environment to maximize reward.</p>
+<p><strong>What do we mean when we talk about RL in general?</strong></p>
+<p>Sort of the same thing described in the puppy example. In particular, the RL framework is characterized by an <strong>agent learned to interact with its environment</strong>. Therefore, the summation from previous section, - We assume that time evolves in discrete time steps. At the initial time step, the agent observes the environment. You can think of this observation as a situation that the environment presents to the agent.</p>
+<ul>
+<li>Then, it must select an appropriate action in response. Then, at the next time step in response to the agent&apos;s action, the environment presents a new situation to the agent.</li>
+<li>At the same time, the environment gives the agent a reward which provides some indication of whether the agent has responded appropriately to the environment.</li>
+<li>Then, the process continues where at each time step, the environment sends the agent an observation and reward.</li>
+<li>And, in response, the agent must choose an action.</li>
+</ul>
+<p>In general, we <strong>don&apos;t need assume</strong> that the environment shows the agent everything he needs to make well-informed decisions. But, it <strong>greatly simplifies</strong> the underlying mathematics if we do. <strong>So, in this course, we&apos;ll make the assumption that the agent is able to fully observe whatever state the environment is in</strong>.</p>
+<p>And instead of referring to the agent as receiving an observation, we&apos;ll henceforth say that it receives the <strong>environment state</strong>.</p>
+<p>Let&apos;s make this description a bit clearer with some added notation.</p>
+<ul>
+<li>The agent first receives the <strong>environment&apos;s initial state</strong> which we denote by <code>S_0</code>, where <code>0</code> refers to time step zero.</li>
+<li>Then, based on that observation the agent chooses an <strong>action</strong>, <code>A_0</code>.</li>
+<li>At the next time step, as direct consequence of agent&apos;s action and environment previous state, the <strong>environment transitions to a new state</strong>, <code>S_1</code>, and gives some <strong>reward</strong>, <code>R_1</code>, to the agent.</li>
+<li>The agent then chooses an action, <code>A_1</code>.</li>
+<li>At time step 2, the process continues where the environment passes the reward and state and then the agent responds with an action and so on.</li>
+</ul>
+<p>Whereas the agent interacts with the environment, this interaction is manifested as a sequence of states, actions, and rewards.</p>
+<pre data-role="codeBlock" data-info class="language-"><code>S_0, A_0, R_1, S_1, A_1, R_2, S_2, A_2, ...
+</code></pre><p>The reward will always be the most relevant quantity to the agent, meaning that <strong>any agent has the goal to maximize expected cumulative reward</strong> or the some of the rewards attained over all time steps.</p>
+<p>In other words, it seeks to find an strategy for choosing actions where the cumulative reward is likely to be quite high. The agent can only accomplish this by interacting with the environment. This is because at every time step, the environment decides how much reward the agent receives. In other words, the agent must play by the rules of the environment. But through interaction, the agent can learn those rules and choose appropriate actions to accomplish its goal. This is essentially what we&apos;re trying to accomplish in this course.</p>
+<p>See the video <a href="https://youtu.be/V6Q1uF8a6kA">here</a>.</p>
+<h1 class="mume-header" id="-episodic-vs-continuing-tasks">Episodic vs. Continuing Tasks</h1>
+
+<p>Many of the real-world situations we&apos;ll consider will have a well-defined ending point. For instance, say, we&apos;re teaching an agent to play a game. Then, the interaction ends when the agent wins or loses. Or we might be running a simulation to teach a car to drive. Then, the interaction ends when the car crashes.</p>
+<h2 class="mume-header" id="-episodic-tasks">Episodic Tasks</h2>
+
+<p>Of course, not all RL tasks have a well-defined ending point but those that do are called <strong>episodic tasks</strong>, meaning that the interaction ends at some time step. In this case, we&apos;ll refer to a complete sequence of interaction from start to finish as an <strong>episode</strong>.</p>
+<p><strong>When the episode ends</strong>, the agent looks at the total amount of reward it received to figure out how well it did. It&apos;s then able to start from scratch as if it has been completely reborn into the same environment but now with the added knowledge of what happened in its past life.</p>
+<p>In this way, as time passes over its many lives, the agent makes better and better decisions.</p>
+<p>Once your agents spent enough time getting to know the environment, they should be able to pick a strategy where the cumulative reward is quite high.</p>
+<h2 class="mume-header" id="-continuing-tasks">Continuing Tasks</h2>
+
+<p>We&apos;ll also look at tasks that go on forever, without end. Those are called <strong>continuing tasks</strong>. For instance, an algorithm that buys and sells stocks in response to the financial market would be best modeled as an agent in the continuing tasks. In this case, <strong>the agent lives forever</strong>. So, it has to learn the best way to choose actions while simultaneously interacting with the environment.</p>
+<h2 class="mume-header" id="-test-your-intuition">Test Your Intuition</h2>
+
+<h3 class="mume-header" id="-playing-chess">Playing Chess</h3>
+
+<p align="center">
+<img src="img/chess-game.jpg" alt="drawing" width="300">
+</p>
+<p>Say you are an agent, and your goal is to play chess. At every time step, you choose any  <strong>action</strong>  from the set of possible moves in the game. Your opponent is part of the environment; she responds with her own move, and the  <strong>state</strong>  you receive at the next time step is the configuration of the board, when it&#x2019;s your turn to choose a move again. The  <strong>reward</strong>  is only delivered at the end of the game, and, let&#x2019;s say, is +1 if you win, and -1 if you lose.</p>
+<p>This is an  <strong>episodic task</strong>, where an episode finishes when the game ends. The idea is that by playing the game many times, or by interacting with the environment in many episodes, you can learn to play chess better and better.</p>
+<p>It&apos;s important to note that this problem is exceptionally difficult, because the feedback is only delivered at the very end of the game. So, if you lose a game (and get a reward of -1 at the end of the episode), it&#x2019;s unclear when exactly you went wrong: maybe you were so bad at playing that every move was horrible, or maybe instead &#x2026; you played beautifully for the majority of the game, and then made only a small mistake at the end.</p>
+<p>When the reward signal is largely uninformative in this way, we say that the task suffers the problem of  <em><strong>sparse rewards</strong></em>. There&#x2019;s an entire area of research dedicated to this problem, and you&#x2019;re encouraged to read more about it, if it interests you.</p>
+<h3 class="mume-header" id="-escaping-a-maze">Escaping a Maze</h3>
+
+<p>Consider a game in which the agent is located in a maze and trying to find the quickest route to the goal. If all the agent can do is randomly explore the maze, <strong>it will not be able to learn anything until it reaches the goal at least once</strong>.</p>
+<p align="center">
+<img src="img/escape-maze.jpg" alt="drawing" width="300">
+</p>
+<h2 class="mume-header" id="-quiz-episodic-or-continuing">Quiz: Episodic or Continuing?</h2>
+
+<p>Remember:</p>
+<ul>
+<li>A  <strong>task</strong>  is an instance of the reinforcement learning (RL) problem.</li>
+<li><strong>Continuing tasks</strong>  are tasks that continue forever, without end.</li>
+<li><strong>Episodic tasks</strong>  are tasks with a well-defined starting and ending point.
+<ul>
+<li>In this case, we refer to a complete sequence of interaction, from start to finish, as an  <strong>episode</strong>.</li>
+<li>Episodic tasks come to an end whenever the agent reaches a  <strong>terminal state</strong>.</li>
+</ul>
+</li>
+</ul>
+<p>With these ideas in mind, use the quiz below to classify tasks as continuing or episodic.</p>
+<p>Consider an RL agent that would like to learn to <a href="https://en.wikipedia.org/wiki/AlphaGo">play the board game Go</a>. Is this a continuing or episodic task?</p>
+<h1 class="mume-header" id="-the-reward-hypothesis">The Reward Hypothesis</h1>
+
+<p>So far we&apos;ve made sense of the idea of reward from the perspective of a puppy that interacts with its owner. In this case, the state in any time step was the command that the owner communicated to the puppy, the action was the puppy&apos;s response, the reward was just the number of treats. And, of course, the puppy seeks to maximize that reward.</p>
+<p>In the case of the example above, the idea of reward comes naturally and it lines up well with the way we think about teaching a puppy. But in fact the RL framework has any all agents formulate their goals in terms of <em><strong>maximizing expected cumulative reward</strong></em>.</p>
+<p><strong>But what could reward mean in the context of something like a robot learning to walk?</strong> Maybe, we could think of the environment as a type of trainer that watches the robot&apos;s movements and rewards it for having a good walking form. But then the reward that it gives has the potential to be highly subjective and not scientific at all. I mean, what makes a walk <em>good</em>?</p>
+<p><strong>In general, how do we specify reward to describe any of a number of potential goals that our agents could have?</strong> Before answering this question, let&apos;s take a step back.</p>
+<p>It&apos;s important to note that the word <strong>&quot;reinforcement&quot;</strong> and <strong>&quot;reinforcement learning&quot;</strong> is a term originally from <strong>behavioral science</strong>. It refers to a stimulus that&apos;s delivered immediately after behavior to make behavior more likely to occur in the future. The fact that this name is borrowed is no coincidence. In fact, it&apos;s important to defining hypothesis and reinforcement learning that we can always formulate an agent&apos;s goal, along the lines of <strong>maximizing <em>expected</em> cumulative reward</strong>. And we call this hypothesis the <strong>&quot;Reward Hypothesis&quot;</strong>.</p>
+<p><strong>Reward Hypothesis:</strong> All goals can be framed as the maximization of <span style="color:red"><em><strong>expected</strong></em></span> cumulative reward.</p>
+<p>See the video <a href="https://youtu.be/uAqNwgZ49JE">here</a>.</p>
+<h1 class="mume-header" id="-goals-and-rewards-part-1">Goals and Rewards: Part 1</h1>
+
+<p>Let&apos;s talk about some interesting research to illustrate the reward hypothesis.</p>
+<p><strong>Google DeepMind</strong> recently addressed the problem of teaching a robot to walk. Among other problem domains, they worked with a physical simulation of a humanoid robot and they managed to apply some nice RL to get great results. In order to frame this problem as a RL problem, we&apos;ll have to specify the state&apos;s actions and rewards.</p>
+<p><strong>What are the actions?</strong></p>
+<p>These are the decisions that need to be made in order for the robot to walk. Now, the humanoid has several joints, and the actions are just the forces that the robot applies to its joints in order to move.</p>
+<p>Because the robot has an intelligent method for deciding these forces at every point in time, that will be sufficient to get it walking.</p>
+<p><strong>What about the states?</strong></p>
+<p>The states are the context provided to the agent for choosing intelligent actions. In this context, the state at any point in time contains the current positions and velocities of all the of joints, along with some measurements about the surface that the robot is standing on. These measurements captures how flat or inclined the ground is, whether there is a large step along the path and so on.</p>
+<p>The researchers at DeepMind also added <strong>contact sensor data</strong>, so that it could detect if the robot is still walking of if it had fallen over. The idea is that based on the information in the state, the agent has to plan its next action. After all, if there&apos;s a step along the path, that will require a different type of movement that if the ground was completely flat.</p>
+<p>We&apos;ll design the reward as a feedback mechanism that tells the agent that it has chosen the appropriate movements. The reward will be our way of telling the agent &quot;Good Job for not running into that wall, or too bad for missing that step and falling down&quot;.</p>
+<p>See the video <a href="https://youtu.be/XPnj3Ya3EuM">here</a>.</p>
+<h1 class="mume-header" id="-goals-and-rewards-part-2">Goals and Rewards: Part 2</h1>
+
+<p>So far, we&apos;ve been trying to frame the idea of a humanoid learning to walk in the context of RL. We talked about the actions and states, but we still need to talk about rewards.</p>
+<p>The reward structure from the DeepMind&apos;s paper is surprisingly intuitive. This line is pulled from the appendix of the paper and describes how the reward is decided at every time step.</p>
+<p align="center">
+<img src="img/reward-deepmind.png" alt="drawing" width="600">
+</p>
+<p>Each term communicates to the agent some part of what we&apos;d like it to accomplish. So, let&apos;s look at each term individually.</p>
+<p>At every time step, the agent receives a reward proportional to its <em><strong>forward velocity (<code>min(v_x, v_max)</code>)</strong></em>. So if it moves faster, it gets more reward, but up to a limit, here denoted by <strong><code>v_max</code></strong>. But it&apos;s <em>penalized</em> an amount proportional to the force applied to each joint, <strong><code>-0.02||u||^2</code></strong>. So, if the agent applies more force to the joints, then more reward is taken away as punishment.</p>
+<p>Since the researchers also wanted the humanoid to focus on moving forward, the agent is also <em>penalized</em> for moving left, right, or vertically <strong>(<code>-0.005({v_x}^2 + {v_y}^2)</code>)</strong>.</p>
+<p>It was also <em>penalized</em> if the humanoid moved its body away from the center of the track <strong>(<code>-0.05y^2</code>)</strong>. So, the agent will try to keep the humanoid as close to the center as possible.</p>
+<p>At every time step, the agent also receives some positive reward if the humnoid has not yet fallen <strong>(<code>+0.02</code>)</strong>.</p>
+<p align="center">
+<img src="img/reward-deepmind-2.png" alt="drawing" width="600">
+</p>
+<p>They frame the problem as an <strong>episodic</strong> task where if the humanoid falls, then the episode is terminated. At this point, whatever cumulative reward the agent had at that time point is all it&apos;s ever going to get.</p>
+<p><strong>In this way, the reward signal is designed, so if the robot focused entirely on maximizing this reward, it would also coincidentally learn to walk</strong>. To see this, first note that if the robot falls, the episode terminates and that&apos;s a missed opportunity to collect more of the positive reward (the last term, <strong>(<code>+0.02</code>)</strong>).</p>
+<p>And in general, if the robot walks for more time steps, it&apos;ll get more opportunities to get reward, proportional to the number of time steps. So, if we give the reward in this way, the agent will try to keep from falling for as long as possible.</p>
+<p>Next, since the reward is proportional to the forward velocity, this will ensure the robot also feels pressured to walk as quickly as possible in the direction of the walking track.</p>
+<p>But, it also makes sense to penalize the agent for applying too much force to the joints. This is because otherwise, we could end up with a situation where the humanoid walks too erratically. By penalizing large forces, we can try to keep the movements more smooth and elegant.</p>
+<p>Likewise, we want to keep the agent on the track and moving forward. Otherwise, who knows where it could end up walking off to.</p>
+<p>Of course, the robot can&apos;t focus just on walking fast, of just on moving forward, or only walking smoothly, or just on walking for as long as possible.</p>
+<p align="center">
+<img src="img/reward-deepmind-3.png" alt="drawing" width="600">
+</p>
+<p>These are four somewhat competing requirements that the agent has to balance for all time steps towards its goal of maximizing expected cumulative reward. DeepMind demonstrated that from this very simple reward function, the agent is able to learn how to walk in a very human like fashion. <strong>In fact, this reward function is so simple, that it may seem that deciding reward is quite straightforward. But, in general, this is not the case</strong>.</p>
+<p>Of course, there are some counter examples to this. For instance, if you&apos;re teaching an agent to play a video game, the reward is just the score on the screen. And if you&apos;re teaching an agent to play Backgammon, the reward is delivered only at the end of the game, and you could construct it to be positive if the agent wins and negative if it loses. The fact that the reward is so simple is precisely what makes this research from DeepMind so fascinating.</p>
+<p>See the video <a href="https://youtu.be/pVIFc72VYH8">here</a>.</p>
+<p><strong>NOTE:</strong> If you&apos;d like to learn more about the research that was done at <a href="https://deepmind.com/">DeepMind</a>, please check out <a href="https://deepmind.com/blog/producing-flexible-behaviours-simulated-environments/">this link</a>. The research paper can be accessed <a href="https://arxiv.org/pdf/1707.02286.pdf">here</a>. Also, check out this cool <a href="https://www.youtube.com/watch?v=hx_bgoTF7bs&amp;feature=youtu.be">video</a>!</p>
+<h1 class="mume-header" id="-quiz-goals-and-rewards">Quiz: Goals and Rewards</h1>
+
+<p>So far, you&apos;ve seen one example for how to frame an agent&apos;s goal as the maximization of expected cumulative reward. In this quiz, you will investigate several more examples.</p>
+<p align="center">
+<img src="img/maze.png" alt="drawing" width="400">
+</p>
+<p align="center">
+<img src="img/reward-quiz1.png" alt="drawing" width="600">
+</p>
+<hr>
+<p align="center">
+<img src="img/backgammonboard.png" alt="drawing" width="300">
+</p>
+<p align="center">
+<img src="img/reward-quiz2.png" alt="drawing" width="600">
+</p>
+<hr>
+<p align="center">
+<img src="img/balance-food-puppy.jpg" alt="drawing" width="300">
+</p>
+<p align="center">
+<img src="img/reward-quiz3.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="-cumulative-reward">Cumulative Reward</h1>
+
+<p>We&apos;ve seen that the RL framework gives us a way to study how an agent can learn to accomplish a goal from interacting with its environment. This framework works for many real world applications and simplifies the interaction into <strong>three signals</strong> that are passed between agent and environment.</p>
+<p>The <strong>state</strong> signal is the environment&apos;s way of presenting a situation to the agent. The agent then responds with an <strong>action</strong> which influences the environment. And the environment responds with the <strong>reward</strong> which gives some indication of whether the agent has responded appropriately to the environment. Also, built-in to the framework is the <strong>agent&apos;s goal</strong> which is to <strong>maximize cumulative reward</strong>.</p>
+<p><strong>But what exactly does this mean and how does the agent accomplish this?</strong></p>
+<p>Let&apos;s try to understand this with the help of previous walking robot example. In this case, the goal of the robot was to stay walking forward for as long and as quickly as possible while exerting minimal effort. In this case, if the robot tried to <em>maximize</em> the reward it received at a single time step, that would look like trying to move as quickly as possible with as little effort without falling immediately. That could work well in the short term, but it&apos;s possible, for instance, that the agent&apos;s movement gets it moving quickly without falling initially. But that first movement was de-stabilizing enough that it doomed the agent to fall in short time. In this way, if the agent focused on individual time steps, it could learn actions that maximize initial rewards, but then the episode terminates quite quickly. So, the cumulative reward would be quite small. And still worse, in this case, the agent will have not learned to walk.</p>
+<p>In this example then, it&apos;s clear that the agent cannot focus on individual time steps and instead needs to keep all time steps in mind. <strong>This also holds true for RL agents in general</strong>.</p>
+<blockquote>
+<p><strong>Actions have short AND long term consequences and the agent needs to gain some understanding of the complex effects its actions on the environment</strong>.</p>
+</blockquote>
+<p>Along these lines, in the walking robot example, the agent always has reward at all time steps in mind, it will learn to choose movement designed for long-term stability. So in this way, the robot moves a bit slowly to sacrifice a little but of reward but it will pay off because it will avoid falling for longer and collect higher cumulative reward.</p>
+<p><strong>What does all of this mean when the agent chooses an action at an arbitrary time step? How exactly does it keep all time steps in mind?</strong></p>
+<p>Well, if we&apos;re looking at some time step, <code>t</code>, it&apos;s important to note that the rewards for all previous time steps have already been decided as they&apos;re in the past. Only future rewards are inside the agent&apos;s control.</p>
+<h2 class="mume-header" id="-return-g_t">Return: G_t</h2>
+
+<p>We refer to the sum of rewards from the next time step onward as the <strong>return</strong>, and denote it with <strong><code>G</code></strong>. At an arbitrary time step, the agent will always choose an action towards the goal of maximizing the return.</p>
+<p align="center">
+<img src="img/return1.png" alt="drawing" width="400">
+</p>
+<p>But, it&apos;s actually <em>more accurate</em> to say that the agent seeks to maximize <strong>expected return</strong>. This is because it&apos;s generally the case that the agent can&apos;t predict with complete certainty what the future rewards is likely to be. So, it has to rely on a prediction or an estimate.</p>
+<p>See the video <a href="https://youtu.be/ysriH65lV9o">here</a>.</p>
+<h1 class="mume-header" id="-dicounted-return">Dicounted Return</h1>
+
+<p>We&apos;ve discussed how an agent might choose actions with the goal of maximizing expected return but let&apos;s dig a bit deeper on that.</p>
+<blockquote>
+<p><strong>For instance, consider our puppy agent. How does he predict how much reward he could get at any point in the future?vCan the puppy really be expected to have just as much of an idea of how much he&apos;ll get now as does five years from now? Does it make more sense to consider that it&apos;s not entirely clear what the future holds especially if the puppy is still learning, proposing, and testing hypotheses and changing strategy? It&apos;s unlikely that he&apos;ll know 1000 time steps in advance what his reward potential is likely to be.</strong></p>
+</blockquote>
+<p>In general, the puppy is likely to have much better idea of what&apos;s likely to happen in the near future than he does for a distant time point. Along these lines then, <strong>should present reward carry the same weight as future reward?</strong></p>
+<blockquote>
+<p>Maybe it makes more sense to value rewards that come sooner more highly, since those rewards are more predictable. Since there&apos;s always a chance that the agent won&apos;t get the reward (again because it&apos;s in the future and there&apos;s uncertainty associated with it), makes present rewards more valuable (and hence higher weights) relative to the future rewards. The more in the future the reward is, the more uncertainty in it.</p>
+</blockquote>
+<p>This situation motivates the idea of <strong>discounting</strong> and <strong>discounted return</strong>.</p>
+<p>Remember that the goal of the agent is always to maximize cumulative reward. Instead of the reward in each time step having equal say, what if rewards that occured earlier in time to have a much greater say. Therefore, we can rewrite the summation from previous section as follows:</p>
+<p align="center">
+<img src="img/discount-rate.png" alt="drawing" width="500">
+</p>
+<p><strong>Discount rate</strong></p>
+<p>The <strong><code>&#x3B3;</code></strong> (Gamma) in the formula above is called the <strong>discount rate</strong>. Discount rate is always between [0,1]. Using the formula above, we&apos;ll have a nice decay, where rewards that occur earlier in time are always multiplied by a larger number.</p>
+<p>It&apos;s important to note that the <strong><code>&#x3B3;</code></strong> is <strong>NOT</strong> something that&apos;s learned by the agent. It&apos;s something that you set to refine the goal that you have for the agent.</p>
+<p><strong>So, how exactly might you set the value of <code>&#x3B3;</code>?</strong> The larger you make <code>&#x3B3;</code>, the more agent cares about the distant future, and the opposite when <code>&#x3B3;</code> is set smaller.</p>
+<p>It&apos;s important to note that <strong>discounting is particularly relevant in continuing tasks</strong>, where the agent environment interaction goes on without end. In this case, if the agent wants to maximize cumulative reward, while it&apos;s a pretty difficult task if the future is limitless. <strong>So, we use discounting to avoid having to look too far into the limitless future.</strong></p>
+<p><strong>NOTE:</strong> With or without discounting, the goal is always the same. It&apos;s always maximizing cumulative reward. The discount rate comes in when the agent chooses actions at an arbitrary time step. It uses the discount rate as part of its program for picking actions. And that program is more interested in securing rewards come sooner and are more likely than the rewards that come later and are less likely.</p>
+<p>See the video <a href="https://youtu.be/opXGNPwwn7g">here</a>.</p>
+<p align="left">
+<img src="img/discount-rate2.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="-quiz-pole-balancing">Quiz: Pole-Balancing</h1>
+
+<p align="center">
+<img src="img/pole-balancing1.gif" alt="drawing" width="400">
+</p>
+<p>In this classic reinforcement learning task, a cart is positioned on a frictionless track, and a pole is attached to the top of the cart. The objective is to keep the pole from falling over by moving the cart either left or right, and without falling off the track.</p>
+<p>In the  <a href="https://gym.openai.com/envs/CartPole-v0/">OpenAI Gym implementation</a>, the agent applies a force of +1 or -1 to the cart at every time step. It is formulated as an episodic task, where the episode ends when (1) the pole falls more than 20.9 degrees from vertical, (2) the cart moves more than 2.4 units from the center of the track, or (3) when more than 200 time steps have elapsed. The agent receives a reward of +1 for every time step, including the final step of the episode. You can read more about this environment in  <a href="https://github.com/openai/gym/wiki/CartPole-v0">OpenAI&apos;s github</a>. This task also appears in Example 3.4 of the textbook.</p>
+<p align="center">
+<img src="img/pole-quiz1.png" alt="drawing" width="500">
+</p>
+<p>For each of these discount rates, the agent receives a positive reward for each time step where the pole has not yet fallen. Thus, in each case, the agent will try to keep the pole balanced for as long as possible.</p>
+<p align="center">
+<img src="img/pole-quiz2.png" alt="drawing" width="500">
+</p>
+<p>Without discounting, the agent will always receive a reward of -1 (no matter what actions it chooses during the episode), and so the reward signal will not provide any useful feedback to the agent. With discounting, the agent will try to keep the pole balanced for as long as possible, as this will result in a return that is relatively less negative.</p>
+<p align="center">
+<img src="img/pole-quiz3.png" alt="drawing" width="500">
+</p>
+<p>If the discount rate is 1, the agent will always receive a reward of +1 (no matter what actions it chooses during the episode), and so the reward signal will not provide any useful feedback to the agent. If the discount rate is 0.5 or 0.9, the agent will try to terminate the episode as soon as possible (by either dropping the pole quickly or moving off the edge of the track). Thus, you are correct - we must redesign the reward signal!</p>
+<h1 class="mume-header" id="-mdps-part-1">MDPs, Part 1</h1>
+
+<p>Over the next several videos, you&apos;ll learn all about how to rigorously define a reinforcement learning problem as a <strong>Markov Decision Process (MDP)</strong>. Towards this goal, we&apos;ll begin with an example!</p>
+<p>So far, we&apos;ve just started the conversation to set the stage for what we&apos;d like to accomplish. We&apos;ll use the remainder of this lesson to specify a rigorous definition for RL problem. For context, we&apos;ll work with the example of a recycling robot from the Sutton textbook.</p>
+<p>Consider a robot that&apos;s desgined for picking up empty soda cans. The robot is equipped with arms to grab the cans and runs on a rechargeable battery. There&apos;s a docking station set up in one corner of the room and the robot has to sit at the station if it needs to recharge its battery. Say, you are trying to program this robot to collect empty soda cans without human intervention.</p>
+<p>In particular, you want the robot to be able to decide for itself when it needs to recharge its battery. And whenever it doesn&apos;t need to recharge, you want it to focus on collecting as many soda cans as possible. So, let&apos;s see if we can frame this as a RL problem.</p>
+<p>We&apos;ll begin with the <em>actions</em>. We&apos;ll say the robot is capable of executing <strong>three</strong> potential actions. It can <em>search</em> the room for cans, it can head to the docking station to <em>recharge</em> its battery, or it can stay put (<em>wait</em>) in the hopes that someone brings it a can. We refer to the set of possible actions as the <strong>action space</strong>, and it&apos;s common to denote it with a script &quot;<strong>A</strong>&quot;.</p>
+<p>What about the <em>states</em>? States are just the context provided to the agent for making intelligent actions. The state, in this case, could be the charge left on the robot&apos;s battery. For simplicity, we&apos;ll assume that the battery has one of two states. One corresponding to a <em>high</em> amount of charge left, and the other corresponding to a <em>low</em> amount of charge. We refer to the set of possible states as the <strong>state space</strong> and it&apos;s common to denote it with a script &quot;<strong>S</strong>&quot;.</p>
+<p>So, intuition tells us that if the robot has a high amonut of charge left on its battery, we&apos;d like it to know to actively search the room for the cans. Searching the room should use up a lot of energy but this doesn&apos;t matter so much because the battery has a lot of charge anyway. But of the state is low, searching for cans has pretty high risk because the battery could get depleted mid-search and then the robot would be stranded. So, if the battery is low, maybe we&apos;d like the robot to know to wait for a can or to go to recharge its battery.</p>
+<p>See the video <a href="https://youtu.be/NBWbluSbxPg">here</a>.</p>
+<p align="left">
+<img src="img/mdp1.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-mdp-part-2">MDP, Part 2</h1>
+
+<p>As a first step, consider the case of the charge on the battery is <em>high</em>. Then, the robot could choose to <em>search</em>, <em>wait</em>, or <em>recharge</em>. But actually, recharging doesn&apos;t make much sense if the battery is already high. So, the options are <em>search</em> or <em>wait</em>.</p>
+<p>So, if the agent chooses to <em>search</em>, then at the next time step, the state could be <em>high</em> or <em>low</em>. Let&apos;s say that with 0.7 probability, it stays <em>high</em>. So, there is 0.3 chance the battery switches to <em>low</em>. In both cases, we&apos;ll say that this decision to search led to the robot collecting exactly four cans. And in line with this, the environment gives the agent a reward of four.</p>
+<p>The other option is to <em>wait</em>. If the robot has a high battery and then decides to wait, well, waiting doesn&apos;t use any battery at all and we&apos;ll say that then, it&apos;s guaranteed that the battery will again be <em>high</em> at the next time step. In this case, we&apos;ll suppose that since the robot wasn&apos;t out actively searching, it&apos;s able to collect fewer cans and say it&apos;s delivered just one can. Again in line with this, the environment gives the agent a reward of one.</p>
+<p>Onto to the case, where the battery is <em>low</em>. Again, the robot has three options. If the battery is <em>low</em> and it chooses to <em>wait</em> for people to bring cans, that doesn&apos;t use any battery until the state at the next time is going to be <em>low</em>. And just like when the robot decided to <em>wait</em> when the battery was <em>high</em>, the agent gets a reward of one.</p>
+<p>If the robot <em>recharges</em>, then it goes back to the docking station and the state of the next time step is guaranteed to be <em>high</em>. Say it collects no cans along the way and gets a reward of zero.</p>
+<p>And if it <em>searches</em>, well, that&apos;s risky. It&apos;s possible that it gets away with this and then at the next time step, the battery is still low, but not entirely depleted. But, it&apos;s probably more likely that the robot depletes its battery, has to be <strong>rescued</strong> and is carried to a docking station to be charged. So the charge on its battery at the next time step is <em>high</em>. Say, the robot depletes its battery with 0.8 probability, and otherwise gets away with that risky action with 0.2 probability. As for the reward, if the robot needs to be rescued, we want to make sure we&apos;re <strong>punishing</strong> the robot in this case. So, say we don&apos;t look at all at the number of cans it was able to collect and we just give the robot a <strong>reward of negative</strong> three for that. But, if the robot gets away with it, it collects four cans and gets the reward of four.</p>
+<p>This picture completely characterizes one method that the environment could use to decide the next state in reward at any point in time.</p>
+<p align="center">
+<img src="img/mdp2.png" alt="drawing" width="600">
+</p>
+<p><strong>NOTE:</strong> What is important to note here is how little information the environment uses to make decisions. It doesn&apos;t care what situation was presented to the agent 10 or 100 or even 2 steps prior. And it doesn&apos;t look at the actions that the took prior to the last one. And how well the agent is doing or how much reward it&apos;s collected has no effect on how the environment chooses to respond to the agent. Of course, it&apos;s possible to design environments that have much more complex procedures for interacting with the agent, but this is how it&apos;s done in RL.</p>
+<p>See the video <a href="https://youtu.be/CUTtQvxKkNw">here</a>.</p>
+<h1 class="mume-header" id="-quiz-one-step-dynamics-part-1">Quiz: One-Step Dynamics, Part 1</h1>
+
+<p>Consider the recycling robot example. In the previous concept, we described one method that the environment could use to decide the state and reward, at any time step.</p>
+<p align="center">
+<img src="img/quiz-mdp1.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp2.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp3.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp4.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp5.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="-quiz-one-step-dynamics-part-2">Quiz: One-Step Dynamics, Part 2</h1>
+
+<p>It will prove convenient to represent the environment&apos;s dynamics using mathematical notation. In this concept, we will introduce this notation (which can be used for any reinforcement learning task) and use the recycling robot as an example.</p>
+<p align="center">
+<img src="img/quiz-mdp1.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp6.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp3.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/quiz-mdp7.png" alt="drawing" width="600">
+</p>
+<h1 class="mume-header" id="-mdp-part-3">MDP, Part 3</h1>
+
+<p>Formally, a <strong>Markov Decision Process (MDP)</strong> is defined by the set of states, the set of actions, and the set of rewards along with the one-step dynamics of the environment and the discount rate.</p>
+<p align="center">
+<img src="img/mdp-p3.png" alt="drawing" width="600">
+</p>
+<p>Let&apos;s talk a bit more about the &quot;<strong>discount rate</strong>&quot;. So, <strong>What is discount rate?</strong> To answer this, it is important to notice that we&apos;ve detailed a continuing task.</p>
+<p align="center">
+<img src="img/mdp-p3-2.png" alt="drawing" width="400">
+</p>
+<p>So, it will prove useful to make the discount factor less than one because otherwise, the agent would have to look infinitely far into the limitless future. <em>It&apos;s common to set the discount rate to <strong>0.9</strong></em>.</p>
+<p><strong>NOTE:</strong> It&apos;s important to note that the discount rate is always set to some number much closer to one than to zero. Otherwise, the agent becomes excessively short-sighted to a fault.</p>
+<p><strong>NOTE:</strong> In general, dealing with real world problems, you will need to specify the MDP and that will fully and formally define the problem that you want your agent to solve. This framework works for continuing and episodic tasks, and whenever you have a problem that you want to solve with RL, whether it entails a self-driving car, a walking robot, or a stock trading agent, this is the framework we&apos;ll use. <strong>The agent will know the states and actions along with the discount factor. As for the set up rewards and the one-step dynamics, those specify how the environment work and will be unknown to the agent. Despite not having this information, the agent will still have to learn from interaction how to accomplish its goal</strong>.</p>
+<p>See the video <a href="https://youtu.be/UlXHFbla3QI">here</a>.</p>
+<h1 class="mume-header" id="-finite-mdps">Finite MDPs</h1>
+
+<p>Please use <a href="https://github.com/openai/gym/wiki/Table-of-environments">this link</a> to peruse the available environments in OpenAI Gym.</p>
+<p align="center">
+<img src="img/mdp-finite1.png" alt="drawing" width="600">
+</p>
+<p>The environments are indexed by  <strong>Environment Id</strong>, and each environment has corresponding  <strong>Observation Space</strong>,  <strong>Action Space</strong>,  <strong>Reward Range</strong>,  <strong>tStepL</strong>,  <strong>Trials</strong>, and  <strong>rThresh</strong>.</p>
+<h2 class="mume-header" id="-cartpole-v0">CartPole-v0</h2>
+
+<hr>
+<p>Find the line in the table that corresponds to the  <strong>CartPole-v0</strong>  environment. Take note of the corresponding  <strong>Observation Space</strong>  (<code>Box(4,)</code>) and  <strong>Action Space</strong>  (<code>Discrete(2)</code>).</p>
+<p align="center">
+<img src="img/mdp-finite2.png" alt="drawing" width="600">
+</p>
+<p>As described in the  <a href="https://gym.openai.com/docs/">OpenAI Gym documentation</a>,</p>
+<blockquote>
+<p>Every environment comes with first-class  <code>Space</code>  objects that describe the valid actions and observations.</p>
+<ul>
+<li>The  <code>Discrete</code>  space allows a fixed range of non-negative numbers.</li>
+<li>The  <code>Box</code>  space represents an n-dimensional box, so valid actions or observations will be an array of n numbers.</li>
+</ul>
+</blockquote>
+<h2 class="mume-header" id="-observation-space">Observation Space</h2>
+
+<hr>
+<p>The observation space for the CartPole-v0 environment has type  <code>Box(4,)</code>. Thus, the observation (or state) at each time point is an array of 4 numbers. You can look up what each of these numbers represents in  <a href="https://github.com/openai/gym/wiki/CartPole-v0">this document</a>. After opening the page, scroll down to the description of the observation space.</p>
+<p align="center">
+<img src="img/mdp-finite3.png" alt="drawing" width="300">
+</p>
+<p>Notice the minimum (-Inf) and maximum (Inf) values for both  <strong>Cart Velocity</strong>  and the  <strong>Pole Velocity at Tip</strong>.</p>
+<p>Since the entry in the array corresponding to each of these indices can be any real number, the state space  <code>S+</code>  is infinite!</p>
+<h2 class="mume-header" id="-action-space">Action Space</h2>
+
+<p>The action space for the CartPole-v0 environment has type <code>Discrete(2)</code>. Thus, at any time point, there are only two actions available to the agent. You can look up what each of these numbers represents in <a href="https://github.com/openai/gym/wiki/CartPole-v0">this document</a> (note that it is the same document you used to look up the observation space!). After opening the page, scroll down to the description of the action space.</p>
+<p align="center">
+<img src="img/mdp-finite4.png" alt="drawing" width="200">
+</p>
+<p>In this case, the action space <code>A</code> is a finite set containing only two elements.</p>
+<h2 class="mume-header" id="-finite-mdps-1">Finite MDPs</h2>
+
+<hr>
+<p>Recall from the previous concept that in a finite MDP, the state space  \mathcal{S}S  (or  \mathcal{S}^+S+, in the case of an episodic task) and action space  \mathcal{A}A  must both be finite.</p>
+<p>Thus, while the CartPole-v0 environment does specify an MDP, it does not specify a  <strong>finite</strong>  MDP. In this course, we will first learn how to solve finite MDPs. Then, later in this course, you will learn how to use neural networks to solve much more complex MDPs!</p>
+<h1 class="mume-header" id="-summary">Summary</h1>
+
+<p align="center">
+<img src="img/mdp-finite5.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="-the-setting-revisited-1">The Setting, Revisited</h3>
+
+<hr>
+<ul>
+<li>The reinforcement learning (RL) framework is characterized by an  <strong>agent</strong>  learning to interact with its  <strong>environment</strong>.</li>
+<li>At each time step, the agent receives the environment&apos;s  <strong>state</strong>  (<em>the environment presents a situation to the agent)</em>, and the agent must choose an appropriate  <strong>action</strong>  in response. One time step later, the agent receives a  <strong>reward</strong>  (<em>the environment indicates whether the agent has responded appropriately to the state</em>) and a new  <strong>state</strong>.</li>
+<li>All agents have the goal to maximize expected  <strong>cumulative reward</strong>, or the expected sum of rewards attained over all time steps.</li>
+</ul>
+<h3 class="mume-header" id="-episodic-vs-continuing-tasks-1">Episodic vs. Continuing Tasks</h3>
+
+<hr>
+<ul>
+<li>A  <strong>task</strong>  is an instance of the reinforcement learning (RL) problem.</li>
+<li><strong>Continuing tasks</strong>  are tasks that continue forever, without end.</li>
+<li><strong>Episodic tasks</strong>  are tasks with a well-defined starting and ending point.</li>
+</ul>
+<blockquote>
+<ul>
+<li>In this case, we refer to a complete sequence of interaction, from start to finish, as an  <strong>episode</strong>.</li>
+<li>Episodic tasks come to an end whenever the agent reaches a  <strong>terminal state</strong>.</li>
+</ul>
+</blockquote>
+<h3 class="mume-header" id="-the-reward-hypothesis-1">The Reward Hypothesis</h3>
+
+<hr>
+<ul>
+<li><strong>Reward Hypothesis</strong>: All goals can be framed as the maximization of (expected) cumulative reward.</li>
+</ul>
+<h3 class="mume-header" id="-goals-and-rewards">Goals and Rewards</h3>
+
+<hr>
+<ul>
+<li>(Please see  <strong>Part 1</strong>  and  <strong>Part 2</strong>  to review an example of how to specify the reward signal in a real-world problem).</li>
+</ul>
+<p align="center">
+<img src="img/mdp-finite6.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/mdp-finite7.png" alt="drawing" width="600">
+</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

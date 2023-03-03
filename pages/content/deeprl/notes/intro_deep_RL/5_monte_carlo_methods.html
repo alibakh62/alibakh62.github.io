@@ -1,0 +1,724 @@
+<!DOCTYPE html><html><head>
+      <title>5_monte_carlo_methods</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-review">Review</h1>
+
+<p>Let&apos;s recall the problem at hand. We have an agent and environment. Time is broken into discrete time steps, and at every time step, the agent receives a reward and state from the environment, and chooses an action to perform in response. In this way, the interaction involved is a sequence of states, actions, and rewards.</p>
+<p>In this lesson, we&apos;ll confine our attention to episodic tasks where the interaction stops at some time step, <img src="https://latex.codecogs.com/gif.latex?T" alt>, when the agent encounters a terminal state. We refer to the sequence as an <strong>episode</strong>. For any episode, the agent&apos;s goal is to find the optimal policy in order to maximize expected cumulative reward. The agent can only accomplish this by interacting with the environment.</p>
+<p>In this lesson, we&apos;ll dig deeply into a class of algorithms that help the agent to understand and leverage this interaction to obtain the optimal policy.</p>
+<p>See the video <a href="https://youtu.be/3H5x0lstvmo">here</a>.</p>
+<h2 class="mume-header" id="-review-your-notes">Review Your Notes</h2>
+
+<hr>
+<p>In the lesson  <strong>The RL Framework: The Problem</strong>, you learned how to take a real-world problem and specify it in the language of reinforcement learning. In order to rigorously define a reinforcement learning task, we generally use a  <strong>Markov Decision Process (MDP)</strong>  to model the environment. The MDP specifies the rules that the environment uses to respond to the agent&apos;s actions, including how much reward to give to the agent in response to its behavior. The agent&apos;s goal is to learn how to play by the rules of the environment, in order to maximize reward.</p>
+<p align="center">
+<img src="img/review1.png" alt="drawing" width="400">
+</p>
+<p>Next, in the lesson <strong>The RL Framework: The Solution</strong>, you learned how to specify a solution to the reinforcement learning problem. In particular, the <strong>optimal policy</strong> <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cpi_%5Cast" alt> specifies - for each environment state - how the agent should select an action towards its goal of maximizing reward. You learned that the agent could structure its search for an optimal policy by first estimating the <strong>optimal action-value function</strong> <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20q_%5Cast" alt>; then, once <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20q_%5Cast" alt> is known, <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cpi_%5Cast" alt> is quickly obtained.</p>
+<p align="center">
+<img src="img/review2.png" alt="drawing" width="400">
+</p>
+<p>Before continuing with this lesson, please take the time to review your notes, to ensure that the terminology from the previous two lessons is familiar to you. In particular, you should peruse the summary page at the end of the lesson <strong>The RL Framework: The Problem</strong>, and the page at the end of <strong>The RL Framework: The Solution</strong> to ensure that the listed concepts are familiar.</p>
+<h1 class="mume-header" id="-gridworld-example">Gridworld Example</h1>
+
+<p>To illustrate the algorithms we&apos;ll discuss in this lesson, it&apos;ll help if we work with a simple RL task. Say, we have an agent in a world with only four possible states (stone (1), brick (2), wood (3), grass (4)). Say, that at the beginning of an episode, the agent always starts in state (1) and its goal is to reach state (4), which is a terminal state. To add a bit of difficulty, we add a wall separating state (1) from (4). At each time step, the agent can move up, down, left, or right. Let&apos;s also say that there is some uncertainty with the movement. Say if the agent decides to move in some direction, it moves in that direction with some <em>probability</em>, and ends up in other directions with some other probabilities. And if an agent runs into a wall, it just ends up in the same state where it started. The agent gets the reward of -1 for most of the states, but it lands in state (4), it&apos;ll get a reward a of 10. This is to ensure that the goal of the agent is to get to the terminal state as quickly as possible. For simplicity, let&apos;s say that the discount rate is 1 (so, basically no discount).</p>
+<p align="center">
+<img src="img/gridex1.png" alt="drawing" width="300">
+</p>
+<p>See the video <a href="https://youtu.be/Lwibg_IfmrA">here</a>.</p>
+<h1 class="mume-header" id="-monte-carlo-methods">Monte Carlo Methods</h1>
+
+<p>So, following the gridworld example, <strong>how should the agent begin if it initially knows nothing about the environment?</strong></p>
+<p>Probably, the most sensible thing for the agent to do at the beginning when it doesn&apos;t know anything is just to behave <em>randomly</em> and see what happens.</p>
+<p>Let&apos;s say when the agent enconuters a new state, it just selects either of four directions with equal probability. <em>When the agent randomly selects an action in this way, where each action has an equal chance of being selected, we say that it&apos;s following the <strong>equiprobable random policy</strong></em>.</p>
+<p>When the agent starts moving randomly and after some episodes, it has collected some information which is valuable. <strong>How can the agent use it to improve its strategy?</strong></p>
+<p>Remember what we were searching for: <strong>the optimal policy</strong> <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cpi_%5Cast" alt>. It tells us for each state which action or actions are most useful towards the goal of maximizing return. So, the question is very simple: <strong>from each state which action is best?</strong></p>
+<p>Maybe, it makes sense to just pick the action that got the most reward in these episodes that it collected so far. For instance, if in one episode, first action was &quot;up&quot; the final score end up +7, and if &quot;right&quot; the score ends up being +6, then action &quot;up&quot; might be better than action &quot;right&quot; when it&apos;s in state one. <em>This is a useful first step for thinking about how we might be able to estimate the optimal policy from interacting with the environment</em>.</p>
+<p>It should be noted that to infer any reliable policy, we need to collect hundreds or thousands of episodes for instance. <strong>In fact, this is a fundamental idea behind Monte Carlo methids in general</strong>. Even though the underlying problem involves a great degree of randomness, we can infer information that we can trust, just by collecting a lot of samples.</p>
+<p>See the video <a href="https://youtu.be/titaMCRl224">here</a>.</p>
+<h1 class="mume-header" id="-mc-prediction-part-1">MC Prediction, Part 1</h1>
+
+<p>Following the gridworld example from previous section, we assumed that the agent used the equiprobable random policy to interact with the environment. The agent collected two episodes, and now the question is: <strong>how exactly should the agent consolidate this information towards its goal of obtaining the optimal policy?</strong></p>
+<p>The real question that we want to ask is: <strong>For each state, which action is the best?</strong></p>
+<p>See the explanation in <a href="https://youtu.be/6ts9gdIS6vg">this video</a>.</p>
+<p align="center">
+<img src="img/mcpredict2.png" alt="drawing" width="600">
+</p>
+<p><strong>NOTE:</strong> In summary, the idea is that you&apos;d create a matrix of states vs. actions and fill out the cells based on the score you get choosing the action in a state (if there&apos;s more than one instance, just take the average). With limited episodes of this example, it wouldn&apos;t give the optimal policy, but it&apos;s better than random.</p>
+<p align="center">
+<img src="img/mcpredict1.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/mcpredict3.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="-important-note">Important Note</h2>
+
+<hr>
+<p>In this video, we demonstrated a toy example where the agent collected two episodes, consolidated the information in a table, and then used the table to come up with a better policy. However, as discussed in the previous video, in real-world settings (<em>and even for the toy example depicted here!</em>), the agent will want to collect many more episodes, so that it can better trust the information stored in the table. In this video, we use two episodes only to simplify the example.</p>
+<h1 class="mume-header" id="-mc-prediction-part-2">MC Prediction, Part 2</h1>
+
+<p>So far, we&apos;ve informally discussed how we might take a bad policy like the equiprobable random policy, use it to collect some episodes and then use those episodes to come up with a better policy.</p>
+<p>Central to this idea, we build a table that stores the return obtained from visiting each state action pair and then this table can be used to obtain a policy that&apos;s better than the one we started with.</p>
+<p>In practice, this table is an estimate for how much return is likely to follow if the agent starts in a state, selects an action and then the policy to select all future actions.</p>
+<p>See the full explanation in <a href="https://youtu.be/jR49ZyKuJ98">this video</a>.</p>
+<h1 class="mume-header" id="-mc-prediction-part-3">MC Prediction, Part 3</h1>
+
+<p>So far in this lesson, we have discussed how the agent can take a bad policy, like the equiprobable random policy, use it to collect some episodes, and then consolidate the results to arrive at a better policy.</p>
+<p>In the video in the previous concept, you saw that estimating the action-value function with a <strong>Q-table</strong> is an important intermediate step. We also refer to this as the  <strong>prediction problem</strong>.</p>
+<blockquote>
+<p><strong>Prediction Problem</strong>: Given a policy, how might the agent estimate the value function for that policy?</p>
+</blockquote>
+<p>We&apos;ve been specifically interested in the action-value function, but the  <strong>prediction problem</strong>  also refers to approaches that can be used to estimate the state-value function. We refer to Monte Carlo (MC) approaches to the prediction problem as  <strong>MC prediction methods</strong>.</p>
+<h2 class="mume-header" id="-pseudocode">Pseudocode</h2>
+
+<hr>
+<p>As you have learned in the videos, in the algorithm for MC prediction, we begin by collecting many episodes with the policy. Then, we note that each entry in the Q-table corresponds to a particular state and action. To populate an entry, we use the return that followed when the agent was in that state, and chose the action. In the event that the agent has selected the same action many times from the same state, we need only average the returns.</p>
+<p>Before we dig into the pseudocode, we note that there are two different versions of MC prediction, depending on how you decide to treat the special case where -  <em>in a single episode</em>  - the same action is selected from the same state many times. For more information, watch the <a href="https://youtu.be/9LP6uXdmWxQ">video below</a>.</p>
+<p>---&gt; from the video</p>
+<p>Before dive into the pseudo code, there&apos;s a special case we have to discuss. <strong>What if, in the same episode, we select the same action from a state multiple times?</strong></p>
+<p>For instance, say that at time step 2, we select action &quot;down&quot; from state 3, and say we do the same thing at time step 99. If we count from the first time, then get a return of -87, and if we count from the last time, then we get a return of 10. <em>When this happens, we have two options and that gives us two different algorithms</em>.</p>
+<p>We can as a first option, take the average of both time steps on making the table. So, in this case, we&apos;d get a value of -38.5.</p>
+<p>Another option that will work well is to just use the first time we tried out the state action combination. In this case, we&apos;d get a value of -87.</p>
+<p>We refer to the first option as in <strong>every-visit Monte Carlo method</strong>, and we refer to the second option as <strong>first-visit Monte Carlo method</strong>.</p>
+<p>We define every occurence of a state-action pair in an episode as a <strong>visit</strong> to that state-action pair. <em>Every-visit MC prediction</em> averages the return following every visit to a state-action pair. <em>First-visit MC prediction</em> considers only first visits to the state-action pair and averages those returns.</p>
+<p>These algorithms do yield different behavior, and you can read more about those differences below.</p>
+<p>&lt;/---&gt;</p>
+<p>As discussed in the video, we define every occurrence of a state in an episode as a  <strong>visit</strong>  to that state-action pair. And, in the event that a state-action pair is visited more than once in an episode, we have two options.</p>
+<h4 class="mume-header" id="-option-1-every-visit-mc-prediction">Option 1: Every-visit MC Prediction</h4>
+
+<p>Average the returns following all visits to each state-action pair, in all episodes.</p>
+<h4 class="mume-header" id="-option-2-first-visit-mc-prediction">Option 2: First-visit MC Prediction</h4>
+
+<p>For each episode, we only consider the first visit to the state-action pair. The pseudocode for this option can be found below.</p>
+<p align="center">
+<img src="img/pseudocode1.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/pseudocode2.png" alt="drawing" width="600">
+</p>
+<h2 class="mume-header" id="-first-visit-or-every-visit">First-visit or Every-visit?</h2>
+
+<hr>
+<p>Both the first-visit and every-visit method are  <strong>guaranteed to converge</strong>  to the true action-value function, as the number of visits to each state-action pair approaches infinity. (<em>So, in other words, as long as the agent gets enough experience with each state-action pair, the value function estimate will be pretty close to the true value.</em>) In the case of first-visit MC, convergence follows from the  <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers">Law of Large Numbers</a>, and the details are covered in section 5.1 of the  <a href="http://go.udacity.com/rl-textbook">textbook</a>.</p>
+<p>If you are interested in learning more about the difference between first-visit and every-visit MC methods, you are encouraged to read Section 3 of  <a href="http://www-anw.cs.umass.edu/legacy/pubs/1995_96/singh_s_ML96.pdf">this paper</a>. The results are summarized in Section 3.6. The authors show:</p>
+<ul>
+<li>Every-visit MC is  <a href="https://en.wikipedia.org/wiki/Bias_of_an_estimator">biased</a>, whereas first-visit MC is unbiased (see Theorems 6 and 7).</li>
+<li>Initially, every-visit MC has lower  <a href="https://en.wikipedia.org/wiki/Mean_squared_error">mean squared error (MSE)</a>, but as more episodes are collected, first-visit MC attains better MSE (see Corollary 9a and 10a, and Figure 4).</li>
+</ul>
+<h1 class="mume-header" id="-openai-gym-blackjackenv">OpenAI Gym: BlackJackEnv</h1>
+
+<p>In order to master the algorithms discussed in this lesson, you will write code to teach an agent to play Blackjack.</p>
+<p align="center">
+<img src="img/blackjack1.png" alt="drawing" width="300">
+</p>
+<p>Please read about the game of Blackjack in Example 5.1 of the  <a href="http://go.udacity.com/rl-textbook">textbook</a>.</p>
+<p>When you have finished, please review the corresponding  <a href="https://github.com/openai/gym/blob/master/gym/envs/toy_text/blackjack.py">GitHub file</a>, by reading the commented block in the BlackjackEnv class. (<em>While you do  <strong>not</strong>  need to understand how all of the code works, please read the commented block that explains the dynamics of the environment.</em>) For clarity, we have also pasted the description of the environment below:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>    &quot;&quot;&quot;Simple blackjack environment
+
+    Blackjack is a card game where the goal is to obtain cards that sum to as
+    near as possible to 21 without going over.  They&apos;re playing against a fixed
+    dealer.
+    Face cards (Jack, Queen, King) have point value 10.
+    Aces can either count as 11 or 1, and it&apos;s called &apos;usable&apos; at 11.
+    This game is placed with an infinite deck (or with replacement).
+    The game starts with each (player and dealer) having one face up and one
+    face down card.
+
+    The player can request additional cards (hit=1) until they decide to stop
+    (stick=0) or exceed 21 (bust).
+
+    After the player sticks, the dealer reveals their facedown card, and draws
+    until their sum is 17 or greater.  If the dealer goes bust the player wins.
+
+    If neither player nor dealer busts, the outcome (win, lose, draw) is
+    decided by whose sum is closer to 21.  The reward for winning is +1,
+    drawing is 0, and losing is -1.
+
+    The observation of a 3-tuple of: the players current sum,
+    the dealer&apos;s one showing card (1-10 where 1 is ace),
+    and whether or not the player holds a usable ace (0 or 1).
+
+    This environment corresponds to the version of the blackjack problem
+    described in Example 5.1 in Reinforcement Learning: An Introduction
+    by Sutton and Barto (1998).
+    http://incompleteideas.net/sutton/book/the-book.html
+    &quot;&quot;&quot;
+</code></pre><pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword keyword-import">import</span> gym
+<span class="token keyword keyword-from">from</span> gym <span class="token keyword keyword-import">import</span> spaces
+<span class="token keyword keyword-from">from</span> gym<span class="token punctuation">.</span>utils <span class="token keyword keyword-import">import</span> seeding
+
+<span class="token keyword keyword-def">def</span> <span class="token function">cmp</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">float</span><span class="token punctuation">(</span>a <span class="token operator">&gt;</span> b<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">float</span><span class="token punctuation">(</span>a <span class="token operator">&lt;</span> b<span class="token punctuation">)</span>
+
+<span class="token comment"># 1 = Ace, 2-10 = Number cards, Jack/Queen/King = 10</span>
+deck <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">draw_card</span><span class="token punctuation">(</span>np_random<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">int</span><span class="token punctuation">(</span>np_random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>deck<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">draw_hand</span><span class="token punctuation">(</span>np_random<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>draw_card<span class="token punctuation">(</span>np_random<span class="token punctuation">)</span><span class="token punctuation">,</span> draw_card<span class="token punctuation">(</span>np_random<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">usable_ace</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Does this hand have a usable ace?</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">1</span> <span class="token keyword keyword-in">in</span> hand <span class="token keyword keyword-and">and</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">10</span> <span class="token operator">&lt;=</span> <span class="token number">21</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">sum_hand</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Return current hand total</span>
+    <span class="token keyword keyword-if">if</span> usable_ace<span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">10</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">is_bust</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Is this hand a bust?</span>
+    <span class="token keyword keyword-return">return</span> sum_hand<span class="token punctuation">(</span>hand<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">21</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">score</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># What is the score of this hand (0 if bust)</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span> <span class="token keyword keyword-if">if</span> is_bust<span class="token punctuation">(</span>hand<span class="token punctuation">)</span> <span class="token keyword keyword-else">else</span> sum_hand<span class="token punctuation">(</span>hand<span class="token punctuation">)</span>
+
+
+<span class="token keyword keyword-def">def</span> <span class="token function">is_natural</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Is this hand a natural blackjack?</span>
+    <span class="token keyword keyword-return">return</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>hand<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">BlackjackEnv</span><span class="token punctuation">(</span>gym<span class="token punctuation">.</span>Env<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Simple blackjack environment
+    Blackjack is a card game where the goal is to obtain cards that sum to as
+    near as possible to 21 without going over.  They&apos;re playing against a fixed
+    dealer.
+    Face cards (Jack, Queen, King) have point value 10.
+    Aces can either count as 11 or 1, and it&apos;s called &apos;usable&apos; at 11.
+    This game is placed with an infinite deck (or with replacement).
+    The game starts with each (player and dealer) having one face up and one
+    face down card.
+    The player can request additional cards (hit=1) until they decide to stop
+    (stick=0) or exceed 21 (bust).
+    After the player sticks, the dealer reveals their facedown card, and draws
+    until their sum is 17 or greater.  If the dealer goes bust the player wins.
+    If neither player nor dealer busts, the outcome (win, lose, draw) is
+    decided by whose sum is closer to 21.  The reward for winning is +1,
+    drawing is 0, and losing is -1.
+    The observation of a 3-tuple of: the players current sum,
+    the dealer&apos;s one showing card (1-10 where 1 is ace),
+    and whether or not the player holds a usable ace (0 or 1).
+    This environment corresponds to the version of the blackjack problem
+    described in Example 5.1 in Reinforcement Learning: An Introduction
+    by Sutton and Barto.
+    http://incompleteideas.net/book/the-book-2nd.html
+    &quot;&quot;&quot;</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> natural<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>action_space <span class="token operator">=</span> spaces<span class="token punctuation">.</span>Discrete<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>observation_space <span class="token operator">=</span> spaces<span class="token punctuation">.</span>Tuple<span class="token punctuation">(</span><span class="token punctuation">(</span>
+            spaces<span class="token punctuation">.</span>Discrete<span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            spaces<span class="token punctuation">.</span>Discrete<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            spaces<span class="token punctuation">.</span>Discrete<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>seed<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># Flag to payout 1.5 on a &quot;natural&quot; blackjack win, like casino rules</span>
+        <span class="token comment"># Ref: http://www.bicyclecards.com/how-to-play/blackjack/</span>
+        self<span class="token punctuation">.</span>natural <span class="token operator">=</span> natural
+        <span class="token comment"># Start the first game</span>
+        self<span class="token punctuation">.</span>reset<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">seed</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> seed<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>np_random<span class="token punctuation">,</span> seed <span class="token operator">=</span> seeding<span class="token punctuation">.</span>np_random<span class="token punctuation">(</span>seed<span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">[</span>seed<span class="token punctuation">]</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">step</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-assert">assert</span> self<span class="token punctuation">.</span>action_space<span class="token punctuation">.</span>contains<span class="token punctuation">(</span>action<span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> action<span class="token punctuation">:</span>  <span class="token comment"># hit: add a card to players hand and return</span>
+            self<span class="token punctuation">.</span>player<span class="token punctuation">.</span>append<span class="token punctuation">(</span>draw_card<span class="token punctuation">(</span>self<span class="token punctuation">.</span>np_random<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-if">if</span> is_bust<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                done <span class="token operator">=</span> <span class="token boolean">True</span>
+                reward <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+            <span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+                done <span class="token operator">=</span> <span class="token boolean">False</span>
+                reward <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>  <span class="token comment"># stick: play out the dealers hand, and score</span>
+            done <span class="token operator">=</span> <span class="token boolean">True</span>
+            <span class="token keyword keyword-while">while</span> sum_hand<span class="token punctuation">(</span>self<span class="token punctuation">.</span>dealer<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">17</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>dealer<span class="token punctuation">.</span>append<span class="token punctuation">(</span>draw_card<span class="token punctuation">(</span>self<span class="token punctuation">.</span>np_random<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            reward <span class="token operator">=</span> <span class="token builtin">cmp</span><span class="token punctuation">(</span>score<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">)</span><span class="token punctuation">,</span> score<span class="token punctuation">(</span>self<span class="token punctuation">.</span>dealer<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-if">if</span> self<span class="token punctuation">.</span>natural <span class="token keyword keyword-and">and</span> is_natural<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">)</span> <span class="token keyword keyword-and">and</span> reward <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                reward <span class="token operator">=</span> <span class="token number">1.5</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_get_obs<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reward<span class="token punctuation">,</span> done<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">_get_obs</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>sum_hand<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>dealer<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> usable_ace<span class="token punctuation">(</span>self<span class="token punctuation">.</span>player<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">reset</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>dealer <span class="token operator">=</span> draw_hand<span class="token punctuation">(</span>self<span class="token punctuation">.</span>np_random<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>player <span class="token operator">=</span> draw_hand<span class="token punctuation">(</span>self<span class="token punctuation">.</span>np_random<span class="token punctuation">)</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>_get_obs<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre><p>Refer to <a href="codes/Monte_Carlo_Solution.ipynb">this notebook</a> for an implementation.</p>
+<h1 class="mume-header" id="-coding-exercise">Coding Exercise</h1>
+
+<p>Please use the next concept to complete the following sections of  <code>Monte_Carlo.ipynb</code>:</p>
+<ul>
+<li>Part 0: Explore BlackjackEnv</li>
+<li>Part 1: MC Prediction</li>
+</ul>
+<p>To reference the pseudocode while working on the notebook, you are encouraged to look at  <a href="https://github.com/udacity/deep-reinforcement-learning/blob/master/cheatsheet/cheatsheet.pdf">this sheet</a>.</p>
+<h2 class="mume-header" id="-important-note-1">Important Note</h2>
+
+<hr>
+<p>Please do  <strong><em>not</em></strong>  complete the entire notebook in the next concept - you should only complete  <strong>Part 0</strong>  and  <strong>Part 1</strong>. The final part of the notebook will be addressed later in the lesson.</p>
+<h2 class="mume-header" id="-download-the-exercise">Download the Exercise</h2>
+
+<hr>
+<p>If you would prefer to work on your own machine, you can download the exercise from the  <a href="https://github.com/udacity/deep-reinforcement-learning">DRLND GitHub repository</a>.</p>
+<h2 class="mume-header" id="-check-your-implementation">Check Your Implementation</h2>
+
+<hr>
+<p>Once you have completed the exercise, you can check your solution by looking at the corresponding sections in  <code>Monte_Carlo_Solution.ipynb</code>. Watch the video below to see a solution walkthrough!</p>
+<p>Note that the Jupyter interface will look slightly different, since at one point we experimented with  <a href="http://jupyterlab.readthedocs.io/en/stable/">JupyterLab</a>. However, all of the Python code is the same as you see in <a href="https://youtu.be/Pwiqk7Pncgc">the videos</a>!</p>
+<h1 class="mume-header" id="-greedy-policies">Greedy Policies</h1>
+
+<p>So far, you learned how an agent can take a policy like the <em><strong>equiprobable random policy</strong></em>, use that to interact with the environment, and then use that experience to populate the corresponding Q-table, and this Q-table is an estimate of that policy&apos;s action-value function.</p>
+<p><strong>So, now the question is how can we use this in our search for an optimal policy?</strong></p>
+<p>Well, we&apos;ve already seen that to get a better policy, that&apos;s not necessarily (and probably) <strong>not the optimal one</strong>. We need only select for each state the action that maximizes the Q-table. Let&apos;s call that new policy <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%7B%5Cpi%20%7D%27" alt>.</p>
+<p><strong>What if we replaced our old policy with this new policy and then estimated its value function and then use that new value function to get a better policy and then continued alternating between these two steps over and over until we got successively better and better policies in the hope that we converge to the optimal policy?</strong></p>
+<p>It turns out that unfortunately, this won&apos;t work as it stands now!</p>
+<p><em>But we have almost all the tools to make work! There&apos;s really just one thing that we have to fix.</em></p>
+<p>When we take a Q-table and use the action that maximizes each row to come up with the policy, we say that we are constructing the policy that&apos;s greedy with respect to the Q-table, and that has some special notation: <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%7B%5Cpi%20%7D%27%5Cleftarrow%20greedy%28Q%29" alt>.</p>
+<p>We&apos;ll plug this in to the loop we started with where the only thing that&apos;s changed is the notation is a bit fancier. We still begin with a starting policy, estimated its value function, then get a new policy that&apos;s greedy with respect to the value function. So, then we have a new policy and so on.</p>
+<p>Again, this proposed algorithm is so close to giving us the optimal policy, as long as we run it for long enough.</p>
+<p>But to fix it, we&apos;ll need to slightly modify the step or reconstruct the greedy policy.</p>
+<p>See the video <a href="https://youtu.be/DH6c-aODMLU">here</a>.</p>
+<h1 class="mume-header" id="-epsilon-greedy-policies">Epsilon-Greedy Policies</h1>
+
+<p>So, in general, when the agent is interacting with the environment and still trying to figure out what works and what doesn&apos;t in its quest to collect as much reward as possible, creating policies are quite dangerous. See why in <a href="https://youtu.be/PxJMtlR06MY">this video</a> (from 00:15 second).</p>
+<p><strong>Bottom line:</strong> The problem with the greedy policy is that you may end up not exploring some state-actions at all, which may have yield better returns. So, instead of constructing a greedy policy, <strong>a better policy would be <em>stochastic</em> one</strong> (picking actions with probabilities).</p>
+<p>Stochastic policy is still pretty close to the greedy policy so we&apos;re still acting pretty optimally, but there&apos;s the added value that if we continue to explore other options with some small probability, we might end up with higher return.</p>
+<p>Instead of always constructing greedy policy that always selects the greedy action, we construct a so-called <strong>Epsilon-Greedy Policy</strong> that&apos;s <em>most likely</em> to pick the greedy action, but with some <em>small but non-zero</em> probability, picks one of the other actions instead.</p>
+<p>In this case, you will set some small positive number, <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cvarepsilon" alt>, which <strong>must</strong> be between [0,1]. Then, with probability <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%201-%5Cvarepsilon" alt> the agent selects the greedy action and with probability <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cvarepsilon" alt> it selects any action randomly. So, the larger it is the more likely you are to pick one of non-greedy actions.</p>
+<p>So, as long as <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cvarepsilon" alt> is set to a small number, we have a method for constructing a policy that&apos;s really close to the greedy policy, but with the added benefit that it doesn&apos;t prevent the agent from continuing to explore the range of possibilities.</p>
+<p align="center">
+<img src="img/epsilon-greedy.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-mc-control">MC Control</h1>
+
+<p align="center">
+<img src="img/mc-control1.png" alt="drawing" width="700">
+</p>
+<p align="center">
+<img src="img/mc-control2.png" alt="drawing" width="400">
+</p>
+<p align="center">
+<img src="img/mc-control3.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-exploration-vs-exploitation">Exploration vs Exploitation</h1>
+
+<h2 class="mume-header" id="-solving-environments-in-openai-gym">Solving Environments in OpenAI Gym</h2>
+
+<p>In many cases, we would like our reinforcement learning (RL) agents to learn to maximize reward as quickly as possible. This can be seen in many OpenAI Gym environments.</p>
+<p>For instance, the  <a href="https://gym.openai.com/envs/FrozenLake-v0/">FrozenLake-v0</a>  environment is considered solved once the agent attains an average reward of 0.78 over 100 consecutive trials.</p>
+<p align="center">
+<img src="img/exex1.png" alt="drawing" width="400">
+</p>
+<p>Algorithmic solutions to the <a href="https://gym.openai.com/envs/FrozenLake-v0/">FrozenLake-v0</a> environment are ranked according to the number of episodes needed to find the solution.</p>
+<p align="center">
+<img src="img/exex2.png" alt="drawing" width="500">
+</p>
+<p>Solutions to <a href="https://gym.openai.com/envs/Taxi-v1/">Taxi-v1</a>, <a href="https://gym.openai.com/envs/CartPole-v1/">Cartpole-v1</a>, and <a href="https://gym.openai.com/envs/MountainCar-v0/">MountainCar-v0</a> (along with many others) are also ranked according to the number of episodes before the solution is found. Towards this objective, it makes sense to design an algorithm that learns the optimal policy <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cpi_%5Cast" alt> as quickly as possible.</p>
+<h2 class="mume-header" id="-exploration-exploitation-dilemma">Exploration-Exploitation Dilemma</h2>
+
+<hr>
+<p>Recall that the environment&apos;s dynamics are initially unknown to the agent. Towards maximizing return, the agent must learn about the environment through interaction.</p>
+<p>At every time step, when the agent selects an action, it bases its decision on past experience with the environment. And, towards minimizing the number of episodes needed to solve environments in OpenAI Gym, our first instinct could be to devise a strategy where the agent always selects the action that it believes (<em>based on its past experience</em>) will maximize return. With this in mind, the agent could follow the policy that is greedy with respect to the action-value function estimate. We examined this approach in a previous video and saw that it can easily lead to convergence to a sub-optimal policy.</p>
+<p>To see why this is the case, note that in early episodes, the agent&apos;s knowledge is quite limited (and potentially flawed). So, it is highly likely that actions <em>estimated</em> to be non-greedy by the agent are in fact better than the <em>estimated</em> greedy action.</p>
+<p>With this in mind, a successful RL agent cannot act greedily at every time step (<em>that is</em>, it cannot always <strong>exploit</strong> its knowledge); instead, in order to discover the optimal policy, it has to continue to refine the estimated return for all state-action pairs (<em>in other words</em>, it has to continue to  <strong>explore</strong>  the range of possibilities by visiting every state-action pair). That said, the agent should always act <em>somewhat greedily</em>, towards its goal of maximizing return <em>as quickly as possible</em>. This motivated the idea of an &#x3F5;-greedy policy.</p>
+<p>We refer to the need to balance these two competing requirements as the  <strong>Exploration-Exploitation Dilemma</strong>. One potential solution to this dilemma is implemented by gradually modifying the value of <code>&#x3F5;</code> when constructing &#x3F5;-greedy policies.</p>
+<h2 class="mume-header" id="-setting-the-value-of-%CE%B5-in-theory">Setting the Value of &#x3F5;, in Theory</h2>
+
+<p>It makes sense for the agent to begin its interaction with the environment by favoring  <strong>exploration</strong> over <strong>exploitation</strong>. After all, when the agent knows relatively little about the environment&apos;s dynamics, it should distrust its limited knowledge and  <strong>explore</strong>, or try out various strategies for maximizing return. With this in mind, the best starting policy is the equiprobable random policy, as it is equally likely to explore all possible actions from each state. You discovered in the previous quiz that setting <code>&#x3F5;=1</code> yields an &#x3F5;-greedy policy that is equivalent to the equiprobable random policy.</p>
+<p>At later time steps, it makes sense to favor <strong>exploitation</strong> over <strong>exploration</strong>, where the policy gradually becomes more greedy with respect to the action-value function estimate. After all, the more the agent interacts with the environment, the more it can trust its estimated action-value function. You discovered in the previous quiz that setting  <code>&#x3F5;=0</code>  yields the greedy policy (or, the policy that most favors exploitation over exploration).</p>
+<p>Thankfully, this strategy (of initially favoring exploration over exploitation, and then gradually preferring exploitation over exploration) can be demonstrated to be optimal.</p>
+<p align="center">
+<img src="img/exex3.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="-setting-the-value-of-%CE%B5-in-practice">Setting the Value of &#x3F5;, in Practice</h2>
+
+<p>As you read in the above section, in order to guarantee convergence, we must let  <code>&#x3F5;_i</code>&#x200B;  decay in accordance with the GLIE conditions. But sometimes &quot;guaranteed convergence&quot; <em>isn&apos;t good enough</em> in practice, since this really doesn&apos;t tell you how long you have to wait! It is possible that you could need trillions of episodes to recover the optimal policy, for instance, and the &quot;guaranteed convergence&quot; would still be accurate!</p>
+<blockquote>
+<p>Even though convergence is  <strong>not</strong>  guaranteed by the mathematics, you can often get better results by either:</p>
+<ul>
+<li>using fixed <strong><code>&#x3F5;</code></strong>, or</li>
+<li>letting <strong><code>&#x3F5;_i</code>&#x200B;</strong>  decay to a small positive number, like 0.1.</li>
+</ul>
+</blockquote>
+<p>This is because one has to be very careful with setting the decay rate for <code>&#x3F5;</code>; letting it get too small too fast can be disastrous. If you get late in training and <code>&#x3F5;</code> is really small, you pretty much want the agent to have already converged to the optimal policy, as it will take way too long otherwise for it to test out new actions!</p>
+<p>As a famous example in practice, you can read more about how the value of <code>&#x3F5;</code>  was set in the famous DQN algorithm by reading the Methods section of <a href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf">the research paper</a>:</p>
+<blockquote>
+<p><em>The behavior policy during training was epsilon-greedy with epsilon annealed linearly from 1.0 to 0.1 over the first million frames, and fixed at 0.1 thereafter.</em></p>
+</blockquote>
+<p>When you implement your own algorithm for MC control later in this lesson, you are strongly encouraged to experiment with setting the value of <code>&#x3F5;</code> to build your intuition.</p>
+<h1 class="mume-header" id="-incremental-mean">Incremental Mean</h1>
+
+<p>In our current algorithm for Monte Carlo control, we collect a large number of episodes to build the Q-table (as an estimate for the action-value function corresponding to the agent&apos;s current policy). Then, after the values in the Q-table have converged, we use the table to come up with an improved policy.</p>
+<p>Maybe it would be more efficient to update the Q-table  <strong><em>after every episode</em></strong>. Then, the updated Q-table could be used to improve the policy. That new policy could then be used to generate the next episode, and so on.</p>
+<p align="center">
+<img src="img/inc-mean-1.png" alt="drawing" width="500">
+</p>
+<p><em>So, how might we modify our code to accomplish this? Watch the <a href="https://youtu.be/h-8MB7V1LiE">video</a> below to see!</em></p>
+<p>In this case, even though we&apos;re updating the policy before the values in the Q-table accurately approximate the action-value function, this lower-quality estimate nevertheless still has enough information to help us propose successively better policies. If you&apos;re curious to learn more, you can read section 5.6 of <a href="https://s3-us-west-1.amazonaws.com/udacity-dlnfd/suttonbookdraft2018jan1.pdf">the textbook</a>.</p>
+<h2 class="mume-header" id="-pseudocode-1">Pseudocode</h2>
+
+<p>The pseudocode can be found below.</p>
+<p align="center">
+<img src="img/inc-mean-2.png" alt="drawing" width="500">
+</p>
+<p align="center">
+<img src="img/inc-mean-3.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-constant-alpha">Constant-alpha</h1>
+
+<p>In the <a href="https://youtu.be/QFV1nI9Zpoo">video below</a>, you will learn about another improvement that you can make to your Monte Carlo control algorithm.</p>
+<p>---&gt; video transcript here</p>
+<p>Currently, your update step for <strong>Policy Evaluation</strong> looks a bit like this:</p>
+<p align="center">
+<img src="img/alpha1.png" alt="drawing" width="500">
+</p>
+<p>You generate an episode, then for each state-action pair that was visited, you calculate the corresponding return that follows. Then, you use that return to get an updated estimate.</p>
+<p><em>We&apos;re going to look at this update step a bit closer with the aim of improving it.</em></p>
+<p>You can think of as first calculating the difference between the most recently sampled return, and the corresponding value of the state-action pair (last term from the right). We denote that by <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cdelta_t" alt>, you can think of it as an <strong>error term</strong>.</p>
+<p>After all, it&apos;s the difference between what we expect the return to be, and what the return actually was.</p>
+<p align="center">
+<img src="img/alpha2.png" alt="drawing" width="500">
+</p>
+<p>In this case that this error is positive, that means that the return that we received is more than what the value function expected. In this case, the action value is too low, so we use this update step to increase the estimate.</p>
+<p>On the other hand, if the error is negative, then that means that the return is higher than what the actual value function expected. So, it makes sense to take into account this new evidence, and decrease the estimate and the actual value function.</p>
+<p align="center">
+<img src="img/alpha3.png" alt="drawing" width="500">
+</p>
+<p><strong>And exactly how much do we increase or decrease the function?</strong></p>
+<p>Currently, the algorithm decreases it by an amount inversely proportional to the number of times that we&apos;ve visited the state-action pair already, <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cfrac%7B1%7D%7BN%28S_t%2C%20A_t%29%7D" alt>.</p>
+<p>So, the first few times we visit the pair, the change is likely to be quite large. But at future time points, where the denominator of this fraction gets quite big, the changes get smaller and smaller. The reason this is the case is that we&apos;re just calculating the average effect and as we do average more and more (say 999 times) the effect of one more would change the average less than initially (say 10 times).</p>
+<p>So, with this in mind, we change the algorithm to instead use a <strong>constant step size</strong> which we denote by <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Calpha" alt> here. This ensures that returns that come later are more emphasized that those that arrived earlier.</p>
+<p>In this way, <strong>the agent will mostly trust the most recent returns, and gradually forget about those that came in the past.</strong></p>
+<p>This is quite important because the policy is constantly changing, and with every step becoming more optimal. So, in fact, later time steps are quite important to estimating the action values.</p>
+<p align="center">
+<img src="img/alpha4.png" alt="drawing" width="500">
+</p>
+<h2 class="mume-header" id="-pseudocode-2">Pseudocode</h2>
+
+<p>The pseudocode for constant-\alpha&#x3B1; GLIE MC Control can be found below.</p>
+<p align="center">
+<img src="img/alpha5.png" alt="drawing" width="500">
+</p>
+<p align="center">
+<img src="img/alpha6.png" alt="drawing" width="700">
+</p>
+<p>To understand how to set the value of <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Calpha" alt>, let&apos;s look at closely at the updated equation.</p>
+<p>Note that <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Calpha" alt> must be set to a number between [0,1]. When it&apos;s set to 1, the new estimate is just the most recent return, where we completely ignore and replace the value in the queue table.</p>
+<p>If we were to set <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Calpha" alt> to 0, we&apos;d completely ignore the return and keep the old estimate unchanged. In this case, our agent would never learn.</p>
+<p>It&apos;d prove useful to set alpha to a small number that&apos;s close to 0. In general, the smaller the <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Calpha" alt> is, the less we trust the most recent return when performing an update, and the more we rely on our existing estimate in the queue table. See the video <a href="https://youtu.be/LetHoOtNdJc">here</a>.</p>
+<p align="center">
+<img src="img/alpha7.png" alt="drawing" width="800">
+</p>
+<h1 class="mume-header" id="-coding-exercise-1">Coding Exercise</h1>
+
+<p>Please use the next concept to complete the following section of  <code>Monte_Carlo.ipynb</code>:</p>
+<ul>
+<li>Part 2: MC Control</li>
+</ul>
+<p>To reference the pseudocode while working on the notebook, you are encouraged to look at  <a href="https://github.com/udacity/deep-reinforcement-learning/blob/master/cheatsheet/cheatsheet.pdf">this sheet</a>.</p>
+<h2 class="mume-header" id="-download-the-exercise-1">Download the Exercise</h2>
+
+<p>If you would prefer to work on your own machine, you can download the exercise from the  <a href="https://github.com/udacity/deep-reinforcement-learning">DRLND GitHub repository</a>.</p>
+<h2 class="mume-header" id="-check-your-implementation-1">Check Your Implementation</h2>
+
+<p>Once you have completed the exercise, you can check your solution by looking at the corresponding sections in  <code>Monte_Carlo_Solution.ipynb</code>. Watch the video below to see a solution walkthrough!</p>
+<p>See the video <a href="https://youtu.be/6E_3NJcoxmU">here</a>.</p>
+<p>See the notebook <a href="codes/Monte_Carlo_Solution_part2.ipynb">here</a>.</p>
+<h1 class="mume-header" id="-summary">Summary</h1>
+
+<p align="center">
+<img src="img/mc-summary1.png" alt="drawing" width="500">
+</p>
+<p align="center">
+<img src="img/mc-summary2.png" alt="drawing" width="700">
+</p>
+<p align="center">
+<img src="img/mc-summary3.png" alt="drawing" width="700">
+</p>
+<p align="center">
+<img src="img/mc-summary4.png" alt="drawing" width="700">
+</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

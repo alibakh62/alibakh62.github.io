@@ -1,0 +1,493 @@
+<!DOCTYPE html><html><head>
+      <title>6_temporal_difference_methods</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-introduction">Introduction</h1>
+
+<p>In this lesson, you&apos;ll learn about <strong>Temporal Difference</strong> or <strong>TD Learning</strong>. In order to understand TD learning, it&apos;ll help to discuss what exactly it would mean to solve this problem of learning from interaction. The solution will come many years into the future, when we&apos;ve developed artificially intelligent agents that interact with the world much like the way humans do.</p>
+<p>In order to accomplish this, the agents would need to learn from the kind of online streaming data that we learn from everyday. Real life is far from an episodic task and it requires its agents to constantly make decisions all day everyday. We get no break with our interaction with the world.</p>
+<p>Remember that Monte Carlo learning needed those breaks, it needed the episode to end so that the return could be calculated, and then used as an estimate for the action values.</p>
+<p>So, we&apos;ll need to come up with something else if we want to deal with more realistic learning in a real world setting. So, the <em><strong>main idea</strong></em> is this: <strong>if an agent is playing chess, instead of waiting until the end of an episode to see if it&apos;s won the game or not, it will at every move be able to <em>estimate the probability</em> that it&apos;s winning the game, or a self-driving car at every turn will be able to estimate if it&apos;s likely to crash, and if necessary amend its strategy to avoid disaster.</strong> To emphasize, the Monte Carlo approach would have this car crash every time it wants to learn anything, and this is too expensive and also quite dangerous.</p>
+<p><strong>TD learning</strong> will solve these problems. Instead of waiting to update values when the interaction ends, it will amend its predictions at every step, and you&apos;ll be able to use it to solve both continuous and episodic tasks. It&apos;s also widely used in RL and lies at the heart of many state-of-the-art algorithms that you see in the news today.</p>
+<p>See the video <a href="https://youtu.be/yXErXQulI_o">here</a>.</p>
+<p>This lesson covers material in <strong>Chapter 6</strong> (especially 6.1-6.6) of the <a href="http://go.udacity.com/rl-textbook">textbook</a>.</p>
+<h1 class="mume-header" id="-review-mc-control-methods">Review: MC Control Methods</h1>
+
+<p>In the previous lesson, you learned about the  <strong>control problem</strong>  in reinforcement learning and implemented some Monte Carlo (MC) control methods.</p>
+<blockquote>
+<p><strong>Control Problem</strong>: Estimate the optimal policy.</p>
+</blockquote>
+<p>In this lesson, you will learn several techniques for Temporal-Difference (TD) control.</p>
+<h2 class="mume-header" id="-review">Review</h2>
+
+<p>Before continuing, please review  <strong>Constant-alpha MC Control</strong>  from the previous lesson.</p>
+<p>Remember that the constant-\alpha&#x3B1;  MC control algorithm alternates between  <strong>policy evaluation</strong>  and  <strong>policy improvement</strong>  steps to recover the optimal policy <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cpi_%5Cast" alt>.</p>
+<p align="center">
+<img src="img/review-mc-1.png" alt="drawing" width="500">
+</p>
+<p align="center">
+<img src="img/review-mc-2.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-td-control-sarsa">TD Control: Sarsa</h1>
+
+<p>Monte Carlo (MC) control methods require us to complete an entire episode of interaction before updating the Q-table. Temporal Difference (TD) methods will instead update the Q-table after every time step.</p>
+<p>Let&apos;s consider the gridworld example again. We&apos;ll discuss an algorithm that doesn&apos;t need us to complete an entire episode before updating the Q-table. Instead, we&apos;ll update the Q-table at the same time as the episode is unfolding. In particular, we&apos;ll only need this very small time window of information (figure below) to do an update.</p>
+<p align="center">
+<img src="img/sarsa1.png" alt="drawing" width="700">
+</p>
+<p>The current estimate for the value of selecting action &quot;right&quot; in state (1) is +6 (pulled from Q-Table). <strong>So, what about the alternative estimate?</strong></p>
+<p>In the Monte Carlo case, we wainted until the end of the episode, and added up all the rewards that we got along the way.</p>
+<p>But, if we&apos;re working with just the small time window, we don&apos;t have access to what happens at those later time steps. So, <strong>how might we form an alternative estimate with this limited information?</strong></p>
+<p>Here is an idea,</p>
+<p>After we got the reward of -1, we ended up in state (2) and selected action &quot;right&quot;. Our Q-Table already has an estimate for the return that&apos;s likely to follow from that point onward. It&apos;s just the estimated action-value for state (2) and action &quot;right&quot;. So, our alternative estimate can just be <code>-1+8=7</code>, which is the value of next state-action pair.</p>
+<p>Then, like the Monte Carlo case, we can use this alternative estimate to update the Q-Table by just moving the of &quot;+6&quot; a little bit closer to &quot;+7&quot;. So, let&apos;s say that we move this value to &quot;6.2&quot;.</p>
+<p align="center">
+<img src="img/sarsa2.png" alt="drawing" width="700">
+</p>
+<p>Then, at the next time step, we repeat the same process where we update the entry in the Q-Table for state (2) and action &quot;right&quot; by just using the alternative estimate. <strong>The alternative estimate is just the reward we received plus the currently estimated value of the next state-action pair.</strong> So, in this case we&apos;ll move the value of &quot;8&quot; a little bit closer to &quot;9&quot; which will yield a new value like &quot;8.2&quot;.</p>
+<p align="center">
+<img src="img/sarsa3.png" alt="drawing" width="700">
+</p>
+<p>See the video <a href="https://youtu.be/HYV0SP9wm7g">here</a>.</p>
+<h2 class="mume-header" id="-sarsa-or-sarsa0">Sarsa or Sarsa(0)</h2>
+
+<p>We began this lesson by reviewing Monte Carlo Control. This was the corresponding <strong>update equation</strong>:</p>
+<p>In order to use it we sample a complete episode. Then, we look up the current estimate in the Q-Table and compare it to the return that we actually experienced after visiting the state-action pair. We use that new return to make our Q-Table a little more accurate.</p>
+<p align="center">
+<img src="img/sarsa4.png" alt="drawing" width="500">
+</p>
+<p>But then you learned how to change the update equation to only use a very small time window of information. Instead of using the return as an alternative estimate for updating the Q-Table, we use the sum of the immediate reward and the discounted value of the next state-action pair.</p>
+<p align="center">
+<img src="img/sarsa5.png" alt="drawing" width="600">
+</p>
+<p>In the gridworld example, we assumed <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20%5Cdpi%7B120%7D%20%5Cgamma%20%3D%201" alt> but this need not be the case for a general MDP. This will yield a new control method that we can use for both continuous and episodic tasks.</p>
+<p>With the exception of this new update step, it&apos;s identical to what we did in the Monte Carlo case. In particular, we&apos;ll use Epsilon-greedy policy to select actions at every time step. The only real difference is that we update the Q-Table at every time step instead of waiting until the end of the episode.</p>
+<p>As long as we specify appropriate values for Epsilon, the algorithm is guaranteed to converge to the optimal policy.</p>
+<p>The name of this algorithm is <strong>Sarsa(0)</strong> also known as <strong>Sarsa</strong> for short. The name comes from the fact that each action-value update uses a (state-action reward, next state, next action) tuple of interaction.</p>
+<p align="center">
+<img src="img/sarsa6.png" alt="drawing" width="600">
+</p>
+<p>See the video <a href="https://youtu.be/U_CV-UC9G2c">here</a>.</p>
+<h2 class="mume-header" id="-pseudocode">Pseudocode</h2>
+
+<p align="center">
+<img src="img/sarsa7.png" alt="drawing" width="600">
+</p>
+<p align="center">
+<img src="img/sarsa8.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-td-control-q-learning">TD Control: Q-Learning</h1>
+
+<p>Please watch the video below to learn about  <strong>Q-Learning (or Sarsamax)</strong>, a second method for TD control.</p>
+<p>So far, you already have one algorithm for temporal difference control. Remember that in <strong>Sarsa</strong> algorithm:</p>
+<ol>
+<li>We begin by initializing all action values to zero in constructing the corresponding Epsilon-greedy policy.</li>
+<li>Then, the agent begins interacting with the environment and receives the first state.</li>
+<li>Next, it uses the policy to choose its action. Immediately after it, it receives a reward and next state.</li>
+<li>Then, the agent again uses the same policy to pick the next action.</li>
+<li>After choosing that action, it updates the action-value corresponding to the previous state-action pair and improves the policy to be Epsilon-greedy with respect to the most recent estimate of the action-values.</li>
+</ol>
+<p align="center">
+<img src="img/ql1.png" alt="drawing" width="600">
+</p>
+<p>Now, we build off this algorithm to design another control algorithm that works slightly differently. This algorithm is called <strong>Sarsamax</strong>, but it&apos;s also known as <strong>Q-Learning</strong>.</p>
+<p>We&apos;ll still begin with the same initial values for the action values and the policy. The agent receives the initial state, the first action is still chosen from the initial policy. But then, after receiving the reward and next state, we&apos;re going to do something else.</p>
+<p>Namely, we&apos;ll update the policy before choosing the next action. <strong>Can you guess what action makes sense to put here?</strong></p>
+<p align="center">
+<img src="img/ql2.png" alt="drawing" width="600">
+</p>
+<p>In the <em>Sarsa</em> case, our update step was one step later and plugged in the action that was selected using Epsilon-greedy policy. For every step of the algorithm, it was the case that all of the actions was used for updating the action values, excatly coincide with those that were experienced by the agent. But, in general, this does not have to be the case. In particular, consider using the action from the greedy policy, instead of the Epsilon-greedy policy. <strong>This is in fact what <em>Sarsamax</em> or <em>Q-Learning</em> does.</strong></p>
+<p>We can rewrite the equation above to look like below, where we rely on on the fact that the greedy action corresponding to a state is just the one that maximizes the action values for that state.</p>
+<p align="center">
+<img src="img/ql3.png" alt="drawing" width="600">
+</p>
+<p>So, what happens is after we update the action value for time step (0) using the greedy action, we then select <code>A1</code>, using the Epsilon-greedy policy corresponding to the action values we just updated. This continues when we received a reward and next state.Then, we do the same thing we did before where we update the value corresponding to <code>S1</code> and <code>A1</code> using the greedy action, then we select <code>A2</code> using the corresponding Epsilon-greedy policy.</p>
+<p align="center">
+<img src="img/ql4.png" alt="drawing" width="600">
+</p>
+<p>To understand precisely what this update stuff is doing, we&apos;ll compare it to the corresponding step in the <em>Sarsa</em> algorithm.</p>
+<p>In <em>Sarsa</em>, the update step pushes the action values closer to evaluating whatever Epsilon-greedy policy is currently being followed by the agent. It&apos;s possible to show that <strong>Sarsamax</strong> instead, directly attempts to approximate the optimal value function at every time step.</p>
+<p align="center">
+<img src="img/ql5.png" alt="drawing" width="600">
+</p>
+<p>See the video <a href="https://youtu.be/4DxoYuR7aZ4">here</a>.</p>
+<p>Check out this (optional) <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.80.7501&amp;rep=rep1&amp;type=pdf">research paper</a> to read the proof that Q-Learning (or Sarsamax) converges.</p>
+<p align="center">
+<img src="img/ql6.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-td-control-expected-sarsa">TD Control: Expected Sarsa</h1>
+
+<p>Please watch the <a href="https://youtu.be/kEKupCyU0P0">video below</a> to learn about <strong>Expected Sarsa</strong>, a third method for TD control.</p>
+<p>--&gt; from the video</p>
+<p>So far, you implemented <em>Sarsa</em> and <em>Sarsamax</em> and we&apos;ll now discuss one more option. This new option is called <strong>expected Sarsa</strong> and it closely resembles <em>Sarsamax</em>, where the only difference is in the update step for the action value.</p>
+<p>Remember that <em>Sarsamax</em> or <em>Q Learning</em> took the maximum over all actions of all possible next state-action pairs. In other words, it chooses what value to place here by plugging in the one action that maximizes the action value estimate corresponding to the next state.</p>
+<p><strong>Expected Sarsa</strong> does something a bit different. It uses the expected value of the next state-action pair, where the expectation takes into account the probability that the agent selects each possible action from the next state.</p>
+<p align="center">
+<img src="img/tdc1.png" alt="drawing" width="700">
+</p>
+<p>Check out this (optional) <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.216.4144&amp;rep=rep1&amp;type=pdf">research paper</a> to learn more about Expected Sarsa.</p>
+<h2 class="mume-header" id="-pseudocode-1">Pseudocode</h2>
+
+<p align="center">
+<img src="img/tdc2.png" alt="drawing" width="700">
+</p>
+<h1 class="mume-header" id="-td-control-theory-and-practice">TD Control: Theory and Practice</h1>
+
+<p align="center">
+<img src="img/tdc3.png" alt="drawing" width="700">
+</p>
+<h2 class="mume-header" id="-optimism">Optimism</h2>
+
+<p>You have learned that for any TD control method, you must begin by initializing the values in the Q-table. It has been shown that  <a href="http://papers.nips.cc/paper/1944-convergence-of-optimistic-and-incremental-q-learning.pdf">initializing the estimates to large values</a>  can improve performance. For instance, if all of the possible rewards that can be received by the agent are negative, then initializing every estimate in the Q-table to zeros is a good technique. In this case, we refer to the initialized Q-table as  <strong>optimistic</strong>, since the action-value estimates are guaranteed to be larger than the true action values.</p>
+<h1 class="mume-header" id="-openai-gym-cliffwalkingenv">OpenAI Gym: CliffWalkingEnv</h1>
+
+<p>In order to master the algorithms discussed in this lesson, you will write your own implementations in Python. While your code will be designed to work with any OpenAI Gym environment, you will test your code with the CliffWalking environment.</p>
+<p align="center">
+<img src="img/matengai-of-kuniga-coast-in-oki-island-shimane-pref600.jpg" alt="drawing" width="600">
+</p>
+<p>In the CliffWalking environment, the agent navigates a 4x12 gridworld. Please read about the cliff-walking task in Example 6.6 of the <a href="http://go.udacity.com/rl-textbook">textbook</a>. When you have finished, you can learn more about the environment in its corresponding <a href="https://github.com/openai/gym/blob/master/gym/envs/toy_text/cliffwalking.py">GitHub file</a>, by reading the commented block in the CliffWalkingEnv class. For clarity, we have also pasted the description of the environment below (note that the link below to the Sutton and Barto textbook may not work, and you&apos;re encouraged to use <a href="http://go.udacity.com/rl-textbook">this link</a> to access the textbook):</p>
+<pre data-role="codeBlock" data-info class="language-"><code>    &quot;&quot;&quot;
+    This is a simple implementation of the Gridworld Cliff
+    reinforcement learning task.
+    Adapted from Example 6.6 from Reinforcement Learning: An Introduction
+    by Sutton and Barto:
+    http://people.inf.elte.hu/lorincz/Files/RL_2006/SuttonBook.pdf
+
+    With inspiration from:
+    https://github.com/dennybritz/reinforcement-learning/blob/master/lib/envs/cliff_walking.py
+    The board is a 4x12 matrix, with (using Numpy matrix indexing):
+        [3, 0] as the start at bottom-left
+        [3, 11] as the goal at bottom-right
+        [3, 1..10] as the cliff at bottom-center
+    Each time step incurs -1 reward, and stepping into the cliff incurs -100 reward 
+    and a reset to the start. An episode terminates when the agent reaches the goal.
+    &quot;&quot;&quot;
+</code></pre><h1 class="mume-header" id="-coding-exercise">Coding Exercise</h1>
+
+<p>Please check the <a href="codes/Temporal_Difference_Solution.ipynb">Temporal Difference notebook</a>.</p>
+<h1 class="mume-header" id="-analyzing-performance">Analyzing Performance</h1>
+
+<p>You&apos;ve learned about three different TD control methods in this lesson.  <em>So, what do they have in common, and how are they different?</em></p>
+<h2 class="mume-header" id="-similarities">Similarities</h2>
+
+<p>All of the TD control methods we have examined (Sarsa, Sarsamax, Expected Sarsa) converge to the optimal action-value function  <code>q&#x2217;</code>&#x200B;  (and so yield the optimal policy  <code>&#x3C0;&#x2217;&#x200B;</code>) if:</p>
+<ol>
+<li>the value of <code>&#x3F5;</code> decays in accordance with the GLIE conditions, and</li>
+<li>the step-size parameter <code>&#x3B1;</code> is sufficiently small.</li>
+</ol>
+<h2 class="mume-header" id="-differences">Differences</h2>
+
+<p>The differences between these algorithms are summarized below:</p>
+<ul>
+<li>Sarsa and Expected Sarsa are both  <strong>on-policy</strong>  TD control algorithms. In this case, the same (&#x3F5;-greedy) policy that is evaluated and improved is also used to select actions.</li>
+<li>Sarsamax is an <strong>off-policy</strong> method, where the (greedy) policy that is evaluated and improved is different from the (&#x3F5;-greedy) policy that is used to select actions.</li>
+<li>On-policy TD control methods (like Expected Sarsa and Sarsa) have better online performance than off-policy TD control methods (like Sarsamax).</li>
+<li>Expected Sarsa generally achieves better performance than Sarsa.</li>
+</ul>
+<p>If you would like to learn more, you are encouraged to read Chapter 6 of the  <a href="http://go.udacity.com/rl-textbook">textbook</a> (especially sections 6.4-6.6).</p>
+<p>As an optional exercise to deepen your understanding, you are encouraged to reproduce Figure 6.4. (Note that this exercise is optional!)</p>
+<p align="center">
+<img src="img/figure6-4.png" alt="drawing" width="700">
+</p>
+<p>The figure shows the performance of Sarsa and Q-learning on the cliff walking environment for constant  <code>&#x3F5;=0.1</code>. As described in the textbook, in this case,</p>
+<ul>
+<li>Q-learning achieves worse online performance (where the agent collects less reward on average in each episode), but learns the optimal policy, and</li>
+<li>Sarsa achieves better online performance, but learns a sub-optimal &quot;safe&quot; policy.</li>
+</ul>
+<p>You should be able to reproduce the figure by making only small modifications to your existing code.</p>
+<h1 class="mume-header" id="-summary">Summary</h1>
+
+<p align="center">
+<img src="img/td-summary.png" alt="drawing" width="600">
+</p>
+<h3 class="mume-header" id="-temporal-difference-methods">Temporal-Difference Methods</h3>
+
+<ul>
+<li>Whereas Monte Carlo (MC) prediction methods must wait until the end of an episode to update the value function estimate, temporal-difference (TD) methods update the value function after every time step.</li>
+</ul>
+<h3 class="mume-header" id="-td-control">TD Control</h3>
+
+<ul>
+<li><strong>Sarsa(0)</strong> (or <strong>Sarsa</strong>) is an on-policy TD control method. It is guaranteed to converge to the optimal action-value function <code>q&#x2217;</code>&#x200B;, as long as the step-size parameter <code>&#x3B1;</code> is sufficiently small and <code>&#x3F5;</code> is chosen to satisfy the  <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong>  conditions.</li>
+<li><strong>Sarsamax</strong> (or <strong>Q-Learning</strong>) is an off-policy TD control method. It is guaranteed to converge to the optimal action value function <code>q&#x2217;</code>&#x200B;, under the same conditions that guarantee convergence of the Sarsa control algorithm.</li>
+<li><strong>Expected Sarsa</strong> is an on-policy TD control method. It is guaranteed to converge to the optimal action value function <code>q&#x2217;</code>&#x200B;, under the same conditions that guarantee convergence of Sarsa and Sarsamax.</li>
+</ul>
+<h3 class="mume-header" id="-analyzing-performance-1">Analyzing Performance</h3>
+
+<ul>
+<li>On-policy TD control methods (like Expected Sarsa and Sarsa) have better online performance than off-policy TD control methods (like Q-learning).</li>
+<li>Expected Sarsa generally achieves better performance than Sarsa.</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

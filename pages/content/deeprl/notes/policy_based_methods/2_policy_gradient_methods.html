@@ -1,0 +1,461 @@
+<!DOCTYPE html><html><head>
+      <title>2_policy_gradient_methods</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/abakh005/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.7/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-what-are-policy-gradient-methods">What are Policy Gradient Methods?</h1>
+
+<p>Policy gradient methods are a subclass of policy-based methods. In the previous section, we learned about policy-based methods.</p>
+<p><strong>Policy-based methods</strong> are a class of algorithms that search directly for the optimal policy without simultaneously maintaining value function estimates. We learned how to represent the policy as a neural network, and in that setting, the agent&apos;s goal is to find the best ways to maximize expected return.</p>
+<p><strong>Policy gradient methods</strong> are a subclass of policy-based methods that estimate the weights of an optimal policy through gradient ascent. Here, we&apos;ll learn about the theory behind this before training our agent with the policy gradient method.</p>
+<p>For now, to set the stage, we&apos;ll explore an example that will help us understand how these methods work. So, first, remember the cartpole example. This is a classic benchmark task where the goal is to balance a pole on a moving cart.</p>
+<p>To solve it, we can represent the policy with neural network that takes the states as input. As output, it returns the probability of each potential action and then the agent can sample from those probabilities to select an action.</p>
+<p align="center">
+<img src="img/policygrad1.png" alt="drawing" width="500">
+</p>
+<p>Now, let&apos;s consider a much more challenging task where the goal is to teach a chicken to cross a road. At each time step, our chicken agent can move up, down, left, or right, and the goal is to get there safely. So, we have to avoid getting hit by a car or truck. Say, there&apos;s a time limit of 5 seconds, and if we make it safely to the other side in time, we win, otherwise, we lose.</p>
+<p align="center">
+<img src="img/policygrad2.png" alt="drawing" width="500">
+</p>
+<p>Just as in cartpole example, we can represent the agent&apos;s policy with a neural network. It takes the game states as input and returns the probability that the chicken selects each possible action. In this case, the output layer will have 4 nodes because there are 4 possible actions.</p>
+<p>Now, we are training our agent to learn from raw pixels, probably, a convolutional neural network is the best bet. Basically, that would provide the state of the game as input to a neural network. As output, the network will return action probabilities. Our <strong>goal</strong> is to find the weights of the neural network that yield the optimal policy.</p>
+<p>We begin with an initially random set of weights and use the corresponding policy to interact with the environment. So, for instance, say the agent plays the game for a single round or episode and ends up making it to the other side safely and within the time limit.</p>
+<p>But then, when it plays the game for another episode, it chooses an unwise series of actions that leads to it losing the round. Then, in order to to teach the agent to win, we&apos;ll give a reward of +1 if it won and -1 if it lost and see that reward is only delivered at the end of the game.</p>
+<p>Now, so far, everything we&apos;ve discussed is along the lines of what we did in the previous lesson when we talked about several policy-based methods. The difference, which we&apos;ll talk about in the next part.</p>
+<p>See the video <a href="https://youtu.be/ZEhQRASU5O4">here</a>.</p>
+<p>In the  <strong>Introduction to Policy-Based Methods</strong>  lesson, you learned about many policy-based methods that could approximate either a deterministic or stochastic policy.</p>
+<p>In this lesson, we&apos;ll confine our attention to stochastic policies.</p>
+<h1 class="mume-header" id="-the-big-picture">The Big Picture</h1>
+
+<p>Continuing on chicken game from last section, say, the reward is delivered only at the end of the game and is +1 if the agent wins and -1 if the agents loses. <strong>So, how can we use this information to improve the network weights to get us closer to the optimal policy?</strong></p>
+<p>For now, say that we collected a single episode for the agent one. Well, the <em><strong>policy gradient method</strong></em> that we&apos;ll discuss in this lesson. We&apos;ll look at each state action pair separately, beginning with the first one, and we&apos;ll recall how the agent ultimately selected action left from the state. It just passed that through the network which return action probabilities. The agent then sampled from those probabilities which ultimately led to selecting action left.</p>
+<p>So <strong>the idea</strong> is this, since the agent won the game, that&apos;s an indication that it was a good decision to select action left when in this game state. So, we can change the network weights just a little bit to make it even more likely to select action left from that game state in the future. Then, we move on to the next state action pair and look at the probabilities that lead to selecting action up, and we amend the network weights again, just a little to make it slightly more likely to select action up from the corresponding game state.</p>
+<p>Once, we&apos;ve done all of those updates for every state action pair in the episode, we can collect another episode. Say, in the second episode we lost. We&apos;ll again consider each of the state action pairs one at a time abd begin with the first one. Say, the action probabilities corresponding to the state are given here (left -&gt; 0.3, right -&gt; 0.2, up -&gt; 0.3, down -&gt; 0.2). Then, it makes sense that since this choice to select action up was part of an episode where we eventually lost the game, we&apos;ll amend the network weights to now put less probability on that action. We&apos;ll do the same for all other state action pairs in the episode where we want to amend the network to make it less likely to repeat these bad decisions in the future.</p>
+<p>We&apos;ll continue with collecting more episodes and making these modifications to the network. But, that&apos;s it. In this lesson, we&apos;ll dig more deeply into this process but it&apos;s useful to keep the big picture in mind. We just collect a lot of episodes and then for each episode we amend the network weights to make all the state action pairs more likely if we won the game, and to make them all less likely if we lost the game. This method isn&apos;t perfect but it&apos;s a start. Later, we&apos;ll learn about some ways to improve it.</p>
+<p align="center">
+<img src="img/policygrad3.png" alt="drawing" width="500">
+</p>
+<p>See the video <a href="https://youtu.be/zoOgRoaxGiU">here</a>.</p>
+<h1 class="mume-header" id="-connections-to-supervised-learning">Connections to Supervised Learning</h1>
+
+<p><strong>Policy gradient methods are very similar to supervised learning.</strong></p>
+<p>Before moving on, let&apos;s talk a little bit more about what we just did and how it&apos;s related to supervised learning. As we discussed in the previous section, we begin by playing the game for an episode. If we make it to the other end of the street safely and in time, then we win the game. Then, for each state action pair in the episode, we modify the network just a little bit to make it slightly more likely to select that action when it encounters the corresponding state.</p>
+<p>The idea is that if we won, those must have been good actions to select from their corresponding states. So, let&apos;s modify the network to reflect that by making it more likely to experience like gameplay in the future.</p>
+<p>So, remember how we use supervised learning for image classification. We have a data set of images along with their corresponding labels. And if we want to train a neural network to predict the label corresponding to any image. What we do is pass that image through the network to get a prediction. If the prediction is incorrect, we change the network weights just a little bit so that the prediction is slightly more correct. And if it&apos;s correct, we also nudge the weights again just a little bit, so that the network is more certain of the correct label. And we just loop over the dataset until eventually the neural network gets as close as possible to give us accurate predictions for each image.</p>
+<p>Now, this is really similar to what we described with RL. Namely, each has a dataset of input output pairs that we&apos;ll use to train the corresponding networks. One important difference is that when we do image classification. Typically, we work with the dataset that doesn&apos;t change over time. So for instance, we download the ImageNet dataset once and then we just pull random batches to train the network.</p>
+<p>However, in this RL setting, the dataset varies by episode, so we use the policy to collect an episode, that gives us a dataset or a bunch of matched state action pairs, and then we use that dataset once to do a batch of updates.</p>
+<p>After those updates are done, we&apos;ll discard the dataset and then collect another episode which gives us another dataset and so on.</p>
+<p>So the dataset changes pretty frequently. And furthermore, it&apos;s highly likely that we will experience a situation where the dataset has multiple conflicting opinions about what the best output should be for an input or in other words, what the best action is to take from a game state.</p>
+<p>The equivalent for image classification would be if the same image appeared twice in the dataset, where one entry said the image was of a dog and the other entry said the image contained a cat. This is something that we won&apos;t encounter with image classification, and it does make our current situation more complex.</p>
+<p>See the video <a href="https://youtu.be/dJz_p4FKE-g">here</a>.</p>
+<h2 class="mume-header" id="-optional-learn-more">(Optional) Learn More</h2>
+
+<p>To further explore the connections between policy gradient methods and supervised learning, you&apos;re encouraged to check out Andrej Karpathy&apos;s  <a href="http://karpathy.github.io/2016/05/31/rl/">famous blog post</a>.</p>
+<p align="center">
+<img src="img/karpathy.png" alt="drawing" width="600">
+</p>
+<p>Learn more about the connections between supervised learning and reinforcement learning. (<a href="http://karpathy.github.io/2016/05/31/rl/">Source</a>)</p>
+<h1 class="mume-header" id="-problem-setup">Problem Setup</h1>
+
+<p>We&apos;re now ready to get started with rigorously defining how policy gradient methods will work. Now that we have the big picture of how the policy gradient method will work, we&apos;re ready to get more specific.</p>
+<p>We&apos;ll build slowly and carefully, and I strongly encourage you to keep the big picture in mind as the mathematical details unfold.</p>
+<p>The first thing we need to define is a Trajectory. A <strong>Trajectory</strong> is just a state action sequence. You can start to think of it as just a fancy way of referring to an episode where we don&apos;t keep track of the rewards. But actually, a Trajectory is a little bit more flexible because there are no restrictions on its length. So, it can correspond to a full episode or just a small part of an episode.</p>
+<p>We denote the length with a capital <img src="https://latex.codecogs.com/png.latex?H" alt>, where <img src="https://latex.codecogs.com/png.latex?H" alt> stands for Horizon. We denote a Trajectory with <img src="https://latex.codecogs.com/png.latex?%5Ctau" alt>.<br>
+Then, the sum reward from that Trajectory is written as <img src="https://latex.codecogs.com/png.latex?R%28%5Ctau%29" alt>.</p>
+<p align="center">
+<img src="img/policygrad4.png" alt="drawing" width="500">
+</p>
+<p>Our <strong>goal</strong> in this lesson is the same as in the previous lesson. <strong>We want to find the weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> of the neural network that maximize expected return</strong>.</p>
+<p>One way of accomplishing this is by setting the weights of the neural network so that on average, the agent experiences trajectories that yield high return. We denote the expected return by <img src="https://latex.codecogs.com/png.latex?U" alt>, and note that <img src="https://latex.codecogs.com/png.latex?U" alt> is a function of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt>. We want to find the value for <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes <img src="https://latex.codecogs.com/png.latex?U" alt>. <img src="https://latex.codecogs.com/png.latex?U" alt> is defined in the expression below.</p>
+<p align="center">
+<img src="img/policygrad5.png" alt="drawing" width="600">
+</p>
+<p>To understand it, we&apos;ll look at each part separately.</p>
+<ul>
+<li>First, recall that this <img src="https://latex.codecogs.com/png.latex?R%28%5Ctau%29" alt> is just the return corresponding to an arbitrary Trajectory tab.</li>
+<li>So then, to take this quantity and use it to calculate the expected return,<br>
+we need only take into account the probability of each possible trajectory.</li>
+<li>That probability depends on the weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> in the neural network. This is because <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> defines the policy which is used to select the actions in the trajectory, which also in turn plays a role in determining the states that the agent sees.</li>
+<li>We use this notation with a semicolon only to indicate that <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> has this influence on the probability of a trajectory.</li>
+<li>In the upcoming concepts, we work directly with this formula as we explore the details behind the policy gradients method.</li>
+</ul>
+<h2 class="mume-header" id="-important-note">Important Note</h2>
+
+<p>Before moving on, make sure it&apos;s clear to you that the equation discussed in the video (and shown below) calculates an  <a href="https://en.wikipedia.org/wiki/Expected_value">expectation</a>.</p>
+<p align="center">
+<img src="img/policygrad6.png" alt="drawing" width="250">
+</p>
+<p>To see how it corresponds to the <strong>expected return</strong>, note that we&apos;ve expressed the <strong>return</strong> <img src="https://latex.codecogs.com/png.latex?R%28%5Ctau%29" alt> as a function of the trajectory <img src="https://latex.codecogs.com/png.latex?%5Ctau" alt>. Then, we calculate the weighted average (<em>where the weights are given by</em> <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BP%7D%28%5Ctau%3B%5Ctheta%29" alt>) of all possible values that the return <img src="https://latex.codecogs.com/png.latex?R%28%5Ctau%29" alt> can take.</p>
+<h2 class="mume-header" id="-why-trajectories">Why Trajectories?</h2>
+
+<p>You may be wondering:  <em>why are we using trajectories instead of episodes?</em>  The answer is that maximizing expected return over trajectories (instead of episodes) lets us search for optimal policies for both episodic  <em>and continuing</em>  tasks!</p>
+<p>That said, for many episodic tasks, it often makes sense to just use the full episode. In particular, for the case of the video game example described in the lessons, reward is only delivered at the end of the episode. In this case, in order to estimate the expected return, the trajectory should correspond to the full episode; otherwise, we don&apos;t have enough reward information to meaningfully estimate the expected return.</p>
+<h1 class="mume-header" id="-reinforce">REINFORCE</h1>
+
+<p>You&apos;ve learned that our goal is to find the values of the weights <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> in the neural network that maximize the expected return <img src="https://latex.codecogs.com/png.latex?U" alt></p>
+<p align="center">
+<img src="img/policygrad6.png" alt="drawing" width="250">
+</p>
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Ctau" alt> is an arbitrary trajectory. One way to determine the value of <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> that maximizes this function is through  <strong>gradient ascent</strong>. This algorithm is closely related to  <strong>gradient descent</strong>, where the differences are that:</p>
+<ul>
+<li>gradient descent is designed to find the  <strong>minimum</strong>  of a function, whereas gradient ascent will find the  <strong>maximum</strong>, and</li>
+<li>gradient descent steps in the direction of the  <strong>negative gradient</strong>, whereas gradient ascent steps in the direction of the  <strong>gradient</strong>.</li>
+</ul>
+<p>Our update step for gradient ascent appears as follows:</p>
+<p align="center">
+<img src="img/policygrad7.png" alt="drawing" width="200">
+</p>
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Calpha" alt> is the step size that is generally allowed to decay over time. Once we know how to calculate or estimate this gradient, we can repeatedly apply this update step, in the hopes that <img src="https://latex.codecogs.com/png.latex?%5Ctheta" alt> converges to the value that maximizes <img src="https://latex.codecogs.com/png.latex?U%28%5Ctheta%29" alt>.</p>
+<p>For more complete explanation watch <a href="https://youtu.be/o6CI2q3IXEs">this video</a>.</p>
+<h2 class="mume-header" id="-pseudocode">Pseudocode</h2>
+
+<p>The algorithm described in the video is known as  <strong>REINFORCE</strong>. The pseudocode is summarized below.</p>
+<ol>
+<li>Use the policy <img src="https://latex.codecogs.com/png.latex?%5Cpi_%7B%5Ctheta%7D" alt> to collect <img src="https://latex.codecogs.com/png.latex?m" alt> trajectories <img src="https://latex.codecogs.com/png.latex?%5Cleft%20%5C%7B%20%5Ctau%5E%7B%281%29%7D%2C%20%5Ctau%5E%7B%282%29%7D%2C%20%5Ccdots%20%2C%20%5Ctau%5E%7B%28m%29%7D%20%5Cright%20%5C%7D" alt> with horizon <img src="https://latex.codecogs.com/png.latex?H" alt>. We refer to the <img src="https://latex.codecogs.com/png.latex?i" alt> -th trajectory as</li>
+</ol>
+<p align="center">
+<img src="img/policygrad8.png" alt="drawing" width="350">
+</p>
+<ol start="2">
+<li>Use the trajectories to estimate the gradient <img src="https://latex.codecogs.com/png.latex?%5Cnabla_%7B%5Ctheta%7D%20U%28%5Ctheta%29" alt>:</li>
+</ol>
+<p align="center">
+<img src="img/policygrad9.png" alt="drawing" width="450">
+</p>
+<ol start="3">
+<li>Update the weights of the policy:</li>
+</ol>
+<p align="center">
+<img src="img/policygrad10.png" alt="drawing" width="150">
+</p>
+<ol start="4">
+<li>Loop over steps 1-3.</li>
+</ol>
+<h1 class="mume-header" id="-optional-derivation">(Optional) Derivation</h1>
+
+<p>If you&apos;d like to learn how to derive the equation that we use to approximate the gradient, please read the text below. Specifically, you&apos;ll learn how to derive</p>
+<p align="center">
+<img src="img/policygrad9.png" alt="drawing" width="450">
+</p>
+<h2 class="mume-header" id="-likelihood-ratio-policy-gradient">Likelihood Ratio Policy Gradient</h2>
+
+<p>We&apos;ll begin by exploring how to calculate the gradient <img src="https://latex.codecogs.com/png.latex?%5Cnabla_%7B%5Ctheta%7D%20U%28%5Ctheta%29" alt>. The calculation proceeds as follows:</p>
+<p align="center">
+<img src="img/policygrad11.png" alt="drawing" width="450">
+</p>
+<p>First, we note line (1) follows directly from</p>
+<p align="center">
+<img src="img/policygrad12.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad13.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad14.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad15.png" alt="drawing" width="750">
+</p>
+<h1 class="mume-header" id="-coding-exercise">Coding Exercise</h1>
+
+<p>In this exercise, you will use an implementation of REINFORCE to solve OpenAI Gym&apos;s CartPole environment.</p>
+<p><strong>Note</strong>: In the implementation, each trajectory corresponds to a full episode, and we collect  m=1  trajectories. You&apos;re strongly encouraged to refer to the pseudocode for REINFORCE while perusing the implementation.</p>
+<p>Later, you will learn about some modifications that you can use to improve this algorithm. You&apos;re strongly encouraged to implement these modifications, to get better performance!</p>
+<p>The code is <a href="codes/REINFORCE.ipynb">here</a></p>
+<h1 class="mume-header" id="-whats-next">What&apos;s Next?</h1>
+
+<p>In this lesson, you&apos;ve learned all about the REINFORCE algorithm, which was illustrated with a toy environment with a  <strong><em>discrete</em></strong>  action space. But it&apos;s also important to mention that REINFORCE can also be used to solve environments with continuous action spaces!</p>
+<p>For an environment with a continuous action space, the corresponding policy network could have an output layer that parametrizes a  <a href="https://en.wikipedia.org/wiki/Probability_distribution#Continuous_probability_distribution">continuous probability distribution</a>.</p>
+<p>For instance, assume the output layer returns the mean <img src="https://latex.codecogs.com/gif.latex?%5Cmu" alt> and variance <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2" alt> of a <a href="https://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>.</p>
+<p align="center">
+<img src="img/policygrad16.png" alt="drawing" width="350">
+</p>
+<p align="center">
+<img src="img/policygrad17.png" alt="drawing" width="750">
+</p>
+<h1 class="mume-header" id="-summary">Summary</h1>
+
+<p align="center">
+<img src="img/policygrad18.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad19.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad20.png" alt="drawing" width="750">
+</p>
+<p align="center">
+<img src="img/policygrad21.png" alt="drawing" width="750">
+</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
