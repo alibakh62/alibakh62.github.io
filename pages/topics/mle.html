@@ -185,11 +185,19 @@
         border-radius: 10px;
         margin-bottom: 10px;
       }
+      #sub2.content {
+        width: 100%;
+      }
+      a {
+        font-family: "Space Grotesk", sans-serif;
+      }
       a:link {
         text-decoration: none;
         font-size: 16px;
       }
-
+      #sub2.content a {
+        font-size: 16px;
+      }
       a:visited {
         text-decoration: none;
       }
@@ -314,6 +322,15 @@
 
       .button-35:hover {
         box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+      }
+      #sub1.button-35 {
+        width: 90% !important;
+        margin-top: 1rem;
+      }
+      #sub2.button-35 {
+        width: 100% !important;
+        margin-top: 1rem;
+        color: red;
       }
     </style>
     <title>My Data Science Notes</title>
@@ -634,6 +651,349 @@
           <a href="../content/mle_misc/aws-machine-learning-training-notes.pdf"
             >AWS Certified - ML Specialty - Training Notes
           </a>
+        </li>
+        <li>
+          <a href="../content/mle_misc/#"
+            >AWS Certified - ML Specialty - Study Guide - Book Summary
+          </a>
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <button class="button-35" type="button">Databricks</button>
+      <div class="content" , id="sub1">
+        <button class="button-35" type="button" id="sub1">
+          Topic-specific Notes
+        </button>
+        <div class="content" id="sub2">
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/databricks/workspace-index"
+              >Data Engineering</a
+            >
+            <ul>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/delta-live-tables/"
+                  >Delta Live Tables (DLT)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/"
+                  >structured Streaming</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/spark/"
+                  >Apache Spark</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/runtime/"
+                  >Runtimes</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/clusters/"
+                  >Clusters</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/notebooks/"
+                  >Notebooks</a
+                >
+                <ul>
+                  <li>
+                    <a href="https://docs.databricks.com/notebooks/testing.html"
+                      >Unit Testing for Notebooks</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/notebooks/notebook-workflows"
+                      >Run a Notebook From Another Notebook</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/notebooks/best-practices"
+                      >Best Practices for Notebooks</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/notebooks/test-notebooks"
+                      >Test Databricks Notebooks</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/workflows/"
+                  >Workflows</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/storage/"
+                  >Storage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/libraries/"
+                  >Libraries</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/repos/"
+                  >Repos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/dbfs/"
+                  >Databricls File System (DBFS)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/files/"
+                  >Work with Files</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/optimizations/"
+                  >Optimizations & Performance</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/"
+              >Machine Learning</a
+            >
+            <ul>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/load-data/"
+                  >Prepare Data & Environment</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/train-model/machine-learning"
+                  >Train Models</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/"
+                  >Manage Model Lifecycle</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/model-inference/"
+                  >Serve & Deploy Models</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/"
+                  >Reference Solutions</a
+                >
+                <ul>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/images-etl-inference"
+                      >ETL and Image Processing</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/recommender-wide-and-deep"
+                      >Recommender Systems</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/natural-language-processing"
+                      >NLP with Spark</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/hugging-face-transformer"
+                      >HuggingFace NLP</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/reference-solutions/data-labeling"
+                      >Data Labeling</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/feature-store/"
+                  >Databricks Feature Store</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/automl/"
+                  >Databricks AutoML</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/mlflow/"
+                  >MLflow</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/machine-learning/mlops/mlops-workflow"
+                  >MLOps</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="https://learn.microsoft.com/en-us/azure/databricks/sql/"
+              >Data Warehousing</a
+            >
+          </li>
+          <li>
+            <a href="https://learn.microsoft.com/en-us/azure/databricks/delta/"
+              >Delta Lake</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/databricks/dev-tools/"
+              >Developer Tools</a
+            >
+            <ul>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/dev-tools/cli/"
+                  >CLIs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-utils"
+                  >Databricks Utilities (dbutils)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/dev-tools/python-api"
+                  >REST API with Python</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/databricks/dev-tools/index-ci-cd"
+                  >CI/CD</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/databricks/security/"
+              >Security & Compliance</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/databricks/data-governance/"
+              >Data Governance</a
+            >
+          </li>
+        </div>
+        <li>
+          <a href="../content/databricks/The-Big-Book-of-MLOps-v6-082322.pdf"
+            >The Big Book of MLOps</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/The Big Book of Machine Learning Use Cases.pdf"
+            >The Big Book of ML Use Cases</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/scale_zeitgeist-AI-Readiness-Report-2022.pdf"
+            >Scale.ai - AI Readiness Report 2022</a
+          >
+        </li>
+        <li>
+          <a href="../content/databricks/photon_overview_21_10_22.pdf"
+            >Photon Technical Overview</a
+          >
+        </li>
+        <li>
+          <a href="../content/databricks/ML-Engineering-Ebook-Final.pdf"
+            >ML Engineering for the Real World</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/How-to-Automate-Your-Machine-Learning-Pipeline-eBook-v4-012522.pdf"
+            >How to Automate Your ML Pipeline</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/Getting started with NLP using Hugging Face transformers pipelines.pdf"
+            >Getting Started with NLP using HuggingFace</a
+          >
+        </li>
+        <li>
+          <a href="../content/databricks/Delta Live Tables _ 711.pdf"
+            >Delta Live Tables</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/databricks_cdp_whitepaper_final-103122.pdf"
+            >The Composable Customer Data Platform</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/data-management-101-on-databricks-ebook-v6-0891421.pdf"
+            >Data Management 101 on Databricks</a
+          >
+        </li>
+        <li>
+          <a
+            href="../content/databricks/data-engineers-guide-apache-spark-delta-lake-v3.pdf"
+            >Data Engineers Guide to Apache Spark and Delta Lake</a
+          >
+        </li>
+        <li>
+          <a href="https://www.databricks.com/discover/notebook-gallery"
+            >Databricks Notebook Gallery</a
+          >
         </li>
       </div>
     </div>
