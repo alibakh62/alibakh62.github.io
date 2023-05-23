@@ -1,0 +1,119 @@
+Sharding
+Sharding & Consistent Hashing
+husseinnasser.com
+
+Agenda
+What is sharding?
+Consistent Hashing
+Horizontal Partitioning vs Sharding
+Example (Code with Postgres)
+Pros & Cons
+Summary
+
+What is Sharding?
+id
+Url
+urlid*
+1
+https://www.canva.com/design/DADrSCuKg4I/5sKekxVdctoGGq7Ri9O5GQ/edit
+5FTOJ
+2
+https://en.wikipedia.org/wiki/Shard_(database_architecture)#Database_architecture
+
+CeG0z
+..
+….
+….
+..
+….
+….
+1M
+https://www.quora.com/How-does-base64-encoding-work
+J9COp
+URL shortener table with 1 million pages
+URL_TABLE
+SELECT URL 
+FROM URL_TABLE
+WHERE URLID = “5FTOJ“
+
+What is Sharding?
+200k 
+S1
+Which database server is 5FTOJ in?
+Server 3! 
+
+200k
+S2 
+200k
+S3 
+200k
+S4 
+200k
+S5 
+SELECT URL 
+FROM URL_TABLE
+WHERE URLID = “5FTOJ“
+Split 1 million rows table into 5 database instances.. Same schema
+
+Consistent Hashing
+postgres:5432
+postgres:5433
+postgres:5434
+Hash(“Input1”)
+5432
+Hash(“Input2”)
+5433
+Hash(“Input3”)
+5434
+
+Consistent Hashing
+postgres:5432
+postgres:5433
+postgres:5434
+Hash(“Input2”)
+5433
+Hash(“Input3”)
+5434
+
+Consistent Hashing
+postgres:5432
+postgres:5433
+postgres:5434
+num(“Input2”) % 3
+1
++5432
+=5433
+
+Horizontal Partitioning vs Sharding
+HP splits big table into multiple tables in the same database
+Sharding splits big table into multiple tables across multiple database servers
+HP table name changes (or schema)
+Sharding everything is the same but server changes
+
+Example Code with Postgres (Url shortener)
+Spin up 3 postgres instances with identical schema
+5432, 5433, 5434
+Write to the sharded databases.
+Reads from the sharded databases.
+
+Pros of Sharding
+Scalability
+Data
+Memory
+Security (users can access certain shards)
+Optimal and Smaller index size 
+
+Cons of Sharding
+Complex client (aware of the shard)
+Transactions across shards problem
+Rollbacks
+Schema changes are hard
+Joins
+Has to be something you know in the query
+
+Summary
+What is sharding?
+Consistent Hashing
+Horizontal Partitioning vs Sharding
+Example (Code with Postgres)
+Pros & Cons

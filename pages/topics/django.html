@@ -50,11 +50,8 @@
         color: inherit;
         margin-top: 20px;
         margin-bottom: 2rem;
-        font-family: "Space Grotesk", sans-serif;
+        font-family: inherit;
         text-align: left;
-      }
-
-      a {
         font-family: "Space Grotesk", sans-serif;
       }
 
@@ -185,8 +182,20 @@
         border-radius: 10px;
         margin-bottom: 10px;
       }
+      /* #sub1.content {
+        width: 100%;
+      } */
+      #sub2.content {
+        width: 100%;
+      }
+      a {
+        font-family: "Space Grotesk", sans-serif;
+      }
       a:link {
         text-decoration: none;
+        font-size: 16px;
+      }
+      #sub2.content a {
         font-size: 16px;
       }
 
@@ -291,6 +300,7 @@
         cursor: pointer;
         display: inline-flex;
         flex: 1 1 auto;
+        /* font-family: Inter, sans-serif; */
         font-family: "Space Grotesk", sans-serif;
         font-size: 1rem;
         font-weight: 700;
@@ -314,6 +324,15 @@
       .button-35:hover {
         box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
       }
+      #sub1.button-35 {
+        width: 90% !important;
+        margin-top: 1rem;
+      }
+      #sub2.button-35 {
+        width: 100% !important;
+        margin-top: 1rem;
+        color: red;
+      }
     </style>
     <title>My Data Science Notes</title>
   </head>
@@ -331,7 +350,7 @@
 
     <!--###### List of topics are defined here #####-->
     <div class="body_container">
-      <h1>Django</h1>
+      <h1>Backend</h1>
       <!-- <button type="button" class="collapsible">
         Machine Learning Crash Course
       </button> -->
@@ -353,6 +372,234 @@
           <a href="../content/django/rest_framework_nuggets.html"
             >REST Framework Nuggets</a
           >
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+                Google ML Course for Developers
+              </button> -->
+      <button class="button-35" type="button">Flask</button>
+      <div class="content">
+        <li>
+          <a href="../content/flask/Flask_Tutorial.pdf"
+            >How ToMake a Web Application Using Flask in Python3</a
+          >
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+                Google ML Course for Developers
+              </button> -->
+      <button class="button-35" type="button">
+        Fundamentals of Backend Engineering by Hussein Nasser (Udemy)
+      </button>
+      <div class="content">
+        <li>
+          <a href="../content/#">1 - Backend Communication Design Patterns</a>
+        </li>
+        <li>
+          <a href="../content/#">2 - Protocols</a>
+        </li>
+        <li>
+          <a href="../content/#">3 - Many Ways to HTTPS</a>
+        </li>
+        <li>
+          <a href="../content/#">4 - Backend Execution Patterns</a>
+        </li>
+        <li>
+          <a href="../content/#">5 - Proxying and Load Balancing</a>
+        </li>
+        <li>
+          <a href="../content/#">6 - Extras</a>
+        </li>
+        <li>
+          <a href="../content/#">7 - Resources</a>
+          <ul>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Fundamentals+of+Backend+Communications+and+Protocols-2.pptx"
+                >Fundamentals of Backend Communication and Protocols-2.pptx</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Fundamentals+of+Backend+Communications+and+Protocols.odp"
+                >Fundamentals of Backend Communication and Protocols.odp</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Fundamentals+of+Backend+Communications+and+Protocols.pdf"
+                >Fundamentals of Backend Communication and Protocols.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Apache-kafka-long-polling.pdf"
+                >Apache Kafka Long Polling.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/asynchronous-commits-postgres.pdf"
+                >Asynchronous Commits Postgres.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/asynchronous-io-linux-thread.pdf"
+                >Asynchronous IO Linux Thread.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/asynchronous-replication-postgres.pdf"
+                >Asynchronous Replication Postgres.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Chrome-6-Connections-Limit.pdf"
+                >Chrome 6 Connections Limit.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/Postgres-Pipelining.pdf"
+                >Postgres Pipelining.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/rabbitMQ-pushAPI.pdf"
+                >RabbitMQ - pushAPI.pdf</a
+              >
+            </li>
+            <li>
+              <a
+                href="../content/backend/backend_eng_course/backendcourse-sourcecode.zip"
+                >Course source codes.zip</a
+              >
+            </li>
+            <li>
+              <a href="../content/backend/backend_eng_course/resources.txt"
+                >Resources.txt</a
+              >
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+                    Google ML Course for Developers
+                  </button> -->
+      <button class="button-35" type="button">
+        Fundamentals of Database Engineering by Hussein Nasser (Udemy)
+      </button>
+      <div class="content">
+        <li>
+          <a href="../content/#">1 - ACID</a>
+        </li>
+        <li>
+          <a href="../content/#">2 - Understanding Database Internals</a>
+        </li>
+        <li>
+          <a href="../content/#">3 - Database Indexing</a>
+        </li>
+        <li>
+          <a href="../content/#"
+            >4 - B-Tree vs. B+Tree in Production DB Systems</a
+          >
+        </li>
+        <li>
+          <a href="../content/#">5 - Database Partitioning</a>
+        </li>
+        <li>
+          <a href="../content/#">6 - Database Sharding</a>
+        </li>
+        <li>
+          <a href="../content/#">7 - Concurrency Control</a>
+        </li>
+        <li>
+          <a href="../content/#">8 - Database Replication</a>
+        </li>
+        <li>
+          <a href="../content/#">9 - Database System Design</a>
+        </li>
+        <li>
+          <a href="../content/#">10 - Database Engines</a>
+        </li>
+        <li>
+          <a href="../content/#">11 - Database Cursors</a>
+        </li>
+        <li>
+          <a href="../content/#">12 - SQL vs. NoSQL Architecture</a>
+        </li>
+        <li>
+          <a href="../content/#">13 - Database Security</a>
+        </li>
+        <li>
+          <a href="../content/#">14 - Homomorphic Encryption</a>
+        </li>
+        <li>
+          <a href="../content/#">15 - Database Sharding</a>
+        </li>
+        <li>
+          <a href="../content/#">16 - Database Discussions</a>
+        </li>
+        <li>
+          <a href="../content/#">17 - Extras</a>
+        </li>
+        <li>
+          <a href="../content/backend/database_eng_course/">18 - Resources</a>
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+                        Google ML Course for Developers
+                      </button> -->
+      <button class="button-35" type="button">
+        Fundamentals of Network Engineering by Hussein Nasser (Udemy)
+      </button>
+      <div class="content">
+        <li>
+          <a href="../content/#">1 - Fundamentals of Networking</a>
+        </li>
+        <li>
+          <a href="../content/#">2 - Internet Protocol (IP)</a>
+        </li>
+        <li>
+          <a href="../content/#">3 - User Datagram Protocol (UDP)</a>
+        </li>
+        <li>
+          <a href="../content/#">4 - Transmission Control Protocol (TCP)</a>
+        </li>
+        <li>
+          <a href="../content/#"
+            >5 - Overview of Popular Networking Protocols</a
+          >
+        </li>
+        <li>
+          <a href="../content/#"
+            >6 - Networking Concepts that Affect Backend Performance</a
+          >
+        </li>
+        <li>
+          <a href="../content/#">7 - Analyzing Protocols with Wireshark</a>
+        </li>
+        <li>
+          <a href="../content/#">8 - Extras</a>
+        </li>
+        <li>
+          <a href="../content/backend/network_eng_course/">9 - Resources</a>
         </li>
       </div>
     </div>

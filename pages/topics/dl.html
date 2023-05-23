@@ -50,11 +50,8 @@
         color: inherit;
         margin-top: 20px;
         margin-bottom: 2rem;
-        font-family: "Space Grotesk", sans-serif;
+        font-family: inherit;
         text-align: left;
-      }
-
-      a {
         font-family: "Space Grotesk", sans-serif;
       }
 
@@ -185,8 +182,20 @@
         border-radius: 10px;
         margin-bottom: 10px;
       }
+      /* #sub1.content {
+        width: 100%;
+      } */
+      #sub2.content {
+        width: 100%;
+      }
+      a {
+        font-family: "Space Grotesk", sans-serif;
+      }
       a:link {
         text-decoration: none;
+        font-size: 16px;
+      }
+      #sub2.content a {
         font-size: 16px;
       }
 
@@ -291,6 +300,7 @@
         cursor: pointer;
         display: inline-flex;
         flex: 1 1 auto;
+        /* font-family: Inter, sans-serif; */
         font-family: "Space Grotesk", sans-serif;
         font-size: 1rem;
         font-weight: 700;
@@ -314,7 +324,16 @@
       .button-35:hover {
         box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
       }
-      .button_p {
+      #sub1.button-35 {
+        width: 90% !important;
+        margin-top: 1rem;
+      }
+      #sub2.button-35 {
+        width: 100% !important;
+        margin-top: 1rem;
+        color: red;
+      }
+      .button-p {
         font-family: "Space Grotesk", sans-serif;
         font-size: 18px;
         margin-bottom: 10px;
@@ -443,7 +462,7 @@
             Google ML Course for Developers
           </button> -->
       <button class="button-35" type="button">
-        <p class="button_p">
+        <p class="button-p">
           Deep Learning System Design
           <br />
           <span style="font-style: italic; font-size: xx-small"
@@ -532,6 +551,53 @@
       <div class="content">
         <li>
           <a href="../content/#">Chapter 1</a>
+        </li>
+      </div>
+    </div>
+    <!--###### Another Topic #####-->
+    <div class="body_container">
+      <!-- <button type="button" class="collapsible">
+            Google ML Course for Developers
+          </button> -->
+      <button class="button-35" type="button">LLMs</button>
+      <div class="content" id="sub1">
+        <button class="button-35" type="button" id="sub1">
+          Generative AI with Cohere
+        </button>
+        <div class="content" id="sub2">
+          <li>
+            <a href="https://txt.cohere.com/generative-ai-part-1/"
+              >Part 1 - Model Prompting</a
+            >
+          </li>
+          <li>
+            <a href="https://txt.cohere.com/generative-ai-part-2/"
+              >Part 2 - Use Case Ideation</a
+            >
+          </li>
+          <li>
+            <a href="https://txt.cohere.com/generative-ai-part-3/"
+              >Part 3 - The Generate Endpoint</a
+            >
+          </li>
+          <li>
+            <a href="https://txt.cohere.com/generative-ai-part-4/"
+              >Part 4 - Creating Custom Models</a
+            >
+          </li>
+          <li>
+            <a href="https://txt.cohere.com/generative-ai-part-5/"
+              >Part 5 - Chaining Prompts</a
+            >
+          </li>
+        </div>
+        <li>
+          <a href="../content/llm_in_production.html"
+            >Building LLM Applications for Production by Chip Huyen</a
+          >
+        </li>
+        <li>
+          <a href="../content/llmops.html">LLMOps by Vinija</a>
         </li>
       </div>
     </div>
