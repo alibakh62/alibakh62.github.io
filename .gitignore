@@ -2,3 +2,6 @@
 add_later
 .env
 .idea
+*.code-workspace
+pages/topics/*.code-workspace
+pages/topics/active_developments.code-workspace
